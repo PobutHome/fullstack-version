@@ -1,0 +1,67 @@
+/**
+ * LOCAL FONTS
+ * 
+ * @font-face declarations for all local fonts.
+ * Font files should be placed in: public/fonts/
+ * 
+ * These fonts can be used directly in CSS files using:
+ * font-family: 'Unbounded', sans-serif;
+ * font-family: 'Roboto', sans-serif;
+ */
+
+/* ============================================
+   UNBOUNDED FONT
+   ============================================ */
+
+@font-face {
+  font-family: 'Unbounded';
+  src: url('/fonts/unbounded/unbounded-v12-cyrillic_latin-regular.woff2') format('woff2');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Unbounded';
+  src: url('/fonts/unbounded/unbounded-v12-cyrillic_latin-700.woff2') format('woff2');
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+
+/* ============================================
+   ROBOTO FONT
+   ============================================ */
+/* 
+@font-face {
+  font-family: 'Roboto';
+  src:
+    url('/fonts/roboto/Roboto-Regular.woff2') format('woff2'),
+    url('/fonts/roboto/Roboto-Regular.woff') format('woff');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Roboto';
+  src:
+    url('/fonts/roboto/Roboto-Bold.woff2') format('woff2'),
+    url('/fonts/roboto/Roboto-Bold.woff') format('woff');
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+} */
+
+/* Note: Add more weights/styles as needed */
+/* Example for additional weights: */
+/*
+@font-face {
+  font-family: 'Roboto';
+  src: url('/fonts/roboto/Roboto-Medium.woff2') format('woff2'),
+       url('/fonts/roboto/Roboto-Medium.woff') format('woff');
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}
+*/

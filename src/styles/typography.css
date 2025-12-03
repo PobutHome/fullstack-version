@@ -1,0 +1,234 @@
+/**
+ * TYPOGRAPHY SYSTEM
+ * 
+ * Responsive typography based on Figma design specifications.
+ * All sizes use rem units for accessibility (1rem = 16px default).
+ * 
+ * Breakpoints:
+ * - Mobile: < 48rem (768px)
+ * - Tablet: 48rem - 64rem (768px - 1024px)
+ * - Desktop: > 64rem (1024px)
+ */
+
+:root {
+  /* ============================================
+     FONT FAMILIES
+     ============================================ */
+  
+  --font-family-base: 'Unbounded', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  --font-family-heading: var(--font-family-base);
+  --font-family-mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+  
+  /* ============================================
+     FONT WEIGHTS
+     ============================================ */
+  
+  --font-weight-regular: 400;
+  --font-weight-bold: 700;
+  
+  /* Semantic weights */
+  --font-weight-h1: var(--font-weight-bold);
+  --font-weight-h2: var(--font-weight-regular);
+  --font-weight-h3: var(--font-weight-bold);
+  --font-weight-body: var(--font-weight-regular);
+  --font-weight-caption: var(--font-weight-regular);
+  
+  /* ============================================
+     LINE HEIGHTS
+     ============================================ */
+  
+  --line-height-tight: 1.2;
+  --line-height-normal: 1.5;
+  --line-height-relaxed: 1.75;
+  
+  /* Semantic line heights */
+  --line-height-h1: var(--line-height-tight);
+  --line-height-h2: var(--line-height-tight);
+  --line-height-h3: var(--line-height-normal);
+  --line-height-body: var(--line-height-normal);
+  --line-height-caption: var(--line-height-normal);
+  
+  /* ============================================
+     MOBILE TYPOGRAPHY (< 768px)
+     ============================================ */
+  
+  --font-size-h1: 1.25rem;      /* 20px */
+  --font-size-h2: 1rem;         /* 16px */
+  --font-size-h3: 0.6875rem;    /* 11px */
+  --font-size-body: 0.875rem;   /* 14px */
+  --font-size-caption: 0.4375rem; /* 7px */
+}
+
+/* ============================================
+   TABLET TYPOGRAPHY (768px - 1023px)
+   ============================================ */
+
+@media (min-width: 48rem) and (max-width: 63.9375rem) {
+  :root {
+    --font-size-h1: 2rem;         /* 32px */
+    --font-size-h2: 1.5rem;       /* 24px */
+    --font-size-h3: 1rem;         /* 16px */
+    --font-size-body: 1rem;       /* 16px */
+    --font-size-caption: 0.5625rem; /* 9px */
+  }
+}
+
+/* ============================================
+   DESKTOP TYPOGRAPHY (>= 1024px)
+   ============================================ */
+
+@media (min-width: 64rem) {
+  :root {
+    --font-size-h1: 2.5rem;       /* 40px */
+    --font-size-h2: 2rem;         /* 32px */
+    --font-size-h3: 1.25rem;      /* 20px */
+    --font-size-body: 1.25rem;    /* 20px */
+    --font-size-caption: 0.625rem; /* 10px */
+  }
+}
+
+/* ============================================
+   UTILITY CLASSES
+   ============================================ */
+
+/* Heading Classes */
+.text-h1 {
+  font-size: var(--font-size-h1);
+  font-weight: var(--font-weight-h1);
+  line-height: var(--line-height-h1);
+  font-family: var(--font-family-heading);
+}
+
+.text-h2 {
+  font-size: var(--font-size-h2);
+  font-weight: var(--font-weight-h2);
+  line-height: var(--line-height-h2);
+  font-family: var(--font-family-heading);
+}
+
+.text-h3 {
+  font-size: var(--font-size-h3);
+  font-weight: var(--font-weight-h3);
+  line-height: var(--line-height-h3);
+  font-family: var(--font-family-heading);
+}
+
+/* Body & Caption Classes */
+.text-body {
+  font-size: var(--font-size-body);
+  font-weight: var(--font-weight-body);
+  line-height: var(--line-height-body);
+}
+
+.text-caption {
+  font-size: var(--font-size-caption);
+  font-weight: var(--font-weight-caption);
+  line-height: var(--line-height-caption);
+}
+
+/* Font Weight Utilities */
+.font-regular {
+  font-weight: var(--font-weight-regular);
+}
+
+.font-bold {
+  font-weight: var(--font-weight-bold);
+}
+
+/* ============================================
+   FIXED SIZE CLASSES (Not Responsive)
+   Useful when you need specific sizes regardless of viewport
+   ============================================ */
+
+/* Desktop Fixed Sizes */
+.text-h1-desktop {
+  font-size: 2.5rem;
+  font-weight: var(--font-weight-h1);
+  line-height: var(--line-height-h1);
+}
+
+.text-h2-desktop {
+  font-size: 2rem;
+  font-weight: var(--font-weight-h2);
+  line-height: var(--line-height-h2);
+}
+
+.text-h3-desktop {
+  font-size: 1.25rem;
+  font-weight: var(--font-weight-h3);
+  line-height: var(--line-height-h3);
+}
+
+.text-body-desktop {
+  font-size: 1.25rem;
+  font-weight: var(--font-weight-body);
+  line-height: var(--line-height-body);
+}
+
+.text-caption-desktop {
+  font-size: 0.625rem;
+  font-weight: var(--font-weight-caption);
+  line-height: var(--line-height-caption);
+}
+
+/* Tablet Fixed Sizes */
+.text-h1-tablet {
+  font-size: 2rem;
+  font-weight: var(--font-weight-h1);
+  line-height: var(--line-height-h1);
+}
+
+.text-h2-tablet {
+  font-size: 1.5rem;
+  font-weight: var(--font-weight-h2);
+  line-height: var(--line-height-h2);
+}
+
+.text-h3-tablet {
+  font-size: 1rem;
+  font-weight: var(--font-weight-h3);
+  line-height: var(--line-height-h3);
+}
+
+.text-body-tablet {
+  font-size: 1rem;
+  font-weight: var(--font-weight-body);
+  line-height: var(--line-height-body);
+}
+
+.text-caption-tablet {
+  font-size: 0.5625rem;
+  font-weight: var(--font-weight-caption);
+  line-height: var(--line-height-caption);
+}
+
+/* Mobile Fixed Sizes */
+.text-h1-mobile {
+  font-size: 1.25rem;
+  font-weight: var(--font-weight-h1);
+  line-height: var(--line-height-h1);
+}
+
+.text-h2-mobile {
+  font-size: 1rem;
+  font-weight: var(--font-weight-h2);
+  line-height: var(--line-height-h2);
+}
+
+.text-h3-mobile {
+  font-size: 0.6875rem;
+  font-weight: var(--font-weight-h3);
+  line-height: var(--line-height-h3);
+}
+
+.text-body-mobile {
+  font-size: 0.875rem;
+  font-weight: var(--font-weight-body);
+  line-height: var(--line-height-body);
+}
+
+.text-caption-mobile {
+  font-size: 0.4375rem;
+  font-weight: var(--font-weight-caption);
+  line-height: var(--line-height-caption);
+}

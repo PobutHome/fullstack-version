@@ -1,0 +1,449 @@
+/**
+ * DESIGN TOKENS
+ * 
+ * Central source of truth for all design values from Figma.
+ * Uses exact Figma variable names for consistency.
+ * All values are organized by category and use semantic naming.
+ * 
+ * IMPORTANT: All sizes use rem units for better accessibility and scalability.
+ * Base font size is 16px (1rem), so values are calculated accordingly.
+ * 
+ * To change a design value, update it here and it will propagate
+ * throughout the entire application.
+ */
+
+/* ============================================
+   BASE CONFIGURATION
+   ============================================ */
+
+:root {
+  /* Base font size - adjust this to scale the entire design system */
+  /* Default browser: 16px = 1rem */
+  font-size: 16px;
+
+  /* Convert to rem multiplier (1px = 0.0625rem at 16px base) */
+  --rem-base: 1rem;
+}
+
+/* ============================================
+   COLORS
+   ============================================ */
+
+:root {
+  /* Brand Colors (From Figma - Exact Names) */
+  --color-blue: #00004c;
+  --color-green: #72cb1a;
+  --color-white: #ffffff;
+  --color-neutral-border: #e5e7eb;
+  --color-default-background: #ffffff;
+
+  /* Interactive States - Using Figma Exact Names */
+  --color-blue-hover: #3b3bf9;
+  --color-blue-click: #00001f;
+  --color-green-hover: #beff7e;
+  --color-green-click: #408000;
+
+  /* Semantic Aliases (for easier use) */
+  --color-brand-blue: var(--color-blue);
+  --color-brand-green: var(--color-green);
+  --color-brand-white: var(--color-white);
+  --color-brand-neutral-border: var(--color-neutral-border);
+  --color-brand-blue-hover: var(--color-blue-hover);
+  --color-brand-blue-active: var(--color-blue-click);
+  --color-brand-green-hover: var(--color-green-hover);
+  --color-brand-green-active: var(--color-green-click);
+
+  /* Semantic Color Mapping */
+  /* Use these in components, not brand colors directly */
+  --color-primary: var(--color-brand-blue);
+  --color-primary-hover: var(--color-brand-blue-hover);
+  --color-primary-active: var(--color-brand-blue-active);
+  --color-primary-foreground: var(--color-brand-white);
+
+  --color-accent: var(--color-brand-green);
+  --color-accent-hover: var(--color-brand-green-hover);
+  --color-accent-active: var(--color-brand-green-active);
+  --color-accent-foreground: var(--color-brand-white);
+
+  /* UI Colors */
+  --color-background: var(--color-brand-white);
+  --color-foreground: var(--color-brand-blue);
+  --color-border: var(--color-brand-neutral-border);
+  --color-border-hover: var(--color-brand-green);
+
+  /* Status Colors */
+  --color-success: var(--color-brand-green);
+  --color-success-light: var(--color-brand-green-hover);
+  --color-warning: #ffb800;
+  --color-error: #ff0000;
+  --color-info: var(--color-brand-blue);
+}
+
+/* Dark Mode (if needed in future) */
+[data-theme='dark'] {
+  --color-background: #111827;
+  --color-foreground: #ffffff;
+  --color-border: rgba(255, 255, 255, 0.1);
+  /* Add dark mode overrides here */
+}
+
+/* ============================================
+   TYPOGRAPHY - EXACT FIGMA VARIABLE NAMES
+   ============================================ */
+
+:root {
+  /* Font Family - Unbounded is the only font used across the app */
+  --font-family-unbounded: 'Unbounded', system-ui, -apple-system, sans-serif;
+
+  /* Base fonts - ALL use Unbounded */
+  --font-family-base: 'Unbounded', system-ui, -apple-system, sans-serif;
+  --font-family-heading: 'Unbounded', system-ui, -apple-system, sans-serif;
+  --font-family-body: 'Unbounded', system-ui, -apple-system, sans-serif;
+
+  /* Font Weights */
+  --font-weight-regular: 400;
+  --font-weight-bold: 700;
+
+  /* Letter Spacing (From Figma: 3%) */
+  --letter-spacing-base: 0.03em; /* 3% */
+
+  /* Line Height (From Figma: 100% = 1.0) */
+  --line-height-base: 1; /* 100% */
+
+  /* ========================================
+     DESKTOP TYPOGRAPHY (Default)
+     Using exact Figma variable names
+     ======================================== */
+
+  /* pobut_H1 - Desktop */
+  --pobut_H1-size: 2.5rem; /* 40px */
+  --pobut_H1-weight: var(--font-weight-bold);
+  --pobut_H1-line-height: var(--line-height-base);
+  --pobut_H1-letter-spacing: var(--letter-spacing-base);
+
+  /* pobut_H2 - Desktop */
+  --pobut_H2-size: 2rem; /* 32px */
+  --pobut_H2-weight: var(--font-weight-regular);
+  --pobut_H2-line-height: var(--line-height-base);
+  --pobut_H2-letter-spacing: var(--letter-spacing-base);
+
+  /* pobut_H3 - Desktop */
+  --pobut_H3-size: 1.25rem; /* 20px */
+  --pobut_H3-weight: var(--font-weight-bold);
+  --pobut_H3-line-height: var(--line-height-base);
+  --pobut_H3-letter-spacing: var(--letter-spacing-base);
+
+  /* pobut_body - Desktop */
+  --pobut_body-size: 1.25rem; /* 20px */
+  --pobut_body-weight: var(--font-weight-regular);
+  --pobut_body-line-height: var(--line-height-base);
+  --pobut_body-letter-spacing: var(--letter-spacing-base);
+
+  /* pobut_caption - Desktop */
+  --pobut_caption-size: 0.625rem; /* 10px */
+  --pobut_caption-weight: var(--font-weight-regular);
+  --pobut_caption-line-height: var(--line-height-base);
+  --pobut_caption-letter-spacing: var(--letter-spacing-base);
+
+  /* Legacy compatibility - map to semantic names */
+  --font-size-h1: var(--pobut_H1-size);
+  --font-size-h2: var(--pobut_H2-size);
+  --font-size-h3: var(--pobut_H3-size);
+  --font-size-body: var(--pobut_body-size);
+  --font-size-caption: var(--pobut_caption-size);
+
+  --font-weight-h1: var(--pobut_H1-weight);
+  --font-weight-h2: var(--pobut_H2-weight);
+  --font-weight-h3: var(--pobut_H3-weight);
+  --font-weight-body: var(--pobut_body-weight);
+  --font-weight-caption: var(--pobut_caption-weight);
+
+  --line-height-h1: var(--pobut_H1-line-height);
+  --line-height-h2: var(--pobut_H2-line-height);
+  --line-height-h3: var(--pobut_H3-line-height);
+  --line-height-body: var(--pobut_body-line-height);
+  --line-height-caption: var(--pobut_caption-line-height);
+}
+
+/* ========================================
+   TABLET TYPOGRAPHY
+   Using exact Figma variable names
+   ======================================== */
+
+@media (max-width: 64rem) {
+  :root {
+    /* pobut_H1_tablet */
+    --pobut_H1_tablet-size: 2rem; /* 32px */
+    --pobut_H1_tablet-weight: var(--font-weight-bold);
+    --pobut_H1_tablet-line-height: var(--line-height-base);
+    --pobut_H1_tablet-letter-spacing: var(--letter-spacing-base);
+
+    /* pobut_H2_tablet */
+    --pobut_H2_tablet-size: 1.5rem; /* 24px */
+    --pobut_H2_tablet-weight: var(--font-weight-regular);
+    --pobut_H2_tablet-line-height: var(--line-height-base);
+    --pobut_H2_tablet-letter-spacing: var(--letter-spacing-base);
+
+    /* pobut_H3_tablet */
+    --pobut_H3_tablet-size: 1rem; /* 16px */
+    --pobut_H3_tablet-weight: var(--font-weight-bold);
+    --pobut_H3_tablet-line-height: var(--line-height-base);
+    --pobut_H3_tablet-letter-spacing: var(--letter-spacing-base);
+
+    /* pobut_body_tablet */
+    --pobut_body_tablet-size: 1rem; /* 16px */
+    --pobut_body_tablet-weight: var(--font-weight-regular);
+    --pobut_body_tablet-line-height: var(--line-height-base);
+    --pobut_body_tablet-letter-spacing: var(--letter-spacing-base);
+
+    /* pobut_caption_tablet */
+    --pobut_caption_tablet-size: 0.5625rem; /* 9px */
+    --pobut_caption_tablet-weight: var(--font-weight-regular);
+    --pobut_caption_tablet-line-height: var(--line-height-base);
+    --pobut_caption_tablet-letter-spacing: var(--letter-spacing-base);
+
+    /* Override desktop values for tablet */
+    --pobut_H1-size: var(--pobut_H1_tablet-size);
+    --pobut_H2-size: var(--pobut_H2_tablet-size);
+    --pobut_H3-size: var(--pobut_H3_tablet-size);
+    --pobut_body-size: var(--pobut_body_tablet-size);
+    --pobut_caption-size: var(--pobut_caption_tablet-size);
+
+    /* Legacy compatibility */
+    --font-size-h1: var(--pobut_H1-size);
+    --font-size-h2: var(--pobut_H2-size);
+    --font-size-h3: var(--pobut_H3-size);
+    --font-size-body: var(--pobut_body-size);
+    --font-size-caption: var(--pobut_caption-size);
+  }
+}
+
+/* ========================================
+   MOBILE TYPOGRAPHY
+   Using exact Figma variable names
+   ======================================== */
+
+@media (max-width: 48rem) {
+  :root {
+    /* pobut_H1_mobile */
+    --pobut_H1_mobile-size: 1.25rem; /* 20px */
+    --pobut_H1_mobile-weight: var(--font-weight-bold);
+    --pobut_H1_mobile-line-height: var(--line-height-base);
+    --pobut_H1_mobile-letter-spacing: var(--letter-spacing-base);
+
+    /* pobut_H2_mobile */
+    --pobut_H2_mobile-size: 1rem; /* 16px */
+    --pobut_H2_mobile-weight: var(--font-weight-regular);
+    --pobut_H2_mobile-line-height: var(--line-height-base);
+    --pobut_H2_mobile-letter-spacing: var(--letter-spacing-base);
+
+    /* pobut_H3_mobile */
+    --pobut_H3_mobile-size: 0.6875rem; /* 11px */
+    --pobut_H3_mobile-weight: var(--font-weight-bold);
+    --pobut_H3_mobile-line-height: var(--line-height-base);
+    --pobut_H3_mobile-letter-spacing: var(--letter-spacing-base);
+
+    /* pobut_body_mobile */
+    --pobut_body_mobile-size: 0.6875rem; /* 11px */
+    --pobut_body_mobile-weight: var(--font-weight-regular);
+    --pobut_body_mobile-line-height: var(--line-height-base);
+    --pobut_body_mobile-letter-spacing: var(--letter-spacing-base);
+
+    /* pobut_caption_mobile */
+    --pobut_caption_mobile-size: 0.4375rem; /* 7px */
+    --pobut_caption_mobile-weight: var(--font-weight-regular);
+    --pobut_caption_mobile-line-height: var(--line-height-base);
+    --pobut_caption_mobile-letter-spacing: var(--letter-spacing-base);
+
+    /* Override desktop/tablet values for mobile */
+    --pobut_H1-size: var(--pobut_H1_mobile-size);
+    --pobut_H2-size: var(--pobut_H2_mobile-size);
+    --pobut_H3-size: var(--pobut_H3_mobile-size);
+    --pobut_body-size: var(--pobut_body_mobile-size);
+    --pobut_caption-size: var(--pobut_caption_mobile-size);
+
+    /* Legacy compatibility */
+    --font-size-h1: var(--pobut_H1-size);
+    --font-size-h2: var(--pobut_H2-size);
+    --font-size-h3: var(--pobut_H3-size);
+    --font-size-body: var(--pobut_body-size);
+    --font-size-caption: var(--pobut_caption-size);
+  }
+}
+
+/* ============================================
+   SPACING
+   ============================================ */
+
+:root {
+  /* Base Spacing Scale (for components, gaps, etc.) - Converted to rem */
+  /* 10px → 0.625rem, 20px → 1.25rem, 30px → 1.875rem, 50px → 3.125rem */
+  --spacing-xs: 0.625rem; /* 10px */
+  --spacing-sm: 1.25rem; /* 20px */
+  --spacing-md: 1.875rem; /* 30px */
+  --spacing-lg: 3.125rem; /* 50px */
+
+  /* Layout Spacing (From Figma - Exact Values) */
+  /* Desktop: Margin 150, Spacing 20/50 */
+  --layout-margin-desktop: 9.375rem; /* 150px */
+  --layout-spacing-small-desktop: 1.25rem; /* 20px */
+  --layout-spacing-medium-desktop: 3.125rem; /* 50px */
+
+  /* Default (Desktop) */
+  --layout-margin: var(--layout-margin-desktop);
+  --layout-spacing-small: var(--layout-spacing-small-desktop);
+  --layout-spacing-medium: var(--layout-spacing-medium-desktop);
+}
+
+/* Tablet Layout Spacing (1024px and below) - From Figma: Margin 50, Spacing 10/20/30 */
+@media (max-width: 64rem) {
+  :root {
+    --layout-margin-tablet: 3.125rem; /* 50px */
+    --layout-spacing-small-tablet: 0.625rem; /* 10px */
+    --layout-spacing-medium-tablet: 1.25rem; /* 20px */
+    --layout-spacing-large-tablet: 1.875rem; /* 30px */
+
+    /* Override desktop values */
+    --layout-margin: var(--layout-margin-tablet);
+    --layout-spacing-small: var(--layout-spacing-small-tablet);
+    --layout-spacing-medium: var(--layout-spacing-medium-tablet);
+  }
+}
+
+/* Mobile Layout Spacing (768px and below) - From Figma: Margin 10, Spacing 10/20 */
+@media (max-width: 48rem) {
+  :root {
+    --layout-margin-mobile: 0.625rem; /* 10px */
+    --layout-spacing-small-mobile: 0.625rem; /* 10px */
+    --layout-spacing-medium-mobile: 1.25rem; /* 20px */
+
+    /* Override tablet/desktop values */
+    --layout-margin: var(--layout-margin-mobile);
+    --layout-spacing-small: var(--layout-spacing-small-mobile);
+    --layout-spacing-medium: var(--layout-spacing-medium-mobile);
+  }
+}
+
+/* ============================================
+   LAYOUT
+   ============================================ */
+
+:root {
+  /* Container Max Widths - Converted to rem */
+  /* 1440px → 90rem, 1200px → 75rem, 1600px → 100rem */
+  --container-max-width: 90rem; /* 1440px */
+  --container-max-width-narrow: 75rem; /* 1200px */
+  --container-max-width-wide: 100rem; /* 1600px */
+
+  /* Breakpoints - Keep in rem for consistency */
+  --breakpoint-mobile: 48rem; /* 768px */
+  --breakpoint-tablet: 64rem; /* 1024px */
+  --breakpoint-desktop: 80rem; /* 1280px */
+  --breakpoint-large: 90rem; /* 1440px */
+
+  /* Grid */
+  --grid-columns: 12;
+  --grid-gap: var(--spacing-sm);
+}
+
+/* ============================================
+   BORDERS & RADIUS
+   ============================================ */
+
+:root {
+  /* Border Widths - Keep 1px as px (standard for thin borders) */
+  --border-width-thin: 1px;
+  --border-width-medium: 0.125rem; /* 2px */
+  --border-width-thick: 0.1875rem; /* 3px */
+
+  /* Border Radius - Converted to rem */
+  /* 4px → 0.25rem, 8px → 0.5rem, 12px → 0.75rem, 16px → 1rem */
+  --radius-none: 0;
+  --radius-sm: 0.25rem; /* 4px */
+  --radius-md: 0.5rem; /* 8px */
+  --radius-lg: 0.75rem; /* 12px */
+  --radius-xl: 1rem; /* 16px */
+  --radius-full: 9999px; /* Keep as px for circular shapes */
+
+  /* Default Border */
+  --border-default: var(--border-width-thin) solid var(--color-border);
+  --border-active: var(--border-width-thin) solid var(--color-brand-green);
+}
+
+/* ============================================
+   SHADOWS & EFFECTS
+   ============================================ */
+
+:root {
+  /* Shadows - Keep shadows in rem for better scaling */
+  /* Converted: 1px → 0.0625rem, 2px → 0.125rem, 4px → 0.25rem, etc. */
+  --shadow-none: none;
+  --shadow-sm: 0 0.0625rem 0.125rem rgba(0, 0, 0, 0.05);
+  --shadow-md: 0 0.25rem 0.375rem rgba(0, 0, 0, 0.1);
+  --shadow-lg: 0 0.625rem 0.9375rem rgba(0, 0, 0, 0.1);
+  --shadow-xl: 0 1.25rem 1.5625rem rgba(0, 0, 0, 0.15);
+
+  /* Transitions - Keep as-is (time-based, not size-based) */
+  --transition-fast: 150ms ease-in-out;
+  --transition-base: 200ms ease-in-out;
+  --transition-slow: 300ms ease-in-out;
+
+  /* Z-Index Scale - Keep as-is (unitless) */
+  --z-index-base: 0;
+  --z-index-dropdown: 1000;
+  --z-index-sticky: 1020;
+  --z-index-fixed: 1030;
+  --z-index-modal-backdrop: 1040;
+  --z-index-modal: 1050;
+  --z-index-popover: 1060;
+  --z-index-tooltip: 1070;
+}
+
+/* ============================================
+   COMPONENT-SPECIFIC TOKENS
+   ============================================ */
+
+:root {
+  /* Button - Converted to rem */
+  /* 32px → 2rem, 40px → 2.5rem, 48px → 3rem, 16px → 1rem, 24px → 1.5rem */
+  --button-height-sm: 2rem; /* 32px */
+  --button-height-md: 2.5rem; /* 40px */
+  --button-height-lg: 3rem; /* 48px */
+  --button-padding-x-sm: 1rem; /* 16px */
+  --button-padding-x-md: 1.5rem; /* 24px */
+  --button-padding-x-lg: 2rem; /* 32px */
+  --button-radius: var(--radius-md);
+
+  /* Input - Converted to rem */
+  --input-height-sm: 2rem; /* 32px */
+  --input-height-md: 2.5rem; /* 40px */
+  --input-height-lg: 3rem; /* 48px */
+  --input-padding-x: 0.75rem; /* 12px */
+  --input-padding-y: 0.5rem; /* 8px */
+  --input-radius: var(--radius-md);
+
+  /* Card - Uses spacing tokens (already in rem) */
+  --card-padding-sm: var(--spacing-xs);
+  --card-padding-md: var(--spacing-sm);
+  --card-padding-lg: var(--spacing-md);
+  --card-radius: var(--radius-lg);
+  --card-shadow: var(--shadow-md);
+  --card-shadow-hover: var(--shadow-lg);
+}
+
+/* ============================================
+   LEGACY COMPATIBILITY
+   (For existing Tailwind setup)
+   ============================================ */
+
+:root {
+  /* Map to existing Tailwind variables */
+  --background: var(--color-background);
+  --foreground: var(--color-foreground);
+  --primary: var(--color-primary);
+  --primary-foreground: var(--color-primary-foreground);
+  --secondary: var(--color-accent);
+  --secondary-foreground: var(--color-accent-foreground);
+  --border: var(--color-border);
+  --radius: var(--radius-md);
+}

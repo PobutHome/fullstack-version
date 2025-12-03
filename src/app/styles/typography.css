@@ -1,0 +1,371 @@
+/**
+ * TYPOGRAPHY UTILITIES
+ * 
+ * Reusable typography styles using exact Figma design tokens.
+ * Classes match exact Figma text style names (pobut_*).
+ * All classes are standalone and can be used independently.
+ */
+
+@layer base {
+  /* Headings - Using Figma variable names - All use Unbounded */
+  h1 {
+    font-family:
+      'Unbounded',
+      system-ui,
+      -apple-system,
+      sans-serif;
+    font-size: var(--pobut_H1-size);
+    font-weight: var(--pobut_H1-weight);
+    line-height: var(--pobut_H1-line-height);
+    letter-spacing: var(--pobut_H1-letter-spacing);
+    color: var(--color-foreground);
+  }
+
+  h2 {
+    font-family:
+      'Unbounded',
+      system-ui,
+      -apple-system,
+      sans-serif;
+    font-size: var(--pobut_H2-size);
+    font-weight: var(--pobut_H2-weight);
+    line-height: var(--pobut_H2-line-height);
+    letter-spacing: var(--pobut_H2-letter-spacing);
+    color: var(--color-foreground);
+  }
+
+  h3 {
+    font-family:
+      'Unbounded',
+      system-ui,
+      -apple-system,
+      sans-serif;
+    font-size: var(--pobut_H3-size);
+    font-weight: var(--pobut_H3-weight);
+    line-height: var(--pobut_H3-line-height);
+    letter-spacing: var(--pobut_H3-letter-spacing);
+    color: var(--color-foreground);
+  }
+
+  /* Body Text - All use Unbounded */
+  body,
+  p {
+    font-family:
+      'Unbounded',
+      system-ui,
+      -apple-system,
+      sans-serif;
+    font-size: var(--pobut_body-size);
+    font-weight: var(--pobut_body-weight);
+    line-height: var(--pobut_body-line-height);
+    letter-spacing: var(--pobut_body-letter-spacing);
+    color: var(--color-foreground);
+  }
+
+  /* Caption - All use Unbounded */
+  .caption,
+  small {
+    font-family:
+      'Unbounded',
+      system-ui,
+      -apple-system,
+      sans-serif;
+    font-size: var(--pobut_caption-size);
+    font-weight: var(--pobut_caption-weight);
+    line-height: var(--pobut_caption-line-height);
+    letter-spacing: var(--pobut_caption-letter-spacing);
+    color: var(--color-foreground);
+  }
+}
+
+@layer utilities {
+  /**
+   * FIGMA TEXT STYLES - EXACT CLASS NAMES
+   * 
+   * These classes match the exact Figma text style names.
+   * Use these classes directly in your components for consistency.
+   * All classes include font-family, size, weight, line-height, and letter-spacing.
+   */
+
+  /* ============================================
+     DESKTOP TEXT STYLES (Default - Responsive)
+     ============================================ */
+
+  /* pobut_H1 - Desktop: Unbounded Bold, 40px/Auto */
+  .pobut_H1 {
+    font-family:
+      'Unbounded',
+      system-ui,
+      -apple-system,
+      sans-serif;
+    font-size: var(--pobut_H1-size);
+    font-weight: var(--pobut_H1-weight);
+    line-height: var(--pobut_H1-line-height);
+    letter-spacing: var(--pobut_H1-letter-spacing);
+  }
+
+  /* pobut_H2 - Desktop: Unbounded Regular, 32px/Auto */
+  .pobut_H2 {
+    font-family:
+      'Unbounded',
+      system-ui,
+      -apple-system,
+      sans-serif;
+    font-size: var(--pobut_H2-size);
+    font-weight: var(--pobut_H2-weight);
+    line-height: var(--pobut_H2-line-height);
+    letter-spacing: var(--pobut_H2-letter-spacing);
+  }
+
+  /* pobut_H3 - Desktop: Unbounded Bold, 20px/Auto */
+  .pobut_H3 {
+    font-family:
+      'Unbounded',
+      system-ui,
+      -apple-system,
+      sans-serif;
+    font-size: var(--pobut_H3-size);
+    font-weight: var(--pobut_H3-weight);
+    line-height: var(--pobut_H3-line-height);
+    letter-spacing: var(--pobut_H3-letter-spacing);
+  }
+
+  /* pobut_body - Desktop: Unbounded Regular, 20px/Auto */
+  .pobut_body {
+    font-family:
+      'Unbounded',
+      system-ui,
+      -apple-system,
+      sans-serif;
+    font-size: var(--pobut_body-size);
+    font-weight: var(--pobut_body-weight);
+    line-height: var(--pobut_body-line-height);
+    letter-spacing: var(--pobut_body-letter-spacing);
+  }
+
+  /* pobut_caption - Desktop: Unbounded Regular, 10px/Auto */
+  .pobut_caption {
+    font-family:
+      'Unbounded',
+      system-ui,
+      -apple-system,
+      sans-serif;
+    font-size: var(--pobut_caption-size);
+    font-weight: var(--pobut_caption-weight);
+    line-height: var(--pobut_caption-line-height);
+    letter-spacing: var(--pobut_caption-letter-spacing);
+  }
+
+  /* ============================================
+     TABLET TEXT STYLES (Standalone Classes)
+     Use these classes directly when you need tablet-specific styles
+     ============================================ */
+
+  /* pobut_H1_tablet - Tablet: Unbounded Bold, 32px/Auto */
+  .pobut_H1_tablet {
+    font-family:
+      'Unbounded',
+      system-ui,
+      -apple-system,
+      sans-serif;
+    font-size: var(--pobut_H1_tablet-size);
+    font-weight: var(--pobut_H1_tablet-weight);
+    line-height: var(--pobut_H1_tablet-line-height);
+    letter-spacing: var(--pobut_H1_tablet-letter-spacing);
+  }
+
+  /* pobut_H2_tablet - Tablet: Unbounded Regular, 24px/Auto */
+  .pobut_H2_tablet {
+    font-family:
+      'Unbounded',
+      system-ui,
+      -apple-system,
+      sans-serif;
+    font-size: var(--pobut_H2_tablet-size);
+    font-weight: var(--pobut_H2_tablet-weight);
+    line-height: var(--pobut_H2_tablet-line-height);
+    letter-spacing: var(--pobut_H2_tablet-letter-spacing);
+  }
+
+  /* pobut_H3_tablet - Tablet: Unbounded Bold, 16px/Auto */
+  .pobut_H3_tablet {
+    font-family:
+      'Unbounded',
+      system-ui,
+      -apple-system,
+      sans-serif;
+    font-size: var(--pobut_H3_tablet-size);
+    font-weight: var(--pobut_H3_tablet-weight);
+    line-height: var(--pobut_H3_tablet-line-height);
+    letter-spacing: var(--pobut_H3_tablet-letter-spacing);
+  }
+
+  /* pobut_body_tablet - Tablet: Unbounded Regular, 16px/Auto */
+  .pobut_body_tablet {
+    font-family:
+      'Unbounded',
+      system-ui,
+      -apple-system,
+      sans-serif;
+    font-size: var(--pobut_body_tablet-size);
+    font-weight: var(--pobut_body_tablet-weight);
+    line-height: var(--pobut_body_tablet-line-height);
+    letter-spacing: var(--pobut_body_tablet-letter-spacing);
+  }
+
+  /* pobut_caption_tablet - Tablet: Unbounded Regular, 9px/Auto */
+  .pobut_caption_tablet {
+    font-family:
+      'Unbounded',
+      system-ui,
+      -apple-system,
+      sans-serif;
+    font-size: var(--pobut_caption_tablet-size);
+    font-weight: var(--pobut_caption_tablet-weight);
+    line-height: var(--pobut_caption_tablet-line-height);
+    letter-spacing: var(--pobut_caption_tablet-letter-spacing);
+  }
+
+  /* ============================================
+     MOBILE TEXT STYLES (Standalone Classes)
+     Use these classes directly when you need mobile-specific styles
+     ============================================ */
+
+  /* pobut_H1_mobile - Mobile: Unbounded Bold, 20px/Auto */
+  .pobut_H1_mobile {
+    font-family:
+      'Unbounded',
+      system-ui,
+      -apple-system,
+      sans-serif;
+    font-size: var(--pobut_H1_mobile-size);
+    font-weight: var(--pobut_H1_mobile-weight);
+    line-height: var(--pobut_H1_mobile-line-height);
+    letter-spacing: var(--pobut_H1_mobile-letter-spacing);
+  }
+
+  /* pobut_H2_mobile - Mobile: Unbounded Regular, 16px/Auto */
+  .pobut_H2_mobile {
+    font-family:
+      'Unbounded',
+      system-ui,
+      -apple-system,
+      sans-serif;
+    font-size: var(--pobut_H2_mobile-size);
+    font-weight: var(--pobut_H2_mobile-weight);
+    line-height: var(--pobut_H2_mobile-line-height);
+    letter-spacing: var(--pobut_H2_mobile-letter-spacing);
+  }
+
+  /* pobut_H3_mobile - Mobile: Unbounded Bold, 11px/Auto */
+  .pobut_H3_mobile {
+    font-family:
+      'Unbounded',
+      system-ui,
+      -apple-system,
+      sans-serif;
+    font-size: var(--pobut_H3_mobile-size);
+    font-weight: var(--pobut_H3_mobile-weight);
+    line-height: var(--pobut_H3_mobile-line-height);
+    letter-spacing: var(--pobut_H3_mobile-letter-spacing);
+  }
+
+  /* pobut_body_mobile - Mobile: Unbounded Regular, 11px/Auto */
+  .pobut_body_mobile {
+    font-family:
+      'Unbounded',
+      system-ui,
+      -apple-system,
+      sans-serif;
+    font-size: var(--pobut_body_mobile-size);
+    font-weight: var(--pobut_body_mobile-weight);
+    line-height: var(--pobut_body_mobile-line-height);
+    letter-spacing: var(--pobut_body_mobile-letter-spacing);
+  }
+
+  /* pobut_caption_mobile - Mobile: Unbounded Regular, 7px/Auto */
+  .pobut_caption_mobile {
+    font-family:
+      'Unbounded',
+      system-ui,
+      -apple-system,
+      sans-serif;
+    font-size: var(--pobut_caption_mobile-size);
+    font-weight: var(--pobut_caption_mobile-weight);
+    line-height: var(--pobut_caption_mobile-line-height);
+    letter-spacing: var(--pobut_caption_mobile-letter-spacing);
+  }
+
+  /* ============================================
+     LEGACY/ALIAS CLASSES (For compatibility)
+     ============================================ */
+
+  .text-h1 {
+    font-family:
+      'Unbounded',
+      system-ui,
+      -apple-system,
+      sans-serif;
+    font-size: var(--pobut_H1-size);
+    font-weight: var(--pobut_H1-weight);
+    line-height: var(--pobut_H1-line-height);
+    letter-spacing: var(--pobut_H1-letter-spacing);
+  }
+
+  .text-h2 {
+    font-family:
+      'Unbounded',
+      system-ui,
+      -apple-system,
+      sans-serif;
+    font-size: var(--pobut_H2-size);
+    font-weight: var(--pobut_H2-weight);
+    line-height: var(--pobut_H2-line-height);
+    letter-spacing: var(--pobut_H2-letter-spacing);
+  }
+
+  .text-h3 {
+    font-family:
+      'Unbounded',
+      system-ui,
+      -apple-system,
+      sans-serif;
+    font-size: var(--pobut_H3-size);
+    font-weight: var(--pobut_H3-weight);
+    line-height: var(--pobut_H3-line-height);
+    letter-spacing: var(--pobut_H3-letter-spacing);
+  }
+
+  .text-body {
+    font-family:
+      'Unbounded',
+      system-ui,
+      -apple-system,
+      sans-serif;
+    font-size: var(--pobut_body-size);
+    font-weight: var(--pobut_body-weight);
+    line-height: var(--pobut_body-line-height);
+    letter-spacing: var(--pobut_body-letter-spacing);
+  }
+
+  .text-caption {
+    font-family:
+      'Unbounded',
+      system-ui,
+      -apple-system,
+      sans-serif;
+    font-size: var(--pobut_caption-size);
+    font-weight: var(--pobut_caption-weight);
+    line-height: var(--pobut_caption-line-height);
+    letter-spacing: var(--pobut_caption-letter-spacing);
+  }
+
+  /* Font Weight Utilities */
+  .font-regular {
+    font-weight: var(--font-weight-regular);
+  }
+
+  .font-bold {
+    font-weight: var(--font-weight-bold);
+  }
+}

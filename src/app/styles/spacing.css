@@ -1,0 +1,93 @@
+/**
+ * SPACING UTILITIES
+ * 
+ * Reusable spacing classes using design tokens.
+ * Automatically responsive via CSS variables.
+ */
+
+@layer utilities {
+  /* Padding Utilities */
+  .p-xs {
+    padding: var(--spacing-xs);
+  }
+
+  .p-sm {
+    padding: var(--spacing-sm);
+  }
+
+  .p-md {
+    padding: var(--spacing-md);
+  }
+
+  .p-lg {
+    padding: var(--spacing-lg);
+  }
+
+  /* Margin Utilities */
+  .m-xs {
+    margin: var(--spacing-xs);
+  }
+
+  .m-sm {
+    margin: var(--spacing-sm);
+  }
+
+  .m-md {
+    margin: var(--spacing-md);
+  }
+
+  .m-lg {
+    margin: var(--spacing-lg);
+  }
+
+  /* Gap Utilities */
+  .gap-xs {
+    gap: var(--spacing-xs);
+  }
+
+  .gap-sm {
+    gap: var(--spacing-sm);
+  }
+
+  .gap-md {
+    gap: var(--spacing-md);
+  }
+
+  .gap-lg {
+    gap: var(--spacing-lg);
+  }
+
+  /* Layout Spacing (for page margins) */
+  .layout-margin {
+    margin-left: var(--layout-margin);
+    margin-right: var(--layout-margin);
+  }
+
+  .layout-padding {
+    padding-left: var(--layout-margin);
+    padding-right: var(--layout-margin);
+  }
+
+  .layout-spacing {
+    margin-bottom: var(--layout-spacing-medium);
+  }
+
+  .layout-spacing-small {
+    margin-bottom: var(--layout-spacing-small);
+  }
+
+  /* Section vertical padding using layout spacing (for page sections) */
+  .section-y {
+    padding-top: var(--layout-spacing-medium);
+    padding-bottom: var(--layout-spacing-medium);
+  }
+
+  /* Margin-bottom utilities using layout spacing tokens */
+  .mb-layout-medium {
+    margin-bottom: var(--layout-spacing-medium);
+  }
+
+  .mb-layout-small {
+    margin-bottom: var(--layout-spacing-small);
+  }
+}
