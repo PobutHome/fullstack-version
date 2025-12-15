@@ -107,54 +107,6 @@
 }
 
 /* ---------------------------
-   BUTTONS (matches your screenshots)
-   --------------------------- */
-@layer components {
-  [data-app="frontend"] .fe-btn {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    height: var(--button-height-md, 2.5rem);
-    padding-inline: var(--button-padding-x-md, 1.5rem);
-    border-radius: var(--radius-full, 9999px); /* pill like Figma */
-    font-family: var(--font-family-body);
-    font-size: var(--t-body-size);
-    font-weight: var(--font-weight-bold, 700);
-    letter-spacing: var(--tracking-base, 0.03em);
-    transition: background 200ms ease, color 200ms ease, border-color 200ms ease, transform 120ms ease;
-    user-select: none;
-  }
-
-  [data-app="frontend"] .fe-btn:active { transform: translateY(1px); }
-  [data-app="frontend"] .fe-btn:disabled { opacity: 0.5; pointer-events: none; }
-
-  /* Outline green: border + green text */
-  [data-app="frontend"] .fe-btn--outline {
-    border: 1px solid var(--sys-border-strong);
-    color: var(--sys-accent);
-    background: transparent;
-  }
-  [data-app="frontend"] .fe-btn--outline:hover { border-color: var(--sys-accent-hover); color: var(--sys-accent-hover); }
-  [data-app="frontend"] .fe-btn--outline:active { border-color: var(--sys-accent-active); color: var(--sys-accent-active); }
-
-  /* Filled green: white text */
-  [data-app="frontend"] .fe-btn--primary {
-    border: 1px solid transparent;
-    background: var(--sys-accent);
-    color: var(--sys-text-inverse);
-  }
-  [data-app="frontend"] .fe-btn--primary:hover { background: var(--sys-accent-hover); }
-  [data-app="frontend"] .fe-btn--primary:active { background: var(--sys-accent-active); }
-
-  /* Danger variant (if needed) */
-  [data-app="frontend"] .fe-btn--danger {
-    border: 1px solid transparent;
-    background: var(--sys-danger);
-    color: var(--sys-text-inverse);
-  }
-}
-
-/* ---------------------------
    INPUTS / SEARCH (header search)
    --------------------------- */
 @layer components {

@@ -1,14 +1,15 @@
-export default function DesignSystemPage() {
+"use server"
+export default async function DesignSystemPage() {
   return (
     <div data-app="frontend" className="fe-page fe-stack-3" style={{ paddingTop: "var(--space-20)", paddingBottom: "var(--space-20)" }}>
       <section className="fe-stack-1">
-        <h1 className="pobut_H1">Design System Preview</h1>
+        <h1 className="pobut_H1">Упаковочні матеріали h1</h1>
         <p className="pobut_body">Typography, spacing, surfaces, buttons, inputs, nav, cards.</p>
         <a className="fe-link pobut_body" href="#">Link example</a>
       </section>
 
       <section className="fe-stack-2">
-        <h2 className="pobut_H2">Typography</h2>
+        <h2 className="pobut_H2">Typography h2</h2>
         <div className="fe-card fe-stack-1" style={{ padding: "var(--space-20)" }}>
           <div className="pobut_H1">H1 — Unbounded Bold</div>
           <div className="pobut_H2">H2 — Unbounded Regular</div>
