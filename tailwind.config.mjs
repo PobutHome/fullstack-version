@@ -48,6 +48,35 @@ export default {
         sm: 'calc(var(--radius) - 4px)',
       },
       colors: {
+        sys: {
+          bg: "var(--sys-bg)",
+          surface: "var(--sys-surface)",
+          "surface-2": "var(--sys-surface-2)",
+          overlay: "var(--sys-overlay)",
+
+          text: "var(--sys-text)",
+          "text-muted": "var(--sys-text-muted)",
+          "text-subtle": "var(--sys-text-subtle)",
+          "text-inverse": "var(--sys-text-inverse)",
+
+          link: "var(--sys-link)",
+          "link-hover": "var(--sys-link-hover)",
+          "link-active": "var(--sys-link-active)",
+
+          accent: "var(--sys-accent)",
+          "accent-hover": "var(--sys-accent-hover)",
+          "accent-active": "var(--sys-accent-active)",
+
+          border: "var(--sys-border)",
+          "border-strong": "var(--sys-border-strong)",
+          "border-subtle": "var(--sys-border-subtle)",
+
+          focus: "var(--sys-focus)",
+
+          danger: "var(--sys-danger)",
+          warning: "var(--sys-warning)",
+          success: "var(--sys-success)",
+        },
         accent: {
           DEFAULT: 'hsl(var(--accent))',
           foreground: 'hsl(var(--accent-foreground))',
@@ -178,6 +207,82 @@ export default {
   plugins: [
     require('@tailwindcss/container-queries'),
     require('@tailwindcss/typography'),
+    plugin(function ({ addUtilities }) {
+  addUtilities({
+    /* Font family helpers (frontend only) */
+    '[data-app="frontend"] .fe-font-sans': { fontFamily: 'var(--font-family-sans)' },
+    '[data-app="frontend"] .fe-font-heading': { fontFamily: 'var(--font-family-heading)' },
+    '[data-app="frontend"] .fe-font-body': { fontFamily: 'var(--font-family-body)' },
+
+    /* Typography scale (frontend only) */
+    '[data-app="frontend"] .fe-text-h1': {
+      fontSize: 'var(--t-h1-size)',
+      fontWeight: 'var(--t-h1-weight)',
+      lineHeight: 'var(--t-h1-leading)',
+      letterSpacing: 'var(--t-h1-tracking)',
+    },
+    '[data-app="frontend"] .fe-text-h2': {
+      fontSize: 'var(--t-h2-size)',
+      fontWeight: 'var(--t-h2-weight)',
+      lineHeight: 'var(--t-h2-leading)',
+      letterSpacing: 'var(--t-h2-tracking)',
+    },
+    '[data-app="frontend"] .fe-text-h3': {
+      fontSize: 'var(--t-h3-size)',
+      fontWeight: 'var(--t-h3-weight)',
+      lineHeight: 'var(--t-h3-leading)',
+      letterSpacing: 'var(--t-h3-tracking)',
+    },
+    '[data-app="frontend"] .fe-text-body': {
+      fontSize: 'var(--t-body-size)',
+      fontWeight: 'var(--t-body-weight)',
+      lineHeight: 'var(--t-body-leading)',
+      letterSpacing: 'var(--t-body-tracking)',
+    },
+    '[data-app="frontend"] .fe-text-caption': {
+      fontSize: 'var(--t-caption-size)',
+      fontWeight: 'var(--t-caption-weight)',
+      lineHeight: 'var(--t-caption-leading)',
+      letterSpacing: 'var(--t-caption-tracking)',
+    },
+  })
+    }),
+    plugin(function ({ addUtilities }) {
+  addUtilities({
+    /* Page padding */
+    '[data-app="frontend"] .fe-page': {
+      paddingLeft: 'var(--layout-margin)',
+      paddingRight: 'var(--layout-margin)',
+    },
+
+    /* Stack helpers */
+    '[data-app="frontend"] .fe-stack-1 > * + *': {
+      marginTop: 'var(--layout-gap-1)',
+    },
+    '[data-app="frontend"] .fe-stack-2 > * + *': {
+      marginTop: 'var(--layout-gap-2)',
+    },
+    '[data-app="frontend"] .fe-stack-3 > * + *': {
+      marginTop: 'var(--layout-gap-3, var(--layout-gap-2))',
+    },
+
+    /* Gap utilities */
+    '[data-app="frontend"] .fe-gap-1': { gap: 'var(--layout-gap-1)' },
+    '[data-app="frontend"] .fe-gap-2': { gap: 'var(--layout-gap-2)' },
+    '[data-app="frontend"] .fe-gap-3': {
+      gap: 'var(--layout-gap-3, var(--layout-gap-2))',
+    },
+
+    /* Raw spacing scale */
+    '[data-app="frontend"] .fe-p-10': { padding: 'var(--space-10)' },
+    '[data-app="frontend"] .fe-p-20': { padding: 'var(--space-20)' },
+    '[data-app="frontend"] .fe-p-30': { padding: 'var(--space-30)' },
+    '[data-app="frontend"] .fe-p-50': { padding: 'var(--space-50)' },
+
+    '[data-app="frontend"] .fe-mt-10': { marginTop: 'var(--space-10)' },
+    '[data-app="frontend"] .fe-mt-20': { marginTop: 'var(--space-20)' },
+      })
+    }),
     plugin(({ matchUtilities, theme }) => {
       matchUtilities(
         {

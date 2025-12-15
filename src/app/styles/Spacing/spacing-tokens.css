@@ -1,0 +1,38 @@
+/* ============================================
+   SPACING TOKENS
+   Source: Figma (Desktop / Tablet / Mobile)
+   ============================================ */
+
+[data-app="frontend"]{
+  /* Base scale (component spacing) */
+  --space-10: 0.625rem;  /* 10px */
+  --space-20: 1.25rem;   /* 20px */
+  /* Tablet-only value from Figma */
+  --space-30: 1.875rem;  /* 30px */
+  /* Desktop-only value from Figma */
+  --space-50: 3.125rem;  /* 50px */
+
+  /* Layout tokens (MOBILE default) */
+  --layout-margin: 0.625rem;  /* 10px */
+  --layout-gap-1: var(--space-10); /* 10 */
+  --layout-gap-2: var(--space-20); /* 20 */
+}
+
+/* Tablet ≥ 48rem (768px): Margin 50, Spacing 10/20/30 */
+@media (min-width: 48rem) {
+  [data-app="frontend"]{
+    --layout-margin: 3.125rem; /* 50px */
+    --layout-gap-1: var(--space-10);
+    --layout-gap-2: var(--space-20);
+    --layout-gap-3: var(--space-30);
+  }
+}
+
+/* Desktop ≥ 64rem (1024px): Margin 150, Spacing 20/50 */
+@media (min-width: 64rem) {
+  [data-app="frontend"]{
+    --layout-margin: 9.375rem; /* 150px */
+    --layout-gap-1: var(--space-20); /* 20 */
+    --layout-gap-2: var(--space-50); /* 50 */
+  }
+}

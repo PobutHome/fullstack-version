@@ -1,0 +1,6 @@
+.field{
+  background: var(--field-bg);
+  color: var(--field-fg);
+  border: var(--field-bd);
+}
+.field:focus-within{ border: var(--field-bd-focus); }

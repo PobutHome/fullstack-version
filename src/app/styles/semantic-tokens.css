@@ -1,28 +1,60 @@
-:root {
-  /* Surfaces */
-  --surface: var(--color-white);
-  --surface-2: var(--color-default-background);
+[data-app="frontend"]{
+  /* =========================
+     Surfaces
+     ========================= */
+  --sys-bg: var(--color-white);
+  --sys-surface: var(--color-white);
+  --sys-surface-2: var(--color-default-background);
 
-  /* Text */
-  --text: var(--color-blue);
-  --text-muted: color-mix(in srgb, var(--text) 65%, transparent);
-  --text-on-accent: var(--color-white);
+  /* Overlays (for modals/dropdowns later) */
+  --sys-overlay: color-mix(in srgb, var(--color-black) 35%, transparent);
 
-  /* Brand action (your green) */
-  --accent: var(--color-green);
-  --accent-hover: var(--color-green-hover);
-  --accent-active: var(--color-green-click);
+  /* =========================
+     Text
+     ========================= */
+  --sys-text: var(--color-blue);
+  --sys-text-muted: color-mix(in srgb, var(--sys-text) 65%, transparent);
+  --sys-text-subtle: color-mix(in srgb, var(--sys-text) 40%, transparent);
+  --sys-text-inverse: var(--color-white);
 
-  /* Link / interactive (your blue states) */
-  --link: var(--color-blue);
-  --link-hover: var(--color-blue-hover);
-  --link-active: var(--color-blue-click);
+  /* =========================
+     Interactive
+     ========================= */
+  --sys-link: var(--color-blue);
+  --sys-link-hover: var(--color-blue-hover);
+  --sys-link-active: var(--color-blue-click);
 
-  /* Borders / focus */
-  --border: var(--color-neutral-border);
-  --border-accent: var(--color-green);     /* green borders in inputs/cards */
-  --focus-ring: var(--color-blue-hover);
+  /* Brand/action (green) */
+  --sys-accent: var(--color-green);
+  --sys-accent-hover: var(--color-green-hover);
+  --sys-accent-active: var(--color-green-click);
 
-  /* Danger */
-  --danger: var(--color-error);
+  /* =========================
+     Borders & Focus
+     ========================= */
+  --sys-border: var(--color-neutral-border);
+  --sys-border-strong: var(--sys-accent);       /* your green outlines */
+  --sys-border-subtle: color-mix(in srgb, var(--sys-border) 60%, transparent);
+
+  --sys-focus: var(--color-blue-hover);
+
+  /* =========================
+     States (extendable)
+     ========================= */
+  --sys-danger: var(--color-error);
+
+  /* placeholders (if you add these to palette later) */
+  --sys-warning: #ffb800;
+  --sys-success: var(--sys-accent);
+
+  /* =========================
+     Component-intent helpers
+     =========================
+     (useful when app grows)
+  */
+  --sys-input-border: var(--sys-border-strong);
+  --sys-input-border-focus: var(--sys-focus);
+
+  --sys-card-border: var(--sys-border-strong);
+  --sys-chip-border: var(--sys-border-strong);
 }

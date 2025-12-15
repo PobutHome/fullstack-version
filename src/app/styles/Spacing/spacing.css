@@ -1,0 +1,28 @@
+/* ============================================
+   SPACING UTILITIES (consumes spacing tokens)
+   ============================================ */
+
+/* Page/container padding based on Figma margin token */
+.page {
+  padding-left: var(--layout-margin);
+  padding-right: var(--layout-margin);
+}
+
+/* Common vertical rhythm helpers */
+.stack-1 > * + * { margin-top: var(--layout-gap-1); }
+.stack-2 > * + * { margin-top: var(--layout-gap-2); }
+.stack-3 > * + * { margin-top: var(--layout-gap-3, var(--layout-gap-2)); } /* safe fallback */
+
+/* Gap utilities for flex/grid */
+.gap-1 { gap: var(--layout-gap-1); }
+.gap-2 { gap: var(--layout-gap-2); }
+.gap-3 { gap: var(--layout-gap-3, var(--layout-gap-2)); }
+
+/* Raw scale (component-level) */
+.p-10 { padding: var(--space-10); }
+.p-20 { padding: var(--space-20); }
+.p-30 { padding: var(--space-30); }
+.p-50 { padding: var(--space-50); }
+
+.mt-10 { margin-top: var(--space-10); }
+.mt-20 { margin-top: var(--space-20); }

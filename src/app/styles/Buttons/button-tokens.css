@@ -1,0 +1,14 @@
+:root {
+  /* Button slots (contract) */
+  --btn-bg: transparent;
+  --btn-fg: var(--sys-text);
+  --btn-bd: 1px solid transparent;
+
+  --btn-bg-hover: var(--btn-bg);
+  --btn-fg-hover: var(--btn-fg);
+  --btn-bd-hover: var(--btn-bd);
+
+  --btn-bg-active: var(--btn-bg-hover);
+  --btn-fg-active: var(--btn-fg-hover);
+  --btn-bd-active: var(--btn-bd-hover);
+}

@@ -55,10 +55,11 @@ export default async function RootLayout({ children }: { children: ReactNode }) 
         <Providers>
           <AdminBar />
           <LivePreviewListener />
-
+          <div data-app="frontend">
           <Header />
           <main>{children}</main>
           <Footer />
+          </div>
         </Providers>
       </body>
     </html>
