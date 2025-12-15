@@ -51,15 +51,13 @@ export default async function RootLayout({ children }: { children: ReactNode }) 
         <link href="/favicon.ico" rel="icon" sizes="32x32" />
         <link href="/favicon.svg" rel="icon" type="image/svg+xml" />
       </head>
-      <body>
+      <body data-app="frontend">
         <Providers>
           <AdminBar />
           <LivePreviewListener />
-          <div data-app="frontend">
           <Header />
           <main>{children}</main>
           <Footer />
-          </div>
         </Providers>
       </body>
     </html>

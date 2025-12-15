@@ -1,23 +1,7 @@
-/**
- * GLOBALS.CSS
- * 
- * Professional design system stylesheet based on Figma design tokens.
- * This file orchestrates all design system components and provides
- * the foundation for a consistent, scalable UI.
- * 
- * Structure:
- * 1. Tailwind CSS imports and plugins
- * 2. Design tokens (colors, typography, spacing, etc.)
- * 3. Base element styles
- * 4. Utility classes
- * 5. Component-specific styles
- */
-
-/* ============================================
-   TAILWIND CSS CORE
-   ============================================ */
-
+@config "../../../tailwind.config.mjs";
 @import 'tailwindcss';
+
+@import "../styles/frontend.design-system.css";
 /* palette tokens styling imports */
 @import '../styles/palette-tokens.css';
 

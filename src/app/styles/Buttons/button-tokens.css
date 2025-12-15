@@ -1,14 +1,23 @@
-:root {
-  /* Button slots (contract) */
-  --btn-bg: transparent;
-  --btn-fg: var(--sys-text);
-  --btn-bd: 1px solid transparent;
+:where([data-app="frontend"]) {
+  /* base */
+  --btn-radius: var(--radius-full);
+  --btn-height: 3.25rem; /* adjust if needed */
+  --btn-px: 2.25rem;
 
-  --btn-bg-hover: var(--btn-bg);
-  --btn-fg-hover: var(--btn-fg);
-  --btn-bd-hover: var(--btn-bd);
+  /* primary (filled) */
+  --btn-primary-bg: var(--sys-accent);
+  --btn-primary-bg-hover: var(--sys-accent-hover);
+  --btn-primary-bg-active: var(--sys-accent-active);
+  --btn-primary-fg: var(--sys-text-inverse);
 
-  --btn-bg-active: var(--btn-bg-hover);
-  --btn-fg-active: var(--btn-fg-hover);
-  --btn-bd-active: var(--btn-bd-hover);
+  /* outline */
+  --btn-outline-bg: transparent;
+  --btn-outline-fg: var(--sys-accent);
+  --btn-outline-border: var(--sys-accent);
+  --btn-outline-border-hover: var(--sys-accent-hover);
+  --btn-outline-border-active: var(--sys-accent-active);
+
+  /* danger */
+  --btn-danger-bg: var(--sys-danger);
+  --btn-danger-fg: var(--sys-text-inverse);
 }

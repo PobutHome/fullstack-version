@@ -1,0 +1,275 @@
+/* src/styles/frontend/frontend.design-system.css */
+@layer base, components, utilities;
+
+@layer utilities {
+  [data-app="frontend"] .pobut_H1 {
+    font-family: var(--font-family-heading);
+    font-size: var(--t-h1-size);
+    font-weight: var(--t-h1-weight);
+    line-height: var(--t-h1-leading);
+    letter-spacing: var(--t-h1-tracking);
+    color: var(--sys-text);
+  }
+
+  [data-app="frontend"] .pobut_H2 {
+    font-family: var(--font-family-heading);
+    font-size: var(--t-h2-size);
+    font-weight: var(--t-h2-weight);
+    line-height: var(--t-h2-leading);
+    letter-spacing: var(--t-h2-tracking);
+    color: var(--sys-text);
+  }
+
+  [data-app="frontend"] .pobut_H3 {
+    font-family: var(--font-family-heading);
+    font-size: var(--t-h3-size);
+    font-weight: var(--t-h3-weight);
+    line-height: var(--t-h3-leading);
+    letter-spacing: var(--t-h3-tracking);
+    color: var(--sys-text);
+  }
+
+  [data-app="frontend"] .pobut_body {
+    font-family: var(--font-family-body);
+    font-size: var(--t-body-size);
+    font-weight: var(--t-body-weight);
+    line-height: var(--t-body-leading);
+    letter-spacing: var(--t-body-tracking);
+    color: var(--sys-text);
+  }
+
+  [data-app="frontend"] .pobut_caption {
+    font-family: var(--font-family-body);
+    font-size: var(--t-caption-size);
+    font-weight: var(--t-caption-weight);
+    line-height: var(--t-caption-leading);
+    letter-spacing: var(--t-caption-tracking);
+    color: var(--sys-text-muted);
+  }
+}
+
+/* ---------------------------
+   LAYOUT HELPERS
+   --------------------------- */
+@layer utilities {
+  [data-app="frontend"] .fe-page {
+    padding-left: var(--layout-margin);
+    padding-right: var(--layout-margin);
+  }
+
+  [data-app="frontend"] .fe-stack-1 > * + * { margin-top: var(--layout-gap-1); }
+  [data-app="frontend"] .fe-stack-2 > * + * { margin-top: var(--layout-gap-2); }
+  [data-app="frontend"] .fe-stack-3 > * + * { margin-top: var(--layout-gap-3, var(--layout-gap-2)); }
+
+  [data-app="frontend"] .fe-gap-1 { gap: var(--layout-gap-1); }
+  [data-app="frontend"] .fe-gap-2 { gap: var(--layout-gap-2); }
+  [data-app="frontend"] .fe-gap-3 { gap: var(--layout-gap-3, var(--layout-gap-2)); }
+}
+
+/* ---------------------------
+   LINKS / ICON COLORS
+   --------------------------- */
+@layer utilities {
+  [data-app="frontend"] .fe-link {
+    color: var(--sys-interactive);
+    text-decoration: none;
+  }
+  [data-app="frontend"] .fe-link:hover { color: var(--sys-interactive-hover); }
+  [data-app="frontend"] .fe-link:active { color: var(--sys-interactive-active); }
+}
+
+/* ---------------------------
+   SURFACES / CARDS
+   --------------------------- */
+@layer components {
+  [data-app="frontend"] .fe-card {
+    background: var(--sys-surface);
+    border: 1px solid var(--sys-border);
+    border-radius: var(--radius-lg, 0.75rem);
+    box-shadow: var(--shadow-sm, 0 0.0625rem 0.125rem rgba(0,0,0,.05));
+  }
+
+  [data-app="frontend"] .fe-card--soft {
+    background: var(--sys-surface-2);
+    border: 1px solid var(--sys-border);
+  }
+
+  [data-app="frontend"] .fe-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5ch;
+    padding: 0.25rem 0.5rem;
+    border-radius: 9999px;
+    border: 1px solid var(--sys-border-strong);
+    color: var(--sys-accent);
+    background: color-mix(in srgb, var(--sys-accent) 10%, transparent);
+  }
+}
+
+/* ---------------------------
+   BUTTONS (matches your screenshots)
+   --------------------------- */
+@layer components {
+  [data-app="frontend"] .fe-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    height: var(--button-height-md, 2.5rem);
+    padding-inline: var(--button-padding-x-md, 1.5rem);
+    border-radius: var(--radius-full, 9999px); /* pill like Figma */
+    font-family: var(--font-family-body);
+    font-size: var(--t-body-size);
+    font-weight: var(--font-weight-bold, 700);
+    letter-spacing: var(--tracking-base, 0.03em);
+    transition: background 200ms ease, color 200ms ease, border-color 200ms ease, transform 120ms ease;
+    user-select: none;
+  }
+
+  [data-app="frontend"] .fe-btn:active { transform: translateY(1px); }
+  [data-app="frontend"] .fe-btn:disabled { opacity: 0.5; pointer-events: none; }
+
+  /* Outline green: border + green text */
+  [data-app="frontend"] .fe-btn--outline {
+    border: 1px solid var(--sys-border-strong);
+    color: var(--sys-accent);
+    background: transparent;
+  }
+  [data-app="frontend"] .fe-btn--outline:hover { border-color: var(--sys-accent-hover); color: var(--sys-accent-hover); }
+  [data-app="frontend"] .fe-btn--outline:active { border-color: var(--sys-accent-active); color: var(--sys-accent-active); }
+
+  /* Filled green: white text */
+  [data-app="frontend"] .fe-btn--primary {
+    border: 1px solid transparent;
+    background: var(--sys-accent);
+    color: var(--sys-text-inverse);
+  }
+  [data-app="frontend"] .fe-btn--primary:hover { background: var(--sys-accent-hover); }
+  [data-app="frontend"] .fe-btn--primary:active { background: var(--sys-accent-active); }
+
+  /* Danger variant (if needed) */
+  [data-app="frontend"] .fe-btn--danger {
+    border: 1px solid transparent;
+    background: var(--sys-danger);
+    color: var(--sys-text-inverse);
+  }
+}
+
+/* ---------------------------
+   INPUTS / SEARCH (header search)
+   --------------------------- */
+@layer components {
+  [data-app="frontend"] .fe-input {
+    height: var(--input-height-md, 2.5rem);
+    width: 100%;
+    border-radius: 9999px;
+    border: 1px solid var(--sys-border);
+    background: var(--sys-surface);
+    color: var(--sys-text);
+    padding-inline: 2.75rem 1rem; /* room for icon */
+    outline: none;
+  }
+  [data-app="frontend"] .fe-input:focus {
+    border-color: var(--sys-border-strong);
+    box-shadow: 0 0 0 0.1875rem color-mix(in srgb, var(--sys-focus) 25%, transparent);
+  }
+
+  [data-app="frontend"] .fe-search {
+    position: relative;
+    width: 100%;
+  }
+  [data-app="frontend"] .fe-search__icon {
+    position: absolute;
+    left: 0.875rem;
+    top: 50%;
+    transform: translateY(-50%);
+    color: var(--sys-interactive);
+    pointer-events: none;
+  }
+}
+
+/* ---------------------------
+   HEADER / NAV (tablet screenshot)
+   --------------------------- */
+@layer components {
+  [data-app="frontend"] .fe-header {
+    background: var(--sys-surface);
+    border-bottom: 1px solid var(--sys-border);
+  }
+
+  [data-app="frontend"] .fe-topbar {
+    display: grid;
+    grid-template-columns: auto 1fr auto;
+    align-items: center;
+    gap: var(--layout-gap-2);
+    padding-block: var(--layout-gap-1);
+  }
+
+  [data-app="frontend"] .fe-nav {
+    background: var(--sys-accent);
+    color: var(--sys-text-inverse);
+  }
+  [data-app="frontend"] .fe-nav__row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--layout-gap-2);
+    padding-block: var(--layout-gap-1);
+  }
+  [data-app="frontend"] .fe-nav__link {
+    color: var(--sys-text-inverse);
+    text-decoration: none;
+    opacity: 0.95;
+  }
+  [data-app="frontend"] .fe-nav__link:hover { opacity: 1; }
+}
+
+/* ---------------------------
+   PRODUCT CARD (matches screenshot)
+   --------------------------- */
+@layer components {
+  [data-app="frontend"] .fe-product {
+    border-radius: var(--radius-lg, 0.75rem);
+    border: 1px solid var(--sys-border-strong);
+    background: var(--sys-surface);
+    overflow: hidden;
+  }
+
+  [data-app="frontend"] .fe-product__body {
+    padding: var(--space-20);
+  }
+
+  [data-app="frontend"] .fe-price {
+    color: var(--sys-accent);
+    font-weight: var(--font-weight-bold, 700);
+  }
+
+  [data-app="frontend"] .fe-availability {
+    color: var(--sys-accent);
+  }
+}
+
+/* ---------------------------
+   DRAWER MENU (mobile screenshot)
+   --------------------------- */
+@layer components {
+  [data-app="frontend"] .fe-drawer {
+    border-radius: var(--radius-lg, 0.75rem);
+    background: var(--sys-surface);
+    border: 1px solid var(--sys-border);
+    padding: var(--space-20);
+  }
+
+  [data-app="frontend"] .fe-drawer__item {
+    display: flex;
+    align-items: center;
+    gap: var(--space-10);
+    color: var(--sys-text);
+    text-decoration: none;
+    padding-block: 0.5rem;
+  }
+
+  [data-app="frontend"] .fe-drawer__sectionTitle {
+    color: var(--sys-accent);
+    font-weight: var(--font-weight-bold, 700);
+  }
+}
