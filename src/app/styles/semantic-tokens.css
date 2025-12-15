@@ -1,0 +1,28 @@
+:root {
+  /* Surfaces */
+  --surface: var(--color-white);
+  --surface-2: var(--color-default-background);
+
+  /* Text */
+  --text: var(--color-blue);
+  --text-muted: color-mix(in srgb, var(--text) 65%, transparent);
+  --text-on-accent: var(--color-white);
+
+  /* Brand action (your green) */
+  --accent: var(--color-green);
+  --accent-hover: var(--color-green-hover);
+  --accent-active: var(--color-green-click);
+
+  /* Link / interactive (your blue states) */
+  --link: var(--color-blue);
+  --link-hover: var(--color-blue-hover);
+  --link-active: var(--color-blue-click);
+
+  /* Borders / focus */
+  --border: var(--color-neutral-border);
+  --border-accent: var(--color-green);     /* green borders in inputs/cards */
+  --focus-ring: var(--color-blue-hover);
+
+  /* Danger */
+  --danger: var(--color-error);
+}

@@ -1,21 +1,3 @@
-/**
- * DESIGN TOKENS
- * 
- * Central source of truth for all design values from Figma.
- * Uses exact Figma variable names for consistency.
- * All values are organized by category and use semantic naming.
- * 
- * IMPORTANT: All sizes use rem units for better accessibility and scalability.
- * Base font size is 16px (1rem), so values are calculated accordingly.
- * 
- * To change a design value, update it here and it will propagate
- * throughout the entire application.
- */
-
-/* ============================================
-   BASE CONFIGURATION
-   ============================================ */
-
 :root {
   /* Base font size - adjust this to scale the entire design system */
   /* Default browser: 16px = 1rem */
@@ -30,16 +12,47 @@
    ============================================ */
 
 :root {
-  /* Brand Colors (From Figma - Exact Names) */
-  --color-blue: #00004c;
-  --color-green: #72cb1a;
-  --color-white: #ffffff;
-  --color-neutral-border: #e5e7eb;
-  --color-default-background: #ffffff;
+  /* PRIMARY TEXT */
+  --color-primaryText: #00004c;
+  
+  
+  /* SECONDARY TEXT */
+  --color-secondaryText: #72cb1a;
+ 
 
+  /* BACKGROUND COLOR */
+  --color-background: #ffffff;
+ 
+  
+
+ /* primary icon */
+  --color-primaryIcon: #00004c;
+  --color-primaryIcon-hover: #3b3bf9;
+  --color-primaryIcon-click: #00001f;
+  
+  /* secondary icon */
+  --color-secondaryIcon: #72cb1a;
+
+  /* primary button  */
+  --color-primaryButtonBackground: #72CB1A;
+  --color-primaryButtonBackground-hover: #BEFF7E;
+  --color-primaryButtonBackground-click: #408000;
+  --color-primaryButtonText: #fff;
+
+  /* outline button  */
+  --color-outlineButtonBackground: transparent;
+  --color-outlineButtonBorder: #72CB1A;
+  --color-outlineButtonBorder-hover: #BEFF7E;
+  --color-outlineButtonBorder-click: #408000;
+  --color-outlineButtonText: #72CB1A;
+
+
+  
   /* Interactive States - Using Figma Exact Names */
   --color-blue-hover: #3b3bf9;
   --color-blue-click: #00001f;
+
+
   --color-green-hover: #beff7e;
   --color-green-click: #408000;
 
