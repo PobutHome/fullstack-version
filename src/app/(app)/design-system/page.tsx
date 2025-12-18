@@ -1,4 +1,6 @@
 "use server"
+import { Button } from "@/components/Button"
+
 export default async function DesignSystemPage() {
   return (
     <div data-app="frontend" className="fe-page fe-stack-3" style={{ paddingTop: "var(--space-20)", paddingBottom: "var(--space-20)" }}>
@@ -22,9 +24,9 @@ export default async function DesignSystemPage() {
       <section className="fe-stack-2">
         <h2 className="pobut_H2">Buttons</h2>
         <div className="flex flex-wrap fe-gap-2">
-          <button className="fe-btn fe-btn--outline">Додати в кошик</button>
-          <button className="fe-btn fe-btn--primary">Купити</button>
-          <button className="fe-btn fe-btn--danger">Delete</button>
+          <Button variant="outline">Додати в кошик</Button>
+          <Button variant="primary">Додати в кошик</Button>
+          <Button variant="outline">Більше ˅</Button>
         </div>
       </section>
 
@@ -44,7 +46,7 @@ export default async function DesignSystemPage() {
             <div className="pobut_caption fe-availability">● в наявності</div>
             <div className="pobut_body">Паперові стакани 250 мл / 50 шт</div>
             <div className="pobut_H3 fe-price">265 грн</div>
-            <button className="fe-btn fe-btn--outline">Додати в кошик</button>
+            <Button variant="outline">Додати в кошик</Button>
           </div>
         </div>
       </section>

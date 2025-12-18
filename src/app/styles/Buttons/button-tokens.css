@@ -1,4 +1,4 @@
-:where([data-app="frontend"]) {
+:where([data-app='frontend']) {
   /* base */
   --btn-radius: var(--radius-full);
   --btn-height: 3.25rem; /* adjust if needed */

@@ -1,13 +1,13 @@
 @config "../../../tailwind.config.mjs";
 @import 'tailwindcss';
 
-@import "../styles/frontend.design-system.css";
+@import '../styles/frontend.design-system.css';
 /* palette tokens styling imports */
 @import '../styles/palette-tokens.css';
+@import '../styles/design-tokens.css';
 
 /* semantic tokens styling imports */
 @import '../styles/semantic-tokens.css';
-
 
 /* font and typography styling imports */
 @import '../styles/Fonts/font-tokens.css';
@@ -17,12 +17,13 @@
 @import '../styles/Spacing/spacing-tokens.css';
 @import '../styles/Spacing/spacing.css';
 
+/* buttons styling imports */
+@import '../styles/Buttons/button-tokens.css';
+@import '../../components/Button/button.css';
+
 /* inputs styling imports */
 @import '../styles/Inputs/input-tokens.css';
 @import '../styles/Inputs/input.css';
-
-
-
 
 @plugin "@tailwindcss/typography";
 @plugin "tailwindcss-animate";
@@ -425,7 +426,6 @@
   }
 
   /* Focus Visible Utilities */
- 
 
   /* Transition Utilities */
   .transition-base {
