@@ -1,16 +1,17 @@
 'use client'
-import { CMSLink } from '@/components/Link'
 import { Cart } from '@/components/Cart'
 import { OpenCartButton } from '@/components/Cart/OpenCart'
+import { CMSLink } from '@/components/Link'
+import { Search } from '@/components/Search'
 import Link from 'next/link'
-import React, { Suspense } from 'react'
+import { Suspense } from 'react'
 
-import { MobileMenu } from './MobileMenu'
 import type { Header } from 'src/payload-types'
+import { MobileMenu } from './MobileMenu'
 
 import { LogoIcon } from '@/components/icons/logo'
-import { usePathname } from 'next/navigation'
 import { cn } from '@/utilities/cn'
+import { usePathname } from 'next/navigation'
 
 type Props = {
   header: Header
@@ -28,7 +29,7 @@ export function HeaderClient({ header }: Props) {
             <MobileMenu menu={menu} />
           </Suspense>
         </div>
-        <div className="flex w-full items-end justify-between">
+        <div className="flex w-full items-center align-middle justify-between">
           <div className="flex w-full items-end gap-6 md:w-1/3">
             <Link className="flex w-full items-center justify-center pt-4 pb-4 md:w-auto" href="/">
               <LogoIcon className="w-6 h-auto" />
@@ -53,8 +54,8 @@ export function HeaderClient({ header }: Props) {
               </ul>
             ) : null}
           </div>
-
-          <div className="flex justify-end md:w-1/3 gap-4">
+          <Search className="hidden md:w-1/3 md:block lg:w-full" />
+          <div className="flex justify-end self-end md:w-1/3 gap-4">
             <Suspense fallback={<OpenCartButton />}>
               <Cart />
             </Suspense>

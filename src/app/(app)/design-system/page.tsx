@@ -1,5 +1,6 @@
 "use server"
 import { Button } from "@/components/Button"
+import { Search } from "@/components/Search"
 
 export default async function DesignSystemPage() {
   return (
@@ -33,8 +34,7 @@ export default async function DesignSystemPage() {
       <section className="fe-stack-2">
         <h2 className="pobut_H2">Search Input</h2>
         <div className="fe-search" style={{ maxWidth: "42rem" }}>
-          <span className="fe-search__icon">🔍</span>
-          <input className="fe-input" placeholder="Шукати продукт або бренд" />
+          <Search/>
         </div>
       </section>
 
