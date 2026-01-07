@@ -1,4 +1,4 @@
-import type { Category, Media } from '@/payload-types'
+import type { Media } from '@/payload-types'
 import { RequiredDataFromCollectionSlug } from 'payload'
 
 type ProductArgs = {
@@ -46,7 +46,7 @@ export const homePageData: (args: ProductArgs) => RequiredDataFromCollectionSlug
                   format: 0,
                   mode: 'normal',
                   style: '',
-                  text: 'Payload Ecommerce Template',
+                  text: 'Інтернет-магазин',
                   version: 1,
                 },
               ],
@@ -68,7 +68,7 @@ export const homePageData: (args: ProductArgs) => RequiredDataFromCollectionSlug
                       format: 0,
                       mode: 'normal',
                       style: '',
-                      text: 'Visit the admin dashboard',
+                      text: 'Відкрити адмін-панель',
                       version: 1,
                     },
                   ],
@@ -88,7 +88,7 @@ export const homePageData: (args: ProductArgs) => RequiredDataFromCollectionSlug
                   format: 0,
                   mode: 'normal',
                   style: '',
-                  text: " to begin managing this site's content. The code for this template is completely open-source and can be found ",
+                  text: ' щоб керувати контентом. Повернутися ',
                   version: 1,
                 },
                 {
@@ -100,15 +100,15 @@ export const homePageData: (args: ProductArgs) => RequiredDataFromCollectionSlug
                       format: 0,
                       mode: 'normal',
                       style: '',
-                      text: 'on our Github',
+                      text: 'на сайт',
                       version: 1,
                     },
                   ],
                   direction: 'ltr',
                   fields: {
                     linkType: 'custom',
-                    newTab: true,
-                    url: 'https://github.com/payloadcms/payload/tree/main/templates/ecommerce',
+                    newTab: false,
+                    url: '/',
                   },
                   format: '',
                   indent: 0,
@@ -120,7 +120,7 @@ export const homePageData: (args: ProductArgs) => RequiredDataFromCollectionSlug
                   format: 0,
                   mode: 'normal',
                   style: '',
-                  text: '. ',
+                  text: '.',
                   version: 1,
                 },
               ],
@@ -612,7 +612,7 @@ export const homePageData: (args: ProductArgs) => RequiredDataFromCollectionSlug
       description: 'An open-source ecommerce site built with Payload and Next.js.',
       // @ts-ignore
       image: metaImage,
-      title: 'Payload Ecommerce Template',
+      title: 'Інтернет-магазин',
     },
     title: 'Home',
   }

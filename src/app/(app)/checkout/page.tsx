@@ -1,7 +1,7 @@
 import type { Metadata } from 'next'
 
 import { mergeOpenGraph } from '@/utilities/mergeOpenGraph'
-import React, { Fragment } from 'react'
+import { Fragment } from 'react'
 
 import { CheckoutPage } from '@/components/checkout/CheckoutPage'
 
@@ -11,23 +11,15 @@ export default function Checkout() {
       {!process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY && (
         <div>
           <Fragment>
-            {'To enable checkout, you must '}
+            {'Щоб увімкнути оплату, потрібно '}
             <a
               href="https://dashboard.stripe.com/test/apikeys"
               rel="noopener noreferrer"
               target="_blank"
             >
-              obtain your Stripe API Keys
+              отримати Stripe API ключі
             </a>
-            {' then set them as environment variables. See the '}
-            <a
-              href="https://github.com/payloadcms/payload/blob/main/templates/ecommerce/README.md#stripe"
-              rel="noopener noreferrer"
-              target="_blank"
-            >
-              README
-            </a>
-            {' for more details.'}
+            {' і додати їх у змінні середовища.'}
           </Fragment>
         </div>
       )}

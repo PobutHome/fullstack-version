@@ -17,7 +17,7 @@ import { Page, Product } from '@/payload-types'
 import { getServerSideURL } from '@/utilities/getURL'
 
 const generateTitle: GenerateTitle<Product | Page> = ({ doc }) => {
-  return doc?.title ? `${doc.title} | Payload Ecommerce Template` : 'Payload Ecommerce Template'
+  return doc?.title ? `${doc.title} | Магазин` : 'Магазин'
 }
 
 const generateURL: GenerateURL<Product | Page> = ({ doc }) => {
@@ -37,12 +37,12 @@ export const plugins: Plugin[] = [
     },
     formSubmissionOverrides: {
       admin: {
-        group: 'Content',
+        group: 'Контент',
       },
     },
     formOverrides: {
       admin: {
-        group: 'Content',
+        group: 'Контент',
       },
       fields: ({ defaultFields }) => {
         return defaultFields.map((field) => {
@@ -79,7 +79,7 @@ export const plugins: Plugin[] = [
         {
           code: 'UAH',
           decimals: 2,
-          label: 'Ukrainian Hryvnia',
+          label: 'Українська гривня',
           symbol: '₴',
         },
       ],
