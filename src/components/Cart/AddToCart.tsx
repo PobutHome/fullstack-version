@@ -44,14 +44,9 @@ export function AddToCart({ product }: Props) {
       addItem({
         product: product.id,
         variant: selectedVariant?.id ?? undefined,
+      }).then(() => {
+        toast.success('Item added to cart.')
       })
-        .then(() => {
-          toast.success('Item added to cart.')
-        })
-        .catch((error) => {
-          const message = error instanceof Error ? error.message : 'Failed to add item to cart.'
-          toast.error(message)
-        })
     },
     [addItem, product, selectedVariant],
   )
