@@ -21,6 +21,10 @@
 @import '../styles/Inputs/input-tokens.css';
 @import '../styles/Inputs/input.css';
 
+/* button styling imports */
+@import '../styles/Buttons/button-tokens.css';
+@import '../styles/Buttons/button.css';
+
 
 
 

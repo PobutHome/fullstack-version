@@ -3,6 +3,7 @@
   --btn-radius: var(--radius-full);
   --btn-height: 3.25rem; /* adjust if needed */
   --btn-px: 2.25rem;
+  --btn-py: 0.75rem;
 
   /* primary (filled) - bright green */
   --btn-primary-bg: var(--sys-btn-primary-bg);

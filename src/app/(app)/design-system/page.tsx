@@ -629,7 +629,129 @@ export default async function DesignSystemPage() {
         
         <div className="fe-card fe-stack-2" style={{ padding: "var(--space-20)" }}>
           <div>
-            <h3 className="pobut_H3" style={{ marginBottom: "var(--space-20)" }}>Button Variants</h3>
+            <h3 className="pobut_H3" style={{ marginBottom: "var(--space-20)" }}>Add to Cart Buttons (Додати в кошик)</h3>
+            <div className="fe-stack-2">
+              <div className="fe-stack-1">
+                <div className="flex flex-wrap fe-gap-2">
+                  <button className="fe-btn fe-btn--add-to-cart-outline">Додати в кошик</button>
+                  <button className="fe-btn fe-btn--add-to-cart-outline" disabled>Додати в кошик</button>
+                </div>
+                <p className="pobut_caption">
+                  <code>variant="add-to-cart-outline"</code> or <code>className="fe-btn fe-btn--add-to-cart-outline"</code>
+                  <br />
+                  Background: Transparent | Border: Bright Green | Text: Bright Green
+                  <br />
+                  Hover: Lighter green | Active: Darker green
+                </p>
+              </div>
+
+              <div className="fe-stack-1">
+                <div className="flex flex-wrap fe-gap-2">
+                  <button className="fe-btn fe-btn--add-to-cart-filled">Додати в кошик</button>
+                  <button className="fe-btn fe-btn--add-to-cart-filled" disabled>Додати в кошик</button>
+                </div>
+                <p className="pobut_caption">
+                  <code>variant="add-to-cart-filled"</code> or <code>className="fe-btn fe-btn--add-to-cart-filled"</code>
+                  <br />
+                  Background: Dark Green (#408000) | Text: White
+                  <br />
+                  Hover: Bright green | Active: Dark green
+                </p>
+              </div>
+            </div>
+          </div>
+
+          <div>
+            <h3 className="pobut_H3" style={{ marginBottom: "var(--space-20)", marginTop: "var(--space-20)" }}>Buy Buttons (Купити)</h3>
+            <div className="fe-stack-2">
+              <div className="fe-stack-1">
+                <div className="flex flex-wrap fe-gap-2">
+                  <button className="fe-btn fe-btn--buy-primary">Купити</button>
+                  <button className="fe-btn fe-btn--buy-primary" disabled>Купити</button>
+                </div>
+                <p className="pobut_caption">
+                  <code>variant="buy-primary"</code> or <code>className="fe-btn fe-btn--buy-primary"</code>
+                  <br />
+                  Background: Bright Lime Green (#72cb1a) | Text: White
+                </p>
+              </div>
+
+              <div className="fe-stack-1">
+                <div className="flex flex-wrap fe-gap-2">
+                  <button className="fe-btn fe-btn--buy-secondary">Купити</button>
+                  <button className="fe-btn fe-btn--buy-secondary" disabled>Купити</button>
+                </div>
+                <p className="pobut_caption">
+                  <code>variant="buy-secondary"</code> or <code>className="fe-btn fe-btn--buy-secondary"</code>
+                  <br />
+                  Background: Light Pastel Green (#beff7e) | Text: Blue (changes to white on hover)
+                </p>
+              </div>
+
+              <div className="fe-stack-1">
+                <div className="flex flex-wrap fe-gap-2">
+                  <button className="fe-btn fe-btn--buy-tertiary">Купити</button>
+                  <button className="fe-btn fe-btn--buy-tertiary" disabled>Купити</button>
+                </div>
+                <p className="pobut_caption">
+                  <code>variant="buy-tertiary"</code> or <code>className="fe-btn fe-btn--buy-tertiary"</code>
+                  <br />
+                  Background: Dark Olive Green (#408000) | Text: White
+                </p>
+              </div>
+            </div>
+          </div>
+
+          <div>
+            <h3 className="pobut_H3" style={{ marginBottom: "var(--space-20)", marginTop: "var(--space-20)" }}>More Button (Більше)</h3>
+            <div className="fe-stack-1">
+              <div className="flex flex-wrap fe-gap-2">
+                <button className="fe-btn fe-btn--more">
+                  Більше
+                  <span style={{ marginLeft: "0.5rem" }}>▼</span>
+                </button>
+                <button className="fe-btn fe-btn--more" disabled>
+                  Більше
+                  <span style={{ marginLeft: "0.5rem" }}>▼</span>
+                </button>
+              </div>
+              <p className="pobut_caption">
+                <code>variant="more"</code> or <code>className="fe-btn fe-btn--more"</code>
+                <br />
+                Background: Dark Gray | Border: Bright Green | Text: Bright Green
+                <br />
+                Includes chevron icon (can be added via icon prop)
+              </p>
+            </div>
+          </div>
+
+          <div>
+            <h3 className="pobut_H3" style={{ marginBottom: "var(--space-20)", marginTop: "var(--space-20)" }}>Catalog Button (Каталог)</h3>
+            <div className="fe-stack-2">
+              <div className="fe-stack-1">
+                <div className="flex flex-wrap fe-gap-2">
+                  <button className="fe-btn fe-btn--catalog">
+                    <span style={{ marginRight: "0.5rem" }}>☰</span>
+                    Каталог
+                  </button>
+                  <button className="fe-btn fe-btn--catalog fe-btn--catalog-active">
+                    <span style={{ marginRight: "0.5rem" }}>☰</span>
+                    Каталог
+                  </button>
+                </div>
+                <p className="pobut_caption">
+                  <code>variant="catalog"</code> or <code>className="fe-btn fe-btn--catalog"</code>
+                  <br />
+                  Default: Dark Gray BG, Thin Green Border | Hover: Thicker Border | Active: Filled Green BG, White Text
+                  <br />
+                  Includes grid icon (can be added via icon prop)
+                </p>
+              </div>
+            </div>
+          </div>
+
+          <div>
+            <h3 className="pobut_H3" style={{ marginBottom: "var(--space-20)", marginTop: "var(--space-20)" }}>Legacy Variants</h3>
             <div className="fe-stack-2">
               <div className="fe-stack-1">
                 <div className="flex flex-wrap fe-gap-2">
@@ -637,13 +759,7 @@ export default async function DesignSystemPage() {
                   <button className="fe-btn fe-btn--primary" disabled>Primary Disabled</button>
                 </div>
                 <p className="pobut_caption">
-                  <code>className="fe-btn fe-btn--primary"</code>
-                  <br />
-                  Uses: <code>--sys-btn-primary-bg</code> (bright green) | Text: White
-                  <br />
-                  Hover: <code>--sys-btn-primary-bg-hover</code> | Active: <code>--sys-btn-primary-bg-active</code>
-                  <br />
-                  Edit: <code>src/components/Button/button.css</code> & <code>src/app/styles/Buttons/button-tokens.css</code>
+                  <code>variant="primary"</code> or <code>className="fe-btn fe-btn--primary"</code>
                 </p>
               </div>
 
@@ -653,13 +769,7 @@ export default async function DesignSystemPage() {
                   <button className="fe-btn fe-btn--outline" disabled>Outline Disabled</button>
                 </div>
                 <p className="pobut_caption">
-                  <code>className="fe-btn fe-btn--outline"</code>
-                  <br />
-                  Uses: <code>--sys-btn-outline-border</code> (green) | Background: Transparent | Text: Green
-                  <br />
-                  Hover: <code>--sys-btn-outline-border-hover</code> | Active: <code>--sys-btn-outline-border-active</code>
-                  <br />
-                  Edit: <code>src/components/Button/button.css</code> & <code>src/app/styles/Buttons/button-tokens.css</code>
+                  <code>variant="outline"</code> or <code>className="fe-btn fe-btn--outline"</code>
                 </p>
               </div>
 
@@ -669,36 +779,32 @@ export default async function DesignSystemPage() {
                   <button className="fe-btn fe-btn--danger" disabled>Danger Disabled</button>
                 </div>
                 <p className="pobut_caption">
-                  <code>className="fe-btn fe-btn--danger"</code>
-                  <br />
-                  Uses: <code>--sys-danger</code> (red) | Text: White
-                  <br />
-                  Hover: <code>--sys-danger-hover</code> | Active: <code>--sys-danger-active</code>
-                  <br />
-                  Edit: <code>src/components/Button/button.css</code> & <code>src/app/styles/Buttons/button-tokens.css</code>
+                  <code>variant="danger"</code> or <code>className="fe-btn fe-btn--danger"</code>
                 </p>
               </div>
 
               <div className="fe-stack-1">
-        <div className="flex flex-wrap fe-gap-2">
+                <div className="flex flex-wrap fe-gap-2">
                   <button className="fe-btn fe-btn--qty">Quantity Button</button>
                   <button className="fe-btn fe-btn--qty" disabled>Quantity Disabled</button>
                 </div>
                 <p className="pobut_caption">
-                  <code>className="fe-btn fe-btn--qty"</code>
-                  <br />
-                  Uses: <code>--sys-btn-interactive-border</code> (blue) | Background: Transparent | Text: Blue
-                  <br />
-                  Hover: <code>--sys-btn-interactive-border-hover</code> | Active: <code>--sys-btn-interactive-border-active</code>
-                  <br />
-                  Edit: <code>src/components/Button/button.css</code>
+                  <code>variant="qty"</code> or <code>className="fe-btn fe-btn--qty"</code>
                 </p>
               </div>
             </div>
-            <p className="pobut_caption" style={{ marginTop: "var(--space-20)", padding: "var(--space-20)", background: "var(--sys-surface-2)", borderRadius: "var(--radius-lg)" }}>
-              <strong>Note:</strong> Additional button variants (secondary, tertiary) are available via semantic tokens but need CSS classes added:
+          </div>
+
+          <div style={{ marginTop: "var(--space-20)", padding: "var(--space-20)", background: "var(--sys-surface-2)", borderRadius: "var(--radius-lg)" }}>
+            <p className="pobut_caption">
+              <strong>Usage:</strong> Import and use the Button component:
               <br />
-              <code>--sys-btn-secondary-bg</code> (light pastel green) | <code>--sys-btn-tertiary-bg</code> (dark olive green)
+              <code style={{ fontSize: "0.9em" }}>{`import { Button } from '@/components/Button'`}</code>
+              <br />
+              <code style={{ fontSize: "0.9em" }}>{`<Button variant="add-to-cart-outline">Додати в кошик</Button>`}</code>
+              <br />
+              <br />
+              <strong>Edit:</strong> <code>src/app/styles/Buttons/button.css</code> & <code>src/app/styles/Buttons/button-tokens.css</code>
             </p>
           </div>
         </div>
