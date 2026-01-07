@@ -75,6 +75,7 @@ export interface Config {
     users: User;
     pages: Page;
     categories: Category;
+    'delivery-methods': DeliveryMethod;
     media: Media;
     forms: Form;
     'form-submissions': FormSubmission;
@@ -108,6 +109,7 @@ export interface Config {
     users: UsersSelect<false> | UsersSelect<true>;
     pages: PagesSelect<false> | PagesSelect<true>;
     categories: CategoriesSelect<false> | CategoriesSelect<true>;
+    'delivery-methods': DeliveryMethodsSelect<false> | DeliveryMethodsSelect<true>;
     media: MediaSelect<false> | MediaSelect<true>;
     forms: FormsSelect<false> | FormsSelect<true>;
     'form-submissions': FormSubmissionsSelect<false> | FormSubmissionsSelect<true>;
@@ -135,7 +137,7 @@ export interface Config {
     header: HeaderSelect<false> | HeaderSelect<true>;
     footer: FooterSelect<false> | FooterSelect<true>;
   };
-  locale: null;
+  locale: 'ua' | 'ru';
   user: User & {
     collection: 'users';
   };
@@ -1017,6 +1019,21 @@ export interface Address {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "delivery-methods".
+ */
+export interface DeliveryMethod {
+  id: string;
+  title: string;
+  /**
+   * Delivery fee in base units (e.g. 2500 = ₴25.00).
+   */
+  price: number;
+  isActive?: boolean | null;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "form-submissions".
  */
 export interface FormSubmission {
@@ -1067,6 +1084,10 @@ export interface PayloadLockedDocument {
     | ({
         relationTo: 'categories';
         value: string | Category;
+      } | null)
+    | ({
+        relationTo: 'delivery-methods';
+        value: string | DeliveryMethod;
       } | null)
     | ({
         relationTo: 'media';
@@ -1361,6 +1382,17 @@ export interface CategoriesSelect<T extends boolean = true> {
   title?: T;
   generateSlug?: T;
   slug?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "delivery-methods_select".
+ */
+export interface DeliveryMethodsSelect<T extends boolean = true> {
+  title?: T;
+  price?: T;
+  isActive?: T;
   updatedAt?: T;
   createdAt?: T;
 }

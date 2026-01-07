@@ -12,6 +12,7 @@ import { linkGroup } from './linkGroup'
 export const hero: Field = {
   name: 'hero',
   type: 'group',
+  localized: true,
   fields: [
     {
       name: 'type',
