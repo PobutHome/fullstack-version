@@ -83,10 +83,14 @@
    --------------------------- */
 @layer components {
   [data-app="frontend"] .fe-card {
-    background: var(--sys-surface);
-    border: 1px solid var(--sys-border);
+    background: var(--sys-card-bg);
+    border: 1px solid var(--sys-card-border);
     border-radius: var(--radius-lg, 0.75rem);
     box-shadow: var(--shadow-sm, 0 0.0625rem 0.125rem rgba(0,0,0,.05));
+  }
+  [data-app="frontend"] .fe-card:hover {
+    background: var(--sys-card-bg-hover);
+    border-color: var(--sys-card-border-hover);
   }
 
   [data-app="frontend"] .fe-card--soft {
@@ -100,9 +104,9 @@
     gap: 0.5ch;
     padding: 0.25rem 0.5rem;
     border-radius: 9999px;
-    border: 1px solid var(--sys-border-strong);
-    color: var(--sys-accent);
-    background: color-mix(in srgb, var(--sys-accent) 10%, transparent);
+    border: 1px solid var(--sys-chip-border);
+    color: var(--sys-chip-fg);
+    background: var(--sys-chip-bg);
   }
 }
 
@@ -114,15 +118,18 @@
     height: var(--input-height-md, 2.5rem);
     width: 100%;
     border-radius: 9999px;
-    border: 1px solid var(--sys-border);
-    background: var(--sys-surface);
-    color: var(--sys-text);
+    border: 1px solid var(--sys-input-border);
+    background: var(--sys-input-bg);
+    color: var(--sys-input-fg);
     padding-inline: 2.75rem 1rem; /* room for icon */
     outline: none;
   }
+  [data-app="frontend"] .fe-input:hover {
+    border-color: var(--sys-input-border-hover);
+  }
   [data-app="frontend"] .fe-input:focus {
-    border-color: var(--sys-border-strong);
-    box-shadow: 0 0 0 0.1875rem color-mix(in srgb, var(--sys-focus) 25%, transparent);
+    border-color: var(--sys-input-border-focus);
+    box-shadow: 0 0 0 0.1875rem var(--sys-focus-ring);
   }
 
   [data-app="frontend"] .fe-search {
@@ -157,8 +164,8 @@
   }
 
   [data-app="frontend"] .fe-nav {
-    background: var(--sys-accent);
-    color: var(--sys-text-inverse);
+    background: var(--sys-nav-bg);
+    color: var(--sys-nav-fg);
   }
   [data-app="frontend"] .fe-nav__row {
     display: flex;
@@ -168,11 +175,17 @@
     padding-block: var(--layout-gap-1);
   }
   [data-app="frontend"] .fe-nav__link {
-    color: var(--sys-text-inverse);
+    color: var(--sys-nav-link);
     text-decoration: none;
     opacity: 0.95;
   }
-  [data-app="frontend"] .fe-nav__link:hover { opacity: 1; }
+  [data-app="frontend"] .fe-nav__link:hover {
+    color: var(--sys-nav-link-hover);
+    opacity: 1;
+  }
+  [data-app="frontend"] .fe-nav__link:active {
+    color: var(--sys-nav-link-active);
+  }
 }
 
 /* ---------------------------

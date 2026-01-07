@@ -53,7 +53,7 @@ export default async function DesignSystemPage() {
             </div>
             
             <div>
-              <div className="pobut_body">Body — Unbounded Regular</div>
+          <div className="pobut_body">Body — Unbounded Regular</div>
               <p className="pobut_caption" style={{ marginTop: "0.5rem" }}>
                 Mobile: 0.6875rem (11px) | Tablet: 1rem (16px) | Desktop: 1.25rem (20px)
                 <br />
@@ -85,78 +85,373 @@ export default async function DesignSystemPage() {
         <div className="fe-card fe-stack-2" style={{ padding: "var(--space-20)" }}>
           <div>
             <h3 className="pobut_H3" style={{ marginBottom: "var(--space-20)" }}>Brand Colors</h3>
-            <div className="fe-gap-2" style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(200px, 1fr))" }}>
-              <div className="fe-stack-1">
-                <div style={{ height: "4rem", background: "var(--color-blue)", borderRadius: "var(--radius-lg)" }} />
-                <div className="pobut_caption">
-                  <strong>Blue:</strong> #00004c<br />
-                  <code>var(--color-blue)</code>
+            <p className="pobut_caption" style={{ marginBottom: "var(--space-20)" }}>All raw brand colors from Figma. These are the source of truth for your brand palette.</p>
+            
+            <div className="fe-stack-2">
+              <div>
+                <h4 className="pobut_H3" style={{ marginBottom: "var(--space-20)" }}>Blue (Primary Brand Color)</h4>
+                <div className="fe-gap-2" style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(180px, 1fr))" }}>
+                  <div className="fe-stack-1">
+                    <div style={{ height: "4rem", background: "var(--color-blue)", borderRadius: "var(--radius-lg)" }} />
+                    <div className="pobut_caption">
+                      <strong>Blue:</strong> #00004c<br />
+                      <code>var(--color-blue)</code>
+                    </div>
+                  </div>
+                  <div className="fe-stack-1">
+                    <div style={{ height: "4rem", background: "var(--color-blue-hover)", borderRadius: "var(--radius-lg)" }} />
+                    <div className="pobut_caption">
+                      <strong>Blue Hover:</strong> #3b3bf9<br />
+                      <code>var(--color-blue-hover)</code>
+                    </div>
+                  </div>
+                  <div className="fe-stack-1">
+                    <div style={{ height: "4rem", background: "var(--color-blue-click)", borderRadius: "var(--radius-lg)" }} />
+                    <div className="pobut_caption">
+                      <strong>Blue Click:</strong> #00001f<br />
+                      <code>var(--color-blue-click)</code>
+                    </div>
+                  </div>
                 </div>
               </div>
-              <div className="fe-stack-1">
-                <div style={{ height: "4rem", background: "var(--color-blue-hover)", borderRadius: "var(--radius-lg)" }} />
-                <div className="pobut_caption">
-                  <strong>Blue Hover:</strong> #3b3bf9<br />
-                  <code>var(--color-blue-hover)</code>
+
+              <div>
+                <h4 className="pobut_H3" style={{ marginBottom: "var(--space-20)" }}>Green (Accent Brand Color)</h4>
+                <div className="fe-gap-2" style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(180px, 1fr))" }}>
+                  <div className="fe-stack-1">
+                    <div style={{ height: "4rem", background: "var(--color-green)", borderRadius: "var(--radius-lg)" }} />
+                    <div className="pobut_caption">
+                      <strong>Green:</strong> #72cb1a<br />
+                      <code>var(--color-green)</code>
+                    </div>
+                  </div>
+                  <div className="fe-stack-1">
+                    <div style={{ height: "4rem", background: "var(--color-green-hover)", borderRadius: "var(--radius-lg)" }} />
+                    <div className="pobut_caption">
+                      <strong>Green Hover:</strong> #beff7e<br />
+                      <code>var(--color-green-hover)</code>
+                    </div>
+                  </div>
+                  <div className="fe-stack-1">
+                    <div style={{ height: "4rem", background: "var(--color-green-click)", borderRadius: "var(--radius-lg)" }} />
+                    <div className="pobut_caption">
+                      <strong>Green Click:</strong> #408000<br />
+                      <code>var(--color-green-click)</code>
+                    </div>
+                  </div>
                 </div>
               </div>
-              <div className="fe-stack-1">
-                <div style={{ height: "4rem", background: "var(--color-green)", borderRadius: "var(--radius-lg)" }} />
-                <div className="pobut_caption">
-                  <strong>Green:</strong> #72cb1a<br />
-                  <code>var(--color-green)</code>
+
+              <div>
+                <h4 className="pobut_H3" style={{ marginBottom: "var(--space-20)" }}>Neutral Colors</h4>
+                <div className="fe-gap-2" style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(180px, 1fr))" }}>
+                  <div className="fe-stack-1">
+                    <div style={{ height: "4rem", background: "var(--color-white)", border: "1px solid var(--sys-border)", borderRadius: "var(--radius-lg)" }} />
+                    <div className="pobut_caption">
+                      <strong>White:</strong> #ffffff<br />
+                      <code>var(--color-white)</code>
+                    </div>
+                  </div>
+                  <div className="fe-stack-1">
+                    <div style={{ height: "4rem", background: "var(--color-black)", borderRadius: "var(--radius-lg)" }} />
+                    <div className="pobut_caption">
+                      <strong>Black:</strong> #000000<br />
+                      <code>var(--color-black)</code>
+                    </div>
+                  </div>
+                  <div className="fe-stack-1">
+                    <div style={{ height: "4rem", background: "var(--color-neutral-border)", border: "1px solid var(--sys-border)", borderRadius: "var(--radius-lg)" }} />
+                    <div className="pobut_caption">
+                      <strong>Neutral Border:</strong> #e5e7eb<br />
+                      <code>var(--color-neutral-border)</code>
+                    </div>
+                  </div>
+                  <div className="fe-stack-1">
+                    <div style={{ height: "4rem", background: "var(--color-default-background)", border: "1px solid var(--sys-border)", borderRadius: "var(--radius-lg)" }} />
+                    <div className="pobut_caption">
+                      <strong>Default Background:</strong> #ffffff<br />
+                      <code>var(--color-default-background)</code>
+                    </div>
+                  </div>
                 </div>
               </div>
-              <div className="fe-stack-1">
-                <div style={{ height: "4rem", background: "var(--color-green-hover)", borderRadius: "var(--radius-lg)" }} />
-                <div className="pobut_caption">
-                  <strong>Green Hover:</strong> #beff7e<br />
-                  <code>var(--color-green-hover)</code>
+
+              <div>
+                <h4 className="pobut_H3" style={{ marginBottom: "var(--space-20)" }}>Status Colors</h4>
+                <div className="fe-gap-2" style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(180px, 1fr))" }}>
+                  <div className="fe-stack-1">
+                    <div style={{ height: "4rem", background: "var(--color-error)", borderRadius: "var(--radius-lg)" }} />
+                    <div className="pobut_caption">
+                      <strong>Error:</strong> #ff0000<br />
+                      <code>var(--color-error)</code>
+                    </div>
+                  </div>
                 </div>
               </div>
             </div>
-            <p className="pobut_caption" style={{ marginTop: "var(--space-20)" }}>
+            
+            <p className="pobut_caption" style={{ marginTop: "var(--space-20)", padding: "var(--space-20)", background: "var(--sys-surface-2)", borderRadius: "var(--radius-lg)" }}>
+              <strong>Note:</strong> These are raw palette tokens. They should NOT be used directly in components.
+              <br />
+              Use semantic tokens instead (e.g., <code>--sys-accent</code> instead of <code>--color-green</code>).
+              <br />
               Edit: <code>src/app/styles/palette-tokens.css</code>
             </p>
           </div>
 
-          <div>
+          <div className="fe-stack-3">
             <h3 className="pobut_H3" style={{ marginBottom: "var(--space-20)" }}>Semantic Colors</h3>
-            <div className="fe-gap-2" style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(200px, 1fr))" }}>
-              <div className="fe-stack-1">
-                <div style={{ height: "4rem", background: "var(--sys-accent)", borderRadius: "var(--radius-lg)" }} />
-                <div className="pobut_caption">
-                  <strong>Accent:</strong> Green<br />
-                  <code>var(--sys-accent)</code>
+            <p className="pobut_caption">All semantic tokens reference palette tokens. Edit: <code>src/app/styles/semantic-tokens.css</code></p>
+            
+            {/* Interactive Colors (Blue) */}
+            <div>
+              <h4 className="pobut_H3" style={{ marginBottom: "var(--space-20)", marginTop: "var(--space-20)" }}>Interactive (Blue - Links, Clickable Text)</h4>
+              <div className="fe-gap-2" style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(180px, 1fr))" }}>
+                <div className="fe-stack-1">
+                  <div style={{ height: "3rem", background: "var(--sys-interactive)", borderRadius: "var(--radius-lg)" }} />
+                  <div className="pobut_caption">
+                    <strong>Interactive:</strong> Blue<br />
+                    <code>var(--sys-interactive)</code>
+                  </div>
                 </div>
-              </div>
-              <div className="fe-stack-1">
-                <div style={{ height: "4rem", background: "var(--sys-text)", borderRadius: "var(--radius-lg)", color: "var(--sys-text-inverse)", display: "flex", alignItems: "center", justifyContent: "center" }} className="pobut_body">
-                  Text
+                <div className="fe-stack-1">
+                  <div style={{ height: "3rem", background: "var(--sys-interactive-hover)", borderRadius: "var(--radius-lg)" }} />
+                  <div className="pobut_caption">
+                    <strong>Interactive Hover:</strong><br />
+                    <code>var(--sys-interactive-hover)</code>
+                  </div>
                 </div>
-                <div className="pobut_caption">
-                  <strong>Text:</strong> Blue<br />
-                  <code>var(--sys-text)</code>
-                </div>
-              </div>
-              <div className="fe-stack-1">
-                <div style={{ height: "4rem", background: "var(--sys-surface)", border: "1px solid var(--sys-border)", borderRadius: "var(--radius-lg)" }} />
-                <div className="pobut_caption">
-                  <strong>Surface:</strong> White<br />
-                  <code>var(--sys-surface)</code>
-                </div>
-              </div>
-              <div className="fe-stack-1">
-                <div style={{ height: "4rem", background: "var(--sys-danger)", borderRadius: "var(--radius-lg)" }} />
-                <div className="pobut_caption">
-                  <strong>Danger:</strong> Red<br />
-                  <code>var(--sys-danger)</code>
+                <div className="fe-stack-1">
+                  <div style={{ height: "3rem", background: "var(--sys-interactive-active)", borderRadius: "var(--radius-lg)" }} />
+                  <div className="pobut_caption">
+                    <strong>Interactive Active:</strong><br />
+                    <code>var(--sys-interactive-active)</code>
+                  </div>
                 </div>
               </div>
             </div>
-            <p className="pobut_caption" style={{ marginTop: "var(--space-20)" }}>
-              Edit: <code>src/app/styles/semantic-tokens.css</code>
-            </p>
+
+            {/* Accent Colors (Green) */}
+            <div>
+              <h4 className="pobut_H3" style={{ marginBottom: "var(--space-20)", marginTop: "var(--space-20)" }}>Accent (Green - Primary Actions, Buttons)</h4>
+              <div className="fe-gap-2" style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(180px, 1fr))" }}>
+                <div className="fe-stack-1">
+                  <div style={{ height: "3rem", background: "var(--sys-accent)", borderRadius: "var(--radius-lg)" }} />
+                  <div className="pobut_caption">
+                    <strong>Accent (Primary):</strong> Bright Green<br />
+                    <code>var(--sys-accent)</code>
+                  </div>
+                </div>
+                <div className="fe-stack-1">
+                  <div style={{ height: "3rem", background: "var(--sys-accent-hover)", borderRadius: "var(--radius-lg)" }} />
+                  <div className="pobut_caption">
+                    <strong>Accent Hover:</strong><br />
+                    <code>var(--sys-accent-hover)</code>
+                  </div>
+                </div>
+                <div className="fe-stack-1">
+                  <div style={{ height: "3rem", background: "var(--sys-accent-active)", borderRadius: "var(--radius-lg)" }} />
+                  <div className="pobut_caption">
+                    <strong>Accent Active:</strong><br />
+                    <code>var(--sys-accent-active)</code>
+                  </div>
+                </div>
+                <div className="fe-stack-1">
+                  <div style={{ height: "3rem", background: "var(--sys-accent-secondary)", borderRadius: "var(--radius-lg)" }} />
+                  <div className="pobut_caption">
+                    <strong>Accent Secondary:</strong> Light Pastel<br />
+                    <code>var(--sys-accent-secondary)</code>
+                  </div>
+                </div>
+                <div className="fe-stack-1">
+                  <div style={{ height: "3rem", background: "var(--sys-accent-tertiary)", borderRadius: "var(--radius-lg)" }} />
+                  <div className="pobut_caption">
+                    <strong>Accent Tertiary:</strong> Dark Olive<br />
+                    <code>var(--sys-accent-tertiary)</code>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            {/* Surfaces */}
+            <div>
+              <h4 className="pobut_H3" style={{ marginBottom: "var(--space-20)", marginTop: "var(--space-20)" }}>Surfaces (Backgrounds)</h4>
+              <div className="fe-gap-2" style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(180px, 1fr))" }}>
+                <div className="fe-stack-1">
+                  <div style={{ height: "3rem", background: "var(--sys-surface)", border: "1px solid var(--sys-border)", borderRadius: "var(--radius-lg)" }} />
+                  <div className="pobut_caption">
+                    <strong>Surface:</strong> White<br />
+                    <code>var(--sys-surface)</code>
+                  </div>
+                </div>
+                <div className="fe-stack-1">
+                  <div style={{ height: "3rem", background: "var(--sys-surface-2)", border: "1px solid var(--sys-border)", borderRadius: "var(--radius-lg)" }} />
+                  <div className="pobut_caption">
+                    <strong>Surface 2:</strong> Alternative<br />
+                    <code>var(--sys-surface-2)</code>
+                  </div>
+                </div>
+                <div className="fe-stack-1">
+                  <div style={{ height: "3rem", background: "var(--sys-surface-accent)", borderRadius: "var(--radius-lg)" }} />
+                  <div className="pobut_caption">
+                    <strong>Surface Accent:</strong> Green BG<br />
+                    <code>var(--sys-surface-accent)</code>
+                  </div>
+                </div>
+                <div className="fe-stack-1">
+                  <div style={{ height: "3rem", background: "var(--sys-surface-interactive)", borderRadius: "var(--radius-lg)" }} />
+                  <div className="pobut_caption">
+                    <strong>Surface Interactive:</strong> Blue BG<br />
+                    <code>var(--sys-surface-interactive)</code>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            {/* Text Colors */}
+            <div>
+              <h4 className="pobut_H3" style={{ marginBottom: "var(--space-20)", marginTop: "var(--space-20)" }}>Text Colors</h4>
+              <div className="fe-gap-2" style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(180px, 1fr))" }}>
+                <div className="fe-stack-1">
+                  <div style={{ height: "3rem", background: "var(--sys-text)", borderRadius: "var(--radius-lg)", color: "var(--sys-text-inverse)", display: "flex", alignItems: "center", justifyContent: "center" }} className="pobut_body">
+                    Text
+                  </div>
+                  <div className="pobut_caption">
+                    <strong>Text:</strong> Blue<br />
+                    <code>var(--sys-text)</code>
+                  </div>
+                </div>
+                <div className="fe-stack-1">
+                  <div style={{ height: "3rem", background: "var(--sys-text-muted)", borderRadius: "var(--radius-lg)", border: "1px solid var(--sys-border)" }} />
+                  <div className="pobut_caption">
+                    <strong>Text Muted:</strong> 65% opacity<br />
+                    <code>var(--sys-text-muted)</code>
+                  </div>
+                </div>
+                <div className="fe-stack-1">
+                  <div style={{ height: "3rem", background: "var(--sys-text-subtle)", borderRadius: "var(--radius-lg)", border: "1px solid var(--sys-border)" }} />
+                  <div className="pobut_caption">
+                    <strong>Text Subtle:</strong> 40% opacity<br />
+                    <code>var(--sys-text-subtle)</code>
+                  </div>
+                </div>
+                <div className="fe-stack-1">
+                  <div style={{ height: "3rem", background: "var(--sys-accent)", borderRadius: "var(--radius-lg)", color: "var(--sys-text-on-accent)", display: "flex", alignItems: "center", justifyContent: "center" }} className="pobut_body">
+                    On Accent
+                  </div>
+                  <div className="pobut_caption">
+                    <strong>Text On Accent:</strong> White<br />
+                    <code>var(--sys-text-on-accent)</code>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            {/* Borders */}
+            <div>
+              <h4 className="pobut_H3" style={{ marginBottom: "var(--space-20)", marginTop: "var(--space-20)" }}>Borders</h4>
+              <div className="fe-gap-2" style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(180px, 1fr))" }}>
+                <div className="fe-stack-1">
+                  <div style={{ height: "3rem", background: "var(--sys-surface)", border: "2px solid var(--sys-border)", borderRadius: "var(--radius-lg)" }} />
+                  <div className="pobut_caption">
+                    <strong>Border:</strong> Neutral Gray<br />
+                    <code>var(--sys-border)</code>
+                  </div>
+                </div>
+                <div className="fe-stack-1">
+                  <div style={{ height: "3rem", background: "var(--sys-surface)", border: "2px solid var(--sys-border-strong)", borderRadius: "var(--radius-lg)" }} />
+                  <div className="pobut_caption">
+                    <strong>Border Strong:</strong> Green<br />
+                    <code>var(--sys-border-strong)</code>
+                  </div>
+                </div>
+                <div className="fe-stack-1">
+                  <div style={{ height: "3rem", background: "var(--sys-surface)", border: "2px solid var(--sys-border-interactive)", borderRadius: "var(--radius-lg)" }} />
+                  <div className="pobut_caption">
+                    <strong>Border Interactive:</strong> Blue<br />
+                    <code>var(--sys-border-interactive)</code>
+                  </div>
+                </div>
+                <div className="fe-stack-1">
+                  <div style={{ height: "3rem", background: "var(--sys-surface)", border: "2px solid var(--sys-border-subtle)", borderRadius: "var(--radius-lg)" }} />
+                  <div className="pobut_caption">
+                    <strong>Border Subtle:</strong> 60% opacity<br />
+                    <code>var(--sys-border-subtle)</code>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            {/* States */}
+            <div>
+              <h4 className="pobut_H3" style={{ marginBottom: "var(--space-20)", marginTop: "var(--space-20)" }}>States (Error, Warning, Success)</h4>
+              <div className="fe-gap-2" style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(180px, 1fr))" }}>
+                <div className="fe-stack-1">
+                  <div style={{ height: "3rem", background: "var(--sys-danger)", borderRadius: "var(--radius-lg)" }} />
+                  <div className="pobut_caption">
+                    <strong>Danger:</strong> Red<br />
+                    <code>var(--sys-danger)</code>
+                  </div>
+                </div>
+                <div className="fe-stack-1">
+                  <div style={{ height: "3rem", background: "var(--sys-warning)", borderRadius: "var(--radius-lg)" }} />
+                  <div className="pobut_caption">
+                    <strong>Warning:</strong> Orange<br />
+                    <code>var(--sys-warning)</code>
+                  </div>
+                </div>
+                <div className="fe-stack-1">
+                  <div style={{ height: "3rem", background: "var(--sys-success)", borderRadius: "var(--radius-lg)" }} />
+                  <div className="pobut_caption">
+                    <strong>Success:</strong> Green<br />
+                    <code>var(--sys-success)</code>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            {/* Component-Specific */}
+            <div>
+              <h4 className="pobut_H3" style={{ marginBottom: "var(--space-20)", marginTop: "var(--space-20)" }}>Component-Specific Tokens</h4>
+              <div className="fe-stack-2">
+                <div>
+                  <div className="pobut_body" style={{ marginBottom: "var(--space-10)" }}><strong>Buttons:</strong></div>
+                  <div className="pobut_caption fe-stack-1">
+                    <div><code>--sys-btn-primary-bg</code> → Primary button background</div>
+                    <div><code>--sys-btn-secondary-bg</code> → Secondary button background</div>
+                    <div><code>--sys-btn-tertiary-bg</code> → Tertiary button background</div>
+                    <div><code>--sys-btn-outline-border</code> → Outline button border</div>
+                    <div><code>--sys-btn-interactive-border</code> → Interactive button border</div>
+                  </div>
+                </div>
+                <div>
+                  <div className="pobut_body" style={{ marginBottom: "var(--space-10)" }}><strong>Inputs:</strong></div>
+                  <div className="pobut_caption fe-stack-1">
+                    <div><code>--sys-input-border</code> → Input border</div>
+                    <div><code>--sys-input-border-hover</code> → Input border hover</div>
+                    <div><code>--sys-input-border-focus</code> → Input border focus</div>
+                    <div><code>--sys-input-bg</code> → Input background</div>
+                    <div><code>--sys-input-fg</code> → Input text color</div>
+                  </div>
+                </div>
+                <div>
+                  <div className="pobut_body" style={{ marginBottom: "var(--space-10)" }}><strong>Cards:</strong></div>
+                  <div className="pobut_caption fe-stack-1">
+                    <div><code>--sys-card-bg</code> → Card background</div>
+                    <div><code>--sys-card-border</code> → Card border</div>
+                    <div><code>--sys-card-bg-hover</code> → Card hover background</div>
+                  </div>
+                </div>
+                <div>
+                  <div className="pobut_body" style={{ marginBottom: "var(--space-10)" }}><strong>Navigation:</strong></div>
+                  <div className="pobut_caption fe-stack-1">
+                    <div><code>--sys-nav-bg</code> → Navigation background</div>
+                    <div><code>--sys-nav-link</code> → Navigation link color</div>
+                    <div><code>--sys-nav-link-hover</code> → Navigation link hover</div>
+                  </div>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       </section>
@@ -247,7 +542,7 @@ export default async function DesignSystemPage() {
       {/* Buttons Section */}
       <section className="fe-stack-2">
         <h2 className="pobut_H2">Buttons</h2>
-        <p className="pobut_caption">All buttons use rounded pill shape (border-radius: 9999px)</p>
+        <p className="pobut_caption">All buttons use rounded pill shape (border-radius: 9999px). All use semantic tokens from <code>semantic-tokens.css</code></p>
         
         <div className="fe-card fe-stack-2" style={{ padding: "var(--space-20)" }}>
           <div>
@@ -261,7 +556,9 @@ export default async function DesignSystemPage() {
                 <p className="pobut_caption">
                   <code>className="fe-btn fe-btn--primary"</code>
                   <br />
-                  Height: 3.25rem | Padding: 2.25rem | Background: Green | Text: White
+                  Uses: <code>--sys-btn-primary-bg</code> (bright green) | Text: White
+                  <br />
+                  Hover: <code>--sys-btn-primary-bg-hover</code> | Active: <code>--sys-btn-primary-bg-active</code>
                   <br />
                   Edit: <code>src/components/Button/button.css</code> & <code>src/app/styles/Buttons/button-tokens.css</code>
                 </p>
@@ -275,7 +572,9 @@ export default async function DesignSystemPage() {
                 <p className="pobut_caption">
                   <code>className="fe-btn fe-btn--outline"</code>
                   <br />
-                  Background: Transparent | Border: Green | Text: Green
+                  Uses: <code>--sys-btn-outline-border</code> (green) | Background: Transparent | Text: Green
+                  <br />
+                  Hover: <code>--sys-btn-outline-border-hover</code> | Active: <code>--sys-btn-outline-border-active</code>
                   <br />
                   Edit: <code>src/components/Button/button.css</code> & <code>src/app/styles/Buttons/button-tokens.css</code>
                 </p>
@@ -289,26 +588,35 @@ export default async function DesignSystemPage() {
                 <p className="pobut_caption">
                   <code>className="fe-btn fe-btn--danger"</code>
                   <br />
-                  Background: Red | Text: White
+                  Uses: <code>--sys-danger</code> (red) | Text: White
+                  <br />
+                  Hover: <code>--sys-danger-hover</code> | Active: <code>--sys-danger-active</code>
                   <br />
                   Edit: <code>src/components/Button/button.css</code> & <code>src/app/styles/Buttons/button-tokens.css</code>
                 </p>
               </div>
 
               <div className="fe-stack-1">
-                <div className="flex flex-wrap fe-gap-2">
+        <div className="flex flex-wrap fe-gap-2">
                   <button className="fe-btn fe-btn--qty">Quantity Button</button>
                   <button className="fe-btn fe-btn--qty" disabled>Quantity Disabled</button>
                 </div>
                 <p className="pobut_caption">
                   <code>className="fe-btn fe-btn--qty"</code>
                   <br />
-                  Background: Transparent | Border: Blue | Text: Blue (for +/- controls)
+                  Uses: <code>--sys-btn-interactive-border</code> (blue) | Background: Transparent | Text: Blue
+                  <br />
+                  Hover: <code>--sys-btn-interactive-border-hover</code> | Active: <code>--sys-btn-interactive-border-active</code>
                   <br />
                   Edit: <code>src/components/Button/button.css</code>
                 </p>
               </div>
             </div>
+            <p className="pobut_caption" style={{ marginTop: "var(--space-20)", padding: "var(--space-20)", background: "var(--sys-surface-2)", borderRadius: "var(--radius-lg)" }}>
+              <strong>Note:</strong> Additional button variants (secondary, tertiary) are available via semantic tokens but need CSS classes added:
+              <br />
+              <code>--sys-btn-secondary-bg</code> (light pastel green) | <code>--sys-btn-tertiary-bg</code> (dark olive green)
+            </p>
           </div>
         </div>
       </section>
@@ -341,9 +649,9 @@ export default async function DesignSystemPage() {
         
         <div className="fe-card fe-stack-2" style={{ padding: "var(--space-20)" }}>
           <div className="fe-stack-1">
-            <div className="fe-search" style={{ maxWidth: "42rem" }}>
-              <span className="fe-search__icon">🔍</span>
-              <input className="fe-input" placeholder="Шукати продукт або бренд" />
+        <div className="fe-search" style={{ maxWidth: "42rem" }}>
+          <span className="fe-search__icon">🔍</span>
+          <input className="fe-input" placeholder="Шукати продукт або бренд" />
             </div>
             <p className="pobut_caption">
               <code>className="fe-search"</code> wrapper with <code>className="fe-search__icon"</code> and <code>className="fe-input"</code>
@@ -417,15 +725,15 @@ export default async function DesignSystemPage() {
         <p className="pobut_caption">Complete product card component example</p>
         
         <div className="fe-card fe-stack-2" style={{ padding: "var(--space-20)" }}>
-          <div className="fe-product" style={{ maxWidth: "22rem" }}>
+        <div className="fe-product" style={{ maxWidth: "22rem" }}>
             <div style={{ height: "10rem", background: "var(--sys-surface-2)", display: "flex", alignItems: "center", justifyContent: "center" }}>
               <span className="pobut_caption">Product Image</span>
             </div>
-            <div className="fe-product__body fe-stack-1">
-              <div className="pobut_caption fe-availability">● в наявності</div>
+          <div className="fe-product__body fe-stack-1">
+            <div className="pobut_caption fe-availability">● в наявності</div>
               <div className="pobut_body">Пакет паперовий / 220*280*120 мм / коричневий / 100 шт</div>
               <div className="pobut_H3 fe-price">255 грн</div>
-              <button className="fe-btn fe-btn--outline">Додати в кошик</button>
+            <button className="fe-btn fe-btn--outline">Додати в кошик</button>
             </div>
           </div>
           <p className="pobut_caption">

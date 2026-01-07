@@ -4,20 +4,45 @@
   --btn-height: 3.25rem; /* adjust if needed */
   --btn-px: 2.25rem;
 
-  /* primary (filled) */
-  --btn-primary-bg: var(--sys-accent);
-  --btn-primary-bg-hover: var(--sys-accent-hover);
-  --btn-primary-bg-active: var(--sys-accent-active);
-  --btn-primary-fg: var(--sys-text-inverse);
+  /* primary (filled) - bright green */
+  --btn-primary-bg: var(--sys-btn-primary-bg);
+  --btn-primary-bg-hover: var(--sys-btn-primary-bg-hover);
+  --btn-primary-bg-active: var(--sys-btn-primary-bg-active);
+  --btn-primary-fg: var(--sys-btn-primary-fg);
+
+  /* secondary (filled) - light pastel green */
+  --btn-secondary-bg: var(--sys-btn-secondary-bg);
+  --btn-secondary-bg-hover: var(--sys-btn-secondary-bg-hover);
+  --btn-secondary-bg-active: var(--sys-btn-secondary-bg-active);
+  --btn-secondary-fg: var(--sys-btn-secondary-fg);
+
+  /* tertiary (filled) - dark olive green */
+  --btn-tertiary-bg: var(--sys-btn-tertiary-bg);
+  --btn-tertiary-bg-hover: var(--sys-btn-tertiary-bg-hover);
+  --btn-tertiary-bg-active: var(--sys-btn-tertiary-bg-active);
+  --btn-tertiary-fg: var(--sys-btn-tertiary-fg);
 
   /* outline */
   --btn-outline-bg: transparent;
-  --btn-outline-fg: var(--sys-accent);
-  --btn-outline-border: var(--sys-accent);
-  --btn-outline-border-hover: var(--sys-accent-hover);
-  --btn-outline-border-active: var(--sys-accent-active);
+  --btn-outline-fg: var(--sys-btn-outline-fg);
+  --btn-outline-border: var(--sys-btn-outline-border);
+  --btn-outline-border-hover: var(--sys-btn-outline-border-hover);
+  --btn-outline-border-active: var(--sys-btn-outline-border-active);
+  --btn-outline-fg-hover: var(--sys-btn-outline-fg-hover);
+  --btn-outline-fg-active: var(--sys-btn-outline-fg-active);
+
+  /* interactive (blue outline) */
+  --btn-interactive-bg: transparent;
+  --btn-interactive-fg: var(--sys-btn-interactive-fg);
+  --btn-interactive-border: var(--sys-btn-interactive-border);
+  --btn-interactive-border-hover: var(--sys-btn-interactive-border-hover);
+  --btn-interactive-border-active: var(--sys-btn-interactive-border-active);
+  --btn-interactive-fg-hover: var(--sys-btn-interactive-fg-hover);
+  --btn-interactive-fg-active: var(--sys-btn-interactive-fg-active);
 
   /* danger */
   --btn-danger-bg: var(--sys-danger);
+  --btn-danger-bg-hover: var(--sys-danger-hover);
+  --btn-danger-bg-active: var(--sys-danger-active);
   --btn-danger-fg: var(--sys-text-inverse);
 }

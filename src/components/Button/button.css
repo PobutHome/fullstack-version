@@ -46,9 +46,11 @@
     border: 1px solid var(--btn-outline-border);
   }
   :where([data-app="frontend"]) .fe-btn--outline:hover:not(:disabled) {
+    color: var(--btn-outline-fg-hover);
     border-color: var(--btn-outline-border-hover);
   }
   :where([data-app="frontend"]) .fe-btn--outline:active:not(:disabled) {
+    color: var(--btn-outline-fg-active);
     border-color: var(--btn-outline-border-active);
   }
 
@@ -57,19 +59,25 @@
     background: var(--btn-danger-bg);
     color: var(--btn-danger-fg);
   }
+  :where([data-app="frontend"]) .fe-btn--danger:hover:not(:disabled) {
+    background: var(--btn-danger-bg-hover);
+  }
+  :where([data-app="frontend"]) .fe-btn--danger:active:not(:disabled) {
+    background: var(--btn-danger-bg-active);
+  }
 
   /* QUANTITY / BLUE INTERACTIVE (for +/- controls) */
   :where([data-app="frontend"]) .fe-btn--qty {
-    background: transparent;
-    color: var(--color-blue);
-    border: 1px solid var(--color-blue);
+    background: var(--btn-interactive-bg);
+    color: var(--btn-interactive-fg);
+    border: 1px solid var(--btn-interactive-border);
   }
   :where([data-app="frontend"]) .fe-btn--qty:hover:not(:disabled) {
-    color: var(--color-blue-hover);
-    border-color: var(--color-blue-hover);
+    color: var(--btn-interactive-fg-hover);
+    border-color: var(--btn-interactive-border-hover);
   }
   :where([data-app="frontend"]) .fe-btn--qty:active:not(:disabled) {
-    color: var(--color-blue-click);
-    border-color: var(--color-blue-click);
+    color: var(--btn-interactive-fg-active);
+    border-color: var(--btn-interactive-border-active);
   }
 }

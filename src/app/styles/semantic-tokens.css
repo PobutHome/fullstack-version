@@ -5,6 +5,15 @@
   --sys-bg: var(--color-white);
   --sys-surface: var(--color-white);
   --sys-surface-2: var(--color-default-background);
+  
+  /* Colored surfaces (for backgrounds with brand colors) */
+  --sys-surface-accent: var(--color-green);
+  --sys-surface-accent-hover: var(--color-green-hover);
+  --sys-surface-accent-active: var(--color-green-click);
+  
+  --sys-surface-interactive: var(--color-blue);
+  --sys-surface-interactive-hover: var(--color-blue-hover);
+  --sys-surface-interactive-active: var(--color-blue-click);
 
   /* Overlays (for modals/dropdowns later) */
   --sys-overlay: color-mix(in srgb, var(--color-black) 35%, transparent);
@@ -16,45 +25,140 @@
   --sys-text-muted: color-mix(in srgb, var(--sys-text) 65%, transparent);
   --sys-text-subtle: color-mix(in srgb, var(--sys-text) 40%, transparent);
   --sys-text-inverse: var(--color-white);
+  
+  /* Text on colored backgrounds */
+  --sys-text-on-accent: var(--color-white);
+  --sys-text-on-interactive: var(--color-white);
+  --sys-text-on-surface: var(--color-blue);
 
   /* =========================
-     Interactive
+     Interactive (Blue - Links, Clickable Text)
      ========================= */
   --sys-link: var(--color-blue);
   --sys-link-hover: var(--color-blue-hover);
   --sys-link-active: var(--color-blue-click);
+  
+  /* Alias for interactive elements (links, clickable text, buttons) */
+  --sys-interactive: var(--sys-link);
+  --sys-interactive-hover: var(--sys-link-hover);
+  --sys-interactive-active: var(--sys-link-active);
 
-  /* Brand/action (green) */
+  /* =========================
+     Accent (Green - Primary Actions, Buttons, Highlights)
+     ========================= */
+  /* Primary accent - bright green (main CTA buttons) */
   --sys-accent: var(--color-green);
   --sys-accent-hover: var(--color-green-hover);
   --sys-accent-active: var(--color-green-click);
+  
+  /* Secondary accent - light pastel green (secondary buttons, subtle highlights) */
+  --sys-accent-secondary: var(--color-green-hover);
+  --sys-accent-secondary-hover: var(--color-green);
+  --sys-accent-secondary-active: var(--color-green-click);
+  
+  /* Tertiary accent - dark olive green (tertiary buttons, subdued accents) */
+  --sys-accent-tertiary: var(--color-green-click);
+  --sys-accent-tertiary-hover: var(--color-green);
+  --sys-accent-tertiary-active: var(--color-green-hover);
 
   /* =========================
      Borders & Focus
      ========================= */
+  /* Default borders */
   --sys-border: var(--color-neutral-border);
-  --sys-border-strong: var(--sys-accent);       /* your green outlines */
+  --sys-border-hover: var(--color-blue-hover);
+  --sys-border-active: var(--color-blue-click);
+  
+  /* Strong borders (accent color) */
+  --sys-border-strong: var(--sys-accent);
+  --sys-border-strong-hover: var(--sys-accent-hover);
+  --sys-border-strong-active: var(--sys-accent-active);
+  
+  /* Subtle borders */
   --sys-border-subtle: color-mix(in srgb, var(--sys-border) 60%, transparent);
+  
+  /* Interactive borders (blue) */
+  --sys-border-interactive: var(--color-blue);
+  --sys-border-interactive-hover: var(--color-blue-hover);
+  --sys-border-interactive-active: var(--color-blue-click);
 
+  /* Focus states */
   --sys-focus: var(--color-blue-hover);
+  --sys-focus-ring: color-mix(in srgb, var(--sys-focus) 25%, transparent);
 
   /* =========================
-     States (extendable)
+     States (Error, Warning, Success)
      ========================= */
   --sys-danger: var(--color-error);
+  --sys-danger-hover: color-mix(in srgb, var(--sys-danger) 90%, var(--color-white));
+  --sys-danger-active: color-mix(in srgb, var(--sys-danger) 80%, var(--color-black));
 
-  /* placeholders (if you add these to palette later) */
+  /* Warning (placeholder - add to palette later) */
   --sys-warning: #ffb800;
+  --sys-warning-hover: color-mix(in srgb, var(--sys-warning) 90%, var(--color-white));
+  --sys-warning-active: color-mix(in srgb, var(--sys-warning) 80%, var(--color-black));
+
+  /* Success (uses accent green) */
   --sys-success: var(--sys-accent);
+  --sys-success-hover: var(--sys-accent-hover);
+  --sys-success-active: var(--sys-accent-active);
 
   /* =========================
-     Component-intent helpers
-     =========================
-     (useful when app grows)
-  */
-  --sys-input-border: var(--sys-border-strong);
-  --sys-input-border-focus: var(--sys-focus);
+     Component-Specific Semantic Tokens
+     ========================= */
+  
+  /* Buttons */
+  --sys-btn-primary-bg: var(--sys-accent);
+  --sys-btn-primary-bg-hover: var(--sys-accent-hover);
+  --sys-btn-primary-bg-active: var(--sys-accent-active);
+  --sys-btn-primary-fg: var(--sys-text-inverse);
+  
+  --sys-btn-secondary-bg: var(--sys-accent-secondary);
+  --sys-btn-secondary-bg-hover: var(--sys-accent-secondary-hover);
+  --sys-btn-secondary-bg-active: var(--sys-accent-secondary-active);
+  --sys-btn-secondary-fg: var(--sys-text);
+  
+  --sys-btn-tertiary-bg: var(--sys-accent-tertiary);
+  --sys-btn-tertiary-bg-hover: var(--sys-accent-tertiary-hover);
+  --sys-btn-tertiary-bg-active: var(--sys-accent-tertiary-active);
+  --sys-btn-tertiary-fg: var(--sys-text-inverse);
+  
+  --sys-btn-outline-border: var(--sys-accent);
+  --sys-btn-outline-border-hover: var(--sys-accent-hover);
+  --sys-btn-outline-border-active: var(--sys-accent-active);
+  --sys-btn-outline-fg: var(--sys-accent);
+  --sys-btn-outline-fg-hover: var(--sys-accent-hover);
+  --sys-btn-outline-fg-active: var(--sys-accent-active);
+  
+  --sys-btn-interactive-border: var(--sys-border-interactive);
+  --sys-btn-interactive-border-hover: var(--sys-border-interactive-hover);
+  --sys-btn-interactive-border-active: var(--sys-border-interactive-active);
+  --sys-btn-interactive-fg: var(--sys-interactive);
+  --sys-btn-interactive-fg-hover: var(--sys-interactive-hover);
+  --sys-btn-interactive-fg-active: var(--sys-interactive-active);
 
+  /* Inputs */
+  --sys-input-border: var(--sys-border-strong);
+  --sys-input-border-hover: var(--sys-border-strong-hover);
+  --sys-input-border-focus: var(--sys-focus);
+  --sys-input-bg: var(--sys-surface);
+  --sys-input-fg: var(--sys-text);
+
+  /* Cards */
   --sys-card-border: var(--sys-border-strong);
+  --sys-card-border-hover: var(--sys-border-strong-hover);
+  --sys-card-bg: var(--sys-surface);
+  --sys-card-bg-hover: var(--sys-surface-2);
+
+  /* Badges/Chips */
   --sys-chip-border: var(--sys-border-strong);
+  --sys-chip-bg: color-mix(in srgb, var(--sys-accent) 10%, transparent);
+  --sys-chip-fg: var(--sys-accent);
+
+  /* Navigation */
+  --sys-nav-bg: var(--sys-accent);
+  --sys-nav-fg: var(--sys-text-inverse);
+  --sys-nav-link: var(--sys-text-inverse);
+  --sys-nav-link-hover: var(--sys-text-inverse);
+  --sys-nav-link-active: var(--sys-text-inverse);
 }
