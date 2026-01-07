@@ -34,19 +34,19 @@
 
   /* Size variants */
   [data-app="frontend"] .fe-btn--sm {
-    padding: 1rem 1.5rem;
+    padding: var(--btn-py, 0.625rem) 1.5rem;
     min-height: 2.5rem;
     font-size: 0.875rem;
   }
 
   [data-app="frontend"] .fe-btn--md {
-    padding: 1.5rem 2rem;
+    padding: var(--btn-py, 0.625rem) 2rem;
     min-height: 3rem;
     font-size: 1rem;
   }
 
   [data-app="frontend"] .fe-btn--lg {
-    padding: var(--btn-px, 2.25rem) var(--btn-py, 0.75rem);
+    padding: var(--btn-py, 0.625rem) var(--btn-px, 2.25rem);
     min-height: var(--btn-height, 3.25rem);
     font-size: inherit;
   }
@@ -66,7 +66,7 @@
     color: var(--sys-accent, var(--color-green));
     border: 1px solid var(--sys-accent, var(--color-green));
     border-radius: var(--btn-radius, 9999px);
-    padding: var(--btn-px, 2.25rem) var(--btn-py, 0.75rem);
+    padding: var(--btn-py, 0.625rem) var(--btn-px, 2.25rem);
     min-height: var(--btn-height, 3.25rem);
   }
 
@@ -86,7 +86,7 @@
     color: var(--sys-text-inverse, var(--color-white));
     border: 1px solid transparent;
     border-radius: var(--btn-radius, 9999px);
-    padding: var(--btn-px, 2.25rem) var(--btn-py, 0.75rem);
+    padding: var(--btn-py, 0.625rem) var(--btn-px, 2.25rem);
     min-height: var(--btn-height, 3.25rem);
   }
 
@@ -108,7 +108,7 @@
     color: var(--sys-text-inverse, var(--color-white));
     border: 1px solid transparent;
     border-radius: var(--btn-radius, 9999px);
-    padding: var(--btn-px, 2.25rem) var(--btn-py, 0.75rem);
+    padding: var(--btn-py, 0.625rem) var(--btn-px, 2.25rem);
     min-height: var(--btn-height, 3.25rem);
   }
 
@@ -126,7 +126,7 @@
     color: var(--sys-text, var(--color-blue));
     border: 1px solid transparent;
     border-radius: var(--btn-radius, 9999px);
-    padding: var(--btn-px, 2.25rem) var(--btn-py, 0.75rem);
+    padding: var(--btn-py, 0.625rem) var(--btn-px, 2.25rem);
     min-height: var(--btn-height, 3.25rem);
   }
 
@@ -146,7 +146,7 @@
     color: var(--sys-text-inverse, var(--color-white));
     border: 1px solid transparent;
     border-radius: var(--btn-radius, 9999px);
-    padding: var(--btn-px, 2.25rem) var(--btn-py, 0.75rem);
+    padding: var(--btn-py, 0.625rem) var(--btn-px, 2.25rem);
     min-height: var(--btn-height, 3.25rem);
   }
 
@@ -167,7 +167,7 @@
     color: var(--sys-accent, var(--color-green));
     border: 1px solid var(--sys-accent, var(--color-green));
     border-radius: var(--btn-radius, 9999px);
-    padding: var(--btn-px, 2.25rem) var(--btn-py, 0.75rem);
+    padding: var(--btn-py, 0.625rem) var(--btn-px, 2.25rem);
     min-height: var(--btn-height, 3.25rem);
   }
 
@@ -191,7 +191,7 @@
     color: var(--sys-accent, var(--color-green));
     border: 1px solid var(--sys-accent, var(--color-green));
     border-radius: var(--btn-radius, 9999px);
-    padding: var(--btn-px, 2.25rem) var(--btn-py, 0.75rem);
+    padding: var(--btn-py, 0.625rem) var(--btn-px, 2.25rem);
     min-height: var(--btn-height, 3.25rem);
   }
 
@@ -219,7 +219,7 @@
     color: var(--sys-btn-primary-fg, var(--sys-text-inverse));
     border: 1px solid transparent;
     border-radius: var(--btn-radius, 9999px);
-    padding: var(--btn-px, 2.25rem) var(--btn-py, 0.75rem);
+    padding: var(--btn-py, 0.625rem) var(--btn-px, 2.25rem);
     min-height: var(--btn-height, 3.25rem);
   }
 
@@ -236,7 +236,7 @@
     color: var(--sys-btn-outline-fg, var(--sys-accent));
     border: 1px solid var(--sys-btn-outline-border, var(--sys-accent));
     border-radius: var(--btn-radius, 9999px);
-    padding: var(--btn-px, 2.25rem) var(--btn-py, 0.75rem);
+    padding: var(--btn-py, 0.625rem) var(--btn-px, 2.25rem);
     min-height: var(--btn-height, 3.25rem);
   }
 
@@ -255,7 +255,7 @@
     color: var(--sys-text-inverse, var(--color-white));
     border: 1px solid transparent;
     border-radius: var(--btn-radius, 9999px);
-    padding: var(--btn-px, 2.25rem) var(--btn-py, 0.75rem);
+    padding: var(--btn-py, 0.625rem) var(--btn-px, 2.25rem);
     min-height: var(--btn-height, 3.25rem);
   }
 
@@ -272,7 +272,7 @@
     color: var(--sys-btn-interactive-fg, var(--sys-interactive));
     border: 1px solid var(--sys-btn-interactive-border, var(--sys-border-interactive));
     border-radius: var(--btn-radius, 9999px);
-    padding: var(--btn-px, 2.25rem) var(--btn-py, 0.75rem);
+    padding: var(--btn-py, 0.625rem) var(--btn-px, 2.25rem);
     min-height: var(--btn-height, 3.25rem);
   }
 

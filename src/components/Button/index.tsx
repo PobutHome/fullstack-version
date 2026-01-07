@@ -19,6 +19,7 @@ type Props = ButtonHTMLAttributes<HTMLButtonElement> & {
   variant?: Variant
   size?: Size
   fullWidth?: boolean
+  width?: string | number
   icon?: ReactNode
   iconPosition?: "left" | "right"
 }
@@ -27,10 +28,12 @@ export function Button({
   variant = "primary",
   size = "lg",
   fullWidth,
+  width,
   icon,
   iconPosition = "left",
   className = "",
   children,
+  style,
   ...props
 }: Props) {
   const base = "fe-btn"
@@ -64,10 +67,16 @@ export function Button({
     </span>
   ) : null
 
+  // Combine styles
+  const combinedStyle = {
+    ...style,
+    ...(width && { width: typeof width === "number" ? `${width}px` : width }),
+  }
+
   const content = (
     <>
       {icon && iconPosition === "left" && iconElement}
-      {children}
+      <span className="pobut_body">{children}</span>
       {icon && iconPosition === "right" && iconElement}
     </>
   )
@@ -75,6 +84,7 @@ export function Button({
   return (
     <button 
       className={`${base} ${variantClass} ${sizeClass} ${widthClass} ${className}`.trim()} 
+      style={combinedStyle}
       {...props}
     >
       {content}
