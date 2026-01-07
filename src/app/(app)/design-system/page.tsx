@@ -462,8 +462,26 @@ export default async function DesignSystemPage() {
         <p className="pobut_caption">Layout margins and gaps are responsive: Mobile → Tablet (48rem) → Desktop (64rem)</p>
         
         <div className="fe-card fe-stack-2" style={{ padding: "var(--space-20)" }}>
+          {/* Figma Spacing Reference */}
+          <div style={{ padding: "var(--space-20)", background: "var(--sys-surface-2)", borderRadius: "var(--radius-lg)", marginBottom: "var(--space-20)" }}>
+            <h3 className="pobut_H3" style={{ marginBottom: "var(--space-20)" }}>Figma Design Spacing Reference</h3>
+            <div className="fe-stack-1">
+              <div className="pobut_body"><strong>Desktop:</strong> Margin 150px | Spacing 20px/50px</div>
+              <div className="pobut_body"><strong>Tablet:</strong> Margin 50px | Spacing 10px/20px/30px</div>
+              <div className="pobut_body"><strong>Mobile:</strong> Margin 10px | Spacing 10px/20px</div>
+              <p className="pobut_caption" style={{ marginTop: "var(--space-10)" }}>
+                <strong>What this means:</strong>
+                <br />
+                • <strong>Margin</strong> = Horizontal padding on page containers (left/right sides)
+                <br />
+                • <strong>Spacing</strong> = Vertical gaps between elements (sections, cards, etc.)
+              </p>
+            </div>
+          </div>
+
           <div>
             <h3 className="pobut_H3" style={{ marginBottom: "var(--space-20)" }}>Component Spacing Scale</h3>
+            <p className="pobut_caption" style={{ marginBottom: "var(--space-20)" }}>Raw spacing values for component-level padding/margins</p>
             <div className="fe-stack-1">
               <div style={{ display: "flex", alignItems: "center", gap: "var(--space-20)" }}>
                 <div style={{ width: "var(--space-10)", height: "var(--space-10)", background: "var(--sys-accent)", borderRadius: "0.25rem" }} />
@@ -497,45 +515,110 @@ export default async function DesignSystemPage() {
           </div>
 
           <div>
-            <h3 className="pobut_H3" style={{ marginBottom: "var(--space-20)" }}>Layout Spacing</h3>
-            <div className="fe-stack-1">
+            <h3 className="pobut_H3" style={{ marginBottom: "var(--space-20)" }}>Layout Spacing (From Figma)</h3>
+            <p className="pobut_caption" style={{ marginBottom: "var(--space-20)" }}>These values match your Figma design specifications</p>
+            
+            <div className="fe-stack-2">
               <div>
-                <div className="pobut_body"><code>--layout-margin</code>: Page horizontal padding</div>
-                <div className="pobut_caption">
-                  Mobile: 0.625rem (10px) | Tablet: 3.125rem (50px) | Desktop: 9.375rem (150px)
-                  <br />
-                  Use: <code>className="fe-page"</code>
+                <div className="pobut_body" style={{ marginBottom: "var(--space-10)" }}><code>--layout-margin</code>: Page horizontal padding</div>
+                <div className="pobut_caption fe-stack-1" style={{ paddingLeft: "var(--space-20)" }}>
+                  <div>📱 <strong>Mobile:</strong> 0.625rem (10px)</div>
+                  <div>📱 <strong>Tablet:</strong> 3.125rem (50px)</div>
+                  <div>🖥️ <strong>Desktop:</strong> 9.375rem (150px)</div>
+                  <div style={{ marginTop: "var(--space-10)" }}>
+                    <strong>Where to use:</strong> Add <code>className="fe-page"</code> to your page container div
+                    <br />
+                    <code style={{ fontSize: "0.8em" }}>&lt;div data-app="frontend" className="fe-page"&gt;...&lt;/div&gt;</code>
+                  </div>
                 </div>
               </div>
+              
               <div>
-                <div className="pobut_body"><code>--layout-gap-1</code>: Small vertical spacing</div>
-                <div className="pobut_caption">
-                  Mobile: 0.625rem (10px) | Tablet: 0.625rem (10px) | Desktop: 1.25rem (20px)
-                  <br />
-                  Use: <code>className="fe-stack-1"</code> or <code>className="fe-gap-1"</code>
+                <div className="pobut_body" style={{ marginBottom: "var(--space-10)" }}><code>--layout-gap-1</code>: Small vertical spacing</div>
+                <div className="pobut_caption fe-stack-1" style={{ paddingLeft: "var(--space-20)" }}>
+                  <div>📱 <strong>Mobile:</strong> 0.625rem (10px)</div>
+                  <div>📱 <strong>Tablet:</strong> 0.625rem (10px)</div>
+                  <div>🖥️ <strong>Desktop:</strong> 1.25rem (20px)</div>
+                  <div style={{ marginTop: "var(--space-10)" }}>
+                    <strong>Where to use:</strong> <code>className="fe-stack-1"</code> for vertical lists, or <code>className="fe-gap-1"</code> for flex/grid gaps
+                  </div>
                 </div>
               </div>
+              
               <div>
-                <div className="pobut_body"><code>--layout-gap-2</code>: Medium vertical spacing</div>
-                <div className="pobut_caption">
-                  Mobile: 1.25rem (20px) | Tablet: 1.25rem (20px) | Desktop: 3.125rem (50px)
-                  <br />
-                  Use: <code>className="fe-stack-2"</code> or <code>className="fe-gap-2"</code>
+                <div className="pobut_body" style={{ marginBottom: "var(--space-10)" }}><code>--layout-gap-2</code>: Medium vertical spacing</div>
+                <div className="pobut_caption fe-stack-1" style={{ paddingLeft: "var(--space-20)" }}>
+                  <div>📱 <strong>Mobile:</strong> 1.25rem (20px)</div>
+                  <div>📱 <strong>Tablet:</strong> 1.25rem (20px)</div>
+                  <div>🖥️ <strong>Desktop:</strong> 3.125rem (50px)</div>
+                  <div style={{ marginTop: "var(--space-10)" }}>
+                    <strong>Where to use:</strong> <code>className="fe-stack-2"</code> for section spacing, or <code>className="fe-gap-2"</code> for flex/grid gaps
+                  </div>
                 </div>
               </div>
+              
               <div>
-                <div className="pobut_body"><code>--layout-gap-3</code>: Large vertical spacing (Tablet+)</div>
-                <div className="pobut_caption">
-                  Tablet: 1.875rem (30px) | Desktop: falls back to gap-2
-                  <br />
-                  Use: <code>className="fe-stack-3"</code> or <code>className="fe-gap-3"</code>
+                <div className="pobut_body" style={{ marginBottom: "var(--space-10)" }}><code>--layout-gap-3</code>: Large vertical spacing (Tablet+)</div>
+                <div className="pobut_caption fe-stack-1" style={{ paddingLeft: "var(--space-20)" }}>
+                  <div>📱 <strong>Mobile:</strong> Not available (falls back to gap-2)</div>
+                  <div>📱 <strong>Tablet:</strong> 1.875rem (30px)</div>
+                  <div>🖥️ <strong>Desktop:</strong> Falls back to gap-2 (50px)</div>
+                  <div style={{ marginTop: "var(--space-10)" }}>
+                    <strong>Where to use:</strong> <code>className="fe-stack-3"</code> for large section spacing, or <code>className="fe-gap-3"</code> for flex/grid gaps
+                  </div>
                 </div>
               </div>
             </div>
-            <p className="pobut_caption" style={{ marginTop: "var(--space-20)" }}>
-              Edit: <code>src/app/styles/Spacing/spacing-tokens.css</code>
-            </p>
           </div>
+
+          {/* Visual Example */}
+          <div style={{ marginTop: "var(--space-20)", padding: "var(--space-20)", background: "var(--sys-surface-2)", borderRadius: "var(--radius-lg)" }}>
+            <h4 className="pobut_H3" style={{ marginBottom: "var(--space-20)" }}>Visual Example: How These Are Used</h4>
+            <div className="fe-stack-2">
+              <div>
+                <div className="pobut_body" style={{ marginBottom: "var(--space-10)" }}>1. <strong>Page Container</strong> (uses <code>--layout-margin</code>):</div>
+                <div style={{ padding: "var(--space-10)", background: "var(--sys-surface)", border: "2px dashed var(--sys-border-strong)", borderRadius: "var(--radius-lg)" }}>
+                  <div className="pobut_caption" style={{ textAlign: "center" }}>
+                    <div style={{ display: "inline-block", padding: "var(--space-10) var(--space-20)", background: "var(--sys-accent)", color: "var(--sys-text-inverse)", borderRadius: "var(--radius-lg)" }}>
+                      Page Content Area
+                    </div>
+                    <div className="pobut_caption" style={{ marginTop: "var(--space-10)" }}>
+                      ← <code>--layout-margin</code> (10px/50px/150px) → 
+                    </div>
+                  </div>
+                </div>
+              </div>
+              
+              <div>
+                <div className="pobut_body" style={{ marginBottom: "var(--space-10)" }}>2. <strong>Vertical Stacking</strong> (uses <code>--layout-gap-*</code>):</div>
+                <div className="fe-stack-2" style={{ padding: "var(--space-10)", background: "var(--sys-surface)", border: "2px dashed var(--sys-border-strong)", borderRadius: "var(--radius-lg)" }}>
+                  <div style={{ padding: "var(--space-20)", background: "var(--sys-accent-secondary)", borderRadius: "var(--radius-lg)", textAlign: "center" }} className="pobut_caption">Section 1</div>
+                  <div style={{ padding: "var(--space-20)", background: "var(--sys-accent-secondary)", borderRadius: "var(--radius-lg)", textAlign: "center" }} className="pobut_caption">Section 2</div>
+                  <div style={{ padding: "var(--space-20)", background: "var(--sys-accent-secondary)", borderRadius: "var(--radius-lg)", textAlign: "center" }} className="pobut_caption">Section 3</div>
+                  <div className="pobut_caption" style={{ textAlign: "center", marginTop: "var(--space-10)" }}>
+                    Gap between sections = <code>--layout-gap-2</code> (20px/20px/50px)
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div style={{ marginTop: "var(--space-20)", padding: "var(--space-20)", background: "var(--sys-surface-2)", borderRadius: "var(--radius-lg)" }}>
+            <h4 className="pobut_H3" style={{ marginBottom: "var(--space-20)" }}>Current Usage in Your App</h4>
+            <div className="pobut_caption fe-stack-1">
+              <div><strong>✅ Currently Used:</strong></div>
+              <div>• <code>fe-page</code> - Used in design-system page (adds horizontal padding)</div>
+              <div>• <code>fe-stack-*</code> - Used in design-system page (adds vertical spacing between children)</div>
+              <div>• <code>fe-gap-*</code> - Used in design-system page (adds gap in flex/grid layouts)</div>
+              <div style={{ marginTop: "var(--space-10)" }}><strong>⚠️ Not Yet Used:</strong></div>
+              <div>• Most other pages don't use <code>fe-page</code> class yet</div>
+              <div>• Pages like <code>/shop</code>, <code>/products/[slug]</code> should add <code>className="fe-page"</code> to their containers</div>
+            </div>
+          </div>
+
+          <p className="pobut_caption" style={{ marginTop: "var(--space-20)" }}>
+            Edit: <code>src/app/styles/Spacing/spacing-tokens.css</code>
+          </p>
         </div>
       </section>
 
