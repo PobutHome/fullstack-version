@@ -520,14 +520,14 @@ export const seed = async ({
           {
             link: {
               type: 'custom',
-              label: 'Shop',
+              label: 'Магазин',
               url: '/shop',
             },
           },
           {
             link: {
               type: 'custom',
-              label: 'Account',
+              label: 'Акаунт',
               url: '/account',
             },
           },
@@ -541,31 +541,15 @@ export const seed = async ({
           {
             link: {
               type: 'custom',
-              label: 'Admin',
+              label: 'Адмінка',
               url: '/admin',
             },
           },
           {
             link: {
               type: 'custom',
-              label: 'Find my order',
+              label: 'Знайти замовлення',
               url: '/find-order',
-            },
-          },
-          {
-            link: {
-              type: 'custom',
-              label: 'Source Code',
-              newTab: true,
-              url: 'https://github.com/payloadcms/payload/tree/main/templates/website',
-            },
-          },
-          {
-            link: {
-              type: 'custom',
-              label: 'Payload',
-              newTab: true,
-              url: 'https://payloadcms.com/',
             },
           },
         ],

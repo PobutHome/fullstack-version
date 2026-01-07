@@ -138,7 +138,7 @@ export const ProductsCollection: CollectionOverride = ({ defaultCollection }) =>
               blocks: [CallToAction, Content, MediaBlock],
             },
           ],
-          label: 'Content',
+          label: 'Контент',
         },
         {
           fields: [
@@ -166,7 +166,7 @@ export const ProductsCollection: CollectionOverride = ({ defaultCollection }) =>
               relationTo: 'products',
             },
           ],
-          label: 'Product Details',
+          label: 'Деталі товару',
         },
         {
           name: 'meta',

@@ -12,7 +12,7 @@ export const DeliveryMethods: CollectionConfig = {
     update: adminOnly,
   },
   admin: {
-    group: 'Shop',
+    group: 'Магазин',
     useAsTitle: 'title',
   },
   fields: [
@@ -29,7 +29,7 @@ export const DeliveryMethods: CollectionConfig = {
       required: true,
       defaultValue: 0,
       admin: {
-        description: 'Delivery fee in base units (e.g. 2500 = ₴25.00).',
+        description: 'Вартість доставки в базових одиницях (наприклад, 2500 = ₴25.00).',
       },
     },
     {

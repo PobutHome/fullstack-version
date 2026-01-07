@@ -1025,7 +1025,7 @@ export interface DeliveryMethod {
   id: string;
   title: string;
   /**
-   * Delivery fee in base units (e.g. 2500 = ₴25.00).
+   * Вартість доставки в базових одиницях (наприклад, 2500 = ₴25.00).
    */
   price: number;
   isActive?: boolean | null;

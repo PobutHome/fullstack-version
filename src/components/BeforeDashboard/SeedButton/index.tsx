@@ -1,15 +1,15 @@
 'use client'
 
-import React, { Fragment, useCallback, useState, MouseEvent } from 'react'
 import { toast } from '@payloadcms/ui'
+import React, { Fragment, MouseEvent, useCallback, useState } from 'react'
 
 import './index.scss'
 
 const SuccessMessage: React.FC = () => (
   <div>
-    Database seeded! You can now{' '}
+    Базу даних заповнено! Тепер можна{' '}
     <a target="_blank" href="/">
-      visit your website
+      перейти на сайт
     </a>
   </div>
 )
@@ -24,15 +24,15 @@ export const SeedButton: React.FC = () => {
       e.preventDefault()
 
       if (seeded) {
-        toast.info('Database already seeded.')
+        toast.info('Базу даних уже заповнено.')
         return
       }
       if (loading) {
-        toast.info('Seeding already in progress.')
+        toast.info('Заповнення вже виконується.')
         return
       }
       if (error) {
-        toast.error(`An error occurred, please refresh and try again.`)
+        toast.error('Сталася помилка. Онови сторінку та спробуй ще раз.')
         return
       }
 
@@ -59,9 +59,9 @@ export const SeedButton: React.FC = () => {
             }
           }),
           {
-            loading: 'Seeding with data....',
+            loading: 'Заповнюємо даними…',
             success: <SuccessMessage />,
-            error: 'An error occurred while seeding.',
+            error: 'Сталася помилка під час заповнення.',
           },
         )
       } catch (err) {
@@ -72,14 +72,14 @@ export const SeedButton: React.FC = () => {
   )
 
   let message = ''
-  if (loading) message = ' (seeding...)'
-  if (seeded) message = ' (done!)'
-  if (error) message = ` (error: ${error})`
+  if (loading) message = ' (заповнення…)'
+  if (seeded) message = ' (готово!)'
+  if (error) message = ` (помилка: ${error})`
 
   return (
     <Fragment>
       <button className="seedButton" onClick={handleClick}>
-        Seed your database
+        Заповнити базу
       </button>
       {message}
     </Fragment>
