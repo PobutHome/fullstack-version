@@ -15,7 +15,13 @@
     font-weight: inherit;
     line-height: inherit;
     text-decoration: none;
-    transition: all var(--transition-base, 200ms ease-in-out);
+    transition: 
+      background-color var(--transition-base, 200ms ease-in-out),
+      color var(--transition-base, 200ms ease-in-out),
+      border-color var(--transition-base, 200ms ease-in-out),
+      border-width var(--transition-base, 200ms ease-in-out),
+      opacity var(--transition-base, 200ms ease-in-out),
+      transform var(--transition-base, 200ms ease-in-out);
     user-select: none;
     white-space: nowrap;
   }
@@ -37,6 +43,25 @@
     border-radius: var(--btn-radius, 9999px);
   }
 
+  /* Common button properties */
+  [data-app="frontend"] .fe-btn--sm,
+  [data-app="frontend"] .fe-btn--md,
+  [data-app="frontend"] .fe-btn--lg,
+  [data-app="frontend"] .fe-btn--add-to-cart-outline,
+  [data-app="frontend"] .fe-btn--add-to-cart-filled,
+  [data-app="frontend"] .fe-btn--buy-primary,
+  [data-app="frontend"] .fe-btn--buy-secondary,
+  [data-app="frontend"] .fe-btn--buy-tertiary,
+  [data-app="frontend"] .fe-btn--more,
+  [data-app="frontend"] .fe-btn--catalog,
+  [data-app="frontend"] .fe-btn--primary,
+  [data-app="frontend"] .fe-btn--outline,
+  [data-app="frontend"] .fe-btn--danger,
+  [data-app="frontend"] .fe-btn--qty {
+    border-radius: var(--btn-radius, 9999px);
+    padding: var(--btn-py, 0.625rem) var(--btn-px, 2.25rem);
+  }
+
   /* Size variants */
   [data-app="frontend"] .fe-btn--sm {
     padding: var(--btn-py, 0.625rem) 1.5rem;
@@ -49,7 +74,6 @@
   }
 
   [data-app="frontend"] .fe-btn--lg {
-    padding: var(--btn-py, 0.625rem) var(--btn-px, 2.25rem);
     font-size: inherit;
   }
 
@@ -67,8 +91,6 @@
     background: transparent;
     color: var(--sys-accent, var(--color-green));
     border: 1px solid var(--sys-accent, var(--color-green));
-    border-radius: var(--btn-radius, 9999px);
-    padding: var(--btn-py, 0.625rem) var(--btn-px, 2.25rem);
   }
 
   [data-app="frontend"] .fe-btn--add-to-cart-outline:hover {
@@ -86,8 +108,6 @@
     background: var(--sys-accent-active, var(--color-green-click));
     color: var(--sys-text-inverse, var(--color-white));
     border: 1px solid transparent;
-    border-radius: var(--btn-radius, 9999px);
-    padding: var(--btn-py, 0.625rem) var(--btn-px, 2.25rem);
   }
 
   [data-app="frontend"] .fe-btn--add-to-cart-filled:hover {
@@ -107,8 +127,6 @@
     background: var(--sys-accent, var(--color-green));
     color: var(--sys-text-inverse, var(--color-white));
     border: 1px solid transparent;
-    border-radius: var(--btn-radius, 9999px);
-    padding: var(--btn-py, 0.625rem) var(--btn-px, 2.25rem);
   }
 
   [data-app="frontend"] .fe-btn--buy-primary:hover {
@@ -124,8 +142,6 @@
     background: var(--sys-accent-secondary, var(--color-green-hover));
     color: var(--sys-text, var(--color-blue));
     border: 1px solid transparent;
-    border-radius: var(--btn-radius, 9999px);
-    padding: var(--btn-py, 0.625rem) var(--btn-px, 2.25rem);
   }
 
   [data-app="frontend"] .fe-btn--buy-secondary:hover {
@@ -143,8 +159,6 @@
     background: var(--sys-accent-tertiary, var(--color-green-click));
     color: var(--sys-text-inverse, var(--color-white));
     border: 1px solid transparent;
-    border-radius: var(--btn-radius, 9999px);
-    padding: var(--btn-py, 0.625rem) var(--btn-px, 2.25rem);
   }
 
   [data-app="frontend"] .fe-btn--buy-tertiary:hover {
@@ -163,8 +177,6 @@
     background: var(--color-black, #000000);
     color: var(--sys-accent, var(--color-green));
     border: 1px solid var(--sys-accent, var(--color-green));
-    border-radius: var(--btn-radius, 9999px);
-    padding: var(--btn-py, 0.625rem) var(--btn-px, 2.25rem);
   }
 
   [data-app="frontend"] .fe-btn--more:hover {
@@ -186,8 +198,6 @@
     background: var(--color-black, #000000);
     color: var(--sys-accent, var(--color-green));
     border: 1px solid var(--sys-accent, var(--color-green));
-    border-radius: var(--btn-radius, 9999px);
-    padding: var(--btn-py, 0.625rem) var(--btn-px, 2.25rem);
   }
 
   /* Hover state - thicker border */
@@ -213,8 +223,6 @@
     background: var(--sys-btn-primary-bg, var(--sys-accent));
     color: var(--sys-btn-primary-fg, var(--sys-text-inverse));
     border: 1px solid transparent;
-    border-radius: var(--btn-radius, 9999px);
-    padding: var(--btn-py, 0.625rem) var(--btn-px, 2.25rem);
   }
 
   [data-app="frontend"] .fe-btn--primary:hover {
@@ -229,8 +237,6 @@
     background: transparent;
     color: var(--sys-btn-outline-fg, var(--sys-accent));
     border: 1px solid var(--sys-btn-outline-border, var(--sys-accent));
-    border-radius: var(--btn-radius, 9999px);
-    padding: var(--btn-py, 0.625rem) var(--btn-px, 2.25rem);
   }
 
   [data-app="frontend"] .fe-btn--outline:hover {
@@ -247,8 +253,6 @@
     background: var(--sys-danger, var(--color-error));
     color: var(--sys-text-inverse, var(--color-white));
     border: 1px solid transparent;
-    border-radius: var(--btn-radius, 9999px);
-    padding: var(--btn-py, 0.625rem) var(--btn-px, 2.25rem);
   }
 
   [data-app="frontend"] .fe-btn--danger:hover {
@@ -263,8 +267,6 @@
     background: transparent;
     color: var(--sys-btn-interactive-fg, var(--sys-interactive));
     border: 1px solid var(--sys-btn-interactive-border, var(--sys-border-interactive));
-    border-radius: var(--btn-radius, 9999px);
-    padding: var(--btn-py, 0.625rem) var(--btn-px, 2.25rem);
   }
 
   [data-app="frontend"] .fe-btn--qty:hover {
