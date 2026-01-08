@@ -1,5 +1,6 @@
 // storage-adapter-import-placeholder
 import { mongooseAdapter } from '@payloadcms/db-mongodb'
+import { s3Storage } from '@payloadcms/storage-s3'
 import { ru } from '@payloadcms/translations/languages/ru'
 import { uk } from '@payloadcms/translations/languages/uk'
 
@@ -29,6 +30,13 @@ import { plugins } from './plugins'
 
 const filename = fileURLToPath(import.meta.url)
 const dirname = path.dirname(filename)
+
+const isR2Enabled = Boolean(
+  process.env.R2_BUCKET &&
+    process.env.R2_ACCESS_KEY_ID &&
+    process.env.R2_SECRET_ACCESS_KEY &&
+    process.env.R2_ACCOUNT_ID,
+)
 
 const adminSupportedLanguages: any = {
   uk,
@@ -394,6 +402,25 @@ export default buildConfig({
   plugins: [
     ...plugins,
     // storage-adapter-placeholder
+    ...(isR2Enabled
+      ? [
+          s3Storage({
+            bucket: process.env.R2_BUCKET as string,
+            collections: {
+              media: true,
+            },
+            config: {
+              credentials: {
+                accessKeyId: process.env.R2_ACCESS_KEY_ID as string,
+                secretAccessKey: process.env.R2_SECRET_ACCESS_KEY as string,
+              },
+              endpoint: `https://${process.env.R2_ACCOUNT_ID as string}.r2.cloudflarestorage.com`,
+              forcePathStyle: true,
+              region: 'auto',
+            },
+          }),
+        ]
+      : []),
   ],
   secret: process.env.PAYLOAD_SECRET || '',
   typescript: {
