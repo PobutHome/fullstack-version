@@ -1,4 +1,7 @@
 "use server"
+
+import { Button } from "@/components/Button"
+
 export default async function DesignSystemPage() {
   return (
     <div data-app="frontend" className="fe-page fe-stack-3" style={{ paddingTop: "var(--space-20)", paddingBottom: "var(--space-50)" }}>
@@ -417,11 +420,11 @@ export default async function DesignSystemPage() {
                 <div>
                   <div className="pobut_body" style={{ marginBottom: "var(--space-10)" }}><strong>Buttons:</strong></div>
                   <div className="pobut_caption fe-stack-1">
-                    <div><code>--sys-btn-primary-bg</code> → Primary button background</div>
-                    <div><code>--sys-btn-secondary-bg</code> → Secondary button background</div>
-                    <div><code>--sys-btn-tertiary-bg</code> → Tertiary button background</div>
-                    <div><code>--sys-btn-outline-border</code> → Outline button border</div>
-                    <div><code>--sys-btn-interactive-border</code> → Interactive button border</div>
+                    <div><code>--sys-btn-primary-bg</code> → Primary Button background</div>
+                    <div><code>--sys-btn-secondary-bg</code> → Secondary Button background</div>
+                    <div><code>--sys-btn-tertiary-bg</code> → Tertiary Button background</div>
+                    <div><code>--sys-btn-outline-border</code> → Outline Button border</div>
+                    <div><code>--sys-btn-interactive-border</code> → Interactive Button border</div>
                   </div>
                 </div>
                 <div>
@@ -625,7 +628,7 @@ export default async function DesignSystemPage() {
       {/* Buttons Section */}
       <section className="fe-stack-2">
         <h2 className="pobut_H2">Buttons</h2>
-        <p className="pobut_caption">All buttons use rounded pill shape (border-radius: 9999px). All use semantic tokens from <code>semantic-tokens.css</code></p>
+        <p className="pobut_caption">All Buttons use rounded pill shape (border-radius: 9999px). All use semantic tokens from <code>semantic-tokens.css</code></p>
         
         <div className="fe-card fe-stack-2" style={{ padding: "var(--space-20)" }}>
           <div>
@@ -633,8 +636,8 @@ export default async function DesignSystemPage() {
             <div className="fe-stack-2">
               <div className="fe-stack-1">
                 <div className="flex flex-wrap fe-gap-2">
-                  <button className="fe-btn fe-btn--add-to-cart-outline">Додати в кошик</button>
-                  <button className="fe-btn fe-btn--add-to-cart-outline" disabled>Додати в кошик</button>
+                  <Button variant="add-to-cart-outline">Додати в кошик</Button>
+                  <Button variant="add-to-cart-outline" disabled>Додати в кошик</Button>
                 </div>
                 <p className="pobut_caption">
                   <code>variant="add-to-cart-outline"</code> or <code>className="fe-btn fe-btn--add-to-cart-outline"</code>
@@ -647,8 +650,8 @@ export default async function DesignSystemPage() {
 
               <div className="fe-stack-1">
                 <div className="flex flex-wrap fe-gap-2">
-                  <button className="fe-btn fe-btn--add-to-cart-filled">Додати в кошик</button>
-                  <button className="fe-btn fe-btn--add-to-cart-filled" disabled>Додати в кошик</button>
+                  <Button variant="add-to-cart-filled">Додати в кошик</Button>
+                  <Button variant="add-to-cart-filled" disabled>Додати в кошик</Button>
                 </div>
                 <p className="pobut_caption">
                   <code>variant="add-to-cart-filled"</code> or <code>className="fe-btn fe-btn--add-to-cart-filled"</code>
@@ -666,8 +669,8 @@ export default async function DesignSystemPage() {
             <div className="fe-stack-2">
               <div className="fe-stack-1">
                 <div className="flex flex-wrap fe-gap-2">
-                  <button className="fe-btn fe-btn--buy-primary">Купити</button>
-                  <button className="fe-btn fe-btn--buy-primary" disabled>Купити</button>
+                  <Button variant="buy-primary">Купити</Button>
+                  <Button variant="buy-primary" disabled>Купити</Button>
                 </div>
                 <p className="pobut_caption">
                   <code>variant="buy-primary"</code> or <code>className="fe-btn fe-btn--buy-primary"</code>
@@ -678,8 +681,8 @@ export default async function DesignSystemPage() {
 
               <div className="fe-stack-1">
                 <div className="flex flex-wrap fe-gap-2">
-                  <button className="fe-btn fe-btn--buy-secondary">Купити</button>
-                  <button className="fe-btn fe-btn--buy-secondary" disabled>Купити</button>
+                  <Button variant="buy-secondary">Купити</Button>
+                  <Button variant="buy-secondary" disabled>Купити</Button>
                 </div>
                 <p className="pobut_caption">
                   <code>variant="buy-secondary"</code> or <code>className="fe-btn fe-btn--buy-secondary"</code>
@@ -690,8 +693,8 @@ export default async function DesignSystemPage() {
 
               <div className="fe-stack-1">
                 <div className="flex flex-wrap fe-gap-2">
-                  <button className="fe-btn fe-btn--buy-tertiary">Купити</button>
-                  <button className="fe-btn fe-btn--buy-tertiary" disabled>Купити</button>
+                  <Button variant="buy-tertiary">Купити</Button>
+                  <Button variant="buy-tertiary" disabled>Купити</Button>
                 </div>
                 <p className="pobut_caption">
                   <code>variant="buy-tertiary"</code> or <code>className="fe-btn fe-btn--buy-tertiary"</code>
@@ -706,14 +709,12 @@ export default async function DesignSystemPage() {
             <h3 className="pobut_H3" style={{ marginBottom: "var(--space-20)", marginTop: "var(--space-20)" }}>More Button (Більше)</h3>
             <div className="fe-stack-1">
               <div className="flex flex-wrap fe-gap-2">
-                <button className="fe-btn fe-btn--more">
+                <Button variant="more" icon={<span>▼</span>} iconPosition="right">
                   Більше
-                  <span style={{ marginLeft: "0.5rem" }}>▼</span>
-                </button>
-                <button className="fe-btn fe-btn--more" disabled>
+                </Button>
+                <Button variant="more" disabled icon={<span>▼</span>} iconPosition="right">
                   Більше
-                  <span style={{ marginLeft: "0.5rem" }}>▼</span>
-                </button>
+                </Button>
               </div>
               <p className="pobut_caption">
                 <code>variant="more"</code> or <code>className="fe-btn fe-btn--more"</code>
@@ -730,14 +731,12 @@ export default async function DesignSystemPage() {
             <div className="fe-stack-2">
               <div className="fe-stack-1">
                 <div className="flex flex-wrap fe-gap-2">
-                  <button className="fe-btn fe-btn--catalog">
-                    <span style={{ marginRight: "0.5rem" }}>☰</span>
+                  <Button variant="catalog" icon={<span>☰</span>} iconPosition="left">
                     Каталог
-                  </button>
-                  <button className="fe-btn fe-btn--catalog fe-btn--catalog-active">
-                    <span style={{ marginRight: "0.5rem" }}>☰</span>
+                  </Button>
+                  <Button variant="catalog" icon={<span>☰</span>} iconPosition="left" className="fe-btn--catalog-active">
                     Каталог
-                  </button>
+                  </Button>
                 </div>
                 <p className="pobut_caption">
                   <code>variant="catalog"</code> or <code>className="fe-btn fe-btn--catalog"</code>
@@ -755,8 +754,8 @@ export default async function DesignSystemPage() {
             <div className="fe-stack-2">
               <div className="fe-stack-1">
                 <div className="flex flex-wrap fe-gap-2">
-                  <button className="fe-btn fe-btn--primary">Primary Button</button>
-                  <button className="fe-btn fe-btn--primary" disabled>Primary Disabled</button>
+                  <Button variant="primary">Primary Button</Button>
+                  <Button variant="primary" disabled>Primary Disabled</Button>
                 </div>
                 <p className="pobut_caption">
                   <code>variant="primary"</code> or <code>className="fe-btn fe-btn--primary"</code>
@@ -765,8 +764,8 @@ export default async function DesignSystemPage() {
 
               <div className="fe-stack-1">
                 <div className="flex flex-wrap fe-gap-2">
-                  <button className="fe-btn fe-btn--outline">Outline Button</button>
-                  <button className="fe-btn fe-btn--outline" disabled>Outline Disabled</button>
+                  <Button variant="outline">Outline Button</Button>
+                  <Button variant="outline" disabled>Outline Disabled</Button>
                 </div>
                 <p className="pobut_caption">
                   <code>variant="outline"</code> or <code>className="fe-btn fe-btn--outline"</code>
@@ -775,8 +774,8 @@ export default async function DesignSystemPage() {
 
               <div className="fe-stack-1">
                 <div className="flex flex-wrap fe-gap-2">
-                  <button className="fe-btn fe-btn--danger">Danger Button</button>
-                  <button className="fe-btn fe-btn--danger" disabled>Danger Disabled</button>
+                  <Button variant="danger">Danger Button</Button>
+                  <Button variant="danger" disabled>Danger Disabled</Button>
                 </div>
                 <p className="pobut_caption">
                   <code>variant="danger"</code> or <code>className="fe-btn fe-btn--danger"</code>
@@ -785,8 +784,8 @@ export default async function DesignSystemPage() {
 
               <div className="fe-stack-1">
                 <div className="flex flex-wrap fe-gap-2">
-                  <button className="fe-btn fe-btn--qty">Quantity Button</button>
-                  <button className="fe-btn fe-btn--qty" disabled>Quantity Disabled</button>
+                  <Button variant="qty">Quantity Button</Button>
+                  <Button variant="qty" disabled>Quantity Disabled</Button>
                 </div>
                 <p className="pobut_caption">
                   <code>variant="qty"</code> or <code>className="fe-btn fe-btn--qty"</code>
@@ -804,7 +803,7 @@ export default async function DesignSystemPage() {
               <code style={{ fontSize: "0.9em" }}>{`<Button variant="add-to-cart-outline">Додати в кошик</Button>`}</code>
               <br />
               <br />
-              <strong>Edit:</strong> <code>src/app/styles/Buttons/button.css</code> & <code>src/app/styles/Buttons/button-tokens.css</code>
+              <strong>Edit:</strong> <code>src/app/styles/Buttons/Button.css</code> & <code>src/app/styles/Buttons/Button-tokens.css</code>
             </p>
           </div>
         </div>
@@ -922,7 +921,7 @@ export default async function DesignSystemPage() {
             <div className="pobut_caption fe-availability">● в наявності</div>
               <div className="pobut_body">Пакет паперовий / 220*280*120 мм / коричневий / 100 шт</div>
               <div className="pobut_H3 fe-price">255 грн</div>
-            <button className="fe-btn fe-btn--outline">Додати в кошик</button>
+            <Button className="fe-btn fe-btn--outline">Додати в кошик</Button>
             </div>
           </div>
           <p className="pobut_caption">
@@ -1069,15 +1068,15 @@ export default async function DesignSystemPage() {
               <p className="pobut_body">
                 <code>src/app/styles/frontend.design-system.css</code> - Cards, badges, links, inputs, nav, products
                 <br />
-                <code>src/components/Button/button.css</code> - Button styles
+                <code>src/components/Button/Button.css</code> - Button styles
                 <br />
-                <code>src/app/styles/Buttons/button-tokens.css</code> - Button tokens
+                <code>src/app/styles/Buttons/Button-tokens.css</code> - Button tokens
               </p>
             </div>
             <div>
               <div className="pobut_H3">Base Styles</div>
               <p className="pobut_body">
-                <code>src/app/(app)/globals.css</code> - Base HTML element styles (h1-h6, p, a, button, etc.)
+                <code>src/app/(app)/globals.css</code> - Base HTML element styles (h1-h6, p, a, Button, etc.)
               </p>
             </div>
           </div>

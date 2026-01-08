@@ -38,6 +38,11 @@
     color: var(--sys-text);
   }
 
+  /* Buttons override pobut_body color - inherit from button */
+  [data-app="frontend"] .fe-btn .pobut_body {
+    color: inherit;
+  }
+
   [data-app="frontend"] .pobut_caption {
     font-family: var(--font-family-body);
     font-size: var(--t-caption-size);

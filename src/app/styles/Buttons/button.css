@@ -20,6 +20,11 @@
     white-space: nowrap;
   }
 
+  /* Ensure button icon inherits button color */
+  [data-app="frontend"] .fe-btn .fe-btn__icon {
+    color: inherit;
+  }
+
   [data-app="frontend"] .fe-btn:disabled {
     opacity: 0.5;
     cursor: not-allowed;
