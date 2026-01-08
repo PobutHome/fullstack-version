@@ -40,19 +40,16 @@
   /* Size variants */
   [data-app="frontend"] .fe-btn--sm {
     padding: var(--btn-py, 0.625rem) 1.5rem;
-    min-height: 2.5rem;
     font-size: 0.875rem;
   }
 
   [data-app="frontend"] .fe-btn--md {
     padding: var(--btn-py, 0.625rem) 2rem;
-    min-height: 3rem;
     font-size: 1rem;
   }
 
   [data-app="frontend"] .fe-btn--lg {
     padding: var(--btn-py, 0.625rem) var(--btn-px, 2.25rem);
-    min-height: var(--btn-height, 3.25rem);
     font-size: inherit;
   }
 
@@ -72,7 +69,6 @@
     border: 1px solid var(--sys-accent, var(--color-green));
     border-radius: var(--btn-radius, 9999px);
     padding: var(--btn-py, 0.625rem) var(--btn-px, 2.25rem);
-    min-height: var(--btn-height, 3.25rem);
   }
 
   [data-app="frontend"] .fe-btn--add-to-cart-outline:hover {
@@ -92,7 +88,6 @@
     border: 1px solid transparent;
     border-radius: var(--btn-radius, 9999px);
     padding: var(--btn-py, 0.625rem) var(--btn-px, 2.25rem);
-    min-height: var(--btn-height, 3.25rem);
   }
 
   [data-app="frontend"] .fe-btn--add-to-cart-filled:hover {
@@ -114,7 +109,6 @@
     border: 1px solid transparent;
     border-radius: var(--btn-radius, 9999px);
     padding: var(--btn-py, 0.625rem) var(--btn-px, 2.25rem);
-    min-height: var(--btn-height, 3.25rem);
   }
 
   [data-app="frontend"] .fe-btn--buy-primary:hover {
@@ -132,7 +126,6 @@
     border: 1px solid transparent;
     border-radius: var(--btn-radius, 9999px);
     padding: var(--btn-py, 0.625rem) var(--btn-px, 2.25rem);
-    min-height: var(--btn-height, 3.25rem);
   }
 
   [data-app="frontend"] .fe-btn--buy-secondary:hover {
@@ -152,7 +145,6 @@
     border: 1px solid transparent;
     border-radius: var(--btn-radius, 9999px);
     padding: var(--btn-py, 0.625rem) var(--btn-px, 2.25rem);
-    min-height: var(--btn-height, 3.25rem);
   }
 
   [data-app="frontend"] .fe-btn--buy-tertiary:hover {
@@ -173,7 +165,6 @@
     border: 1px solid var(--sys-accent, var(--color-green));
     border-radius: var(--btn-radius, 9999px);
     padding: var(--btn-py, 0.625rem) var(--btn-px, 2.25rem);
-    min-height: var(--btn-height, 3.25rem);
   }
 
   [data-app="frontend"] .fe-btn--more:hover {
@@ -197,7 +188,6 @@
     border: 1px solid var(--sys-accent, var(--color-green));
     border-radius: var(--btn-radius, 9999px);
     padding: var(--btn-py, 0.625rem) var(--btn-px, 2.25rem);
-    min-height: var(--btn-height, 3.25rem);
   }
 
   /* Hover state - thicker border */
@@ -225,7 +215,6 @@
     border: 1px solid transparent;
     border-radius: var(--btn-radius, 9999px);
     padding: var(--btn-py, 0.625rem) var(--btn-px, 2.25rem);
-    min-height: var(--btn-height, 3.25rem);
   }
 
   [data-app="frontend"] .fe-btn--primary:hover {
@@ -242,7 +231,6 @@
     border: 1px solid var(--sys-btn-outline-border, var(--sys-accent));
     border-radius: var(--btn-radius, 9999px);
     padding: var(--btn-py, 0.625rem) var(--btn-px, 2.25rem);
-    min-height: var(--btn-height, 3.25rem);
   }
 
   [data-app="frontend"] .fe-btn--outline:hover {
@@ -261,7 +249,6 @@
     border: 1px solid transparent;
     border-radius: var(--btn-radius, 9999px);
     padding: var(--btn-py, 0.625rem) var(--btn-px, 2.25rem);
-    min-height: var(--btn-height, 3.25rem);
   }
 
   [data-app="frontend"] .fe-btn--danger:hover {
@@ -278,7 +265,6 @@
     border: 1px solid var(--sys-btn-interactive-border, var(--sys-border-interactive));
     border-radius: var(--btn-radius, 9999px);
     padding: var(--btn-py, 0.625rem) var(--btn-px, 2.25rem);
-    min-height: var(--btn-height, 3.25rem);
   }
 
   [data-app="frontend"] .fe-btn--qty:hover {

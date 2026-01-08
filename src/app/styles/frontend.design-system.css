@@ -41,6 +41,7 @@
   /* Buttons override pobut_body color - inherit from button */
   [data-app="frontend"] .fe-btn .pobut_body {
     color: inherit;
+    line-height: 1;
   }
 
   [data-app="frontend"] .pobut_caption {

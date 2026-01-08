@@ -47,3 +47,10 @@
   --btn-danger-bg-active: var(--sys-danger-active);
   --btn-danger-fg: var(--sys-text-inverse);
 }
+
+@media (max-width: 48rem) {
+  :where([data-app="frontend"]) {
+    --btn-py: 0.625rem; 
+    --btn-px: 1.25rem; 
+  }
+}
