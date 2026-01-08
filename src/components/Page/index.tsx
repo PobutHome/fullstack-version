@@ -1,16 +1,10 @@
-import { Container } from "@/components/Container"
 import type { HTMLAttributes, ReactNode } from "react"
-
-type ContainerVariant = "default" | "narrow" | "wide"
 
 type Props = HTMLAttributes<HTMLDivElement> & {
   children: ReactNode
-  /** Container variant (default: "default"). Set to null to disable container wrapper. */
-  containerVariant?: ContainerVariant | null
 }
 
 export function Page({
-  containerVariant = "default",
   className = "",
   children,
   style,
@@ -26,13 +20,7 @@ export function Page({
       style={style}
       {...props}
     >
-      {containerVariant !== null ? (
-        <Container variant={containerVariant}>
-          {children}
-        </Container>
-      ) : (
-        children
-      )}
+      {children}
     </div>
   )
 }

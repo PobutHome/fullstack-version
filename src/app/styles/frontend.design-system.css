@@ -66,6 +66,15 @@
   [data-app="frontend"] .fe-gap-1 { gap: var(--layout-gap-1); }
   [data-app="frontend"] .fe-gap-2 { gap: var(--layout-gap-2); }
   [data-app="frontend"] .fe-gap-3 { gap: var(--layout-gap-3, var(--layout-gap-2)); }
+
+  /* Raw spacing scale */
+  [data-app="frontend"] .fe-p-10 { padding: var(--space-10); }
+  [data-app="frontend"] .fe-p-20 { padding: var(--space-20); }
+  [data-app="frontend"] .fe-p-30 { padding: var(--space-30); }
+  [data-app="frontend"] .fe-p-50 { padding: var(--space-50); }
+
+  [data-app="frontend"] .fe-mt-10 { margin-top: var(--space-10); }
+  [data-app="frontend"] .fe-mt-20 { margin-top: var(--space-20); }
 }
 
 /* ---------------------------

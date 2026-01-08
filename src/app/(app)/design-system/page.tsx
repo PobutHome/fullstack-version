@@ -6,9 +6,11 @@ import { Page } from "@/components/Page"
 
 export default async function DesignSystemPage() {
   return (
-    <Page data-app="frontend" containerVariant="default">
-      {/* Hero Section */}
-      <section className="fe-stack-2">
+    <Page data-app="frontend">
+      <Container>
+        <div className="fe-stack-3" style={{ paddingTop: "var(--space-20)", paddingBottom: "var(--space-50)" }}>
+          {/* Hero Section */}
+          <section className="fe-stack-2">
         <h1 className="pobut_H1">Design System</h1>
         <p className="pobut_body">Complete reference guide for all design tokens, components, and utilities used in the frontend application.</p>
         <div className="fe-stack-1">
@@ -1041,79 +1043,57 @@ export default async function DesignSystemPage() {
           <div>
             <h3 className="pobut_H3" style={{ marginBottom: "var(--space-20)" }}>Page Component</h3>
             <p className="pobut_caption" style={{ marginBottom: "var(--space-20)" }}>
-              Simple page wrapper. Automatically wraps children in a Container component.
+              Simple page wrapper with no padding. Use Container component explicitly inside when you need width constraints.
             </p>
 
             <div className="fe-stack-2">
-              {/* Default Container */}
+              {/* Page with Container */}
               <div className="fe-stack-1">
-                <div className="pobut_body" style={{ marginBottom: "var(--space-10)" }}><strong>Default Container (Default)</strong></div>
+                <div className="pobut_body" style={{ marginBottom: "var(--space-10)" }}><strong>Page with Container</strong></div>
                 <div style={{ padding: "var(--space-20)", background: "var(--sys-surface-2)", borderRadius: "var(--radius-lg)", border: "1px dashed var(--sys-border)" }}>
                   <Page>
-                    <div className="fe-card fe-stack-2" style={{ padding: "var(--space-20)" }}>
-                      <div className="pobut_body">Page Content</div>
-                      <p className="pobut_caption">Automatically wrapped in Container (max-width: 1440px)</p>
-                    </div>
+                    <Container>
+                      <div className="fe-card fe-stack-2" style={{ padding: "var(--space-20)" }}>
+                        <div className="pobut_body">Page Content</div>
+                        <p className="pobut_caption">Container wraps content (max-width: 1440px)</p>
+                      </div>
+                    </Container>
                   </Page>
                 </div>
                 <p className="pobut_caption">
-                  <code>{`<Page>...</Page>`}</code>
+                  <code>{`<Page>`}</code>
                   <br />
-                  Default container variant (max-width: 1440px)
+                  <code style={{ paddingLeft: "1rem" }}>{`<Container>...</Container>`}</code>
+                  <br />
+                  Container must be used explicitly inside Page
                 </p>
               </div>
 
-              {/* Narrow Container */}
+              {/* Page with Full-Width Section */}
               <div className="fe-stack-1">
-                <div className="pobut_body" style={{ marginBottom: "var(--space-10)" }}><strong>Narrow Container</strong></div>
+                <div className="pobut_body" style={{ marginBottom: "var(--space-10)" }}><strong>Page with Full-Width Section</strong></div>
                 <div style={{ padding: "var(--space-20)", background: "var(--sys-surface-2)", borderRadius: "var(--radius-lg)", border: "1px dashed var(--sys-border)" }}>
-                  <Page containerVariant="narrow">
-                    <div className="fe-card fe-stack-2" style={{ padding: "var(--space-20)" }}>
-                      <div className="pobut_body">Page Content</div>
-                      <p className="pobut_caption">Narrow container (max-width: 1200px)</p>
+                  <Page>
+                    <div className="fe-card fe-stack-2" style={{ padding: "var(--space-20)", background: "var(--sys-surface-accent)" }}>
+                      <div className="pobut_body" style={{ color: "var(--sys-text-on-accent)" }}>Full-Width Section</div>
+                      <p className="pobut_caption" style={{ color: "var(--sys-text-on-accent)" }}>This section spans full page width</p>
                     </div>
+                    <Container>
+                      <div className="fe-card fe-stack-2" style={{ padding: "var(--space-20)" }}>
+                        <div className="pobut_body">Contained Section</div>
+                        <p className="pobut_caption">This section is constrained by Container</p>
+                      </div>
+                    </Container>
                   </Page>
                 </div>
                 <p className="pobut_caption">
-                  <code>{`<Page containerVariant="narrow">...</Page>`}</code>
+                  <code>{`<Page>`}</code>
                   <br />
-                  Narrow container variant (max-width: 1200px)
-                </p>
-              </div>
-
-              {/* Wide Container */}
-              <div className="fe-stack-1">
-                <div className="pobut_body" style={{ marginBottom: "var(--space-10)" }}><strong>Wide Container</strong></div>
-                <div style={{ padding: "var(--space-20)", background: "var(--sys-surface-2)", borderRadius: "var(--radius-lg)", border: "1px dashed var(--sys-border)" }}>
-                  <Page containerVariant="wide">
-                    <div className="fe-card fe-stack-2" style={{ padding: "var(--space-20)" }}>
-                      <div className="pobut_body">Page Content</div>
-                      <p className="pobut_caption">Wide container (max-width: 1600px)</p>
-                    </div>
-                  </Page>
-                </div>
-                <p className="pobut_caption">
-                  <code>{`<Page containerVariant="wide">...</Page>`}</code>
+                  <code style={{ paddingLeft: "1rem" }}>{`<div>Full-width content</div>`}</code>
                   <br />
-                  Wide container variant (max-width: 1600px)
-                </p>
-              </div>
-
-              {/* No Container */}
-              <div className="fe-stack-1">
-                <div className="pobut_body" style={{ marginBottom: "var(--space-10)" }}><strong>No Container (Full Width)</strong></div>
-                <div style={{ padding: "var(--space-20)", background: "var(--sys-surface-2)", borderRadius: "var(--radius-lg)", border: "1px dashed var(--sys-border)" }}>
-                  <Page containerVariant={null}>
-                    <div className="fe-card fe-stack-2" style={{ padding: "var(--space-20)" }}>
-                      <div className="pobut_body">Page Content</div>
-                      <p className="pobut_caption">No container wrapper - full width within page padding</p>
-                    </div>
-                  </Page>
-                </div>
-                <p className="pobut_caption">
-                  <code>{`<Page containerVariant={null}>...</Page>`}</code>
+                  <code style={{ paddingLeft: "1rem" }}>{`<Container>...</Container>`}</code>
                   <br />
-                  Disable container wrapper for full-width layouts
+                  Mix full-width and contained sections as needed
                 </p>
               </div>
             </div>
@@ -1124,29 +1104,27 @@ export default async function DesignSystemPage() {
                 <br />
                 <code style={{ fontSize: "0.9em" }}>{`import { Page } from '@/components/Page'`}</code>
                 <br />
-                <code style={{ fontSize: "0.9em" }}>{`<Page>...</Page>`}</code>
+                <code style={{ fontSize: "0.9em" }}>{`import { Container } from '@/components/Container'`}</code>
                 <br />
-                <code style={{ fontSize: "0.9em" }}>{`<Page containerVariant="narrow">...</Page>`}</code>
+                <code style={{ fontSize: "0.9em" }}>{`<Page>`}</code>
                 <br />
-                <code style={{ fontSize: "0.9em" }}>{`<Page containerVariant="wide">...</Page>`}</code>
+                <code style={{ fontSize: "0.9em", paddingLeft: "1rem" }}>{`<Container>...</Container>`}</code>
                 <br />
-                <code style={{ fontSize: "0.9em" }}>{`<Page containerVariant={null}>...</Page>`}</code>
+                <code style={{ fontSize: "0.9em" }}>{`</Page>`}</code>
                 <br />
                 <br />
                 <strong>Props:</strong>
-                <br />
-                • <code>containerVariant</code>: "default" | "narrow" | "wide" | null (default: "default")
-                <br />
-                &nbsp;&nbsp;&nbsp;Controls the Container variant that wraps children. Set to null to disable container.
                 <br />
                 • Standard HTML div props (className, style, etc.)
                 <br />
                 <br />
                 <strong>Features:</strong>
                 <br />
-                • Automatically wraps children in Container component
+                • Simple wrapper with no padding
                 <br />
-                • No padding - Container handles all spacing and width constraints
+                • Use Container explicitly inside when you need width constraints
+                <br />
+                • Mix full-width sections with contained sections as needed
                 <br />
                 • Simple API: just create a new page file and return <code>{`<Page>children</Page>`}</code>
                 <br />
@@ -1232,21 +1210,23 @@ export default async function DesignSystemPage() {
             </div>
           </div>
 
-          {/* Combined Usage Example */}
+          {/* Creating a New Page Example */}
           <div style={{ marginTop: "var(--space-20)" }}>
             <h3 className="pobut_H3" style={{ marginBottom: "var(--space-20)" }}>Creating a New Page</h3>
             <p className="pobut_caption" style={{ marginBottom: "var(--space-20)" }}>
-              Simply create a new page file and return <code>{`<Page>`}</code> with your content.
+              Simply create a new page file and return <code>{`<Page>`}</code> with your content. Use Container explicitly when needed.
             </p>
             <div style={{ padding: "var(--space-20)", background: "var(--sys-surface-2)", borderRadius: "var(--radius-lg)", border: "1px dashed var(--sys-border)" }}>
-              <Page containerVariant="narrow">
-                <div className="fe-stack-2">
-                  <div className="fe-card fe-stack-2" style={{ padding: "var(--space-20)" }}>
-                    <h3 className="pobut_H3">Example Page</h3>
-                    <p className="pobut_body">Page component automatically handles padding and container width.</p>
-                    <p className="pobut_caption">Just wrap your content in Page and you're done!</p>
+              <Page>
+                <Container variant="narrow">
+                  <div className="fe-stack-2">
+                    <div className="fe-card fe-stack-2" style={{ padding: "var(--space-20)" }}>
+                      <h3 className="pobut_H3">Example Page</h3>
+                      <p className="pobut_body">Page wrapper with explicit Container.</p>
+                      <p className="pobut_caption">Container handles width constraints, Page is just a wrapper.</p>
+                    </div>
                   </div>
-                </div>
+                </Container>
               </Page>
             </div>
             <div style={{ marginTop: "var(--space-20)", padding: "var(--space-20)", background: "var(--sys-surface-2)", borderRadius: "var(--radius-lg)" }}>
@@ -1255,11 +1235,16 @@ export default async function DesignSystemPage() {
                 <br />
                 <code style={{ fontSize: "0.85em", display: "block", marginTop: "var(--space-10)" }}>
                   {`// src/app/my-page/page.tsx
+import { Page } from '@/components/Page'
+import { Container } from '@/components/Container'
+
 export default function MyPage() {
   return (
-    <Page containerVariant="narrow">
-      <h1 className="pobut_H1">My Page</h1>
-      <p className="pobut_body">Content goes here</p>
+    <Page>
+      <Container variant="narrow">
+        <h1 className="pobut_H1">My Page</h1>
+        <p className="pobut_body">Content goes here</p>
+      </Container>
     </Page>
   )
 }`}
@@ -1325,6 +1310,8 @@ export default function MyPage() {
           </div>
         </div>
       </section>
+        </div>
+      </Container>
     </Page>
   )
 }
