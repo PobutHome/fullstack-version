@@ -921,7 +921,7 @@ export default async function DesignSystemPage() {
             <div className="pobut_caption fe-availability">● в наявності</div>
               <div className="pobut_body">Пакет паперовий / 220*280*120 мм / коричневий / 100 шт</div>
               <div className="pobut_H3 fe-price">255 грн</div>
-            <Button className="fe-btn fe-btn--outline">Додати в кошик</Button>
+            <Button variant="add-to-cart-outline">Додати в кошик</Button>
             </div>
           </div>
           <p className="pobut_caption">
