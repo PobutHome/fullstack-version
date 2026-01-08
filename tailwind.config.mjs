@@ -250,10 +250,10 @@ export default {
     plugin(function ({ addUtilities }) {
   addUtilities({
     /* Page padding */
-    '[data-app="frontend"] .fe-page': {
-      paddingLeft: 'var(--layout-margin)',
-      paddingRight: 'var(--layout-margin)',
-    },
+    // '[data-app="frontend"] .fe-page': {
+    //   paddingLeft: 'var(--layout-margin)',
+    //   paddingRight: 'var(--layout-margin)',
+    // },
 
     /* Stack helpers */
     '[data-app="frontend"] .fe-stack-1 > * + *': {

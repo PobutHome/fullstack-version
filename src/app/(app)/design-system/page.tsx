@@ -1,10 +1,12 @@
 "use server"
 
 import { Button } from "@/components/Button"
+import { Container } from "@/components/Container"
+import { Page } from "@/components/Page"
 
 export default async function DesignSystemPage() {
   return (
-    <div data-app="frontend" className="fe-page fe-stack-3" style={{ paddingTop: "var(--space-20)", paddingBottom: "var(--space-50)" }}>
+    <Page data-app="frontend" containerVariant="default">
       {/* Hero Section */}
       <section className="fe-stack-2">
         <h1 className="pobut_H1">Design System</h1>
@@ -475,7 +477,7 @@ export default async function DesignSystemPage() {
               <p className="pobut_caption" style={{ marginTop: "var(--space-10)" }}>
                 <strong>What this means:</strong>
                 <br />
-                • <strong>Margin</strong> = Horizontal padding on page containers (left/right sides)
+                • <strong>Margin</strong> = Layout margin token (available for custom use, not used by Page component)
                 <br />
                 • <strong>Spacing</strong> = Vertical gaps between elements (sections, cards, etc.)
               </p>
@@ -523,15 +525,13 @@ export default async function DesignSystemPage() {
             
             <div className="fe-stack-2">
               <div>
-                <div className="pobut_body" style={{ marginBottom: "var(--space-10)" }}><code>--layout-margin</code>: Page horizontal padding</div>
+                <div className="pobut_body" style={{ marginBottom: "var(--space-10)" }}><code>--layout-margin</code>: Layout margin token (available for custom use)</div>
                 <div className="pobut_caption fe-stack-1" style={{ paddingLeft: "var(--space-20)" }}>
                   <div>📱 <strong>Mobile:</strong> 0.625rem (10px)</div>
                   <div>📱 <strong>Tablet:</strong> 3.125rem (50px)</div>
                   <div>🖥️ <strong>Desktop:</strong> 9.375rem (150px)</div>
                   <div style={{ marginTop: "var(--space-10)" }}>
-                    <strong>Where to use:</strong> Add <code>className="fe-page"</code> to your page container div
-                    <br />
-                    <code style={{ fontSize: "0.8em" }}>&lt;div data-app="frontend" className="fe-page"&gt;...&lt;/div&gt;</code>
+                    <strong>Note:</strong> Page component no longer uses this padding. Use Container component for width constraints.
                   </div>
                 </div>
               </div>
@@ -610,7 +610,7 @@ export default async function DesignSystemPage() {
             <h4 className="pobut_H3" style={{ marginBottom: "var(--space-20)" }}>Current Usage in Your App</h4>
             <div className="pobut_caption fe-stack-1">
               <div><strong>✅ Currently Used:</strong></div>
-              <div>• <code>fe-page</code> - Used in design-system page (adds horizontal padding)</div>
+              <div>• <code>fe-page</code> - Legacy utility class (deprecated, use Page component)</div>
               <div>• <code>fe-stack-*</code> - Used in design-system page (adds vertical spacing between children)</div>
               <div>• <code>fe-gap-*</code> - Used in design-system page (adds gap in flex/grid layouts)</div>
               <div style={{ marginTop: "var(--space-10)" }}><strong>⚠️ Not Yet Used:</strong></div>
@@ -921,7 +921,7 @@ export default async function DesignSystemPage() {
             <div className="pobut_caption fe-availability">● в наявності</div>
               <div className="pobut_body">Пакет паперовий / 220*280*120 мм / коричневий / 100 шт</div>
               <div className="pobut_H3 fe-price">255 грн</div>
-            <Button variant="add-to-cart-outline">Додати в кошик</Button>
+              <Button variant="add-to-cart-outline">Додати в кошик</Button>
             </div>
           </div>
           <p className="pobut_caption">
@@ -999,9 +999,7 @@ export default async function DesignSystemPage() {
             <div>
               <div className="pobut_body"><code>fe-page</code></div>
               <p className="pobut_caption">
-                Adds horizontal padding (left/right) using <code>--layout-margin</code>
-                <br />
-                Responsive: Mobile 10px → Tablet 50px → Desktop 150px
+                Legacy utility class. Use <code>Page</code> component instead.
               </p>
             </div>
             <div>
@@ -1029,6 +1027,245 @@ export default async function DesignSystemPage() {
             <p className="pobut_caption" style={{ marginTop: "var(--space-20)" }}>
               Edit: <code>src/app/styles/frontend.design-system.css</code> (lines 54-67) & <code>tailwind.config.mjs</code> (lines 250-285)
             </p>
+          </div>
+        </div>
+      </section>
+
+      {/* Layout Components Section */}
+      <section className="fe-stack-2">
+        <h2 className="pobut_H2">Layout Components</h2>
+        <p className="pobut_caption">Structural components for consistent page layouts</p>
+        
+        <div className="fe-card fe-stack-2" style={{ padding: "var(--space-20)" }}>
+          {/* Page Component */}
+          <div>
+            <h3 className="pobut_H3" style={{ marginBottom: "var(--space-20)" }}>Page Component</h3>
+            <p className="pobut_caption" style={{ marginBottom: "var(--space-20)" }}>
+              Simple page wrapper. Automatically wraps children in a Container component.
+            </p>
+
+            <div className="fe-stack-2">
+              {/* Default Container */}
+              <div className="fe-stack-1">
+                <div className="pobut_body" style={{ marginBottom: "var(--space-10)" }}><strong>Default Container (Default)</strong></div>
+                <div style={{ padding: "var(--space-20)", background: "var(--sys-surface-2)", borderRadius: "var(--radius-lg)", border: "1px dashed var(--sys-border)" }}>
+                  <Page>
+                    <div className="fe-card fe-stack-2" style={{ padding: "var(--space-20)" }}>
+                      <div className="pobut_body">Page Content</div>
+                      <p className="pobut_caption">Automatically wrapped in Container (max-width: 1440px)</p>
+                    </div>
+                  </Page>
+                </div>
+                <p className="pobut_caption">
+                  <code>{`<Page>...</Page>`}</code>
+                  <br />
+                  Default container variant (max-width: 1440px)
+                </p>
+              </div>
+
+              {/* Narrow Container */}
+              <div className="fe-stack-1">
+                <div className="pobut_body" style={{ marginBottom: "var(--space-10)" }}><strong>Narrow Container</strong></div>
+                <div style={{ padding: "var(--space-20)", background: "var(--sys-surface-2)", borderRadius: "var(--radius-lg)", border: "1px dashed var(--sys-border)" }}>
+                  <Page containerVariant="narrow">
+                    <div className="fe-card fe-stack-2" style={{ padding: "var(--space-20)" }}>
+                      <div className="pobut_body">Page Content</div>
+                      <p className="pobut_caption">Narrow container (max-width: 1200px)</p>
+                    </div>
+                  </Page>
+                </div>
+                <p className="pobut_caption">
+                  <code>{`<Page containerVariant="narrow">...</Page>`}</code>
+                  <br />
+                  Narrow container variant (max-width: 1200px)
+                </p>
+              </div>
+
+              {/* Wide Container */}
+              <div className="fe-stack-1">
+                <div className="pobut_body" style={{ marginBottom: "var(--space-10)" }}><strong>Wide Container</strong></div>
+                <div style={{ padding: "var(--space-20)", background: "var(--sys-surface-2)", borderRadius: "var(--radius-lg)", border: "1px dashed var(--sys-border)" }}>
+                  <Page containerVariant="wide">
+                    <div className="fe-card fe-stack-2" style={{ padding: "var(--space-20)" }}>
+                      <div className="pobut_body">Page Content</div>
+                      <p className="pobut_caption">Wide container (max-width: 1600px)</p>
+                    </div>
+                  </Page>
+                </div>
+                <p className="pobut_caption">
+                  <code>{`<Page containerVariant="wide">...</Page>`}</code>
+                  <br />
+                  Wide container variant (max-width: 1600px)
+                </p>
+              </div>
+
+              {/* No Container */}
+              <div className="fe-stack-1">
+                <div className="pobut_body" style={{ marginBottom: "var(--space-10)" }}><strong>No Container (Full Width)</strong></div>
+                <div style={{ padding: "var(--space-20)", background: "var(--sys-surface-2)", borderRadius: "var(--radius-lg)", border: "1px dashed var(--sys-border)" }}>
+                  <Page containerVariant={null}>
+                    <div className="fe-card fe-stack-2" style={{ padding: "var(--space-20)" }}>
+                      <div className="pobut_body">Page Content</div>
+                      <p className="pobut_caption">No container wrapper - full width within page padding</p>
+                    </div>
+                  </Page>
+                </div>
+                <p className="pobut_caption">
+                  <code>{`<Page containerVariant={null}>...</Page>`}</code>
+                  <br />
+                  Disable container wrapper for full-width layouts
+                </p>
+              </div>
+            </div>
+
+            <div style={{ marginTop: "var(--space-20)", padding: "var(--space-20)", background: "var(--sys-surface-2)", borderRadius: "var(--radius-lg)" }}>
+              <p className="pobut_caption">
+                <strong>Usage:</strong>
+                <br />
+                <code style={{ fontSize: "0.9em" }}>{`import { Page } from '@/components/Page'`}</code>
+                <br />
+                <code style={{ fontSize: "0.9em" }}>{`<Page>...</Page>`}</code>
+                <br />
+                <code style={{ fontSize: "0.9em" }}>{`<Page containerVariant="narrow">...</Page>`}</code>
+                <br />
+                <code style={{ fontSize: "0.9em" }}>{`<Page containerVariant="wide">...</Page>`}</code>
+                <br />
+                <code style={{ fontSize: "0.9em" }}>{`<Page containerVariant={null}>...</Page>`}</code>
+                <br />
+                <br />
+                <strong>Props:</strong>
+                <br />
+                • <code>containerVariant</code>: "default" | "narrow" | "wide" | null (default: "default")
+                <br />
+                &nbsp;&nbsp;&nbsp;Controls the Container variant that wraps children. Set to null to disable container.
+                <br />
+                • Standard HTML div props (className, style, etc.)
+                <br />
+                <br />
+                <strong>Features:</strong>
+                <br />
+                • Automatically wraps children in Container component
+                <br />
+                • No padding - Container handles all spacing and width constraints
+                <br />
+                • Simple API: just create a new page file and return <code>{`<Page>children</Page>`}</code>
+                <br />
+                <br />
+                <strong>Edit:</strong> <code>src/components/Page/index.tsx</code> & <code>src/app/styles/frontend.design-system.css</code>
+              </p>
+            </div>
+          </div>
+
+          {/* Container Component */}
+          <div style={{ marginTop: "var(--space-20)" }}>
+            <h3 className="pobut_H3" style={{ marginBottom: "var(--space-20)" }}>Container Component</h3>
+            <p className="pobut_caption" style={{ marginBottom: "var(--space-20)" }}>
+              Centered container with max-width constraints. Use for content that should be constrained in width.
+            </p>
+
+            <div className="fe-stack-2">
+              {/* Default Container */}
+              <div className="fe-stack-1">
+                <div className="pobut_body" style={{ marginBottom: "var(--space-10)" }}><strong>Default Container</strong></div>
+                <div style={{ padding: "var(--space-20)", background: "var(--sys-surface-2)", borderRadius: "var(--radius-lg)", border: "1px dashed var(--sys-border)" }}>
+                  <Container>
+                    <div className="fe-card" style={{ padding: "var(--space-20)" }}>
+                      <div className="pobut_body">Max-width: 1440px (90rem)</div>
+                      <p className="pobut_caption">Centered content with default max-width</p>
+                    </div>
+                  </Container>
+                </div>
+                <p className="pobut_caption">
+                  <code>{`<Container>`}</code> - Max-width: 1440px
+                </p>
+              </div>
+
+              {/* Narrow Container */}
+              <div className="fe-stack-1">
+                <div className="pobut_body" style={{ marginBottom: "var(--space-10)" }}><strong>Narrow Container</strong></div>
+                <div style={{ padding: "var(--space-20)", background: "var(--sys-surface-2)", borderRadius: "var(--radius-lg)", border: "1px dashed var(--sys-border)" }}>
+                  <Container variant="narrow">
+                    <div className="fe-card" style={{ padding: "var(--space-20)" }}>
+                      <div className="pobut_body">Max-width: 1200px (75rem)</div>
+                      <p className="pobut_caption">For narrower content areas</p>
+                    </div>
+                  </Container>
+                </div>
+                <p className="pobut_caption">
+                  <code>{`<Container variant="narrow">`}</code> - Max-width: 1200px
+                </p>
+              </div>
+
+              {/* Wide Container */}
+              <div className="fe-stack-1">
+                <div className="pobut_body" style={{ marginBottom: "var(--space-10)" }}><strong>Wide Container</strong></div>
+                <div style={{ padding: "var(--space-20)", background: "var(--sys-surface-2)", borderRadius: "var(--radius-lg)", border: "1px dashed var(--sys-border)" }}>
+                  <Container variant="wide">
+                    <div className="fe-card" style={{ padding: "var(--space-20)" }}>
+                      <div className="pobut_body">Max-width: 1600px (100rem)</div>
+                      <p className="pobut_caption">For wider content areas</p>
+                    </div>
+                  </Container>
+                </div>
+                <p className="pobut_caption">
+                  <code>{`<Container variant="wide">`}</code> - Max-width: 1600px
+                </p>
+              </div>
+            </div>
+
+            <div style={{ marginTop: "var(--space-20)", padding: "var(--space-20)", background: "var(--sys-surface-2)", borderRadius: "var(--radius-lg)" }}>
+              <p className="pobut_caption">
+                <strong>Usage:</strong>
+                <br />
+                <code style={{ fontSize: "0.9em" }}>{`import { Container } from '@/components/Container'`}</code>
+                <br />
+                <code style={{ fontSize: "0.9em" }}>{`<Container variant="default">...</Container>`}</code>
+                <br />
+                <br />
+                <strong>Props:</strong>
+                <br />
+                • <code>variant</code>: "default" | "narrow" | "wide" (default: "default")
+                <br />
+                <br />
+                <strong>Edit:</strong> <code>src/components/Container/index.tsx</code> & <code>src/app/styles/frontend.design-system.css</code>
+              </p>
+            </div>
+          </div>
+
+          {/* Combined Usage Example */}
+          <div style={{ marginTop: "var(--space-20)" }}>
+            <h3 className="pobut_H3" style={{ marginBottom: "var(--space-20)" }}>Creating a New Page</h3>
+            <p className="pobut_caption" style={{ marginBottom: "var(--space-20)" }}>
+              Simply create a new page file and return <code>{`<Page>`}</code> with your content.
+            </p>
+            <div style={{ padding: "var(--space-20)", background: "var(--sys-surface-2)", borderRadius: "var(--radius-lg)", border: "1px dashed var(--sys-border)" }}>
+              <Page containerVariant="narrow">
+                <div className="fe-stack-2">
+                  <div className="fe-card fe-stack-2" style={{ padding: "var(--space-20)" }}>
+                    <h3 className="pobut_H3">Example Page</h3>
+                    <p className="pobut_body">Page component automatically handles padding and container width.</p>
+                    <p className="pobut_caption">Just wrap your content in Page and you're done!</p>
+                  </div>
+                </div>
+              </Page>
+            </div>
+            <div style={{ marginTop: "var(--space-20)", padding: "var(--space-20)", background: "var(--sys-surface-2)", borderRadius: "var(--radius-lg)" }}>
+              <p className="pobut_caption">
+                <strong>Example Page File:</strong>
+                <br />
+                <code style={{ fontSize: "0.85em", display: "block", marginTop: "var(--space-10)" }}>
+                  {`// src/app/my-page/page.tsx
+export default function MyPage() {
+  return (
+    <Page containerVariant="narrow">
+      <h1 className="pobut_H1">My Page</h1>
+      <p className="pobut_body">Content goes here</p>
+    </Page>
+  )
+}`}
+                </code>
+              </p>
+            </div>
           </div>
         </div>
       </section>
@@ -1066,11 +1303,17 @@ export default async function DesignSystemPage() {
             <div>
               <div className="pobut_H3">Components</div>
               <p className="pobut_body">
-                <code>src/app/styles/frontend.design-system.css</code> - Cards, badges, links, inputs, nav, products
+                <code>src/app/styles/frontend.design-system.css</code> - Cards, badges, links, inputs, nav, products, layout components
                 <br />
-                <code>src/components/Button/Button.css</code> - Button styles
+                <code>src/components/Page/index.tsx</code> - Page layout component
                 <br />
-                <code>src/app/styles/Buttons/Button-tokens.css</code> - Button tokens
+                <code>src/components/Container/index.tsx</code> - Container component
+                <br />
+                <code>src/components/Button/index.tsx</code> - Button component
+                <br />
+                <code>src/app/styles/Buttons/button.css</code> - Button styles
+                <br />
+                <code>src/app/styles/Buttons/button-tokens.css</code> - Button tokens
               </p>
             </div>
             <div>
@@ -1082,6 +1325,6 @@ export default async function DesignSystemPage() {
           </div>
         </div>
       </section>
-    </div>
+    </Page>
   )
 }
