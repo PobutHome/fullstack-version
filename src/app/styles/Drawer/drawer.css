@@ -1,0 +1,24 @@
+@layer components {
+  [data-app="frontend"] .fe-drawer {
+    border-radius: var(--radius-lg, 0.75rem);
+    background: var(--sys-surface);
+    border: 1px solid var(--sys-border);
+    padding: var(--space-20);
+  }
+
+  [data-app="frontend"] .fe-drawer__item {
+    display: flex;
+    align-items: center;
+    gap: var(--space-10);
+    color: var(--sys-text);
+    text-decoration: none;
+    padding-block: 0.5rem;
+  }
+
+  [data-app="frontend"] .fe-drawer__sectionTitle {
+    color: var(--sys-accent);
+    font-weight: var(--font-weight-bold, 700);
+  }
+}
+
+

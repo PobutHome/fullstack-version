@@ -2,11 +2,7 @@
    SPACING UTILITIES (consumes spacing tokens)
    ============================================ */
 
-/* Page/container padding based on Figma margin token */
-.page {
-  padding-left: var(--layout-margin);
-  padding-right: var(--layout-margin);
-}
+
 
 /* Common vertical rhythm helpers */
 .stack-1 > * + * { margin-top: var(--layout-gap-1); }

@@ -1,6 +1,5 @@
 import type { HTMLAttributes, ReactNode } from "react"
-
-import styles from "./Container.module.css"
+import "./Container.css"
 
 type Props = HTMLAttributes<HTMLDivElement> & {
   children: ReactNode
@@ -12,7 +11,7 @@ export function Container({
   style,
   ...props
 }: Props) {
-  const combinedClassName = `${styles.root} ${className}`.trim()
+  const combinedClassName = `container ${className}`.trim()
   
   return (
     <div 

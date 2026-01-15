@@ -1,7 +1,0 @@
-/* Colocated styles for <Section /> */
-
-:global([data-app="frontend"]) .root {
-  width: 100%;
-}
-
-

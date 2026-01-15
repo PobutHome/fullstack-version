@@ -153,7 +153,7 @@ export default async function DesignSystemPage() {
                     <div>
                       <strong>Important (Next.js rule):</strong> plain global <code>.css</code> files can’t be
                       imported from arbitrary components. If you want per-component CSS next to
-                      a component, use <strong>CSS Modules</strong>: <code>Component.module.css</code>.
+                      a component, use a colocated <strong>CSS file</strong>: <code>Component.css</code>.
                     </div>
                     <div>
                       <strong>Design tokens (source of truth):</strong>{" "}
@@ -165,7 +165,7 @@ export default async function DesignSystemPage() {
                       patterns like cards, badges, nav, etc.)
                     </div>
                     <div>
-                      <strong>Per-component styles (colocated):</strong> <code>src/components/*/Component.module.css</code>
+                      <strong>Per-component styles (colocated):</strong> <code>src/components/*/Component.css</code>
                       imported by the component (best for styles used by only that component).
                     </div>
                     <div>
@@ -196,7 +196,7 @@ export default async function DesignSystemPage() {
                       overflowWrap: "anywhere",
                       lineHeight: 1.6,
                     }}
-                  >{`// src/components/MyCard/MyCard.module.css
+                  >{`// src/components/MyCard/MyCard.css
 .root {
   background: var(--sys-card-bg);
   border: 1px solid var(--sys-card-border);
@@ -205,7 +205,7 @@ export default async function DesignSystemPage() {
 }
 
 // src/components/MyCard/index.tsx
-import styles from "./MyCard.module.css"
+import "./MyCard.css"
 
 export function MyCard({ children }: { children: React.ReactNode }) {
   return <div className={styles.root}>{children}</div>
@@ -1605,7 +1605,7 @@ export default function MyPage() {
                 • Simple API: just create a new page file and return <code>{`<Page>children</Page>`}</code>
                 <br />
                 <br />
-                <strong>Edit:</strong> <code>src/components/Page/index.tsx</code> & <code>src/components/Page/Page.module.css</code>
+                <strong>Edit:</strong> <code>src/components/Page/index.tsx</code> & <code>src/components/Page/Page.css</code>
               </p>
             </div>
           </div>
@@ -1649,7 +1649,7 @@ export default function MyPage() {
                 • Standard HTML div props (className, style, etc.)
                 <br />
                 <br />
-                <strong>Edit:</strong> <code>src/components/Container/index.tsx</code> & <code>src/components/Container/Container.module.css</code>
+                <strong>Edit:</strong> <code>src/components/Container/index.tsx</code> & <code>src/components/Container/Container.css</code>
               </p>
             </div>
           </div>
@@ -1738,17 +1738,17 @@ export default function MyPage() {
               <p className="pobut_body">
                 <code>src/app/styles/frontend.design-system.css</code> - Cards, badges, links, inputs, nav, products (shared UI patterns)
                 <br />
-                <code>src/components/Page/index.tsx</code> + <code>src/components/Page/Page.module.css</code> - Page layout component
+                <code>src/components/Page/index.tsx</code> + <code>src/components/Page/Page.css</code> - Page layout component
                 <br />
-                <code>src/components/Container/index.tsx</code> + <code>src/components/Container/Container.module.css</code> - Container component
+                <code>src/components/Container/index.tsx</code> + <code>src/components/Container/Container.css</code> - Container component
                 <br />
-                <code>src/components/Section/index.tsx</code> + <code>src/components/Section/Section.module.css</code> - Section (semantic wrapper)
+                <code>src/components/Section/index.tsx</code> + <code>src/components/Section/Section.css</code> - Section (semantic wrapper)
                 <br />
-                <code>src/components/InnerSection/index.tsx</code> + <code>src/components/InnerSection/InnerSection.module.css</code> - InnerSection (default rhythm)
+                <code>src/components/InnerSection/index.tsx</code> + <code>src/components/InnerSection/InnerSection.css</code> - InnerSection (default rhythm)
                 <br />
                 <code>src/components/Button/index.tsx</code> - Button component
                 <br />
-                <code>src/app/styles/Buttons/button.css</code> - Button styles
+                <code>src/components/Button/Button.css</code> - Button styles
                 <br />
                 <code>src/app/styles/Buttons/button-tokens.css</code> - Button tokens
               </p>

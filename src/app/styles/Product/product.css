@@ -1,0 +1,23 @@
+@layer components {
+  [data-app="frontend"] .fe-product {
+    border-radius: var(--radius-lg, 0.75rem);
+    border: 1px solid var(--sys-border-strong);
+    background: var(--sys-surface);
+    overflow: hidden;
+  }
+
+  [data-app="frontend"] .fe-product__body {
+    padding: var(--space-20);
+  }
+
+  [data-app="frontend"] .fe-price {
+    color: var(--sys-accent);
+    font-weight: var(--font-weight-bold, 700);
+  }
+
+  [data-app="frontend"] .fe-availability {
+    color: var(--sys-accent);
+  }
+}
+
+

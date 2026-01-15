@@ -23,7 +23,16 @@
 
 /* button styling imports */
 @import '../styles/Buttons/button-tokens.css';
-@import '../styles/Buttons/button.css';
+
+/* non-component utility/demo class groups (global) */
+@import '../styles/Links/links.css';
+@import '../styles/Cards/cards.css';
+@import '../styles/Badges/badges.css';
+@import '../styles/Search/search.css';
+@import '../styles/Header/header.css';
+@import '../styles/Nav/nav.css';
+@import '../styles/Product/product.css';
+@import '../styles/Drawer/drawer.css';
 
 
 

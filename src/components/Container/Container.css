@@ -1,6 +1,6 @@
-/* Colocated styles for <Container /> */
+/* Global (non-module) styles for <Container /> */
 
-:global([data-app="frontend"]) .root {
+[data-app="frontend"] .container {
   width: 100%;
   max-width: 90rem; /* 1440px */
   margin-left: auto;

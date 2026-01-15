@@ -1,0 +1,281 @@
+/* Colocated component styles for <Button />.
+   Keeps existing global class names (fe-btn, fe-btn--*) but lives with the component. */
+
+[data-app="frontend"] .fe-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  border: none;
+  outline: none;
+  cursor: pointer;
+  font-family: inherit;
+  font-size: inherit;
+  font-weight: inherit;
+  line-height: inherit;
+  text-decoration: none;
+  transition:
+    background-color var(--transition-base, 200ms ease-in-out),
+    color var(--transition-base, 200ms ease-in-out),
+    border-color var(--transition-base, 200ms ease-in-out),
+    border-width var(--transition-base, 200ms ease-in-out),
+    box-shadow var(--transition-base, 200ms ease-in-out),
+    opacity var(--transition-base, 200ms ease-in-out),
+    transform var(--transition-base, 200ms ease-in-out);
+  user-select: none;
+  white-space: nowrap;
+}
+
+/* Ensure button icon inherits button color */
+[data-app="frontend"] .fe-btn .fe-btn__icon {
+  color: inherit;
+}
+
+/* Typography wrapper inside <Button /> should inherit from the button */
+[data-app="frontend"] .fe-btn .pobut_body {
+  color: inherit;
+  line-height: 1;
+}
+
+[data-app="frontend"] .fe-btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+  pointer-events: none;
+}
+
+[data-app="frontend"] .fe-btn:focus-visible {
+  outline: 2px solid var(--sys-focus, var(--color-blue-hover));
+  outline-offset: 2px;
+  border-radius: var(--btn-radius, 9999px);
+}
+
+/* Common button properties */
+[data-app="frontend"] .fe-btn--sm,
+[data-app="frontend"] .fe-btn--md,
+[data-app="frontend"] .fe-btn--lg,
+[data-app="frontend"] .fe-btn--add-to-cart-outline,
+[data-app="frontend"] .fe-btn--add-to-cart-filled,
+[data-app="frontend"] .fe-btn--buy-primary,
+[data-app="frontend"] .fe-btn--buy-secondary,
+[data-app="frontend"] .fe-btn--buy-tertiary,
+[data-app="frontend"] .fe-btn--more,
+[data-app="frontend"] .fe-btn--catalog,
+[data-app="frontend"] .fe-btn--primary,
+[data-app="frontend"] .fe-btn--outline,
+[data-app="frontend"] .fe-btn--danger,
+[data-app="frontend"] .fe-btn--qty {
+  border-radius: var(--btn-radius, 9999px);
+  padding: var(--btn-py, 0.625rem) var(--btn-px, 2.25rem);
+}
+
+/* Size variants */
+[data-app="frontend"] .fe-btn--sm {
+  padding: var(--btn-py, 0.625rem) 1.5rem;
+  font-size: 0.875rem;
+}
+
+[data-app="frontend"] .fe-btn--md {
+  padding: var(--btn-py, 0.625rem) 2rem;
+  font-size: 1rem;
+}
+
+[data-app="frontend"] .fe-btn--lg {
+  font-size: inherit;
+}
+
+/* Full width */
+[data-app="frontend"] .fe-btn--full-width {
+  width: 100%;
+}
+
+/* ============================================
+   ADD TO CART BUTTONS (Додати в кошик)
+   ============================================ */
+[data-app="frontend"] .fe-btn--add-to-cart-outline {
+  background: transparent;
+  color: var(--sys-accent, var(--color-green));
+  border: 1px solid var(--sys-accent, var(--color-green));
+}
+
+[data-app="frontend"] .fe-btn--add-to-cart-outline:hover {
+  background: color-mix(in srgb, var(--sys-accent-hover, var(--color-green-hover)) 10%, transparent);
+  color: var(--sys-accent, var(--color-green));
+  border-color: var(--sys-accent, var(--color-green));
+}
+
+[data-app="frontend"] .fe-btn--add-to-cart-outline:active {
+  background: color-mix(in srgb, var(--sys-accent-active, var(--color-green-click)) 15%, transparent);
+  color: var(--sys-accent-active, var(--color-green-click));
+  border-color: var(--sys-accent-active, var(--color-green-click));
+}
+
+[data-app="frontend"] .fe-btn--add-to-cart-filled {
+  background: var(--sys-accent-active, var(--color-green-click));
+  color: var(--sys-text-inverse, var(--color-white));
+  border: 1px solid transparent;
+}
+
+[data-app="frontend"] .fe-btn--add-to-cart-filled:hover {
+  background: var(--sys-accent, var(--color-green));
+}
+
+[data-app="frontend"] .fe-btn--add-to-cart-filled:active {
+  background: var(--sys-accent-active, var(--color-green-click));
+}
+
+/* ============================================
+   BUY BUTTONS (Купити)
+   ============================================ */
+[data-app="frontend"] .fe-btn--buy-primary {
+  background: var(--sys-accent, var(--color-green));
+  color: var(--sys-text-inverse, var(--color-white));
+  border: 1px solid transparent;
+}
+
+[data-app="frontend"] .fe-btn--buy-primary:hover {
+  background: var(--sys-accent-hover, var(--color-green-hover));
+}
+
+[data-app="frontend"] .fe-btn--buy-primary:active {
+  background: var(--sys-accent-active, var(--color-green-click));
+}
+
+[data-app="frontend"] .fe-btn--buy-secondary {
+  background: var(--sys-accent-secondary, var(--color-green-hover));
+  color: var(--sys-text, var(--color-blue));
+  border: 1px solid transparent;
+}
+
+[data-app="frontend"] .fe-btn--buy-secondary:hover {
+  background: var(--sys-accent, var(--color-green));
+  color: var(--sys-text-inverse, var(--color-white));
+}
+
+[data-app="frontend"] .fe-btn--buy-secondary:active {
+  background: var(--sys-accent-active, var(--color-green-click));
+  color: var(--sys-text-inverse, var(--color-white));
+}
+
+[data-app="frontend"] .fe-btn--buy-tertiary {
+  background: var(--sys-accent-tertiary, var(--color-green-click));
+  color: var(--sys-text-inverse, var(--color-white));
+  border: 1px solid transparent;
+}
+
+[data-app="frontend"] .fe-btn--buy-tertiary:hover {
+  background: var(--sys-accent, var(--color-green));
+}
+
+[data-app="frontend"] .fe-btn--buy-tertiary:active {
+  background: var(--sys-accent-hover, var(--color-green-hover));
+}
+
+/* ============================================
+   MORE BUTTON (Більше)
+   ============================================ */
+[data-app="frontend"] .fe-btn--more {
+  background: var(--color-black, #000000);
+  color: var(--sys-accent, var(--color-green));
+  border: 1px solid var(--sys-accent, var(--color-green));
+}
+
+[data-app="frontend"] .fe-btn--more:hover {
+  color: var(--sys-accent-hover, var(--color-green-hover));
+  border-color: var(--sys-accent-hover, var(--color-green-hover));
+}
+
+[data-app="frontend"] .fe-btn--more:active {
+  color: var(--sys-accent-active, var(--color-green-click));
+  border-color: var(--sys-accent-active, var(--color-green-click));
+}
+
+/* ============================================
+   CATALOG BUTTON (Каталог)
+   ============================================ */
+[data-app="frontend"] .fe-btn--catalog {
+  background: var(--color-black, #000000);
+  color: var(--sys-accent, var(--color-green));
+  border: 1px solid var(--sys-accent, var(--color-green));
+  box-shadow: 0 0 0 0 var(--sys-accent, var(--color-green));
+}
+
+[data-app="frontend"] .fe-btn--catalog:hover {
+  color: var(--sys-accent-hover, var(--color-green-hover));
+  border-color: var(--sys-accent-hover, var(--color-green-hover));
+  box-shadow: 0 0 0 1px var(--sys-accent-hover, var(--color-green-hover));
+}
+
+[data-app="frontend"] .fe-btn--catalog:active,
+[data-app="frontend"] .fe-btn--catalog.fe-btn--catalog-active {
+  background: var(--sys-accent, var(--color-green));
+  color: var(--sys-text-inverse, var(--color-white));
+  border: 1px solid var(--sys-accent, var(--color-green));
+  box-shadow: 0 0 0 0 var(--sys-accent, var(--color-green));
+}
+
+/* ============================================
+   LEGACY VARIANTS (for backward compatibility)
+   ============================================ */
+[data-app="frontend"] .fe-btn--primary {
+  background: var(--sys-btn-primary-bg, var(--sys-accent));
+  color: var(--sys-btn-primary-fg, var(--sys-text-inverse));
+  border: 1px solid transparent;
+}
+
+[data-app="frontend"] .fe-btn--primary:hover {
+  background: var(--sys-btn-primary-bg-hover, var(--sys-accent-hover));
+}
+
+[data-app="frontend"] .fe-btn--primary:active {
+  background: var(--sys-btn-primary-bg-active, var(--sys-accent-active));
+}
+
+[data-app="frontend"] .fe-btn--outline {
+  background: transparent;
+  color: var(--sys-btn-outline-fg, var(--sys-accent));
+  border: 1px solid var(--sys-btn-outline-border, var(--sys-accent));
+}
+
+[data-app="frontend"] .fe-btn--outline:hover {
+  background: color-mix(in srgb, var(--sys-accent-hover, var(--color-green-hover)) 10%, transparent);
+  color: var(--sys-btn-outline-fg, var(--sys-accent));
+  border-color: var(--sys-btn-outline-border, var(--sys-accent));
+}
+
+[data-app="frontend"] .fe-btn--outline:active {
+  background: color-mix(in srgb, var(--sys-accent-active, var(--color-green-click)) 15%, transparent);
+  color: var(--sys-btn-outline-fg-active, var(--sys-accent-active));
+  border-color: var(--sys-btn-outline-border-active, var(--sys-accent-active));
+}
+
+[data-app="frontend"] .fe-btn--danger {
+  background: var(--sys-danger, var(--color-error));
+  color: var(--sys-text-inverse, var(--color-white));
+  border: 1px solid transparent;
+}
+
+[data-app="frontend"] .fe-btn--danger:hover {
+  background: var(--sys-danger-hover);
+}
+
+[data-app="frontend"] .fe-btn--danger:active {
+  background: var(--sys-danger-active);
+}
+
+[data-app="frontend"] .fe-btn--qty {
+  background: transparent;
+  color: var(--sys-btn-interactive-fg, var(--sys-interactive));
+  border: 1px solid var(--sys-btn-interactive-border, var(--sys-border-interactive));
+}
+
+[data-app="frontend"] .fe-btn--qty:hover {
+  color: var(--sys-btn-interactive-fg-hover, var(--sys-interactive-hover));
+  border-color: var(--sys-btn-interactive-border-hover, var(--sys-border-interactive-hover));
+}
+
+[data-app="frontend"] .fe-btn--qty:active {
+  color: var(--sys-btn-interactive-fg-active, var(--sys-interactive-active));
+  border-color: var(--sys-btn-interactive-border-active, var(--sys-border-interactive-active));
+}
+
+

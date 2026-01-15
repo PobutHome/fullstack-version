@@ -1,0 +1,27 @@
+@layer components {
+  [data-app="frontend"] .fe-nav {
+    background: var(--sys-nav-bg);
+    color: var(--sys-nav-fg);
+  }
+  [data-app="frontend"] .fe-nav__row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--layout-gap-2);
+    padding-block: var(--layout-gap-1);
+  }
+  [data-app="frontend"] .fe-nav__link {
+    color: var(--sys-nav-link);
+    text-decoration: none;
+    opacity: 0.95;
+  }
+  [data-app="frontend"] .fe-nav__link:hover {
+    color: var(--sys-nav-link-hover);
+    opacity: 1;
+  }
+  [data-app="frontend"] .fe-nav__link:active {
+    color: var(--sys-nav-link-active);
+  }
+}
+
+

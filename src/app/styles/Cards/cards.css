@@ -1,0 +1,19 @@
+@layer components {
+  [data-app="frontend"] .fe-card {
+    background: var(--sys-card-bg);
+    border: 1px solid var(--sys-card-border);
+    border-radius: var(--radius-lg, 0.75rem);
+    box-shadow: var(--shadow-sm, 0 0.0625rem 0.125rem rgba(0,0,0,.05));
+  }
+  [data-app="frontend"] .fe-card:hover {
+    background: var(--sys-card-bg-hover);
+    border-color: var(--sys-card-border-hover);
+  }
+
+  [data-app="frontend"] .fe-card--soft {
+    background: var(--sys-surface-2);
+    border: 1px solid var(--sys-border);
+  }
+}
+
+
