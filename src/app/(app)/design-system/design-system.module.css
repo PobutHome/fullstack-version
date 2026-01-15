@@ -1,1 +1,83 @@
- 
+.page {
+  padding-top: var(--space-20);
+  padding-bottom: var(--space-50);
+}
+
+.gridGap1 {
+  display: grid;
+  gap: var(--layout-gap-1);
+}
+
+.gridGap2 {
+  display: grid;
+  gap: var(--layout-gap-2);
+}
+
+.wrapRow {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-10);
+  align-items: center;
+}
+
+.card {
+  padding: var(--space-20);
+  display: grid;
+  gap: var(--layout-gap-2);
+}
+
+.pillLink {
+  padding: 0.25rem 0.5rem;
+  border-radius: 9999px;
+  border: 1px solid var(--sys-border);
+  background: var(--sys-surface);
+}
+
+.inlineCodePill {
+  background: var(--sys-surface-2);
+  padding: 0.25rem 0.5rem;
+  border-radius: 0.25rem;
+}
+
+.codeBlock {
+  margin: 0;
+  padding: var(--space-20);
+  background: var(--sys-surface-2);
+  border-radius: var(--radius-lg);
+  border: 1px solid var(--sys-border);
+  max-width: 100%;
+  overflow-x: auto;
+  white-space: pre-wrap;
+  word-break: break-word;
+  overflow-wrap: anywhere;
+  line-height: 1.6;
+}
+
+.muted {
+  opacity: 0.85;
+}
+
+.mutedMore {
+  opacity: 0.8;
+}
+
+.demoDashedBox {
+  padding: var(--space-20);
+  background: var(--sys-surface-2);
+  border-radius: var(--radius-lg);
+  border: 1px dashed var(--sys-border);
+}
+
+.demoSolidBox {
+  padding: var(--space-20);
+  background: var(--sys-surface-1);
+  border-radius: var(--radius-lg);
+  border: 1px dashed var(--sys-border);
+}
+
+.demoInnerBox {
+  margin-top: var(--space-10);
+  padding: var(--space-20);
+  background: var(--sys-surface-1);
+  border-radius: var(--radius-lg);
+}

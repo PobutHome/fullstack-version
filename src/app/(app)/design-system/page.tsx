@@ -5,13 +5,25 @@ import { Container } from "@/components/Container"
 import { InnerSection } from "@/components/InnerSection"
 import { Page } from "@/components/Page"
 import { Section } from "@/components/Section"
+import styles from "./design-system.module.css"
+
+function DsCard({
+  children,
+  className = "",
+}: {
+  children: React.ReactNode
+  className?: string
+}) {
+  return <div className={`fe-card ${styles.card} ${className}`.trim()}>{children}</div>
+}
+
+function DsCodeBlock({ children }: { children: string }) {
+  return <pre className={`pobut_caption ${styles.codeBlock}`}>{children}</pre>
+}
 
 export default async function DesignSystemPage() {
   return (
-    <Page
-      data-app="frontend"
-      style={{ paddingTop: "var(--space-20)", paddingBottom: "var(--space-50)" }}
-    >
+    <Page data-app="frontend" className={styles.page}>
       {/* Hero Section */}
       <Section id="hero">
         <Container>
@@ -21,16 +33,11 @@ export default async function DesignSystemPage() {
               Complete reference guide for all design tokens, components, and utilities
               used in the frontend application.
             </p>
-            <div style={{ display: "grid", gap: "var(--layout-gap-1)" }}>
+            <div className={styles.gridGap1}>
               <p className="pobut_caption">
                 All styles are scoped to{" "}
                 <code
-                  className="pobut_caption"
-                  style={{
-                    background: "var(--sys-surface-2)",
-                    padding: "0.25rem 0.5rem",
-                    borderRadius: "0.25rem",
-                  }}
+                  className={`${styles.inlineCodePill} pobut_caption`}
                 >
                   data-app="frontend"
                 </code>
@@ -38,12 +45,7 @@ export default async function DesignSystemPage() {
               <p className="pobut_caption">
                 Customize values in:{" "}
                 <code
-                  className="pobut_caption"
-                  style={{
-                    background: "var(--sys-surface-2)",
-                    padding: "0.25rem 0.5rem",
-                    borderRadius: "0.25rem",
-                  }}
+                  className={`${styles.inlineCodePill} pobut_caption`}
                 >
                   src/app/styles/
                 </code>
@@ -63,23 +65,11 @@ export default async function DesignSystemPage() {
               way to apply spacing, one place to edit tokens.
             </p>
 
-            <div
-              className="fe-card"
-              style={{
-                padding: "var(--space-20)",
-                display: "grid",
-                gap: "var(--layout-gap-2)",
-              }}
-            >
-              <div style={{ display: "grid", gap: "var(--layout-gap-1)" }}>
+            <DsCard>
+              <div className={styles.gridGap1}>
                 <h3 className="pobut_H3">Table of contents</h3>
                 <div
-                  style={{
-                    display: "flex",
-                    flexWrap: "wrap",
-                    gap: "var(--space-10)",
-                    alignItems: "center",
-                  }}
+                  className={styles.wrapRow}
                 >
                   {[
                     ["Conventions", "conventions"],
@@ -101,13 +91,7 @@ export default async function DesignSystemPage() {
                     <a
                       key={id}
                       href={`#${id}`}
-                      className="fe-link pobut_caption"
-                      style={{
-                        padding: "0.25rem 0.5rem",
-                        borderRadius: "9999px",
-                        border: "1px solid var(--sys-border)",
-                        background: "var(--sys-surface)",
-                      }}
+                      className={`fe-link pobut_caption ${styles.pillLink}`}
                     >
                       {label}
                     </a>
@@ -115,8 +99,8 @@ export default async function DesignSystemPage() {
                 </div>
               </div>
 
-              <div style={{ display: "grid", gap: "var(--layout-gap-2)" }}>
-                <div style={{ display: "grid", gap: "var(--layout-gap-1)" }}>
+              <div className={styles.gridGap2}>
+                <div className={styles.gridGap1}>
                   <h3 className="pobut_H3">Layout convention (canonical)</h3>
                   <div className="pobut_caption" style={{ display: "grid", gap: "0.5rem" }}>
                     <div>
@@ -147,22 +131,22 @@ export default async function DesignSystemPage() {
                   </div>
                 </div>
 
-                <div style={{ display: "grid", gap: "var(--layout-gap-1)" }}>
+                <div className={styles.gridGap1}>
                   <h3 className="pobut_H3">Where do styles go?</h3>
                   <div className="pobut_caption" style={{ display: "grid", gap: "0.5rem" }}>
                     <div>
                       <strong>Important (Next.js rule):</strong> plain global <code>.css</code> files can’t be
                       imported from arbitrary components. If you want per-component CSS next to
-                      a component, use a colocated <strong>CSS file</strong>: <code>Component.css</code>.
+                      a component, use a colocated <strong>CSS file</strong>: <code>Component.css</code> (imported by that component).
                     </div>
                     <div>
                       <strong>Design tokens (source of truth):</strong>{" "}
                       <code>src/app/styles/*-tokens.css</code> (palette, semantic, spacing, fonts, etc.)
                     </div>
                     <div>
-                      <strong>Shared component styles:</strong>{" "}
-                      <code>src/app/styles/frontend.design-system.css</code> (structural + reusable UI
-                      patterns like cards, badges, nav, etc.)
+                      <strong>Reusable UI patterns:</strong> grouped global styles in{" "}
+                      <code>src/app/styles/&lt;Group&gt;/*.css</code> (links/cards/badges/nav/header/etc). These
+                      are imported once by <code>src/app/(app)/globals.css</code>.
                     </div>
                     <div>
                       <strong>Per-component styles (colocated):</strong> <code>src/components/*/Component.css</code>
@@ -179,23 +163,10 @@ export default async function DesignSystemPage() {
                   </div>
                 </div>
 
-                <div style={{ display: "grid", gap: "var(--layout-gap-1)" }}>
+                <div className={styles.gridGap1}>
                   <h3 className="pobut_H3">CSS Modules example (recommended)</h3>
                   <pre
-                    className="pobut_caption"
-                    style={{
-                      margin: 0,
-                      padding: "var(--space-20)",
-                      background: "var(--sys-surface-2)",
-                      borderRadius: "var(--radius-lg)",
-                      border: "1px solid var(--sys-border)",
-                      maxWidth: "100%",
-                      overflowX: "auto",
-                      whiteSpace: "pre-wrap",
-                      wordBreak: "break-word",
-                      overflowWrap: "anywhere",
-                      lineHeight: 1.6,
-                    }}
+                    className={`pobut_caption ${styles.codeBlock}`}
                   >{`// src/components/MyCard/MyCard.css
 .root {
   background: var(--sys-card-bg);
@@ -208,15 +179,15 @@ export default async function DesignSystemPage() {
 import "./MyCard.css"
 
 export function MyCard({ children }: { children: React.ReactNode }) {
-  return <div className={styles.root}>{children}</div>
+  return <div className="root">{children}</div>
 }`}</pre>
-                  <div className="pobut_caption" style={{ opacity: 0.85 }}>
+                  <div className={`pobut_caption ${styles.muted}`}>
                     This keeps styles “in the component folder” while still using the same tokens as the
                     global design system.
                   </div>
                 </div>
               </div>
-            </div>
+            </DsCard>
           </InnerSection>
         </Container>
       </Section>
@@ -257,9 +228,9 @@ export function MyCard({ children }: { children: React.ReactNode }) {
                     <div className="pobut_caption"><strong>Section</strong> (vertical rhythm / background / semantics)</div>
                     <div style={{ marginTop: "var(--space-20)", padding: "var(--space-20)", background: "var(--sys-surface-2)", borderRadius: "var(--radius-lg)", border: "1px dashed var(--sys-border)" }}>
                       <div className="pobut_caption"><strong>Container</strong> (centered + max-width + padding-inline)</div>
-                      <div style={{ marginTop: "var(--space-10)", padding: "var(--space-20)", background: "var(--sys-surface-1)", borderRadius: "var(--radius-lg)" }}>
+                      <div className={styles.demoInnerBox}>
                         <div className="pobut_caption"><strong>Inner</strong> (any layout)</div>
-                        <div className="pobut_caption" style={{ opacity: 0.8 }}>Cards, forms, grids, tables, etc.</div>
+                        <div className={`pobut_caption ${styles.mutedMore}`}>Cards, forms, grids, tables, etc.</div>
                       </div>
                     </div>
                   </div>
@@ -270,22 +241,7 @@ export function MyCard({ children }: { children: React.ReactNode }) {
             {/* Code demo */}
             <div style={{ display: "grid", gap: "var(--layout-gap-1)" }}>
               <div className="pobut_body"><strong>Code</strong></div>
-              <pre
-                className="pobut_caption"
-                style={{
-                  margin: 0,
-                  padding: "var(--space-20)",
-                  background: "var(--sys-surface-2)",
-                  borderRadius: "var(--radius-lg)",
-                  border: "1px solid var(--sys-border)",
-                  maxWidth: "100%",
-                  overflowX: "auto",
-                  whiteSpace: "pre-wrap",
-                  wordBreak: "break-word",
-                  overflowWrap: "anywhere",
-                  lineHeight: 1.6,
-                }}
-              >{`import { Page } from "@/components/Page"
+                <DsCodeBlock>{`import { Page } from "@/components/Page"
 import { Section } from "@/components/Section"
 import { Container } from "@/components/Container"
 import { InnerSection } from "@/components/InnerSection"
@@ -321,8 +277,8 @@ export default function ExamplePage() {
       </Section>
     </Page>
   )
-}`}</pre>
-              <div className="pobut_caption" style={{ opacity: 0.8 }}>
+}`}</DsCodeBlock>
+              <div className={`pobut_caption ${styles.mutedMore}`}>
                 Uses: <code>{`<Section>`}</code> (semantic + <code>id</code>) with explicit{" "}
                 <code>{`<Container>`}</code> + <code>{`<InnerSection>`}</code> to enforce the canonical DOM, and
                 system tokens (CSS vars) for spacing.
@@ -392,7 +348,7 @@ export default function MyPage() {
     </Page>
   )
 }`}</pre>
-                <div className="pobut_caption" style={{ opacity: 0.85 }}>
+                <div className={`pobut_caption ${styles.muted}`}>
                   If you need a tighter/looser stack inside InnerSection, override{" "}
                   <code>--fe-inner-gap</code>:{" "}
                   <code>{`style={{ ["--fe-inner-gap" as any]: "var(--layout-gap-1)" }}`}</code>
@@ -426,7 +382,7 @@ export default function MyPage() {
 </Section>`}</pre>
               </div>
 
-              <div className="pobut_caption" style={{ opacity: 0.85 }}>
+              <div className={`pobut_caption ${styles.muted}`}>
                 Sidebar layout primitives were intentionally removed from this project to keep the
                 layout system small and predictable. If we need sidebars later, we’ll add a single
                 new primitive with a documented recipe here.
@@ -1270,8 +1226,8 @@ export default function MyPage() {
             <h2 className="pobut_H2">Links</h2>
             <p className="pobut_caption">Interactive link styles with hover and active states</p>
         
-        <div className="fe-card" style={{ padding: "var(--space-20)", display: "grid", gap: "var(--layout-gap-2)" }}>
-          <div style={{ display: "grid", gap: "var(--layout-gap-1)" }}>
+        <div className={`fe-card ${styles.card}`}>
+          <div className={styles.gridGap1}>
             <div>
               <a className="fe-link pobut_body" href="#">Regular Link</a>
             </div>
@@ -1280,7 +1236,7 @@ export default function MyPage() {
               <br />
               Color: Blue | Hover: Blue Hover | Active: Blue Click
               <br />
-              Edit: <code>src/app/styles/frontend.design-system.css</code> (lines 72-79)
+              Edit: <code>src/app/styles/Links/links.css</code>
             </p>
           </div>
         </div>
@@ -1295,8 +1251,8 @@ export default function MyPage() {
             <h2 className="pobut_H2">Inputs</h2>
             <p className="pobut_caption">Search input with icon support</p>
         
-        <div className="fe-card" style={{ padding: "var(--space-20)", display: "grid", gap: "var(--layout-gap-2)" }}>
-          <div style={{ display: "grid", gap: "var(--layout-gap-1)" }}>
+        <div className={`fe-card ${styles.card}`}>
+          <div className={styles.gridGap1}>
         <div className="fe-search" style={{ maxWidth: "42rem" }}>
           <span className="fe-search__icon">🔍</span>
           <input className="fe-input" placeholder="Шукати продукт або бренд" />
@@ -1306,7 +1262,7 @@ export default function MyPage() {
               <br />
               Height: 2.5rem | Border-radius: 9999px (pill) | Padding: 2.75rem left (for icon) + 1rem right
               <br />
-              Edit: <code>src/app/styles/frontend.design-system.css</code> (lines 112-140)
+              Edit: <code>src/app/styles/Search/search.css</code> + <code>src/app/styles/Inputs/input.css</code>
             </p>
           </div>
         </div>
@@ -1330,7 +1286,7 @@ export default function MyPage() {
               <br />
               Border-radius: 0.75rem | Border: 1px solid
               <br />
-              Edit: <code>src/app/styles/frontend.design-system.css</code> (lines 84-90)
+              Edit: <code>src/app/styles/Cards/cards.css</code>
             </p>
           </div>
 
@@ -1342,7 +1298,7 @@ export default function MyPage() {
               <br />
               Background: var(--sys-surface-2)
               <br />
-              Edit: <code>src/app/styles/frontend.design-system.css</code> (lines 92-95)
+              Edit: <code>src/app/styles/Cards/cards.css</code>
             </p>
           </div>
         </div>
@@ -1357,8 +1313,8 @@ export default function MyPage() {
             <h2 className="pobut_H2">Badges</h2>
             <p className="pobut_caption">Inline badge component for labels and tags</p>
         
-        <div className="fe-card" style={{ padding: "var(--space-20)", display: "grid", gap: "var(--layout-gap-2)" }}>
-          <div style={{ display: "grid", gap: "var(--layout-gap-1)" }}>
+        <div className={`fe-card ${styles.card}`}>
+          <div className={styles.gridGap1}>
             <div>
               <span className="fe-badge pobut_caption">Badge Example</span>
             </div>
@@ -1369,7 +1325,7 @@ export default function MyPage() {
               <br />
               Background: 10% accent color | Border: Strong border | Color: Accent
               <br />
-              Edit: <code>src/app/styles/frontend.design-system.css</code> (lines 97-106)
+              Edit: <code>src/app/styles/Badges/badges.css</code>
             </p>
           </div>
         </div>
@@ -1384,7 +1340,7 @@ export default function MyPage() {
             <h2 className="pobut_H2">Product Card</h2>
             <p className="pobut_caption">Complete product card component example</p>
         
-        <div className="fe-card" style={{ padding: "var(--space-20)", display: "grid", gap: "var(--layout-gap-2)" }}>
+        <div className={`fe-card ${styles.card}`}>
         <div className="fe-product" style={{ maxWidth: "22rem" }}>
             <div style={{ height: "10rem", background: "var(--sys-surface-2)", display: "flex", alignItems: "center", justifyContent: "center" }}>
               <span className="pobut_caption">Product Image</span>
@@ -1405,7 +1361,7 @@ export default function MyPage() {
             <br />
             Availability uses <code>className="fe-availability"</code> (green)
             <br />
-            Edit: <code>src/app/styles/frontend.design-system.css</code> (lines 181-200)
+            Edit: <code>src/app/styles/Product/product.css</code>
           </p>
         </div>
           </InnerSection>
@@ -1419,8 +1375,8 @@ export default function MyPage() {
             <h2 className="pobut_H2">Navigation</h2>
             <p className="pobut_caption">Header and navigation bar components</p>
         
-        <div className="fe-card" style={{ padding: "var(--space-20)", display: "grid", gap: "var(--layout-gap-2)" }}>
-          <div style={{ display: "grid", gap: "var(--layout-gap-2)" }}>
+        <div className={`fe-card ${styles.card}`}>
+          <div className={styles.gridGap2}>
             <div>
               <h3 className="pobut_H3" style={{ marginBottom: "var(--space-20)" }}>Header</h3>
               <div className="fe-header" style={{ padding: "var(--space-20)", borderRadius: "var(--radius-lg)" }}>
@@ -1437,7 +1393,7 @@ export default function MyPage() {
                 <br />
                 Topbar: Grid layout (auto 1fr auto) | Gap: layout-gap-2
                 <br />
-                Edit: <code>src/app/styles/frontend.design-system.css</code> (lines 145-157)
+                Edit: <code>src/app/styles/Header/header.css</code>
               </p>
             </div>
 
@@ -1458,7 +1414,7 @@ export default function MyPage() {
                 <br />
                 Links: Opacity 0.95 → 1 on hover
                 <br />
-                Edit: <code>src/app/styles/frontend.design-system.css</code> (lines 159-176)
+                Edit: <code>src/app/styles/Nav/nav.css</code>
               </p>
             </div>
           </div>
@@ -1474,8 +1430,8 @@ export default function MyPage() {
             <h2 className="pobut_H2">Layout Helpers</h2>
             <p className="pobut_caption">Use system spacing tokens (CSS vars) for custom layouts</p>
         
-        <div className="fe-card" style={{ padding: "var(--space-20)", display: "grid", gap: "var(--layout-gap-2)" }}>
-          <div style={{ display: "grid", gap: "var(--layout-gap-1)" }}>
+        <div className={`fe-card ${styles.card}`}>
+          <div className={styles.gridGap1}>
             <div>
               <div className="pobut_body"><code>fe-page</code></div>
               <p className="pobut_caption">
@@ -1514,7 +1470,7 @@ export default function MyPage() {
             <h2 className="pobut_H2">Layout Components</h2>
             <p className="pobut_caption">Structural components for consistent page layouts</p>
         
-        <div className="fe-card" style={{ padding: "var(--space-20)", display: "grid", gap: "var(--layout-gap-2)" }}>
+        <div className={`fe-card ${styles.card}`}>
           {/* Page Component */}
           <div>
             <h3 className="pobut_H3" style={{ marginBottom: "var(--space-20)" }}>Page Component</h3>
@@ -1529,7 +1485,7 @@ export default function MyPage() {
                 <div style={{ padding: "var(--space-20)", background: "var(--sys-surface-2)", borderRadius: "var(--radius-lg)", border: "1px dashed var(--sys-border)" }}>
                   <Page>
                     <Container>
-                      <div className="fe-card" style={{ padding: "var(--space-20)", display: "grid", gap: "var(--layout-gap-2)" }}>
+                      <div className={`fe-card ${styles.card}`}>
                         <div className="pobut_body">Page Content</div>
                         <p className="pobut_caption">Container wraps content (max-width: 1440px)</p>
                       </div>
@@ -1555,7 +1511,7 @@ export default function MyPage() {
                       <p className="pobut_caption" style={{ color: "var(--sys-text-on-accent)" }}>This section spans full page width</p>
                     </div>
                     <Container>
-                      <div className="fe-card" style={{ padding: "var(--space-20)", display: "grid", gap: "var(--layout-gap-2)" }}>
+                      <div className={`fe-card ${styles.card}`}>
                         <div className="pobut_body">Contained Section</div>
                         <p className="pobut_caption">This section is constrained by Container</p>
                       </div>
@@ -1664,7 +1620,7 @@ export default function MyPage() {
               <Page>
                 <Container>
                   <div style={{ display: "grid", gap: "var(--layout-gap-2)" }}>
-                    <div className="fe-card" style={{ padding: "var(--space-20)", display: "grid", gap: "var(--layout-gap-2)" }}>
+                    <div className={`fe-card ${styles.card}`}>
                       <h3 className="pobut_H3">Example Page</h3>
                       <p className="pobut_body">Page wrapper with explicit Container.</p>
                       <p className="pobut_caption">Container handles width constraints, Page is just a wrapper.</p>
@@ -1707,8 +1663,8 @@ export default function MyPage() {
           <InnerSection>
             <h2 className="pobut_H2">Quick Reference: Where to Edit</h2>
         
-        <div className="fe-card" style={{ padding: "var(--space-20)", display: "grid", gap: "var(--layout-gap-2)" }}>
-          <div style={{ display: "grid", gap: "var(--layout-gap-1)" }}>
+        <div className={`fe-card ${styles.card}`}>
+          <div className={styles.gridGap1}>
             <div>
               <div className="pobut_H3">Typography</div>
               <p className="pobut_body">
@@ -1736,7 +1692,7 @@ export default function MyPage() {
             <div>
               <div className="pobut_H3">Components</div>
               <p className="pobut_body">
-                <code>src/app/styles/frontend.design-system.css</code> - Cards, badges, links, inputs, nav, products (shared UI patterns)
+                <code>src/app/styles/&lt;Group&gt;/*.css</code> - Reusable UI patterns (cards/badges/links/nav/header/product/search/etc)
                 <br />
                 <code>src/components/Page/index.tsx</code> + <code>src/components/Page/Page.css</code> - Page layout component
                 <br />
