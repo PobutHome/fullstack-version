@@ -1,0 +1,11 @@
+/* Colocated styles for <Container /> */
+
+:global([data-app="frontend"]) .root {
+  width: 100%;
+  max-width: 90rem; /* 1440px */
+  margin-left: auto;
+  margin-right: auto;
+  padding-inline: clamp(1.25rem, 4vw, 5rem); /* up to ~80px on large screens */
+}
+
+

@@ -1,5 +1,7 @@
 import type { CSSProperties, HTMLAttributes, ReactNode } from "react"
 
+import styles from "./InnerSection.module.css"
+
 type Props = HTMLAttributes<HTMLDivElement> & {
   children: ReactNode
   /** Extra classes for the inner wrapper */
@@ -15,7 +17,7 @@ type Props = HTMLAttributes<HTMLDivElement> & {
  * Use inside a <Container> (or any width-constraining wrapper).
  */
 export function InnerSection({ children, className = "", style, ...props }: Props) {
-  const innerClassName = `fe-page-section__inner ${className}`.trim()
+  const innerClassName = `${styles.root} ${className}`.trim()
 
   const combinedStyle: CSSProperties = {
     // Default vertical rhythm inside InnerSection; override per-instance via style:

@@ -1,11 +1,11 @@
 import type { CSSProperties, HTMLAttributes, ReactNode } from "react"
 
 import { Container } from "@/components/Container"
+import { InnerSection } from "@/components/InnerSection"
+import { Section } from "@/components/Section"
 
 type Props = HTMLAttributes<HTMLElement> & {
   children: ReactNode
-  /** Container variant (default: "default") */
-  containerVariant?: "default" | "narrow" | "wide"
   /** Extra classes for the inner wrapper */
   innerClassName?: string
   /** Pass-through style for the inner wrapper */
@@ -20,22 +20,18 @@ export function PageSection({
   children,
   className = "",
   style,
-  containerVariant = "default",
   innerClassName = "",
   innerStyle,
   ...props
 }: Props) {
-  const sectionClassName = `fe-page-section ${className}`.trim()
-  const innerCombinedClassName = `fe-page-section__inner ${innerClassName}`.trim()
-
   return (
-    <section className={sectionClassName} style={style} {...props}>
-      <Container variant={containerVariant}>
-        <div className={innerCombinedClassName} style={innerStyle}>
+    <Section className={className} style={style} {...props}>
+      <Container>
+        <InnerSection className={innerClassName} style={innerStyle}>
           {children}
-        </div>
+        </InnerSection>
       </Container>
-    </section>
+    </Section>
   )
 }
 

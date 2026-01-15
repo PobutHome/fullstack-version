@@ -1,5 +1,7 @@
 import type { HTMLAttributes, ReactNode } from "react"
 
+import styles from "./Page.module.css"
+
 type Props = HTMLAttributes<HTMLDivElement> & {
   children: ReactNode
 }
@@ -10,9 +12,7 @@ export function Page({
   style,
   ...props
 }: Props) {
-  const base = "fe-page-component"
-  
-  const combinedClassName = `${base} ${className}`.trim()
+  const combinedClassName = `${styles.root} ${className}`.trim()
   
   return (
     <div 

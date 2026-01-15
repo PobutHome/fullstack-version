@@ -53,6 +53,174 @@ export default async function DesignSystemPage() {
         </Container>
       </Section>
 
+      {/* Conventions & Navigation (read this first) */}
+      <Section id="conventions">
+        <Container>
+          <InnerSection>
+            <h2 className="pobut_H2">Conventions (Read This First)</h2>
+            <p className="pobut_caption">
+              The goal is “fast changes with zero guessing”: one way to build layouts, one
+              way to apply spacing, one place to edit tokens.
+            </p>
+
+            <div
+              className="fe-card"
+              style={{
+                padding: "var(--space-20)",
+                display: "grid",
+                gap: "var(--layout-gap-2)",
+              }}
+            >
+              <div style={{ display: "grid", gap: "var(--layout-gap-1)" }}>
+                <h3 className="pobut_H3">Table of contents</h3>
+                <div
+                  style={{
+                    display: "flex",
+                    flexWrap: "wrap",
+                    gap: "var(--space-10)",
+                    alignItems: "center",
+                  }}
+                >
+                  {[
+                    ["Conventions", "conventions"],
+                    ["Layout", "layout"],
+                    ["Layout Recipes", "layout-recipes"],
+                    ["Typography", "typography"],
+                    ["Colors", "colors"],
+                    ["Spacing", "spacing"],
+                    ["Buttons", "buttons"],
+                    ["Links", "links"],
+                    ["Inputs", "inputs"],
+                    ["Cards", "cards"],
+                    ["Badges", "badges"],
+                    ["Navigation", "navigation"],
+                    ["Layout helpers", "layout-helpers"],
+                    ["Layout components", "layout-components"],
+                    ["Quick reference", "quick-reference"],
+                  ].map(([label, id]) => (
+                    <a
+                      key={id}
+                      href={`#${id}`}
+                      className="fe-link pobut_caption"
+                      style={{
+                        padding: "0.25rem 0.5rem",
+                        borderRadius: "9999px",
+                        border: "1px solid var(--sys-border)",
+                        background: "var(--sys-surface)",
+                      }}
+                    >
+                      {label}
+                    </a>
+                  ))}
+                </div>
+              </div>
+
+              <div style={{ display: "grid", gap: "var(--layout-gap-2)" }}>
+                <div style={{ display: "grid", gap: "var(--layout-gap-1)" }}>
+                  <h3 className="pobut_H3">Layout convention (canonical)</h3>
+                  <div className="pobut_caption" style={{ display: "grid", gap: "0.5rem" }}>
+                    <div>
+                      <strong>✅ Always compose pages like this:</strong>{" "}
+                      <code>{`<Page data-app="frontend">`}</code> →{" "}
+                      <code>{`<Section id="...">`}</code> → <code>{`<Container>`}</code> →{" "}
+                      <code>{`<InnerSection>`}</code>
+                    </div>
+                    <div>
+                      <strong>✅ Use semantic blocks:</strong> each top-level <code>{`<Section>`}</code>{" "}
+                      must have an <code>id</code> for anchors + predictable DOM.
+                    </div>
+                    <div>
+                      <strong>✅ Use rhythm variables:</strong> page rhythm via{" "}
+                      <code>--fe-page-gap</code>, inner rhythm via <code>--fe-inner-gap</code>.
+                    </div>
+                    <div>
+                      <strong>❌ Avoid hardcoded spacing:</strong> don’t sprinkle <code>px</code>{" "}
+                      values in layouts; use tokens like <code>var(--layout-gap-2)</code> and{" "}
+                      <code>var(--space-20)</code>.
+                    </div>
+                    <div>
+                      <strong>When to use PageSection:</strong> use <code>{`<PageSection>`}</code>{" "}
+                      when your section is <em>always</em> contained (no full-width siblings).
+                      Use <code>{`<Section>`}</code> when you need a full-width background/band and a
+                      contained inner area inside it.
+                    </div>
+                  </div>
+                </div>
+
+                <div style={{ display: "grid", gap: "var(--layout-gap-1)" }}>
+                  <h3 className="pobut_H3">Where do styles go?</h3>
+                  <div className="pobut_caption" style={{ display: "grid", gap: "0.5rem" }}>
+                    <div>
+                      <strong>Important (Next.js rule):</strong> plain global <code>.css</code> files can’t be
+                      imported from arbitrary components. If you want per-component CSS next to
+                      a component, use <strong>CSS Modules</strong>: <code>Component.module.css</code>.
+                    </div>
+                    <div>
+                      <strong>Design tokens (source of truth):</strong>{" "}
+                      <code>src/app/styles/*-tokens.css</code> (palette, semantic, spacing, fonts, etc.)
+                    </div>
+                    <div>
+                      <strong>Shared component styles:</strong>{" "}
+                      <code>src/app/styles/frontend.design-system.css</code> (structural + reusable UI
+                      patterns like cards, badges, nav, etc.)
+                    </div>
+                    <div>
+                      <strong>Per-component styles (colocated):</strong> <code>src/components/*/Component.module.css</code>
+                      imported by the component (best for styles used by only that component).
+                    </div>
+                    <div>
+                      <strong>Component code:</strong> <code>src/components/*</code> (React primitives like{" "}
+                      <code>Page</code>, <code>Container</code>, <code>InnerSection</code>, <code>Button</code>)
+                    </div>
+                    <div>
+                      <strong>Rule of thumb:</strong> if a style is reused across 2+ routes, it must live
+                      in the design system styles (not inside a route).
+                    </div>
+                  </div>
+                </div>
+
+                <div style={{ display: "grid", gap: "var(--layout-gap-1)" }}>
+                  <h3 className="pobut_H3">CSS Modules example (recommended)</h3>
+                  <pre
+                    className="pobut_caption"
+                    style={{
+                      margin: 0,
+                      padding: "var(--space-20)",
+                      background: "var(--sys-surface-2)",
+                      borderRadius: "var(--radius-lg)",
+                      border: "1px solid var(--sys-border)",
+                      maxWidth: "100%",
+                      overflowX: "auto",
+                      whiteSpace: "pre-wrap",
+                      wordBreak: "break-word",
+                      overflowWrap: "anywhere",
+                      lineHeight: 1.6,
+                    }}
+                  >{`// src/components/MyCard/MyCard.module.css
+.root {
+  background: var(--sys-card-bg);
+  border: 1px solid var(--sys-card-border);
+  border-radius: var(--radius-lg);
+  padding: var(--space-20);
+}
+
+// src/components/MyCard/index.tsx
+import styles from "./MyCard.module.css"
+
+export function MyCard({ children }: { children: React.ReactNode }) {
+  return <div className={styles.root}>{children}</div>
+}`}</pre>
+                  <div className="pobut_caption" style={{ opacity: 0.85 }}>
+                    This keeps styles “in the component folder” while still using the same tokens as the
+                    global design system.
+                  </div>
+                </div>
+              </div>
+            </div>
+          </InnerSection>
+        </Container>
+      </Section>
+
       {/* Layout Section */}
       <Section id="layout">
         <Container>
@@ -163,6 +331,107 @@ export default function ExamplePage() {
           </div>
 
         </div>
+          </InnerSection>
+        </Container>
+      </Section>
+
+      {/* Layout Recipes Section */}
+      <Section id="layout-recipes">
+        <Container>
+          <InnerSection>
+            <h2 className="pobut_H2">Layout Recipes (Copy/Paste)</h2>
+            <p className="pobut_caption">
+              These are the only “approved” layout patterns. If a page needs something else,
+              we add a new layout primitive (don’t freestyle per-page).
+            </p>
+
+            <div
+              className="fe-card"
+              style={{ padding: "var(--space-20)", display: "grid", gap: "var(--layout-gap-2)" }}
+            >
+              <div style={{ display: "grid", gap: "var(--layout-gap-1)" }}>
+                <h3 className="pobut_H3">Recipe A: Standard page sections</h3>
+                <pre
+                  className="pobut_caption"
+                  style={{
+                    margin: 0,
+                    padding: "var(--space-20)",
+                    background: "var(--sys-surface-2)",
+                    borderRadius: "var(--radius-lg)",
+                    border: "1px solid var(--sys-border)",
+                    maxWidth: "100%",
+                    overflowX: "auto",
+                    whiteSpace: "pre-wrap",
+                    wordBreak: "break-word",
+                    overflowWrap: "anywhere",
+                    lineHeight: 1.6,
+                  }}
+                >{`import { Page } from "@/components/Page"
+import { Section } from "@/components/Section"
+import { Container } from "@/components/Container"
+import { InnerSection } from "@/components/InnerSection"
+
+export default function MyPage() {
+  return (
+    <Page data-app="frontend">
+      <Section id="hero">
+        <Container>
+          <InnerSection>
+            {/* hero content */}
+          </InnerSection>
+        </Container>
+      </Section>
+
+      <Section id="content">
+        <Container>
+          <InnerSection>
+            {/* main content */}
+          </InnerSection>
+        </Container>
+      </Section>
+    </Page>
+  )
+}`}</pre>
+                <div className="pobut_caption" style={{ opacity: 0.85 }}>
+                  If you need a tighter/looser stack inside InnerSection, override{" "}
+                  <code>--fe-inner-gap</code>:{" "}
+                  <code>{`style={{ ["--fe-inner-gap" as any]: "var(--layout-gap-1)" }}`}</code>
+                </div>
+              </div>
+
+              <div style={{ display: "grid", gap: "var(--layout-gap-1)" }}>
+                <h3 className="pobut_H3">Recipe B: Full-width band + contained content</h3>
+                <pre
+                  className="pobut_caption"
+                  style={{
+                    margin: 0,
+                    padding: "var(--space-20)",
+                    background: "var(--sys-surface-2)",
+                    borderRadius: "var(--radius-lg)",
+                    border: "1px solid var(--sys-border)",
+                    maxWidth: "100%",
+                    overflowX: "auto",
+                    whiteSpace: "pre-wrap",
+                    wordBreak: "break-word",
+                    overflowWrap: "anywhere",
+                    lineHeight: 1.6,
+                  }}
+                >{`<Section id="promo" style={{ background: "var(--sys-surface-accent)" }}>
+  {/* full width background/band */}
+  <Container>
+    <InnerSection>
+      {/* constrained content */}
+    </InnerSection>
+  </Container>
+</Section>`}</pre>
+              </div>
+
+              <div className="pobut_caption" style={{ opacity: 0.85 }}>
+                Sidebar layout primitives were intentionally removed from this project to keep the
+                layout system small and predictable. If we need sidebars later, we’ll add a single
+                new primitive with a documented recipe here.
+              </div>
+            </div>
           </InnerSection>
         </Container>
       </Section>
@@ -1336,7 +1605,7 @@ export default function ExamplePage() {
                 • Simple API: just create a new page file and return <code>{`<Page>children</Page>`}</code>
                 <br />
                 <br />
-                <strong>Edit:</strong> <code>src/components/Page/index.tsx</code> & <code>src/app/styles/frontend.design-system.css</code>
+                <strong>Edit:</strong> <code>src/components/Page/index.tsx</code> & <code>src/components/Page/Page.module.css</code>
               </p>
             </div>
           </div>
@@ -1364,38 +1633,6 @@ export default function ExamplePage() {
                   <code>{`<Container>`}</code> - Max-width: 1440px
                 </p>
               </div>
-
-              {/* Narrow Container */}
-              <div style={{ display: "grid", gap: "var(--layout-gap-1)" }}>
-                <div className="pobut_body" style={{ marginBottom: "var(--space-10)" }}><strong>Narrow Container</strong></div>
-                <div style={{ padding: "var(--space-20)", background: "var(--sys-surface-2)", borderRadius: "var(--radius-lg)", border: "1px dashed var(--sys-border)" }}>
-                  <Container variant="narrow">
-                    <div className="fe-card" style={{ padding: "var(--space-20)" }}>
-                      <div className="pobut_body">Max-width: 1200px (75rem)</div>
-                      <p className="pobut_caption">For narrower content areas</p>
-                    </div>
-                  </Container>
-                </div>
-                <p className="pobut_caption">
-                  <code>{`<Container variant="narrow">`}</code> - Max-width: 1200px
-                </p>
-              </div>
-
-              {/* Wide Container */}
-              <div style={{ display: "grid", gap: "var(--layout-gap-1)" }}>
-                <div className="pobut_body" style={{ marginBottom: "var(--space-10)" }}><strong>Wide Container</strong></div>
-                <div style={{ padding: "var(--space-20)", background: "var(--sys-surface-2)", borderRadius: "var(--radius-lg)", border: "1px dashed var(--sys-border)" }}>
-                  <Container variant="wide">
-                    <div className="fe-card" style={{ padding: "var(--space-20)" }}>
-                      <div className="pobut_body">Max-width: 1600px (100rem)</div>
-                      <p className="pobut_caption">For wider content areas</p>
-                    </div>
-                  </Container>
-                </div>
-                <p className="pobut_caption">
-                  <code>{`<Container variant="wide">`}</code> - Max-width: 1600px
-                </p>
-              </div>
             </div>
 
             <div style={{ marginTop: "var(--space-20)", padding: "var(--space-20)", background: "var(--sys-surface-2)", borderRadius: "var(--radius-lg)" }}>
@@ -1404,15 +1641,15 @@ export default function ExamplePage() {
                 <br />
                 <code style={{ fontSize: "0.9em" }}>{`import { Container } from '@/components/Container'`}</code>
                 <br />
-                <code style={{ fontSize: "0.9em" }}>{`<Container variant="default">...</Container>`}</code>
+                <code style={{ fontSize: "0.9em" }}>{`<Container>...</Container>`}</code>
                 <br />
                 <br />
                 <strong>Props:</strong>
                 <br />
-                • <code>variant</code>: "default" | "narrow" | "wide" (default: "default")
+                • Standard HTML div props (className, style, etc.)
                 <br />
                 <br />
-                <strong>Edit:</strong> <code>src/components/Container/index.tsx</code> & <code>src/app/styles/frontend.design-system.css</code>
+                <strong>Edit:</strong> <code>src/components/Container/index.tsx</code> & <code>src/components/Container/Container.module.css</code>
               </p>
             </div>
           </div>
@@ -1425,7 +1662,7 @@ export default function ExamplePage() {
             </p>
             <div style={{ padding: "var(--space-20)", background: "var(--sys-surface-2)", borderRadius: "var(--radius-lg)", border: "1px dashed var(--sys-border)" }}>
               <Page>
-                <Container variant="narrow">
+                <Container>
                   <div style={{ display: "grid", gap: "var(--layout-gap-2)" }}>
                     <div className="fe-card" style={{ padding: "var(--space-20)", display: "grid", gap: "var(--layout-gap-2)" }}>
                       <h3 className="pobut_H3">Example Page</h3>
@@ -1448,7 +1685,7 @@ import { Container } from '@/components/Container'
 export default function MyPage() {
   return (
     <Page>
-      <Container variant="narrow">
+      <Container>
         <h1 className="pobut_H1">My Page</h1>
         <p className="pobut_body">Content goes here</p>
       </Container>
@@ -1499,11 +1736,15 @@ export default function MyPage() {
             <div>
               <div className="pobut_H3">Components</div>
               <p className="pobut_body">
-                <code>src/app/styles/frontend.design-system.css</code> - Cards, badges, links, inputs, nav, products, layout components
+                <code>src/app/styles/frontend.design-system.css</code> - Cards, badges, links, inputs, nav, products (shared UI patterns)
                 <br />
-                <code>src/components/Page/index.tsx</code> - Page layout component
+                <code>src/components/Page/index.tsx</code> + <code>src/components/Page/Page.module.css</code> - Page layout component
                 <br />
-                <code>src/components/Container/index.tsx</code> - Container component
+                <code>src/components/Container/index.tsx</code> + <code>src/components/Container/Container.module.css</code> - Container component
+                <br />
+                <code>src/components/Section/index.tsx</code> + <code>src/components/Section/Section.module.css</code> - Section (semantic wrapper)
+                <br />
+                <code>src/components/InnerSection/index.tsx</code> + <code>src/components/InnerSection/InnerSection.module.css</code> - InnerSection (default rhythm)
                 <br />
                 <code>src/components/Button/index.tsx</code> - Button component
                 <br />

@@ -1,5 +1,7 @@
 import type { HTMLAttributes, ReactNode } from "react"
 
+import styles from "./Section.module.css"
+
 type Props = HTMLAttributes<HTMLElement> & {
   children: ReactNode
 }
@@ -18,7 +20,7 @@ export function Section({
   style,
   ...props
 }: Props) {
-  const sectionClassName = `fe-page-section ${className}`.trim()
+  const sectionClassName = `${styles.root} ${className}`.trim()
 
   return (
     <section className={sectionClassName} style={style} {...props}>
