@@ -31,6 +31,17 @@ export const Users: CollectionConfig = {
       type: 'text',
     },
     {
+      name: 'googleId',
+      type: 'text',
+      access: {
+        create: adminOnlyFieldAccess,
+        read: adminOnlyFieldAccess,
+        update: adminOnlyFieldAccess,
+      },
+      index: true,
+      unique: true,
+    },
+    {
       name: 'roles',
       type: 'select',
       access: {

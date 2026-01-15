@@ -26,6 +26,8 @@ export const CreateAccountForm: React.FC = () => {
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState<null | string>(null)
 
+  const googleHref = `/api/auth/google${allParams}`
+
   const {
     formState: { errors },
     handleSubmit,
@@ -38,7 +40,7 @@ export const CreateAccountForm: React.FC = () => {
 
   const onSubmit = useCallback(
     async (data: FormData) => {
-      const response = await fetch(`${process.env.NEXT_PUBLIC_SERVER_URL}/api/users`, {
+      const response = await fetch('/api/users', {
         body: JSON.stringify(data),
         headers: {
           'Content-Type': 'application/json',
@@ -83,6 +85,16 @@ export const CreateAccountForm: React.FC = () => {
       <Message error={error} />
 
       <div className="flex flex-col gap-8 mb-8">
+        <Button asChild size="lg" variant="outline">
+          <Link href={googleHref}>Continue with Google</Link>
+        </Button>
+
+        <div className="flex items-center gap-4">
+          <div className="h-px bg-border flex-1" />
+          <span className="text-sm text-muted-foreground">or</span>
+          <div className="h-px bg-border flex-1" />
+        </div>
+
         <FormItem>
           <Label htmlFor="email" className="mb-2">
             Email Address

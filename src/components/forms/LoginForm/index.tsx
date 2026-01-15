@@ -25,6 +25,8 @@ export const LoginForm: React.FC = () => {
   const router = useRouter()
   const [error, setError] = React.useState<null | string>(null)
 
+  const googleHref = `/api/auth/google${allParams}`
+
   const {
     formState: { errors, isLoading },
     handleSubmit,
@@ -48,6 +50,16 @@ export const LoginForm: React.FC = () => {
     <form className="" onSubmit={handleSubmit(onSubmit)}>
       <Message className="classes.message" error={error} />
       <div className="flex flex-col gap-8">
+        <Button asChild size="lg" variant="outline">
+          <Link href={googleHref}>Continue with Google</Link>
+        </Button>
+
+        <div className="flex items-center gap-4">
+          <div className="h-px bg-border flex-1" />
+          <span className="text-sm text-muted-foreground">or</span>
+          <div className="h-px bg-border flex-1" />
+        </div>
+
         <FormItem>
           <Label htmlFor="email">Email</Label>
           <Input
