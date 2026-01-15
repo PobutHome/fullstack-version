@@ -19,7 +19,7 @@ export function Container({
   // Variant class
   const variantClass = 
     variant === "narrow" ? "fe-container--narrow"
-    : variant === "wide" ? "fe-container--wide"
+    : variant === "wide" ? "fe-container--wide" 
     : ""
   
   // Combine classes
@@ -35,4 +35,6 @@ export function Container({
     </div>
   )
 }
+
+
 

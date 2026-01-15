@@ -8,8 +8,8 @@ type Props = HTMLAttributes<HTMLDivElement> & {
   leftSidebarWidth?: string
   /** Right sidebar width (default: auto) */
   rightSidebarWidth?: string
-  /** Gap between sections (default: 2) */
-  gap?: 1 | 2 | 3
+  /** Gap between sections css value (default: var(--layout-gap-2)) */
+  gap?: string
 }
 
 export function PageWithTwoSidebars({
@@ -17,7 +17,7 @@ export function PageWithTwoSidebars({
   rightSidebar,
   leftSidebarWidth,
   rightSidebarWidth,
-  gap = 2,
+  gap = "var(--layout-gap-2)",
   className = "",
   children,
   style,
@@ -25,12 +25,12 @@ export function PageWithTwoSidebars({
 }: Props) {
   const base = "fe-page-component"
   const sidebarClass = "fe-page-with-two-sidebars"
-  const gapClass = gap ? `fe-gap-${gap}` : ""
   
-  const combinedClassName = `${base} ${sidebarClass} ${gapClass} ${className}`.trim()
+  const combinedClassName = `${base} ${sidebarClass} ${className}`.trim()
   
   const combinedStyle: React.CSSProperties = {
     ...style,
+    gap,
     ...(leftSidebarWidth && {
       ['--left-sidebar-width' as string]: typeof leftSidebarWidth === 'string' ? leftSidebarWidth : `${leftSidebarWidth}px`,
     }),

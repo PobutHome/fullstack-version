@@ -56,25 +56,16 @@
 }
 
 /* ---------------------------
-   LAYOUT HELPERS
+   DEFAULT LAYOUT RHYTHM (NO UTILITY CLASSES)
    --------------------------- */
 @layer utilities {
-  [data-app="frontend"] .fe-stack-1 > * + * { margin-top: var(--layout-gap-1); }
-  [data-app="frontend"] .fe-stack-2 > * + * { margin-top: var(--layout-gap-2); }
-  [data-app="frontend"] .fe-stack-3 > * + * { margin-top: var(--layout-gap-3, var(--layout-gap-2)); }
-
-  [data-app="frontend"] .fe-gap-1 { gap: var(--layout-gap-1); }
-  [data-app="frontend"] .fe-gap-2 { gap: var(--layout-gap-2); }
-  [data-app="frontend"] .fe-gap-3 { gap: var(--layout-gap-3, var(--layout-gap-2)); }
-
-  /* Raw spacing scale */
-  [data-app="frontend"] .fe-p-10 { padding: var(--space-10); }
-  [data-app="frontend"] .fe-p-20 { padding: var(--space-20); }
-  [data-app="frontend"] .fe-p-30 { padding: var(--space-30); }
-  [data-app="frontend"] .fe-p-50 { padding: var(--space-50); }
-
-  [data-app="frontend"] .fe-mt-10 { margin-top: var(--space-10); }
-  [data-app="frontend"] .fe-mt-20 { margin-top: var(--space-20); }
+  /*
+    We intentionally do NOT provide spacing utility classes (fe-stack-*, fe-gap-*, fe-p-*, etc).
+    Instead:
+    - Page sets a default vertical rhythm between top-level sections via --fe-page-gap
+    - InnerSection sets default rhythm between its direct children via --fe-inner-gap
+    - Custom layouts should use CSS vars / inline style (gap/padding/margins) as needed
+  */
 }
 
 /* ---------------------------
@@ -84,6 +75,12 @@
   /* Page Component - Base (simple wrapper) */
   [data-app="frontend"] .fe-page-component {
     width: 100%;
+    --fe-page-gap: var(--layout-gap-3, var(--layout-gap-2));
+  }
+
+  /* Default vertical rhythm between top-level children (typically Sections) */
+  [data-app="frontend"] .fe-page-component > * + * {
+    margin-top: var(--fe-page-gap);
   }
 
   /* Page with Sidebar - Left */
@@ -177,6 +174,7 @@
     max-width: 90rem; /* 1440px */
     margin-left: auto;
     margin-right: auto;
+    padding-inline: clamp(1.25rem, 4vw, 5rem); /* up to ~80px on large screens */
   }
 
   /* Container variants */
@@ -186,6 +184,21 @@
 
   [data-app="frontend"] .fe-container--wide {
     max-width: 100rem; /* 1600px */
+  }
+
+  /* PageSection (Page -> Section -> Container -> Inner) */
+  [data-app="frontend"] .fe-page-section {
+    width: 100%;
+  }
+
+  [data-app="frontend"] .fe-page-section__inner {
+    width: 100%;
+    min-width: 0;
+  }
+
+  /* Default vertical rhythm for InnerSection children */
+  [data-app="frontend"] .fe-page-section__inner > * + * {
+    margin-top: var(--fe-inner-gap, var(--layout-gap-2));
   }
 }
 

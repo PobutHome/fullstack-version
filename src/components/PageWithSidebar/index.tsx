@@ -8,15 +8,15 @@ type Props = HTMLAttributes<HTMLDivElement> & {
   sidebarPosition?: SidebarPosition
   /** Sidebar width (default: auto) */
   sidebarWidth?: string
-  /** Main content gap (default: 2) */
-  gap?: 1 | 2 | 3
+  /** Main content gap css value (default: var(--layout-gap-2)) */
+  gap?: string
 }
 
 export function PageWithSidebar({
   sidebar,
   sidebarPosition = "left",
   sidebarWidth,
-  gap = 2,
+  gap = "var(--layout-gap-2)",
   className = "",
   children,
   style,
@@ -24,12 +24,12 @@ export function PageWithSidebar({
 }: Props) {
   const base = "fe-page-component"
   const sidebarClass = `fe-page-with-sidebar--${sidebarPosition}`
-  const gapClass = gap ? `fe-gap-${gap}` : ""
   
-  const combinedClassName = `${base} ${sidebarClass} ${gapClass} ${className}`.trim()
+  const combinedClassName = `${base} ${sidebarClass} ${className}`.trim()
   
   const combinedStyle: React.CSSProperties = {
     ...style,
+    gap,
     ...(sidebarWidth && {
       ['--sidebar-width' as string]: typeof sidebarWidth === 'string' ? sidebarWidth : `${sidebarWidth}px`,
     }),
