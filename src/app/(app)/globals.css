@@ -21,6 +21,19 @@
 @import '../styles/Inputs/input-tokens.css';
 @import '../styles/Inputs/input.css';
 
+/* button styling imports */
+@import '../styles/Buttons/button-tokens.css';
+
+/* non-component utility/demo class groups (global) */
+@import '../styles/Links/links.css';
+@import '../styles/Cards/cards.css';
+@import '../styles/Badges/badges.css';
+@import '../styles/Search/search.css';
+@import '../styles/Header/header.css';
+@import '../styles/Nav/nav.css';
+@import '../styles/Product/product.css';
+@import '../styles/Drawer/drawer.css';
+
 
 
 
@@ -220,6 +233,12 @@
   }
 
   /* HTML Root - Set base font size for rem calculations */
+  /* 
+   * IMPORTANT: Keep font-size constant at 16px (or 100%) to ensure rem-based
+   * typography tokens work predictably. Responsive scaling is handled by
+   * CSS variables in typography.css (--t-h1-size, etc.) which change at
+   * breakpoints. Changing HTML font-size would create double scaling.
+   */
   html {
     font-size: 16px; /* Base for rem calculations - 1rem = 16px */
     font-family:
@@ -231,13 +250,6 @@
     -moz-osx-font-smoothing: grayscale;
     text-rendering: optimizeLegibility;
     scroll-behavior: smooth;
-  }
-
-  /* Responsive base font size scaling for better mobile experience */
-  @media (max-width: 48rem) {
-    html {
-      font-size: 14px; /* Slightly smaller on mobile for better fit */
-    }
   }
 
   /* Body Defaults - Unbounded is the only font */

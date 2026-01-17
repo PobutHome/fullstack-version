@@ -1,0 +1,7 @@
+/* Global (non-module) styles for <Section /> */
+
+[data-app="frontend"] .section {
+  width: 100%;
+}
+
+

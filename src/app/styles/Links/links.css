@@ -1,0 +1,10 @@
+@layer utilities {
+  [data-app="frontend"] .fe-link {
+    color: var(--sys-interactive);
+    text-decoration: none;
+  }
+  [data-app="frontend"] .fe-link:hover { color: var(--sys-interactive-hover); }
+  [data-app="frontend"] .fe-link:active { color: var(--sys-interactive-active); }
+}
+
+
