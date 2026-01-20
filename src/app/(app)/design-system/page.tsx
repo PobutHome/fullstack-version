@@ -203,8 +203,8 @@ export function MyCard({ children }: { children: React.ReactNode }) {
             </p>
 
         <div
-          className="fe-card"
-          style={{ padding: "var(--space-20)", display: "grid", gap: "var(--layout-gap-2)" }}
+          className="fe-card baseGap"
+          style={{ padding: "var(--space-20)", display: "grid" }}
         >
           <div style={{ display: "grid", gap: "var(--layout-gap-1)" }}>
             <h3 className="pobut_H3">Rules</h3>
@@ -219,7 +219,7 @@ export function MyCard({ children }: { children: React.ReactNode }) {
 
           <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(320px, 1fr))", gap: "var(--layout-gap-2)" }}>
             {/* Visual demo */}
-            <div style={{ display: "grid", gap: "var(--layout-gap-1)" }}>
+            <div className="fe-gap-tight" style={{ display: "grid" }}>
               <div className="pobut_body"><strong>Visual: Page → Section → Container → Inner</strong></div>
               <div style={{ padding: "var(--space-20)", background: "var(--sys-surface-2)", borderRadius: "var(--radius-lg)", border: "1px dashed var(--sys-border)" }}>
                 <div style={{ display: "grid", gap: "var(--layout-gap-1)" }}>
@@ -887,7 +887,7 @@ export default function MyPage() {
           <div>
             <h3 className="pobut_H3" style={{ marginBottom: "var(--space-20)" }}>Component Spacing Scale</h3>
             <p className="pobut_caption" style={{ marginBottom: "var(--space-20)" }}>Raw spacing values for component-level padding/margins</p>
-            <div style={{ display: "grid", gap: "var(--layout-gap-1)" }}>
+            <div className="fe-gap-tight" style={{ display: "grid" }}>
               <div style={{ display: "flex", alignItems: "center", gap: "var(--space-20)" }}>
                 <div style={{ width: "var(--space-10)", height: "var(--space-10)", background: "var(--sys-accent)", borderRadius: "0.25rem" }} />
                 <div>
@@ -923,10 +923,10 @@ export default function MyPage() {
             <h3 className="pobut_H3" style={{ marginBottom: "var(--space-20)" }}>Layout Spacing (From Figma)</h3>
             <p className="pobut_caption" style={{ marginBottom: "var(--space-20)" }}>These values match your Figma design specifications</p>
             
-            <div style={{ display: "grid", gap: "var(--layout-gap-2)" }}>
+            <div className="baseGap" style={{ display: "grid" }}>
               <div>
                 <div className="pobut_body" style={{ marginBottom: "var(--space-10)" }}><code>--layout-margin</code>: Layout margin token (available for custom use)</div>
-                <div className="pobut_caption" style={{ paddingLeft: "var(--space-20)", display: "grid", gap: "var(--layout-gap-1)" }}>
+                <div className="pobut_caption fe-gap-tight" style={{ paddingLeft: "var(--space-20)", display: "grid" }}>
                   <div>📱 <strong>Mobile:</strong> 0.625rem (10px)</div>
                   <div>📱 <strong>Tablet:</strong> 3.125rem (50px)</div>
                   <div>🖥️ <strong>Desktop:</strong> 9.375rem (150px)</div>
@@ -938,7 +938,7 @@ export default function MyPage() {
               
               <div>
                 <div className="pobut_body" style={{ marginBottom: "var(--space-10)" }}><code>--layout-gap-1</code>: Small vertical spacing</div>
-                <div className="pobut_caption" style={{ paddingLeft: "var(--space-20)", display: "grid", gap: "var(--layout-gap-1)" }}>
+                <div className="pobut_caption fe-gap-tight" style={{ paddingLeft: "var(--space-20)", display: "grid" }}>
                   <div>📱 <strong>Mobile:</strong> 0.625rem (10px)</div>
                   <div>📱 <strong>Tablet:</strong> 0.625rem (10px)</div>
                   <div>🖥️ <strong>Desktop:</strong> 1.25rem (20px)</div>
@@ -950,7 +950,7 @@ export default function MyPage() {
               
               <div>
                 <div className="pobut_body" style={{ marginBottom: "var(--space-10)" }}><code>--layout-gap-2</code>: Medium vertical spacing</div>
-                <div className="pobut_caption" style={{ paddingLeft: "var(--space-20)", display: "grid", gap: "var(--layout-gap-1)" }}>
+                <div className="pobut_caption fe-gap-tight" style={{ paddingLeft: "var(--space-20)", display: "grid" }}>
                   <div>📱 <strong>Mobile:</strong> 1.25rem (20px)</div>
                   <div>📱 <strong>Tablet:</strong> 1.25rem (20px)</div>
                   <div>🖥️ <strong>Desktop:</strong> 3.125rem (50px)</div>
@@ -977,7 +977,7 @@ export default function MyPage() {
           {/* Visual Example */}
           <div style={{ marginTop: "var(--space-20)", padding: "var(--space-20)", background: "var(--sys-surface-2)", borderRadius: "var(--radius-lg)" }}>
             <h4 className="pobut_H3" style={{ marginBottom: "var(--space-20)" }}>Visual Example: How These Are Used</h4>
-            <div style={{ display: "grid", gap: "var(--layout-gap-2)" }}>
+            <div className="baseGap" style={{ display: "grid" }}>
               <div>
                 <div className="pobut_body" style={{ marginBottom: "var(--space-10)" }}>1. <strong>Page Container</strong> (uses <code>--layout-margin</code>):</div>
                 <div style={{ padding: "var(--space-10)", background: "var(--sys-surface)", border: "2px dashed var(--sys-border-strong)", borderRadius: "var(--radius-lg)" }}>
@@ -1002,6 +1002,92 @@ export default function MyPage() {
                     Gap between sections = <code>--layout-gap-2</code> (20px/20px/50px)
                   </div>
                 </div>
+              </div>
+            </div>
+          </div>
+
+          {/* Semantic InnerSection vertical gap helper */}
+          <div
+            style={{
+              marginTop: "var(--space-20)",
+              padding: "var(--space-20)",
+              background: "var(--sys-surface-2)",
+              borderRadius: "var(--radius-lg)",
+            }}
+          >
+            <h4 className="pobut_H3" style={{ marginBottom: "var(--space-20)" }}>
+              Semantic InnerSection Gap (Y axis)
+            </h4>
+            <div style={{ display: "grid", gap: "var(--layout-gap-2)" }}>
+              <div className="pobut_caption fe-gap-base" style={{ display: "grid" }}>
+                <div>
+                  <strong>Token:</strong> <code>--ds-inner-section-gap-y</code> — vertical distance between stacked
+                  blocks (e.g. InnerSections).
+                </div>
+                <div>
+                  Mobile: 20px (0.625rem) | Tablet: 30px (1.875rem) | Desktop: 50px (3.125rem)
+                </div>
+                <div>
+                  <strong>Utility class:</strong> <code>fe-gap-inner-section-y</code> — applies{" "}
+                  <code>margin-top: var(--ds-inner-section-gap-y)</code>.
+                </div>
+                <div>
+                  <strong>Edit:</strong>{" "}
+                  <code>src/app/styles/Spacing/spacing-tokens.css</code> (token) and{" "}
+                  <code>src/app/styles/Spacing/spacing.css</code> (utility class).
+                </div>
+              </div>
+
+              {/* Mini demo */}
+              <div
+                style={{
+                  marginTop: "var(--space-20)",
+                  padding: "var(--space-20)",
+                  background: "var(--sys-surface)",
+                  borderRadius: "var(--radius-lg)",
+                  border: "1px dashed var(--sys-border)",
+                  display: "grid",
+                  gap: "var(--layout-gap-2)",
+                }}
+              >
+                <div className="pobut_body">Example: two InnerSections with semantic gap (via class, no inline spacing)</div>
+                <div
+                  style={{
+                    borderRadius: "var(--radius-lg)",
+                    border: "1px solid var(--sys-border)",
+                    padding: "var(--space-20)",
+                    display: "grid",
+                    gap: "var(--layout-gap-1)",
+                  }}
+                >
+                  <InnerSection>
+                    <p className="pobut_caption">First InnerSection (no extra margin on top)</p>
+                  </InnerSection>
+                  <InnerSection className="marginSections">
+                    <p className="pobut_caption">
+                      Second InnerSection with <code>className="fe-gap-inner-section-y"</code> — the space between
+                      these two blocks is driven by <code>--ds-inner-section-gap-y</code> (20 / 30 / 50px in rem).
+                    </p>
+                  </InnerSection>
+                </div>
+
+                <DsCodeBlock>{`// Semantic vertical gap between stacked sections
+// Token (responsive):
+//   --ds-inner-section-gap-y → 20px / 30px / 50px in rem
+
+// Utility class (global):
+// src/app/styles/Spacing/spacing.css
+[data-app="frontend"] .marginSections {
+  margin-top: var(--ds-inner-section-gap-y);
+}
+
+// Usage in JSX
+<InnerSection>
+  {/* first block */}
+</InnerSection>
+<InnerSection className="marginSections">
+  {/* second block, offset on Y axis by the token */}
+</InnerSection>`}</DsCodeBlock>
               </div>
             </div>
           </div>

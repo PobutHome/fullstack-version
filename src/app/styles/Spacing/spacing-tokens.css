@@ -16,6 +16,13 @@
   --layout-margin: 0.625rem;  /* 10px */
   --layout-gap-1: var(--space-10); /* 10 */
   --layout-gap-2: var(--space-20); /* 20 */
+  
+  /* Semantic: vertical gap between stacked InnerSections (Y axis)
+     Mobile  → 20px
+     Tablet  → 30px
+     Desktop → 50px
+  */
+  --ds-inner-section-gap-y: var(--space-20);
 }
 
 /* Tablet ≥ 48rem (768px): Margin 50, Spacing 10/20/30 */
@@ -25,6 +32,7 @@
     --layout-gap-1: var(--space-10);
     --layout-gap-2: var(--space-20);
     --layout-gap-3: var(--space-30);
+    --ds-inner-section-gap-y: var(--space-30);
   }
 }
 
@@ -34,5 +42,6 @@
     --layout-margin: 9.375rem; /* 150px */
     --layout-gap-1: var(--space-20); /* 20 */
     --layout-gap-2: var(--space-50); /* 50 */
+    --ds-inner-section-gap-y: var(--space-50);
   }
 }

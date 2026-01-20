@@ -22,3 +22,31 @@
 
 .mt-10 { margin-top: var(--space-10); }
 .mt-20 { margin-top: var(--space-20); }
+
+[data-app="frontend"] .fe-gap-inner-section-y {
+  margin-top: var(--ds-inner-section-gap-y);
+}
+
+/* ============================================
+   Semantic spacing helpers (class-based API)
+   ============================================ */
+
+/* Vertical margin between major blocks/sections */
+[data-app="frontend"] .fe-margin-sections,
+[data-app="frontend"] .marginSections {
+  margin-top: var(--ds-inner-section-gap-y);
+}
+
+/* Gap helpers for flex/grid containers */
+[data-app="frontend"] .fe-gap-base,
+[data-app="frontend"] .baseGap {
+  gap: var(--layout-gap-2);
+}
+
+[data-app="frontend"] .fe-gap-tight {
+  gap: var(--layout-gap-1);
+}
+
+[data-app="frontend"] .fe-gap-loose {
+  gap: var(--layout-gap-3, var(--layout-gap-2));
+}
