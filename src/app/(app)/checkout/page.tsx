@@ -1,26 +1,22 @@
 import type { Metadata } from 'next'
 
 import { mergeOpenGraph } from '@/utilities/mergeOpenGraph'
-import { Fragment } from 'react'
 
 import { CheckoutPage } from '@/components/checkout/CheckoutPage'
+
+export const dynamic = 'force-dynamic'
+export const revalidate = 0
 
 export default function Checkout() {
   return (
     <div className="container min-h-[90vh] flex">
-      {!process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY && (
+      {(!process.env.LIQPAY_PUBLIC_KEY || !process.env.LIQPAY_PRIVATE_KEY) && (
         <div>
-          <Fragment>
-            {'Щоб увімкнути оплату, потрібно '}
-            <a
-              href="https://dashboard.stripe.com/test/apikeys"
-              rel="noopener noreferrer"
-              target="_blank"
-            >
-              отримати Stripe API ключі
-            </a>
-            {' і додати їх у змінні середовища.'}
-          </Fragment>
+          {'Щоб увімкнути оплату через LiqPay, додайте у env змінні '}
+          <code>LIQPAY_PUBLIC_KEY</code>
+          {' та '}
+          <code>LIQPAY_PRIVATE_KEY</code>
+          {'.'}
         </div>
       )}
 
