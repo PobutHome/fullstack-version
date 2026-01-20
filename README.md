@@ -24,7 +24,7 @@ Core features:
 - [Carts](#carts)
 - [Guest checkout](#guests)
 - [Orders & Transactions](#orders-and-transactions)
-- [Stripe Payments](#stripe)
+- [LiqPay Payments](#liqpay)
 - [Currencies](#currencies)
 - [Automated Tests](#tests)
 
@@ -179,9 +179,16 @@ An order is created only once a transaction is successfully completed. This is a
 
 By default the template ships with support only for USD however you can change the supported currencies via the [plugin configuration](https://payloadcms.com/docs/ecommerce/plugin#currencies). You will need to ensure that the supported currencies in Payload are also configured in your Payment platforms.
 
-## Stripe
+## LiqPay
 
-By default we ship with the Stripe adapter configured, so you'll need to setup the `secretKey`, `publishableKey` and `webhookSecret` from your Stripe dashboard. Follow [Stripe's guide](https://docs.stripe.com/get-started/api-request?locale=en-GB) on how to set this up.
+This project is configured to use a LiqPay payment adapter.
+
+Required environment variables:
+
+- `LIQPAY_PUBLIC_KEY`
+- `LIQPAY_PRIVATE_KEY`
+
+The checkout flow posts `data` + `signature` to LiqPay and relies on LiqPay `server_url` callback to mark transactions as succeeded and create an order.
 
 ## Tests
 
@@ -233,7 +240,7 @@ Core features:
 - SEO
 - Search
 - Live preview
-- Stripe payments
+- LiqPay payments
 
 ### Cache
 

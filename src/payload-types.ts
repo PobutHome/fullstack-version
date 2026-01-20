@@ -907,10 +907,18 @@ export interface Transaction {
         id?: string | null;
       }[]
     | null;
-  paymentMethod?: 'stripe' | null;
-  stripe?: {
-    customerID?: string | null;
-    paymentIntentID?: string | null;
+  paymentMethod?: 'liqpay' | null;
+  liqpay?: {
+    orderID?: string | null;
+    shippingAddress?:
+      | {
+          [k: string]: unknown;
+        }
+      | unknown[]
+      | string
+      | number
+      | boolean
+      | null;
   };
   billingAddress?: {
     title?: string | null;
@@ -1742,11 +1750,11 @@ export interface TransactionsSelect<T extends boolean = true> {
         id?: T;
       };
   paymentMethod?: T;
-  stripe?:
+  liqpay?:
     | T
     | {
-        customerID?: T;
-        paymentIntentID?: T;
+        orderID?: T;
+        shippingAddress?: T;
       };
   billingAddress?:
     | T

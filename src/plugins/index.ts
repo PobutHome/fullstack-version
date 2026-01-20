@@ -5,7 +5,7 @@ import { GenerateTitle, GenerateURL } from '@payloadcms/plugin-seo/types'
 import { FixedToolbarFeature, HeadingFeature, lexicalEditor } from '@payloadcms/richtext-lexical'
 import { Plugin } from 'payload'
 
-import { stripeAdapter } from '@payloadcms/plugin-ecommerce/payments/stripe'
+import { liqpayAdapter } from '@/payments/liqpay'
 
 import { adminOnly } from '@/access/adminOnly'
 import { adminOnlyFieldAccess } from '@/access/adminOnlyFieldAccess'
@@ -89,10 +89,13 @@ export const plugins: Plugin[] = [
     },
     payments: {
       paymentMethods: [
-        stripeAdapter({
-          secretKey: process.env.STRIPE_SECRET_KEY!,
-          publishableKey: process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY!,
-          webhookSecret: process.env.STRIPE_WEBHOOKS_SIGNING_SECRET!,
+        liqpayAdapter({
+          publicKey: process.env.LIQPAY_PUBLIC_KEY!,
+          privateKey: process.env.LIQPAY_PRIVATE_KEY!,
+          serverURL: getServerSideURL(),
+          // Все основные методы оплаты для UA-магазина
+          paytypes: 'card,privat24,apay,gpay,moment_part,paypart,qr,invoice',
+          language: 'uk',
         }),
       ],
     },

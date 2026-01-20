@@ -358,10 +358,9 @@ export const seed = async ({
     data: {
       currency: 'UAH',
       customer: customer.id,
-      paymentMethod: 'stripe',
-      stripe: {
-        customerID: 'cus_123',
-        paymentIntentID: 'pi_123',
+      paymentMethod: 'liqpay',
+      liqpay: {
+        orderID: 'txn_seed_pending',
       },
       status: 'pending',
       billingAddress: baseAddressUSData,
@@ -373,10 +372,9 @@ export const seed = async ({
     data: {
       currency: 'UAH',
       customer: customer.id,
-      paymentMethod: 'stripe',
-      stripe: {
-        customerID: 'cus_123',
-        paymentIntentID: 'pi_123',
+      paymentMethod: 'liqpay',
+      liqpay: {
+        orderID: 'txn_seed_succeeded',
       },
       status: 'succeeded',
       billingAddress: baseAddressUSData,
