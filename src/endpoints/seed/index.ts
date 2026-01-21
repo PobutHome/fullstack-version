@@ -2,8 +2,6 @@ import type { CollectionSlug, File, GlobalSlug, Payload, PayloadRequest } from '
 
 import { Address, Transaction, VariantOption } from '@/payload-types'
 import { contactFormData } from './contact-form'
-import { contactPageData } from './contact-page'
-import { homePageData } from './home'
 import { imageHatData } from './image-hat'
 import { imageHero1Data } from './image-hero-1'
 import { imageTshirtBlackData } from './image-tshirt-black'
@@ -14,7 +12,6 @@ import { productTshirtData, productTshirtVariant } from './product-tshirt'
 const collections: CollectionSlug[] = [
   'categories',
   'media',
-  'pages',
   'products',
   'forms',
   'form-submissions',
@@ -310,26 +307,6 @@ export const seed = async ({
     depth: 0,
     data: contactFormData(),
   })
-
-  payload.logger.info(`— Seeding pages...`)
-
-  const [_, contactPage] = await Promise.all([
-    payload.create({
-      collection: 'pages',
-      depth: 0,
-      data: homePageData({
-        contentImage: imageHero,
-        metaImage: imageHat,
-      }),
-    }),
-    payload.create({
-      collection: 'pages',
-      depth: 0,
-      data: contactPageData({
-        contactForm: contactForm,
-      }),
-    }),
-  ])
 
   payload.logger.info(`— Seeding addresses...`)
 

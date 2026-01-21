@@ -1,6 +1,6 @@
-import type { Field } from 'payload'
+import type { Field } from 'payload';
 
-import { deepMerge } from '@/utilities/deepMerge'
+import { deepMerge } from '@/utilities/deepMerge';
 
 export type LinkAppearances = 'default' | 'outline'
 
@@ -76,8 +76,10 @@ export const link: LinkType = ({ appearances, disableLabel = false, overrides = 
       },
       label: 'Document to link to',
       maxDepth: 1,
-      relationTo: ['pages'],
-      required: true,
+      // NOTE: internal page links disabled (no `pages` collection).
+      // You can swap this to ['products'] later if you want product references.
+      relationTo: [],
+      required: false,
     },
     {
       name: 'url',

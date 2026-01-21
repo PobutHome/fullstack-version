@@ -22,7 +22,6 @@ import { fileURLToPath } from 'url'
 import { Categories } from '@/collections/Categories'
 import { DeliveryMethods } from '@/collections/DeliveryMethods/index'
 import { Media } from '@/collections/Media'
-import { Pages } from '@/collections/Pages'
 import { Users } from '@/collections/Users'
 import { Footer } from '@/globals/Footer'
 import { Header } from '@/globals/Header'
@@ -343,7 +342,7 @@ export default buildConfig({
     },
     user: Users.slug,
   },
-  collections: [Users, Pages, Categories, DeliveryMethods, Media],
+  collections: [Users, Categories, DeliveryMethods, Media],
   db: mongooseAdapter({
     url: process.env.DATABASE_URI || '',
   }),
@@ -370,7 +369,7 @@ export default buildConfig({
         OrderedListFeature(),
         UnorderedListFeature(),
         LinkFeature({
-          enabledCollections: ['pages'],
+          enabledCollections: [],
           fields: ({ defaultFields }) => {
             const defaultFieldsWithoutUrl = defaultFields.filter((field) => {
               if ('name' in field && field.name === 'url') return false

@@ -1,5 +1,27 @@
-import PageTemplate, { generateMetadata } from './[slug]/page'
+import type { Metadata } from 'next'
 
-export default PageTemplate
+import configPromise from '@payload-config'
+import { draftMode } from 'next/headers'
+import { getPayload } from 'payload'
+import { HomePage } from './HomePage'
 
-export { generateMetadata }
+export default async function RootPage() {
+  const payload = await getPayload({ config: configPromise })
+  const { isEnabled: draft } = await draftMode()
+
+  // Load all categories for the home page (server-side)
+  const categoriesResult = await payload.find({
+    collection: 'categories',
+    draft: false,
+    pagination: false,
+    sort: 'title',
+  })
+
+  return <HomePage categories={categoriesResult.docs} />
+}
+
+export async function generateMetadata(): Promise<Metadata> {
+  return {
+    title: 'Магазин',
+  }
+}
