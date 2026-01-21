@@ -18,7 +18,7 @@ type Props = {
   initialData?: Partial<Omit<Address, 'country'>> & { country?: string }
   buttonText?: string
   modalTitle?: string
-  callback?: (address: Partial<Address>) => void
+  callbackAction?: (address: Partial<Address>) => void
   skipSubmission?: boolean
   disabled?: boolean
 }
@@ -26,9 +26,9 @@ type Props = {
 export const CreateAddressModal: React.FC<Props> = ({
   addressID,
   initialData,
-  buttonText = 'Add a new address',
-  modalTitle = 'Add a new address',
-  callback,
+  buttonText = 'Додати адресу',
+  modalTitle = 'Додати адресу',
+  callbackAction,
   skipSubmission,
   disabled,
 }) => {
@@ -44,8 +44,8 @@ export const CreateAddressModal: React.FC<Props> = ({
   const handleCallback = (data: Partial<Address>) => {
     closeModal()
 
-    if (callback) {
-      callback(data)
+    if (callbackAction) {
+      callbackAction(data)
     }
   }
 
@@ -57,13 +57,13 @@ export const CreateAddressModal: React.FC<Props> = ({
       <DialogContent>
         <DialogHeader>
           <DialogTitle>{modalTitle}</DialogTitle>
-          <DialogDescription>This address will be connected to your account.</DialogDescription>
+          <DialogDescription>Цю адресу буде прив’язано до вашого акаунта.</DialogDescription>
         </DialogHeader>
 
         <AddressForm
           addressID={addressID}
           initialData={initialData}
-          callback={handleCallback}
+          callbackAction={handleCallback}
           skipSubmission={skipSubmission}
         />
       </DialogContent>

@@ -1,6 +1,6 @@
 import type { Endpoint } from 'payload'
-import { liqpayDecodeData, liqpayVerifySignature } from '../utils'
 import type { LiqPayCallbackPayload } from '../types'
+import { liqpayDecodeData, liqpayVerifySignature } from '../utils'
 
 import type { Order } from '@/payload-types'
 
@@ -15,9 +15,7 @@ function mapStatus(status?: string) {
   return 'pending'
 }
 
-export const liqpayCallbackEndpoint = (props: {
-  privateKey: string
-}): Endpoint => {
+export const liqpayCallbackEndpoint = (props: { privateKey: string }): Endpoint => {
   return {
     method: 'post',
     path: '/callback',
@@ -54,6 +52,7 @@ export const liqpayCallbackEndpoint = (props: {
 
       const transactionsResults = await payload.find({
         collection: 'transactions',
+        overrideAccess: true,
         where: {
           'liqpay.orderID': {
             equals: orderID,
@@ -72,6 +71,7 @@ export const liqpayCallbackEndpoint = (props: {
       await payload.update({
         id: transaction.id,
         collection: 'transactions',
+        overrideAccess: true,
         data: {
           status,
         },
@@ -87,16 +87,22 @@ export const liqpayCallbackEndpoint = (props: {
       }
 
       // Create order (idempotent-ish)
-      const shippingAddress =
-        (transaction.liqpay?.shippingAddress ?? undefined) as unknown as ShippingAddress
+      const shippingAddress = (transaction.liqpay?.shippingAddress ??
+        undefined) as unknown as ShippingAddress
 
       const order = await payload.create({
         collection: 'orders',
+        overrideAccess: true,
         data: {
           amount: transaction.amount,
           currency: transaction.currency,
           ...(transaction.customer
-            ? { customer: typeof transaction.customer === 'object' ? transaction.customer.id : transaction.customer }
+            ? {
+                customer:
+                  typeof transaction.customer === 'object'
+                    ? transaction.customer.id
+                    : transaction.customer,
+              }
             : { customerEmail: transaction.customerEmail }),
           items: transaction.items,
           shippingAddress,
@@ -120,6 +126,7 @@ export const liqpayCallbackEndpoint = (props: {
       await payload.update({
         id: cartID,
         collection: 'carts',
+        overrideAccess: true,
         data: {
           purchasedAt: timestamp,
         },
@@ -128,6 +135,7 @@ export const liqpayCallbackEndpoint = (props: {
       await payload.update({
         id: transaction.id,
         collection: 'transactions',
+        overrideAccess: true,
         data: {
           order: order.id,
         },

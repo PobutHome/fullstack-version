@@ -95,10 +95,10 @@ export const CheckoutPage: React.FC = () => {
         }
       } catch (error) {
         const errorData = error instanceof Error ? JSON.parse(error.message) : {}
-        let errorMessage = 'An error occurred while initiating payment.'
+        let errorMessage = 'Сталася помилка під час ініціації оплати.'
 
         if (errorData?.cause?.code === 'OutOfStock') {
-          errorMessage = 'One or more items in your cart are out of stock.'
+          errorMessage = 'Деяких товарів у кошику немає в наявності.'
         }
 
         setError(errorMessage)
@@ -112,7 +112,7 @@ export const CheckoutPage: React.FC = () => {
     return (
       <div className="py-12 w-full items-center justify-center">
         <div className="prose dark:prose-invert text-center max-w-none self-center mb-8">
-          <p>Processing your payment...</p>
+          <p>Обробляємо вашу оплату…</p>
         </div>
         <LoadingSpinner />
       </div>
@@ -122,8 +122,8 @@ export const CheckoutPage: React.FC = () => {
   if (cartIsEmpty) {
     return (
       <div className="prose dark:prose-invert py-12 w-full items-center">
-        <p>Your cart is empty.</p>
-        <Link href="/search">Continue shopping?</Link>
+        <p>Ваш кошик порожній.</p>
+        <Link href="/search">Продовжити покупки?</Link>
       </div>
     )
   }
@@ -131,16 +131,16 @@ export const CheckoutPage: React.FC = () => {
   return (
     <div className="flex flex-col items-stretch justify-stretch my-8 md:flex-row grow gap-10 md:gap-6 lg:gap-8">
       <div className="basis-full lg:basis-2/3 flex flex-col gap-8 justify-stretch">
-        <h2 className="font-medium text-3xl">Contact</h2>
+        <h2 className="font-medium text-3xl">Контактні дані</h2>
         {!user && (
           <div className=" bg-accent dark:bg-black rounded-lg p-4 w-full flex items-center">
             <div className="prose dark:prose-invert">
               <Button asChild className="no-underline text-inherit" variant="outline">
-                <Link href="/login">Log in</Link>
+                <Link href="/login">Увійти</Link>
               </Button>
               <p className="mt-0">
-                <span className="mx-2">or</span>
-                <Link href="/create-account">create an account</Link>
+                <span className="mx-2">або</span>
+                <Link href="/create-account">створити акаунт</Link>
               </p>
             </div>
           </div>
@@ -150,9 +150,9 @@ export const CheckoutPage: React.FC = () => {
             <div>
               <p>{user.email}</p>{' '}
               <p>
-                Not you?{' '}
+                Це не ви?{' '}
                 <Link className="underline" href="/logout">
-                  Log out
+                  Вийти
                 </Link>
               </p>
             </div>
@@ -160,10 +160,10 @@ export const CheckoutPage: React.FC = () => {
         ) : (
           <div className="bg-accent dark:bg-black rounded-lg p-4 ">
             <div>
-              <p className="mb-4">Enter your email to checkout as a guest.</p>
+              <p className="mb-4">Вкажіть email, щоб оформити замовлення без реєстрації.</p>
 
               <FormItem className="mb-6">
-                <Label htmlFor="email">Email Address</Label>
+                <Label htmlFor="email">Email</Label>
                 <Input
                   disabled={!emailEditable}
                   id="email"
@@ -182,13 +182,13 @@ export const CheckoutPage: React.FC = () => {
                 }}
                 variant="default"
               >
-                Continue as guest
+                Продовжити як гість
               </Button>
             </div>
           </div>
         )}
 
-        <h2 className="font-medium text-3xl">Address</h2>
+        <h2 className="font-medium text-3xl">Адреса</h2>
 
         {billingAddress ? (
           <div>
@@ -202,18 +202,18 @@ export const CheckoutPage: React.FC = () => {
                     setBillingAddress(undefined)
                   }}
                 >
-                  Remove
+                  Прибрати
                 </Button>
               }
               address={billingAddress}
             />
           </div>
         ) : user ? (
-          <CheckoutAddresses heading="Billing address" setAddress={setBillingAddress} />
+          <CheckoutAddresses heading="Платіжна адреса" setAddress={setBillingAddress} />
         ) : (
           <CreateAddressModal
             disabled={!email || Boolean(emailEditable)}
-            callback={(address) => {
+            callbackAction={(address) => {
               setBillingAddress(address)
             }}
             skipSubmission={true}
@@ -229,7 +229,7 @@ export const CheckoutPage: React.FC = () => {
               setBillingAddressSameAsShipping(state as boolean)
             }}
           />
-          <Label htmlFor="shippingTheSameAsBilling">Shipping is the same as billing</Label>
+          <Label htmlFor="shippingTheSameAsBilling">Доставка збігається з платіжною адресою</Label>
         </div>
 
         {!billingAddressSameAsShipping && (
@@ -246,7 +246,7 @@ export const CheckoutPage: React.FC = () => {
                         setShippingAddress(undefined)
                       }}
                     >
-                      Remove
+                      Прибрати
                     </Button>
                   }
                   address={shippingAddress}
@@ -254,13 +254,13 @@ export const CheckoutPage: React.FC = () => {
               </div>
             ) : user ? (
               <CheckoutAddresses
-                heading="Shipping address"
-                description="Please select a shipping address."
+                heading="Адреса доставки"
+                description="Оберіть адресу доставки."
                 setAddress={setShippingAddress}
               />
             ) : (
               <CreateAddressModal
-                callback={(address) => {
+                callbackAction={(address) => {
                   setShippingAddress(address)
                 }}
                 disabled={!email || Boolean(emailEditable)}
@@ -279,7 +279,7 @@ export const CheckoutPage: React.FC = () => {
               void initiatePaymentIntent('liqpay')
             }}
           >
-            Go to payment
+            Перейти до оплати
           </Button>
         )}
 
@@ -294,14 +294,14 @@ export const CheckoutPage: React.FC = () => {
               }}
               variant="default"
             >
-              Try again
+              Спробувати ще раз
             </Button>
           </div>
         )}
 
         {paymentData && (
           <div className="pb-16">
-            <h2 className="font-medium text-3xl">Payment</h2>
+            <h2 className="font-medium text-3xl">Оплата</h2>
 
             <form
               ref={formRef}
@@ -319,7 +319,7 @@ export const CheckoutPage: React.FC = () => {
                 disabled={!canSubmitPayment}
                 onClick={() => setProcessingPayment(true)}
               >
-                Proceed to LiqPay
+                Перейти до LiqPay
               </Button>
 
               <Button
@@ -328,7 +328,7 @@ export const CheckoutPage: React.FC = () => {
                 className="self-start"
                 onClick={() => setPaymentData(null)}
               >
-                Cancel payment
+                Скасувати оплату
               </Button>
             </form>
           </div>
@@ -337,7 +337,7 @@ export const CheckoutPage: React.FC = () => {
 
       {!cartIsEmpty && (
         <div className="basis-full lg:basis-1/3 lg:pl-8 p-8 border-none bg-primary/5 flex flex-col gap-8 rounded-lg">
-          <h2 className="text-3xl font-medium">Your cart</h2>
+          <h2 className="text-3xl font-medium">Ваш кошик</h2>
           {cart?.items?.map((item, index) => {
             if (typeof item.product === 'object' && item.product) {
               const {
@@ -414,7 +414,7 @@ export const CheckoutPage: React.FC = () => {
           })}
           <hr />
           <div className="flex justify-between items-center gap-2">
-            <span className="uppercase">Total</span>{' '}
+            <span className="uppercase">Разом</span>{' '}
             <Price className="text-3xl font-medium" amount={cart.subtotal || 0} />
           </div>
         </div>

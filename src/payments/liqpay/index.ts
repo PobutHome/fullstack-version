@@ -14,6 +14,10 @@ export const liqpayAdapter = (props: {
 }) => {
   const label = props.label || 'LiqPay'
 
+  const publicKey = String(props.publicKey || '').trim()
+  const privateKey = String(props.privateKey || '').trim()
+  const serverURL = String(props.serverURL || '').replace(/\/+$/, '')
+
   const baseFields: Field[] = [
     {
       name: 'orderID',
@@ -44,16 +48,16 @@ export const liqpayAdapter = (props: {
     label,
     group: groupField,
     initiatePayment: initiatePayment({
-      publicKey: props.publicKey,
-      privateKey: props.privateKey,
-      serverURL: props.serverURL,
+      publicKey,
+      privateKey,
+      serverURL,
       paytypes: props.paytypes,
       language: props.language,
     }),
-    confirmOrder: confirmOrder(),
+    confirmOrder: confirmOrder({ publicKey, privateKey }),
     endpoints: [
       liqpayCallbackEndpoint({
-        privateKey: props.privateKey,
+        privateKey,
       }),
     ],
   }

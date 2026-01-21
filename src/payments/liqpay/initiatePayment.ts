@@ -27,16 +27,21 @@ type InitiateArgs = {
   }
 }
 
-export const initiatePayment = (props: {
-  publicKey: string
-  privateKey: string
-  serverURL: string
-  paytypes?: string
-  language?: 'uk' | 'en'
-}) =>
+export const initiatePayment =
+  (props: {
+    publicKey: string
+    privateKey: string
+    serverURL: string
+    paytypes?: string
+    language?: 'uk' | 'en'
+  }) =>
   async ({ data, req, transactionsSlug }: InitiateArgs): Promise<LiqPayInitiateResponse> => {
     const payload = req.payload as unknown as {
-      create: (args: { collection: string; data: Record<string, unknown> }) => Promise<{ id?: string | number }>
+      create: (args: {
+        collection: string
+        data: Record<string, unknown>
+        overrideAccess?: boolean
+      }) => Promise<{ id?: string | number }>
     }
 
     const reqUser = (req as unknown as { user?: { id: string | number } | null }).user
@@ -67,8 +72,14 @@ export const initiatePayment = (props: {
       throw new Error('A valid customer email is required to make a purchase.')
     }
 
-    const amount = cartObj.subtotal
-    if (!amount || typeof amount !== 'number' || amount <= 0) {
+    const amountMinor = cartObj.subtotal
+    if (!amountMinor || typeof amountMinor !== 'number' || amountMinor <= 0) {
+      throw new Error('A valid amount is required to initiate a payment.')
+    }
+
+    // Payload ecommerce stores money in minor units (e.g. kopeks). LiqPay expects major units (UAH).
+    const amountMajor = Number((amountMinor / 100).toFixed(2))
+    if (!Number.isFinite(amountMajor) || amountMajor <= 0) {
       throw new Error('A valid amount is required to initiate a payment.')
     }
 
@@ -97,6 +108,7 @@ export const initiatePayment = (props: {
     // Create transaction in DB (pending)
     const transaction = await payload.create({
       collection: transactionsSlug,
+      overrideAccess: true,
       data: {
         ...(reqUser
           ? {
@@ -105,7 +117,8 @@ export const initiatePayment = (props: {
           : {
               customerEmail,
             }),
-        amount,
+        // IMPORTANT: store amount in minor units (kopiyky) in Payload
+        amount: amountMinor,
         billingAddress: data.billingAddress,
         cart: cartObj.id,
         currency: 'UAH',
@@ -125,10 +138,11 @@ export const initiatePayment = (props: {
     const serverURL = `${props.serverURL}/api/payments/liqpay/callback`
 
     const liqpayPayload = {
-      version: 7,
+      // LiqPay API v3 checkout
+      version: 3,
       public_key: props.publicKey,
       action: 'pay',
-      amount,
+      amount: amountMajor,
       currency: 'UAH',
       description: `Order ${transaction?.id || orderID}`,
       order_id: orderID,
