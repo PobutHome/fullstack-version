@@ -13,14 +13,14 @@ import { adminOrCustomerOwner } from '@/access/adminOrCustomerOwner'
 import { adminOrPublishedStatus } from '@/access/adminOrPublishedStatus'
 import { customerOnlyFieldAccess } from '@/access/customerOnlyFieldAccess'
 import { ProductsCollection } from '@/collections/Products'
-import { Page, Product } from '@/payload-types'
+import { Product } from '@/payload-types'
 import { getServerSideURL } from '@/utilities/getURL'
 
-const generateTitle: GenerateTitle<Product | Page> = ({ doc }) => {
+const generateTitle: GenerateTitle<Product> = ({ doc }) => {
   return doc?.title ? `${doc.title} | Магазин` : 'Магазин'
 }
 
-const generateURL: GenerateURL<Product | Page> = ({ doc }) => {
+const generateURL: GenerateURL<Product> = ({ doc }) => {
   const url = getServerSideURL()
 
   return doc?.slug ? `${url}/${doc.slug}` : url
