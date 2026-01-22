@@ -1,9 +1,11 @@
 import { Container } from '@/components/Container'
-import { HomeBanner } from '@/components/HomeBanner'
 import { InnerSection } from '@/components/InnerSection'
 import { Page } from '@/components/Page'
 import { Section } from '@/components/Section'
 import type { Category } from '@/payload-types'
+import { Benefits } from '@/sections/home/Benefits'
+import { HomeBanner } from '@/sections/home/HomeBanner'
+import './HomePage.css'
 
 type Props = {
   categories: Category[]
@@ -15,224 +17,39 @@ export function HomePage({ categories }: Props) {
   return (
     <Page
       data-app="frontend"
-      style={{
-        paddingTop: 'var(--space-20)',
-        paddingBottom: 'var(--space-50)',
-      }}
+      className="home-page"
     >
-      {/* Hero / banner */}
-      <HomeBanner />
-      {/* Benefits for wholesale clients */}
-      <Section
-        id="benefits"
-        aria-labelledby="home-benefits-title"
-        style={{ background: 'var(--sys-surface)' }}
-      >
-        <Container>
-          <InnerSection>
-            <div
-              style={{
-                display: 'grid',
-                gap: 'var(--layout-gap-2)',
-              }}
-            >
-              <h2 id="home-benefits-title" className="pobut_H2">
-                Переваги для оптових клієнтів
-              </h2>
-
-              <div
-                style={{
-                  display: 'grid',
-                  gridTemplateColumns:
-                    'repeat(auto-fit, minmax(220px, 1fr))',
-                  gap: 'var(--layout-gap-2)',
-                }}
-              >
-                <div className="fe-card fe-card--soft">
-                  <div
-                    style={{
-                      display: 'grid',
-                      placeItems: 'center',
-                      padding: 'var(--space-20)',
-                    }}
-                  >
-                    <div
-                      aria-hidden="true"
-                      style={{
-                        width: '7rem',
-                        height: '7rem',
-                        borderRadius: '9999px',
-                        border: '2px solid var(--sys-accent)',
-                        display: 'flex',
-                        alignItems: 'center',
-                        justifyContent: 'center',
-                        color: 'var(--sys-accent)',
-                        fontSize: '2.5rem',
-                      }}
-                    >
-                      %
-                    </div>
-                  </div>
-                  <div
-                    style={{
-                      padding: '0 var(--space-20) var(--space-20)',
-                      display: 'grid',
-                      gap: 'var(--layout-gap-1)',
-                    }}
-                  >
-                    <p className="pobut_body">
-                      Індивідуальні знижки для бізнесу
-                    </p>
-                    <p className="pobut_caption">
-                      Узгоджені умови для постійних клієнтів та великих замовлень.
-                    </p>
-                  </div>
-                </div>
-
-                <div className="fe-card fe-card--soft">
-                  <div
-                    style={{
-                      display: 'grid',
-                      placeItems: 'center',
-                      padding: 'var(--space-20)',
-                    }}
-                  >
-                    <div
-                      aria-hidden="true"
-                      style={{
-                        width: '7rem',
-                        height: '7rem',
-                        borderRadius: '9999px',
-                        border: '2px solid var(--sys-accent)',
-                        display: 'flex',
-                        alignItems: 'center',
-                        justifyContent: 'center',
-                        color: 'var(--sys-accent)',
-                        fontSize: '2.5rem',
-                      }}
-                    >
-                      ↗
-                    </div>
-                  </div>
-                  <div
-                    style={{
-                      padding: '0 var(--space-20) var(--space-20)',
-                      display: 'grid',
-                      gap: 'var(--layout-gap-1)',
-                    }}
-                  >
-                    <p className="pobut_body">
-                      Швидка доставка по Україні
-                    </p>
-                    <p className="pobut_caption">
-                      Склади та партнери доставки дозволяють отримати замовлення без затримок.
-                    </p>
-                  </div>
-                </div>
-
-                <div className="fe-card fe-card--soft">
-                  <div
-                    style={{
-                      display: 'grid',
-                      placeItems: 'center',
-                      padding: 'var(--space-20)',
-                    }}
-                  >
-                    <div
-                      aria-hidden="true"
-                      style={{
-                        width: '7rem',
-                        height: '7rem',
-                        borderRadius: '9999px',
-                        border: '2px solid var(--sys-accent)',
-                        display: 'flex',
-                        alignItems: 'center',
-                        justifyContent: 'center',
-                        color: 'var(--sys-accent)',
-                        fontSize: '2.5rem',
-                      }}
-                    >
-                      ⌂
-                    </div>
-                  </div>
-                  <div
-                    style={{
-                      padding: '0 var(--space-20) var(--space-20)',
-                      display: 'grid',
-                      gap: 'var(--layout-gap-1)',
-                    }}
-                  >
-                    <p className="pobut_body">
-                      Персональний менеджер
-                    </p>
-                    <p className="pobut_caption">
-                      Виділений контакт, який знає ваші потреби та допоможе з кожним замовленням.
-                    </p>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </InnerSection>
-        </Container>
-      </Section>
+      <HomeBanner />{/*implement homebanner fetching banners from cms, and enable creation of those banners */}
+      <Benefits />
+      
 
       {/* Catalog / categories from CMS */}
       <Section id="catalog" aria-labelledby="home-catalog-title">
         <Container>
           <InnerSection>
-            <div
-              style={{
-                display: 'grid',
-                gap: 'var(--layout-gap-2)',
-              }}
-            >
+            <div className="home-section-grid">
               <header>
-                <h2 id="home-catalog-title" className="pobut_H2">
+                <h2 id="home-catalog-title">
                   Каталог
                 </h2>
-                <p
-                  className="pobut_caption"
-                  style={{ color: 'var(--sys-text-muted)', marginTop: 'var(--space-10)' }}
-                >
+                <p className="home-catalog-header-caption">
                   Основні розділи асортименту. Оберіть потрібну категорію, щоб перейти до
                   товарів.
                 </p>
               </header>
 
-              <div
-                className="fe-card"
-                style={{
-                  padding: 'var(--space-20)',
-                  display: 'grid',
-                  gap: 'var(--layout-gap-2)',
-                  background: 'var(--sys-surface)',
-                }}
-              >
+              <div className="fe-card home-catalog-card">
                 <ul
                   aria-label="Категорії товарів"
-                  style={{
-                    listStyle: 'none',
-                    margin: 0,
-                    padding: 0,
-                    display: 'grid',
-                    gridTemplateColumns: 'repeat(auto-fit, minmax(140px, 1fr))',
-                    gap: 'var(--layout-gap-2)',
-                  }}
+                  className="home-catalog-list"
                 >
                   {categories.map((category) => (
                     <li key={category.id}>
                       <a
                         href={`/shop/${category.slug}`}
-                        className="fe-card"
-                        style={{
-                          display: 'grid',
-                          gap: 'var(--layout-gap-1)',
-                          padding: 'var(--space-20)',
-                          textDecoration: 'none',
-                          color: 'var(--sys-text)',
-                        }}
+                        className="fe-card home-catalog-item-link"
                       >
-                        <span className="pobut_body">{category.title}</span>
+                        <span>{category.title}</span>
                       </a>
                     </li>
                   ))}
@@ -247,32 +64,19 @@ export function HomePage({ categories }: Props) {
       <Section
         id="offers"
         aria-labelledby="home-offers-title"
-        style={{ background: 'var(--sys-surface-accent)' }}
+        className="home-offers-section"
       >
         <Container>
           <InnerSection>
-            <div
-              style={{
-                display: 'grid',
-                gap: 'var(--layout-gap-2)',
-              }}
-            >
+            <div className="home-section-grid">
               <h2
                 id="home-offers-title"
-                className="pobut_H2"
-                style={{ color: 'var(--sys-text-on-accent)' }}
+                className="home-offers-title"
               >
                 Акції і пропозиції
               </h2>
 
-              <div
-                style={{
-                  display: 'grid',
-                  gridTemplateColumns:
-                    'repeat(auto-fit, minmax(220px, 1fr))',
-                  gap: 'var(--layout-gap-2)',
-                }}
-              >
+              <div className="home-offers-grid">
                 {[
                   {
                     title: 'Лояльні ціни та система знижок',
@@ -293,16 +97,10 @@ export function HomePage({ categories }: Props) {
                 ].map((card) => (
                   <article
                     key={card.title}
-                    className="fe-card"
-                    style={{
-                      background: 'var(--sys-surface)',
-                      display: 'grid',
-                      gap: 'var(--layout-gap-1)',
-                      padding: 'var(--space-20)',
-                    }}
+                    className="fe-card home-offer-card"
                   >
-                    <h3 className="pobut_H3">{card.title}</h3>
-                    <p className="pobut_body">{card.body}</p>
+                    <h3>{card.title}</h3>
+                    <p>{card.body}</p>
                   </article>
                 ))}
               </div>

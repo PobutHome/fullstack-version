@@ -8,10 +8,15 @@
 /* semantic tokens styling imports */
 @import '../styles/semantic-tokens.css';
 
+/* design tokens (defines --pobut_* variables) */
+@import '../styles/design-tokens.css';
 
 /* font and typography styling imports */
 @import '../styles/Fonts/font-tokens.css';
 @import '../styles/Fonts/typography.css';
+
+/* typography styles (applies styles to h1, h2, h3, p, etc.) */
+@import '../styles/typography.css';
 
 /* inputs styling imports */
 @import '../styles/Spacing/spacing-tokens.css';

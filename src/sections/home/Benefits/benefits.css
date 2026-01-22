@@ -1,0 +1,103 @@
+/* Benefits Section Styles */
+[data-app="frontend"] .benefits-header {
+  display: grid;
+  gap: var(--layout-gap-1);
+  margin-bottom: var(--layout-gap-2);
+}
+
+[data-app="frontend"] .benefits-title {
+  font-size: var(--pobut_H2-size);
+  font-weight: var(--pobut_H2-weight);
+  line-height: var(--pobut_H2-line-height);
+  letter-spacing: var(--pobut_H2-letter-spacing);
+  color: var(--sys-text);
+  margin: 0;
+}
+
+[data-app="frontend"] .benefits-subtitle {
+  font-size: var(--pobut_body-size);
+  font-weight: var(--pobut_body-weight);
+  line-height: var(--pobut_body-line-height);
+  letter-spacing: var(--pobut_body-letter-spacing);
+  color: var(--sys-text);
+  margin: 0;
+}
+
+[data-app="frontend"] .benefits-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--layout-gap-2);
+  align-items: start;
+}
+
+[data-app="frontend"] .benefit-item {
+  display: grid;
+  gap: var(--layout-gap-1);
+  justify-items: center;
+  text-align: center;
+}
+
+[data-app="frontend"] .benefit-icon-circle {
+  width: 7rem;
+  height: 7rem;
+  border-radius: 50%;
+  border: 2px solid var(--sys-accent);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+[data-app="frontend"] .benefit-icon {
+  width: 2.5rem;
+  height: 2.5rem;
+  flex-shrink: 0;
+}
+
+[data-app="frontend"] .benefit-text {
+  font-size: var(--pobut_body-size);
+  font-weight: var(--pobut_body-weight);
+  line-height: var(--pobut_body-line-height);
+  letter-spacing: var(--pobut_body-letter-spacing);
+  color: var(--sys-accent);
+  margin: 0;
+  max-width: 100%;
+}
+
+/* Responsive: Maintain 3 columns on all screen widths, adjust sizing for smaller screens */
+@media (max-width: 48rem) {
+  [data-app="frontend"] .benefits-grid {
+    gap: var(--layout-gap-1);
+  }
+
+  [data-app="frontend"] .benefit-icon-circle {
+    width: 6rem;
+    height: 6rem;
+  }
+
+  [data-app="frontend"] .benefit-icon {
+    width: 2rem;
+    height: 2rem;
+  }
+}
+
+/* Responsive: Small mobile - reduce further but keep 3 columns */
+@media (max-width: 30rem) {
+  [data-app="frontend"] .benefits-grid {
+    gap: var(--space-10);
+  }
+
+  [data-app="frontend"] .benefit-icon-circle {
+    width: 5rem;
+    height: 5rem;
+  }
+
+  [data-app="frontend"] .benefit-icon {
+    width: 1.75rem;
+    height: 1.75rem;
+  }
+
+  [data-app="frontend"] .benefit-text {
+    font-size: var(--pobut_caption-size);
+  }
+}

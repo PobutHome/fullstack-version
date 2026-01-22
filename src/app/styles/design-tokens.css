@@ -6,22 +6,6 @@
   /* Convert to rem multiplier (1px = 0.0625rem at 16px base) */
   --rem-base: 1rem;
 }
-/* Dark Mode (if needed in future) */
-[data-theme='dark'] {
-  --color-background: #111827;
-  --color-foreground: #ffffff;
-  --color-border: rgba(255, 255, 255, 0.1);
-  /* Add dark mode overrides here */
-}
-
-/* ============================================
-   TYPOGRAPHY - EXACT FIGMA VARIABLE NAMES
-   Mobile-First System:
-   - Base styles: Mobile (default)
-   - Tablet: min-width: 48rem (768px)
-   - Desktop: min-width: 64rem (1024px)
-   ============================================ */
-
 :root {
   /* Font Family - Unbounded is the only font used across the app */
   --font-family-unbounded: 'Unbounded', system-ui, -apple-system, sans-serif;

@@ -1,0 +1,62 @@
+/* HomePage component styles using CSS variables */
+
+[data-app="frontend"] .home-page {
+  padding-top: var(--space-20);
+  padding-bottom: var(--space-50);
+}
+
+[data-app="frontend"] .home-section-grid {
+  display: grid;
+  gap: var(--layout-gap-2);
+}
+
+[data-app="frontend"] .home-catalog-header-caption {
+  color: var(--sys-text-muted);
+  margin-top: var(--space-10);
+}
+
+[data-app="frontend"] .home-catalog-card {
+  padding: var(--space-20);
+  display: grid;
+  gap: var(--layout-gap-2);
+  background: var(--sys-surface);
+}
+
+[data-app="frontend"] .home-catalog-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+  gap: var(--layout-gap-2);
+}
+
+[data-app="frontend"] .home-catalog-item-link {
+  display: grid;
+  gap: var(--layout-gap-1);
+  padding: var(--space-20);
+  text-decoration: none;
+  color: var(--sys-text);
+}
+
+[data-app="frontend"] .home-offers-section {
+  background: var(--sys-surface-accent);
+}
+
+[data-app="frontend"] .home-offers-title {
+  color: var(--sys-text-on-accent);
+}
+
+[data-app="frontend"] .home-offers-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: var(--layout-gap-2);
+}
+
+[data-app="frontend"] .home-offer-card {
+  background: var(--sys-surface);
+  display: grid;
+  gap: var(--layout-gap-1);
+  padding: var(--space-20);
+}
+

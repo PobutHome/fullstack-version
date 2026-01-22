@@ -18,7 +18,7 @@ function DsCard({
 }
 
 function DsCodeBlock({ children }: { children: string }) {
-  return <pre className={`pobut_caption ${styles.codeBlock}`}>{children}</pre>
+  return <pre className={styles.codeBlock}><small>{children}</small></pre>
 }
 
 export default async function DesignSystemPage() {
@@ -28,28 +28,24 @@ export default async function DesignSystemPage() {
       <Section id="hero">
         <Container>
           <InnerSection>
-            <h1 className="pobut_H1">Design System</h1>
-            <p className="pobut_body">
+            <h1>Design System</h1>
+            <p>
               Complete reference guide for all design tokens, components, and utilities
               used in the frontend application.
             </p>
             <div className={styles.textSpacing} style={{ marginTop: "var(--layout-gap-1)" }}>
-              <p className="pobut_caption">
+              <small>
                 All styles are scoped to{" "}
-                <code
-                  className={`${styles.inlineCodePill} pobut_caption`}
-                >
+                <code className={styles.inlineCodePill}>
                   data-app="frontend"
                 </code>
-              </p>
-              <p className="pobut_caption">
+              </small>
+              <small>
                 Customize values in:{" "}
-                <code
-                  className={`${styles.inlineCodePill} pobut_caption`}
-                >
+                <code className={styles.inlineCodePill}>
                   src/app/styles/
                 </code>
-              </p>
+              </small>
             </div>
           </InnerSection>
         </Container>
@@ -59,15 +55,15 @@ export default async function DesignSystemPage() {
       <Section id="conventions">
         <Container>
           <InnerSection className="fe-gap-inner-section-y">
-            <h2 className="pobut_H2">Conventions (Read This First)</h2>
-            <p className="pobut_caption" style={{ marginBottom: "var(--layout-gap-2)" }}>
+            <h2>Conventions (Read This First)</h2>
+            <small style={{ marginBottom: "var(--layout-gap-2)", display: "block" }}>
               The goal is "fast changes with zero guessing": one way to build layouts, one
               way to apply spacing, one place to edit tokens.
-            </p>
+            </small>
 
             <DsCard>
               <div className={styles.gridGap1}>
-                <h3 className="pobut_H3">Table of contents</h3>
+                <h3>Table of contents</h3>
                 <div
                   className={styles.wrapRow}
                 >
@@ -91,7 +87,7 @@ export default async function DesignSystemPage() {
                     <a
                       key={id}
                       href={`#${id}`}
-                      className={`fe-link pobut_caption ${styles.pillLink}`}
+                      className={`fe-link ${styles.pillLink}`}
                     >
                       {label}
                     </a>
@@ -101,73 +97,72 @@ export default async function DesignSystemPage() {
 
               <div className={styles.gridGap2}>
                 <div className={styles.gridGap1}>
-                  <h3 className="pobut_H3">Layout convention (canonical)</h3>
-                  <div className="pobut_caption" style={{ display: "grid", gap: "0.5rem" }}>
-                    <div>
+                  <h3>Layout convention (canonical)</h3>
+                  <div style={{ display: "grid", gap: "0.5rem" }}>
+                    <small>
                       <strong>✅ Always compose pages like this:</strong>{" "}
                       <code>{`<Page data-app="frontend">`}</code> →{" "}
                       <code>{`<Section id="...">`}</code> → <code>{`<Container>`}</code> →{" "}
                       <code>{`<InnerSection>`}</code>
-                    </div>
-                    <div>
+                    </small>
+                    <small>
                       <strong>✅ Use semantic blocks:</strong> each top-level <code>{`<Section>`}</code>{" "}
                       must have an <code>id</code> for anchors + predictable DOM.
-                    </div>
-                    <div>
+                    </small>
+                    <small>
                       <strong>✅ Use rhythm variables:</strong> page rhythm via{" "}
                       <code>--fe-page-gap</code>, inner rhythm via <code>--fe-inner-gap</code>.
-                    </div>
-                    <div>
-                      <strong>❌ Avoid hardcoded spacing:</strong> don’t sprinkle <code>px</code>{" "}
+                    </small>
+                    <small>
+                      <strong>❌ Avoid hardcoded spacing:</strong> don't sprinkle <code>px</code>{" "}
                       values in layouts; use tokens like <code>var(--layout-gap-2)</code> and{" "}
                       <code>var(--space-20)</code>.
-                    </div>
-                    <div>
+                    </small>
+                    <small>
                       <strong>When to use PageSection:</strong> use <code>{`<PageSection>`}</code>{" "}
                       when your section is <em>always</em> contained (no full-width siblings).
                       Use <code>{`<Section>`}</code> when you need a full-width background/band and a
                       contained inner area inside it.
-                    </div>
+                    </small>
                   </div>
                 </div>
 
                 <div className={styles.gridGap1}>
-                  <h3 className="pobut_H3">Where do styles go?</h3>
-                  <div className="pobut_caption" style={{ display: "grid", gap: "0.5rem" }}>
-                    <div>
-                      <strong>Important (Next.js rule):</strong> plain global <code>.css</code> files can’t be
+                  <h3>Where do styles go?</h3>
+                  <div style={{ display: "grid", gap: "0.5rem" }}>
+                    <small>
+                      <strong>Important (Next.js rule):</strong> plain global <code>.css</code> files can't be
                       imported from arbitrary components. If you want per-component CSS next to
                       a component, use a colocated <strong>CSS file</strong>: <code>Component.css</code> (imported by that component).
-                    </div>
-                    <div>
+                    </small>
+                    <small>
                       <strong>Design tokens (source of truth):</strong>{" "}
                       <code>src/app/styles/*-tokens.css</code> (palette, semantic, spacing, fonts, etc.)
-                    </div>
-                    <div>
+                    </small>
+                    <small>
                       <strong>Reusable UI patterns:</strong> grouped global styles in{" "}
                       <code>src/app/styles/&lt;Group&gt;/*.css</code> (links/cards/badges/nav/header/etc). These
                       are imported once by <code>src/app/(app)/globals.css</code>.
-                    </div>
-                    <div>
+                    </small>
+                    <small>
                       <strong>Per-component styles (colocated):</strong> <code>src/components/*/Component.css</code>
                       imported by the component (best for styles used by only that component).
-                    </div>
-                    <div>
+                    </small>
+                    <small>
                       <strong>Component code:</strong> <code>src/components/*</code> (React primitives like{" "}
                       <code>Page</code>, <code>Container</code>, <code>InnerSection</code>, <code>Button</code>)
-                    </div>
-                    <div>
+                    </small>
+                    <small>
                       <strong>Rule of thumb:</strong> if a style is reused across 2+ routes, it must live
                       in the design system styles (not inside a route).
-                    </div>
+                    </small>
                   </div>
                 </div>
 
                 <div className={styles.gridGap1}>
-                  <h3 className="pobut_H3">CSS Modules example (recommended)</h3>
-                  <pre
-                    className={`pobut_caption ${styles.codeBlock}`}
-                  >{`// src/components/MyCard/MyCard.css
+                  <h3>CSS Modules example (recommended)</h3>
+                  <pre className={styles.codeBlock}>
+                    <small>{`// src/components/MyCard/MyCard.css
 .root {
   background: var(--sys-card-bg);
   border: 1px solid var(--sys-card-border);
@@ -180,10 +175,12 @@ import "./MyCard.css"
 
 export function MyCard({ children }: { children: React.ReactNode }) {
   return <div className="root">{children}</div>
-}`}</pre>
-                  <div className={`pobut_caption ${styles.muted}`}>
-                    This keeps styles “in the component folder” while still using the same tokens as the
+}`}</small></pre>
+                  <div className={styles.muted}>
+                    <small>
+                    This keeps styles "in the component folder" while still using the same tokens as the
                     global design system.
+                    </small>
                   </div>
                 </div>
               </div>
@@ -196,41 +193,43 @@ export function MyCard({ children }: { children: React.ReactNode }) {
       <Section id="layout">
         <Container>
           <InnerSection className="fe-gap-inner-section-y">
-            <h2 className="pobut_H2">Layout</h2>
-            <p className="pobut_caption" style={{ marginBottom: "var(--layout-gap-2)" }}>
+            <h2>Layout</h2>
+            <small style={{ marginBottom: "var(--layout-gap-2)", display: "block" }}>
               Canonical structure rules that should be used across the whole app. The
               goal: consistent spacing, consistent max-width, and predictable DOM.
-            </p>
+            </small>
 
         <div
           className="fe-card baseGap"
           style={{ padding: "var(--space-20)", display: "grid" }}
         >
           <div style={{ display: "grid", gap: "var(--layout-gap-1)" }}>
-            <h3 className="pobut_H3">Rules</h3>
-            <div className="pobut_caption">
-              <div><strong>1)</strong> Every page starts with <code>{`<Page data-app="frontend">`}</code> — the page is the shell.</div>
-              <div><strong>2)</strong> Pages are composed of top-level <code>{`<Section id="...">`}</code> blocks (semantic, supports anchors via <code>id</code>).</div>
-              <div><strong>3)</strong> Use explicit <code>{`<Container>`}</code> + <code>{`<InnerSection>`}</code> inside each <code>{`<Section>`}</code>.</div>
-              <div><strong>4)</strong> For custom layouts, use CSS vars/tokens directly (e.g. <code>gap: var(--layout-gap-2)</code>, <code>padding: var(--space-20)</code>).</div>
-              <div><strong>5)</strong> Avoid ad-hoc hardcoded pixel spacing—use system tokens so spacing stays consistent across routes.</div>
+            <h3>Rules</h3>
+            <div style={{ display: "grid", gap: "var(--layout-gap-1)" }}>
+              <small><strong>1)</strong> Every page starts with <code>{`<Page data-app="frontend">`}</code> — the page is the shell.</small>
+              <small><strong>2)</strong> Pages are composed of top-level <code>{`<Section id="...">`}</code> blocks (semantic, supports anchors via <code>id</code>).</small>
+              <small><strong>3)</strong> Use explicit <code>{`<Container>`}</code> + <code>{`<InnerSection>`}</code> inside each <code>{`<Section>`}</code>.</small>
+              <small><strong>4)</strong> For custom layouts, use CSS vars/tokens directly (e.g. <code>gap: var(--layout-gap-2)</code>, <code>padding: var(--space-20)</code>).</small>
+              <small><strong>5)</strong> Avoid ad-hoc hardcoded pixel spacing—use system tokens so spacing stays consistent across routes.</small>
             </div>
           </div>
 
           <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(320px, 1fr))", gap: "var(--layout-gap-2)" }}>
             {/* Visual demo */}
             <div className="fe-gap-tight" style={{ display: "grid" }}>
-              <div className="pobut_body"><strong>Visual: Page → Section → Container → Inner</strong></div>
+              <p><strong>Visual: Page → Section → Container → Inner</strong></p>
               <div style={{ padding: "var(--space-20)", background: "var(--sys-surface-2)", borderRadius: "var(--radius-lg)", border: "1px dashed var(--sys-border)" }}>
                 <div style={{ display: "grid", gap: "var(--layout-gap-1)" }}>
-                  <div className="pobut_caption"><strong>Page</strong> (full width)</div>
+                  <small><strong>Page</strong> (full width)</small>
                   <div style={{ padding: "var(--space-20)", background: "var(--sys-surface-1)", borderRadius: "var(--radius-lg)", border: "1px dashed var(--sys-border)" }}>
-                    <div className="pobut_caption"><strong>Section</strong> (vertical rhythm / background / semantics)</div>
+                    <small><strong>Section</strong> (vertical rhythm / background / semantics)</small>
                     <div style={{ marginTop: "var(--space-20)", padding: "var(--space-20)", background: "var(--sys-surface-2)", borderRadius: "var(--radius-lg)", border: "1px dashed var(--sys-border)" }}>
-                      <div className="pobut_caption"><strong>Container</strong> (centered + max-width + padding-inline)</div>
+                      <small><strong>Container</strong> (centered + max-width + padding-inline)</small>
                       <div className={styles.demoInnerBox}>
-                        <div className="pobut_caption"><strong>Inner</strong> (any layout)</div>
-                        <div className={`pobut_caption ${styles.mutedMore}`}>Cards, forms, grids, tables, etc.</div>
+                        <small><strong>Inner</strong> (any layout)</small>
+                        <div className={styles.mutedMore}>
+                          <small>Cards, forms, grids, tables, etc.</small>
+                        </div>
                       </div>
                     </div>
                   </div>
@@ -240,7 +239,7 @@ export function MyCard({ children }: { children: React.ReactNode }) {
 
             {/* Code demo */}
             <div style={{ display: "grid", gap: "var(--layout-gap-1)" }}>
-              <div className="pobut_body"><strong>Code</strong></div>
+              <p><strong>Code</strong></p>
                 <DsCodeBlock>{`import { Page } from "@/components/Page"
 import { Section } from "@/components/Section"
 import { Container } from "@/components/Container"
@@ -256,8 +255,8 @@ export default function ExamplePage() {
         {/* Optional: full-width content can live here */}
         <Container>
           <InnerSection>
-            <h1 className="pobut_H1">Title</h1>
-            <p className="pobut_body">Subtitle</p>
+            <h1>Title</h1>
+            <p>Subtitle</p>
           </InnerSection>
         </Container>
       </Section>
@@ -265,7 +264,7 @@ export default function ExamplePage() {
       <Section id="content">
         <Container>
           <InnerSection>
-            <h2 className="pobut_H2">Section</h2>
+            <h2>Section</h2>
             <div
               className="fe-card"
               style={{ padding: "var(--space-20)", display: "grid", gap: "var(--layout-gap-2)" }}
@@ -278,10 +277,12 @@ export default function ExamplePage() {
     </Page>
   )
 }`}</DsCodeBlock>
-              <div className={`pobut_caption ${styles.mutedMore}`}>
-                Uses: <code>{`<Section>`}</code> (semantic + <code>id</code>) with explicit{" "}
-                <code>{`<Container>`}</code> + <code>{`<InnerSection>`}</code> to enforce the canonical DOM, and
-                system tokens (CSS vars) for spacing.
+              <div className={styles.mutedMore}>
+                <small>
+                  Uses: <code>{`<Section>`}</code> (semantic + <code>id</code>) with explicit{" "}
+                  <code>{`<Container>`}</code> + <code>{`<InnerSection>`}</code> to enforce the canonical DOM, and
+                  system tokens (CSS vars) for spacing.
+                </small>
               </div>
             </div>
           </div>
@@ -295,33 +296,20 @@ export default function ExamplePage() {
       <Section id="layout-recipes">
         <Container>
           <InnerSection className="fe-gap-inner-section-y">
-            <h2 className="pobut_H2">Layout Recipes (Copy/Paste)</h2>
-            <p className="pobut_caption" style={{ marginBottom: "var(--layout-gap-2)" }}>
+            <h2>Layout Recipes (Copy/Paste)</h2>
+            <small style={{ marginBottom: "var(--layout-gap-2)", display: "block" }}>
               These are the only "approved" layout patterns. If a page needs something else,
               we add a new layout primitive (don't freestyle per-page).
-            </p>
+            </small>
 
             <div
               className="fe-card"
               style={{ padding: "var(--space-20)", display: "grid", gap: "var(--layout-gap-2)" }}
             >
               <div style={{ display: "grid", gap: "var(--layout-gap-1)" }}>
-                <h3 className="pobut_H3">Recipe A: Standard page sections</h3>
+                <h3>Recipe A: Standard page sections</h3>
                 <pre
-                  className="pobut_caption"
-                  style={{
-                    margin: 0,
-                    padding: "var(--space-20)",
-                    background: "var(--sys-surface-2)",
-                    borderRadius: "var(--radius-lg)",
-                    border: "1px solid var(--sys-border)",
-                    maxWidth: "100%",
-                    overflowX: "auto",
-                    whiteSpace: "pre-wrap",
-                    wordBreak: "break-word",
-                    overflowWrap: "anywhere",
-                    lineHeight: 1.6,
-                  }}
+                  className={styles.codeBlock}
                 >{`import { Page } from "@/components/Page"
 import { Section } from "@/components/Section"
 import { Container } from "@/components/Container"
@@ -348,30 +336,19 @@ export default function MyPage() {
     </Page>
   )
 }`}</pre>
-                <div className={`pobut_caption ${styles.muted}`}>
-                  If you need a tighter/looser stack inside InnerSection, override{" "}
-                  <code>--fe-inner-gap</code>:{" "}
-                  <code>{`style={{ ["--fe-inner-gap" as any]: "var(--layout-gap-1)" }}`}</code>
+                <div className={styles.muted}>
+                  <small>
+                    If you need a tighter/looser stack inside InnerSection, override{" "}
+                    <code>--fe-inner-gap</code>:{" "}
+                    <code>{`style={{ ["--fe-inner-gap" as any]: "var(--layout-gap-1)" }}`}</code>
+                  </small>
                 </div>
               </div>
 
               <div style={{ display: "grid", gap: "var(--layout-gap-1)" }}>
-                <h3 className="pobut_H3">Recipe B: Full-width band + contained content</h3>
+                <h3>Recipe B: Full-width band + contained content</h3>
                 <pre
-                  className="pobut_caption"
-                  style={{
-                    margin: 0,
-                    padding: "var(--space-20)",
-                    background: "var(--sys-surface-2)",
-                    borderRadius: "var(--radius-lg)",
-                    border: "1px solid var(--sys-border)",
-                    maxWidth: "100%",
-                    overflowX: "auto",
-                    whiteSpace: "pre-wrap",
-                    wordBreak: "break-word",
-                    overflowWrap: "anywhere",
-                    lineHeight: 1.6,
-                  }}
+                  className={styles.codeBlock}
                 >{`<Section id="promo" style={{ background: "var(--sys-surface-accent)" }}>
   {/* full width background/band */}
   <Container>
@@ -382,10 +359,12 @@ export default function MyPage() {
 </Section>`}</pre>
               </div>
 
-              <div className={`pobut_caption ${styles.muted}`}>
-                Sidebar layout primitives were intentionally removed from this project to keep the
-                layout system small and predictable. If we need sidebars later, we’ll add a single
-                new primitive with a documented recipe here.
+              <div className={styles.muted}>
+                <small>
+                  Sidebar layout primitives were intentionally removed from this project to keep the
+                  layout system small and predictable. If we need sidebars later, we'll add a single
+                  new primitive with a documented recipe here.
+                </small>
               </div>
             </div>
           </InnerSection>
@@ -396,11 +375,11 @@ export default function MyPage() {
       <Section id="typography">
         <Container>
           <InnerSection className="fe-gap-inner-section-y">
-            <h2 className="pobut_H2">Typography</h2>
-            <p className="pobut_caption" style={{ marginBottom: "var(--layout-gap-2)" }}>
+            <h2>Typography</h2>
+            <small style={{ marginBottom: "var(--layout-gap-2)", display: "block" }}>
               Font: Unbounded | Responsive sizes: Mobile → Tablet (48rem) → Desktop
-              (64rem)
-            </p>
+              (64rem) | Styles are applied directly to HTML tags (h1, h2, h3, p, small)
+            </small>
         
         <div
           className="fe-card"
@@ -408,58 +387,58 @@ export default function MyPage() {
         >
           <div style={{ display: "grid", gap: "var(--layout-gap-1)" }}>
             <div>
-              <div className="pobut_H1">Heading 1 — Unbounded Bold</div>
-              <p className="pobut_caption" style={{ marginTop: "0.5rem" }}>
+              <h1>Heading 1 — Unbounded Bold</h1>
+              <small style={{ marginTop: "0.5rem", display: "block" }}>
                 Mobile: 1.25rem (20px) | Tablet: 2rem (32px) | Desktop: 2.5rem (40px)
                 <br />
                 Weight: 700 | Line Height: 100% | Letter Spacing: 3%
                 <br />
-                <code>className="pobut_H1"</code> | Edit: <code>src/app/styles/Fonts/typography.css</code>
-              </p>
+                Use: <code>&lt;h1&gt;</code> tag | Edit: <code>src/app/styles/typography.css</code>
+              </small>
             </div>
             
             <div>
-              <div className="pobut_H2">Heading 2 — Unbounded Regular</div>
-              <p className="pobut_caption" style={{ marginTop: "0.5rem" }}>
+              <h2>Heading 2 — Unbounded Regular</h2>
+              <small style={{ marginTop: "0.5rem", display: "block" }}>
                 Mobile: 1rem (16px) | Tablet: 1.5rem (24px) | Desktop: 2rem (32px)
                 <br />
                 Weight: 400 | Line Height: 100% | Letter Spacing: 3%
                 <br />
-                <code>className="pobut_H2"</code> | Edit: <code>src/app/styles/Fonts/typography.css</code>
-              </p>
+                Use: <code>&lt;h2&gt;</code> tag | Edit: <code>src/app/styles/typography.css</code>
+              </small>
             </div>
             
             <div>
-              <div className="pobut_H3">Heading 3 — Unbounded Bold</div>
-              <p className="pobut_caption" style={{ marginTop: "0.5rem" }}>
+              <h3>Heading 3 — Unbounded Bold</h3>
+              <small style={{ marginTop: "0.5rem", display: "block" }}>
                 Mobile: 0.6875rem (11px) | Tablet: 1rem (16px) | Desktop: 1.25rem (20px)
                 <br />
                 Weight: 700 | Line Height: 100% | Letter Spacing: 3%
                 <br />
-                <code>className="pobut_H3"</code> | Edit: <code>src/app/styles/Fonts/typography.css</code>
-              </p>
+                Use: <code>&lt;h3&gt;</code> tag | Edit: <code>src/app/styles/typography.css</code>
+              </small>
             </div>
             
             <div>
-          <div className="pobut_body">Body — Unbounded Regular</div>
-              <p className="pobut_caption" style={{ marginTop: "0.5rem" }}>
+              <p>Body — Unbounded Regular</p>
+              <small style={{ marginTop: "0.5rem", display: "block" }}>
                 Mobile: 0.6875rem (11px) | Tablet: 1rem (16px) | Desktop: 1.25rem (20px)
                 <br />
                 Weight: 400 | Line Height: 100% | Letter Spacing: 3%
                 <br />
-                <code>className="pobut_body"</code> | Edit: <code>src/app/styles/Fonts/typography.css</code>
-              </p>
+                Use: <code>&lt;p&gt;</code> tag | Edit: <code>src/app/styles/typography.css</code>
+              </small>
             </div>
             
             <div>
-              <div className="pobut_caption">Caption — Unbounded Regular (Muted Color)</div>
-              <p className="pobut_caption" style={{ marginTop: "0.5rem" }}>
+              <small>Caption — Unbounded Regular (Muted Color)</small>
+              <small style={{ marginTop: "0.5rem", display: "block" }}>
                 Mobile: 0.4375rem (7px) | Tablet: 0.5625rem (9px) | Desktop: 0.625rem (10px)
                 <br />
                 Weight: 400 | Line Height: 100% | Letter Spacing: 3% | Color: Muted (65% opacity)
                 <br />
-                <code>className="pobut_caption"</code> | Edit: <code>src/app/styles/Fonts/typography.css</code>
-              </p>
+                Use: <code>&lt;small&gt;</code> or <code>&lt;p className="caption"&gt;</code> | Edit: <code>src/app/styles/typography.css</code>
+              </small>
             </div>
           </div>
         </div>
@@ -471,378 +450,378 @@ export default function MyPage() {
       <Section id="colors">
         <Container>
           <InnerSection className="fe-gap-inner-section-y">
-            <h2 className="pobut_H2">Colors</h2>
-            <p className="pobut_caption" style={{ marginBottom: "var(--layout-gap-2)" }}>Brand colors, semantic tokens, and text colors</p>
+            <h2>Colors</h2>
+            <small style={{ marginBottom: "var(--layout-gap-2)", display: "block" }}>Brand colors, semantic tokens, and text colors</small>
         
         <div
           className="fe-card"
           style={{ padding: "var(--space-20)", display: "grid", gap: "var(--layout-gap-2)" }}
         >
           <div>
-            <h3 className="pobut_H3" style={{ marginBottom: "var(--space-20)" }}>Brand Colors</h3>
-            <p className="pobut_caption" style={{ marginBottom: "var(--space-20)" }}>All raw brand colors from Figma. These are the source of truth for your brand palette.</p>
+            <h3 style={{ marginBottom: "var(--space-20)" }}>Brand Colors</h3>
+            <small style={{ marginBottom: "var(--space-20)", display: "block" }}>All raw brand colors from Figma. These are the source of truth for your brand palette.</small>
             
             <div style={{ display: "grid", gap: "var(--layout-gap-2)" }}>
               <div>
-                <h4 className="pobut_H3" style={{ marginBottom: "var(--space-20)" }}>Blue (Primary Brand Color)</h4>
+                <h4 style={{ marginBottom: "var(--space-20)" }}>Blue (Primary Brand Color)</h4>
                 <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(180px, 1fr))", gap: "var(--layout-gap-2)" }}>
                   <div style={{ display: "grid", gap: "var(--layout-gap-1)" }}>
                     <div style={{ height: "4rem", background: "var(--color-blue)", borderRadius: "var(--radius-lg)" }} />
-                    <div className="pobut_caption">
+                    <small>
                       <strong>Blue:</strong> #00004c<br />
                       <code>var(--color-blue)</code>
-                    </div>
+                    </small>
                   </div>
                   <div style={{ display: "grid", gap: "var(--layout-gap-1)" }}>
                     <div style={{ height: "4rem", background: "var(--color-blue-hover)", borderRadius: "var(--radius-lg)" }} />
-                    <div className="pobut_caption">
+                    <small>
                       <strong>Blue Hover:</strong> #3b3bf9<br />
                       <code>var(--color-blue-hover)</code>
-                    </div>
+                    </small>
                   </div>
                   <div style={{ display: "grid", gap: "var(--layout-gap-1)" }}>
                     <div style={{ height: "4rem", background: "var(--color-blue-click)", borderRadius: "var(--radius-lg)" }} />
-                    <div className="pobut_caption">
+                    <small>
                       <strong>Blue Click:</strong> #00001f<br />
                       <code>var(--color-blue-click)</code>
-                    </div>
+                    </small>
                   </div>
                 </div>
               </div>
 
               <div>
-                <h4 className="pobut_H3" style={{ marginBottom: "var(--space-20)" }}>Green (Accent Brand Color)</h4>
+                <h4 style={{ marginBottom: "var(--space-20)" }}>Green (Accent Brand Color)</h4>
                 <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(180px, 1fr))", gap: "var(--layout-gap-2)" }}>
                   <div style={{ display: "grid", gap: "var(--layout-gap-1)" }}>
                     <div style={{ height: "4rem", background: "var(--color-green)", borderRadius: "var(--radius-lg)" }} />
-                    <div className="pobut_caption">
+                    <small>
                       <strong>Green:</strong> #72cb1a<br />
                       <code>var(--color-green)</code>
-                    </div>
+                    </small>
                   </div>
                   <div style={{ display: "grid", gap: "var(--layout-gap-1)" }}>
                     <div style={{ height: "4rem", background: "var(--color-green-hover)", borderRadius: "var(--radius-lg)" }} />
-                    <div className="pobut_caption">
+                    <small>
                       <strong>Green Hover:</strong> #beff7e<br />
                       <code>var(--color-green-hover)</code>
-                    </div>
+                    </small>
                   </div>
                   <div style={{ display: "grid", gap: "var(--layout-gap-1)" }}>
                     <div style={{ height: "4rem", background: "var(--color-green-click)", borderRadius: "var(--radius-lg)" }} />
-                    <div className="pobut_caption">
+                    <small>
                       <strong>Green Click:</strong> #408000<br />
                       <code>var(--color-green-click)</code>
-                    </div>
+                    </small>
                   </div>
                 </div>
               </div>
 
               <div>
-                <h4 className="pobut_H3" style={{ marginBottom: "var(--space-20)" }}>Neutral Colors</h4>
+                <h4 style={{ marginBottom: "var(--space-20)" }}>Neutral Colors</h4>
                 <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(180px, 1fr))", gap: "var(--layout-gap-2)" }}>
                   <div style={{ display: "grid", gap: "var(--layout-gap-1)" }}>
                     <div style={{ height: "4rem", background: "var(--color-white)", border: "1px solid var(--sys-border)", borderRadius: "var(--radius-lg)" }} />
-                    <div className="pobut_caption">
+                    <small>
                       <strong>White:</strong> #ffffff<br />
                       <code>var(--color-white)</code>
-                    </div>
+                    </small>
                   </div>
                   <div style={{ display: "grid", gap: "var(--layout-gap-1)" }}>
                     <div style={{ height: "4rem", background: "var(--color-black)", borderRadius: "var(--radius-lg)" }} />
-                    <div className="pobut_caption">
+                    <small>
                       <strong>Black:</strong> #000000<br />
                       <code>var(--color-black)</code>
-                    </div>
+                    </small>
                   </div>
                   <div style={{ display: "grid", gap: "var(--layout-gap-1)" }}>
                     <div style={{ height: "4rem", background: "var(--color-neutral-border)", border: "1px solid var(--sys-border)", borderRadius: "var(--radius-lg)" }} />
-                    <div className="pobut_caption">
+                    <small>
                       <strong>Neutral Border:</strong> #e5e7eb<br />
                       <code>var(--color-neutral-border)</code>
-                    </div>
+                    </small>
                   </div>
                   <div style={{ display: "grid", gap: "var(--layout-gap-1)" }}>
                     <div style={{ height: "4rem", background: "var(--color-default-background)", border: "1px solid var(--sys-border)", borderRadius: "var(--radius-lg)" }} />
-                    <div className="pobut_caption">
+                    <small>
                       <strong>Default Background:</strong> #ffffff<br />
                       <code>var(--color-default-background)</code>
-                    </div>
+                    </small>
                   </div>
                 </div>
               </div>
 
               <div>
-                <h4 className="pobut_H3" style={{ marginBottom: "var(--space-20)" }}>Status Colors</h4>
+                <h4 style={{ marginBottom: "var(--space-20)" }}>Status Colors</h4>
                 <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(180px, 1fr))", gap: "var(--layout-gap-2)" }}>
                   <div style={{ display: "grid", gap: "var(--layout-gap-1)" }}>
                     <div style={{ height: "4rem", background: "var(--color-error)", borderRadius: "var(--radius-lg)" }} />
-                    <div className="pobut_caption">
+                    <small>
                       <strong>Error:</strong> #ff0000<br />
                       <code>var(--color-error)</code>
-                    </div>
+                    </small>
                   </div>
                 </div>
               </div>
             </div>
             
-            <p className="pobut_caption" style={{ marginTop: "var(--space-20)", padding: "var(--space-20)", background: "var(--sys-surface-2)", borderRadius: "var(--radius-lg)" }}>
+            <small style={{ marginTop: "var(--space-20)", padding: "var(--space-20)", background: "var(--sys-surface-2)", borderRadius: "var(--radius-lg)", display: "block" }}>
               <strong>Note:</strong> These are raw palette tokens. They should NOT be used directly in components.
               <br />
               Use semantic tokens instead (e.g., <code>--sys-accent</code> instead of <code>--color-green</code>).
               <br />
               Edit: <code>src/app/styles/palette-tokens.css</code>
-            </p>
+            </small>
           </div>
 
           <div style={{ display: "grid", gap: "var(--layout-gap-3, var(--layout-gap-2))" }}>
-            <h3 className="pobut_H3" style={{ marginBottom: "var(--space-20)" }}>Semantic Colors</h3>
-            <p className="pobut_caption">All semantic tokens reference palette tokens. Edit: <code>src/app/styles/semantic-tokens.css</code></p>
+            <h3 style={{ marginBottom: "var(--space-20)" }}>Semantic Colors</h3>
+            <small>All semantic tokens reference palette tokens. Edit: <code>src/app/styles/semantic-tokens.css</code></small>
             
             {/* Interactive Colors (Blue) */}
             <div>
-              <h4 className="pobut_H3" style={{ marginBottom: "var(--space-20)", marginTop: "var(--space-20)" }}>Interactive (Blue - Links, Clickable Text)</h4>
+              <h4 style={{ marginBottom: "var(--space-20)", marginTop: "var(--space-20)" }}>Interactive (Blue - Links, Clickable Text)</h4>
               <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(180px, 1fr))", gap: "var(--layout-gap-2)" }}>
                 <div style={{ display: "grid", gap: "var(--layout-gap-1)" }}>
                   <div style={{ height: "3rem", background: "var(--sys-interactive)", borderRadius: "var(--radius-lg)" }} />
-                  <div className="pobut_caption">
+                  <small>
                     <strong>Interactive:</strong> Blue<br />
                     <code>var(--sys-interactive)</code>
-                  </div>
+                  </small>
                 </div>
                 <div style={{ display: "grid", gap: "var(--layout-gap-1)" }}>
                   <div style={{ height: "3rem", background: "var(--sys-interactive-hover)", borderRadius: "var(--radius-lg)" }} />
-                  <div className="pobut_caption">
+                  <small>
                     <strong>Interactive Hover:</strong><br />
                     <code>var(--sys-interactive-hover)</code>
-                  </div>
+                  </small>
                 </div>
                 <div style={{ display: "grid", gap: "var(--layout-gap-1)" }}>
                   <div style={{ height: "3rem", background: "var(--sys-interactive-active)", borderRadius: "var(--radius-lg)" }} />
-                  <div className="pobut_caption">
+                  <small>
                     <strong>Interactive Active:</strong><br />
                     <code>var(--sys-interactive-active)</code>
-                  </div>
+                  </small>
                 </div>
               </div>
             </div>
 
             {/* Accent Colors (Green) */}
             <div>
-              <h4 className="pobut_H3" style={{ marginBottom: "var(--space-20)", marginTop: "var(--space-20)" }}>Accent (Green - Primary Actions, Buttons)</h4>
+              <h4 style={{ marginBottom: "var(--space-20)", marginTop: "var(--space-20)" }}>Accent (Green - Primary Actions, Buttons)</h4>
               <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(180px, 1fr))", gap: "var(--layout-gap-2)" }}>
                 <div style={{ display: "grid", gap: "var(--layout-gap-1)" }}>
                   <div style={{ height: "3rem", background: "var(--sys-accent)", borderRadius: "var(--radius-lg)" }} />
-                  <div className="pobut_caption">
+                  <small>
                     <strong>Accent (Primary):</strong> Bright Green<br />
                     <code>var(--sys-accent)</code>
-                  </div>
+                  </small>
                 </div>
                 <div style={{ display: "grid", gap: "var(--layout-gap-1)" }}>
                   <div style={{ height: "3rem", background: "var(--sys-accent-hover)", borderRadius: "var(--radius-lg)" }} />
-                  <div className="pobut_caption">
+                  <small>
                     <strong>Accent Hover:</strong><br />
                     <code>var(--sys-accent-hover)</code>
-                  </div>
+                  </small>
                 </div>
                 <div style={{ display: "grid", gap: "var(--layout-gap-1)" }}>
                   <div style={{ height: "3rem", background: "var(--sys-accent-active)", borderRadius: "var(--radius-lg)" }} />
-                  <div className="pobut_caption">
+                  <small>
                     <strong>Accent Active:</strong><br />
                     <code>var(--sys-accent-active)</code>
-                  </div>
+                  </small>
                 </div>
                 <div style={{ display: "grid", gap: "var(--layout-gap-1)" }}>
                   <div style={{ height: "3rem", background: "var(--sys-accent-secondary)", borderRadius: "var(--radius-lg)" }} />
-                  <div className="pobut_caption">
+                  <small>
                     <strong>Accent Secondary:</strong> Light Pastel<br />
                     <code>var(--sys-accent-secondary)</code>
-                  </div>
+                  </small>
                 </div>
                 <div style={{ display: "grid", gap: "var(--layout-gap-1)" }}>
                   <div style={{ height: "3rem", background: "var(--sys-accent-tertiary)", borderRadius: "var(--radius-lg)" }} />
-                  <div className="pobut_caption">
+                  <small>
                     <strong>Accent Tertiary:</strong> Dark Olive<br />
                     <code>var(--sys-accent-tertiary)</code>
-                  </div>
+                  </small>
                 </div>
               </div>
             </div>
 
             {/* Surfaces */}
             <div>
-              <h4 className="pobut_H3" style={{ marginBottom: "var(--space-20)", marginTop: "var(--space-20)" }}>Surfaces (Backgrounds)</h4>
+              <h4 style={{ marginBottom: "var(--space-20)", marginTop: "var(--space-20)" }}>Surfaces (Backgrounds)</h4>
               <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(180px, 1fr))", gap: "var(--layout-gap-2)" }}>
                 <div style={{ display: "grid", gap: "var(--layout-gap-1)" }}>
                   <div style={{ height: "3rem", background: "var(--sys-surface)", border: "1px solid var(--sys-border)", borderRadius: "var(--radius-lg)" }} />
-                  <div className="pobut_caption">
+                  <small>
                     <strong>Surface:</strong> White<br />
                     <code>var(--sys-surface)</code>
-                  </div>
+                  </small>
                 </div>
                 <div style={{ display: "grid", gap: "var(--layout-gap-1)" }}>
                   <div style={{ height: "3rem", background: "var(--sys-surface-2)", border: "1px solid var(--sys-border)", borderRadius: "var(--radius-lg)" }} />
-                  <div className="pobut_caption">
+                  <small>
                     <strong>Surface 2:</strong> Alternative<br />
                     <code>var(--sys-surface-2)</code>
-                  </div>
+                  </small>
                 </div>
                 <div style={{ display: "grid", gap: "var(--layout-gap-1)" }}>
                   <div style={{ height: "3rem", background: "var(--sys-surface-accent)", borderRadius: "var(--radius-lg)" }} />
-                  <div className="pobut_caption">
+                  <small>
                     <strong>Surface Accent:</strong> Green BG<br />
                     <code>var(--sys-surface-accent)</code>
-                  </div>
+                  </small>
                 </div>
                 <div style={{ display: "grid", gap: "var(--layout-gap-1)" }}>
                   <div style={{ height: "3rem", background: "var(--sys-surface-interactive)", borderRadius: "var(--radius-lg)" }} />
-                  <div className="pobut_caption">
+                  <small>
                     <strong>Surface Interactive:</strong> Blue BG<br />
                     <code>var(--sys-surface-interactive)</code>
-                  </div>
+                  </small>
                 </div>
               </div>
             </div>
 
             {/* Text Colors */}
             <div>
-              <h4 className="pobut_H3" style={{ marginBottom: "var(--space-20)", marginTop: "var(--space-20)" }}>Text Colors</h4>
+              <h4 style={{ marginBottom: "var(--space-20)", marginTop: "var(--space-20)" }}>Text Colors</h4>
               <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(180px, 1fr))", gap: "var(--layout-gap-2)" }}>
                 <div style={{ display: "grid", gap: "var(--layout-gap-1)" }}>
-                  <div style={{ height: "3rem", background: "var(--sys-text)", borderRadius: "var(--radius-lg)", color: "var(--sys-text-inverse)", display: "flex", alignItems: "center", justifyContent: "center" }} className="pobut_body">
-                    Text
+                  <div style={{ height: "3rem", background: "var(--sys-text)", borderRadius: "var(--radius-lg)", color: "var(--sys-text-inverse)", display: "flex", alignItems: "center", justifyContent: "center" }}>
+                    <p>Text</p>
                   </div>
-                  <div className="pobut_caption">
+                  <small>
                     <strong>Text:</strong> Blue<br />
                     <code>var(--sys-text)</code>
-                  </div>
+                  </small>
                 </div>
                 <div style={{ display: "grid", gap: "var(--layout-gap-1)" }}>
                   <div style={{ height: "3rem", background: "var(--sys-text-muted)", borderRadius: "var(--radius-lg)", border: "1px solid var(--sys-border)" }} />
-                  <div className="pobut_caption">
+                  <small>
                     <strong>Text Muted:</strong> 65% opacity<br />
                     <code>var(--sys-text-muted)</code>
-                  </div>
+                  </small>
                 </div>
                 <div style={{ display: "grid", gap: "var(--layout-gap-1)" }}>
                   <div style={{ height: "3rem", background: "var(--sys-text-subtle)", borderRadius: "var(--radius-lg)", border: "1px solid var(--sys-border)" }} />
-                  <div className="pobut_caption">
+                  <small>
                     <strong>Text Subtle:</strong> 40% opacity<br />
                     <code>var(--sys-text-subtle)</code>
-                  </div>
+                  </small>
                 </div>
                 <div style={{ display: "grid", gap: "var(--layout-gap-1)" }}>
-                  <div style={{ height: "3rem", background: "var(--sys-accent)", borderRadius: "var(--radius-lg)", color: "var(--sys-text-on-accent)", display: "flex", alignItems: "center", justifyContent: "center" }} className="pobut_body">
-                    On Accent
+                  <div style={{ height: "3rem", background: "var(--sys-accent)", borderRadius: "var(--radius-lg)", color: "var(--sys-text-on-accent)", display: "flex", alignItems: "center", justifyContent: "center" }}>
+                    <p>On Accent</p>
                   </div>
-                  <div className="pobut_caption">
+                  <small>
                     <strong>Text On Accent:</strong> White<br />
                     <code>var(--sys-text-on-accent)</code>
-                  </div>
+                  </small>
                 </div>
               </div>
             </div>
 
             {/* Borders */}
             <div>
-              <h4 className="pobut_H3" style={{ marginBottom: "var(--space-20)", marginTop: "var(--space-20)" }}>Borders</h4>
+              <h4 style={{ marginBottom: "var(--space-20)", marginTop: "var(--space-20)" }}>Borders</h4>
               <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(180px, 1fr))", gap: "var(--layout-gap-2)" }}>
                 <div style={{ display: "grid", gap: "var(--layout-gap-1)" }}>
                   <div style={{ height: "3rem", background: "var(--sys-surface)", border: "2px solid var(--sys-border)", borderRadius: "var(--radius-lg)" }} />
-                  <div className="pobut_caption">
+                  <small>
                     <strong>Border:</strong> Neutral Gray<br />
                     <code>var(--sys-border)</code>
-                  </div>
+                  </small>
                 </div>
                 <div style={{ display: "grid", gap: "var(--layout-gap-1)" }}>
                   <div style={{ height: "3rem", background: "var(--sys-surface)", border: "2px solid var(--sys-border-strong)", borderRadius: "var(--radius-lg)" }} />
-                  <div className="pobut_caption">
+                  <small>
                     <strong>Border Strong:</strong> Green<br />
                     <code>var(--sys-border-strong)</code>
-                  </div>
+                  </small>
                 </div>
                 <div style={{ display: "grid", gap: "var(--layout-gap-1)" }}>
                   <div style={{ height: "3rem", background: "var(--sys-surface)", border: "2px solid var(--sys-border-interactive)", borderRadius: "var(--radius-lg)" }} />
-                  <div className="pobut_caption">
+                  <small>
                     <strong>Border Interactive:</strong> Blue<br />
                     <code>var(--sys-border-interactive)</code>
-                  </div>
+                  </small>
                 </div>
                 <div style={{ display: "grid", gap: "var(--layout-gap-1)" }}>
                   <div style={{ height: "3rem", background: "var(--sys-surface)", border: "2px solid var(--sys-border-subtle)", borderRadius: "var(--radius-lg)" }} />
-                  <div className="pobut_caption">
+                  <small>
                     <strong>Border Subtle:</strong> 60% opacity<br />
                     <code>var(--sys-border-subtle)</code>
-                  </div>
+                  </small>
                 </div>
               </div>
             </div>
 
             {/* States */}
             <div>
-              <h4 className="pobut_H3" style={{ marginBottom: "var(--space-20)", marginTop: "var(--space-20)" }}>States (Error, Warning, Success)</h4>
+              <h4 style={{ marginBottom: "var(--space-20)", marginTop: "var(--space-20)" }}>States (Error, Warning, Success)</h4>
               <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(180px, 1fr))", gap: "var(--layout-gap-2)" }}>
                 <div style={{ display: "grid", gap: "var(--layout-gap-1)" }}>
                   <div style={{ height: "3rem", background: "var(--sys-danger)", borderRadius: "var(--radius-lg)" }} />
-                  <div className="pobut_caption">
+                  <small>
                     <strong>Danger:</strong> Red<br />
                     <code>var(--sys-danger)</code>
-                  </div>
+                  </small>
                 </div>
                 <div style={{ display: "grid", gap: "var(--layout-gap-1)" }}>
                   <div style={{ height: "3rem", background: "var(--sys-warning)", borderRadius: "var(--radius-lg)" }} />
-                  <div className="pobut_caption">
+                  <small>
                     <strong>Warning:</strong> Orange<br />
                     <code>var(--sys-warning)</code>
-                  </div>
+                  </small>
                 </div>
                 <div style={{ display: "grid", gap: "var(--layout-gap-1)" }}>
                   <div style={{ height: "3rem", background: "var(--sys-success)", borderRadius: "var(--radius-lg)" }} />
-                  <div className="pobut_caption">
+                  <small>
                     <strong>Success:</strong> Green<br />
                     <code>var(--sys-success)</code>
-                  </div>
+                  </small>
                 </div>
               </div>
             </div>
 
             {/* Component-Specific */}
             <div>
-              <h4 className="pobut_H3" style={{ marginBottom: "var(--space-20)", marginTop: "var(--space-20)" }}>Component-Specific Tokens</h4>
+              <h4 style={{ marginBottom: "var(--space-20)", marginTop: "var(--space-20)" }}>Component-Specific Tokens</h4>
               <div style={{ display: "grid", gap: "var(--layout-gap-2)" }}>
                 <div>
-                  <div className="pobut_body" style={{ marginBottom: "var(--space-10)" }}><strong>Buttons:</strong></div>
-                  <div className="pobut_caption" style={{ display: "grid", gap: "var(--layout-gap-1)" }}>
-                    <div><code>--sys-btn-primary-bg</code> → Primary Button background</div>
-                    <div><code>--sys-btn-secondary-bg</code> → Secondary Button background</div>
-                    <div><code>--sys-btn-tertiary-bg</code> → Tertiary Button background</div>
-                    <div><code>--sys-btn-outline-border</code> → Outline Button border</div>
-                    <div><code>--sys-btn-interactive-border</code> → Interactive Button border</div>
+                  <p style={{ marginBottom: "var(--space-10)" }}><strong>Buttons:</strong></p>
+                  <div style={{ display: "grid", gap: "var(--layout-gap-1)" }}>
+                    <small><code>--sys-btn-primary-bg</code> → Primary Button background</small>
+                    <small><code>--sys-btn-secondary-bg</code> → Secondary Button background</small>
+                    <small><code>--sys-btn-tertiary-bg</code> → Tertiary Button background</small>
+                    <small><code>--sys-btn-outline-border</code> → Outline Button border</small>
+                    <small><code>--sys-btn-interactive-border</code> → Interactive Button border</small>
                   </div>
                 </div>
                 <div>
-                  <div className="pobut_body" style={{ marginBottom: "var(--space-10)" }}><strong>Inputs:</strong></div>
-                  <div className="pobut_caption" style={{ display: "grid", gap: "var(--layout-gap-1)" }}>
-                    <div><code>--sys-input-border</code> → Input border</div>
-                    <div><code>--sys-input-border-hover</code> → Input border hover</div>
-                    <div><code>--sys-input-border-focus</code> → Input border focus</div>
-                    <div><code>--sys-input-bg</code> → Input background</div>
-                    <div><code>--sys-input-fg</code> → Input text color</div>
+                  <p style={{ marginBottom: "var(--space-10)" }}><strong>Inputs:</strong></p>
+                  <div style={{ display: "grid", gap: "var(--layout-gap-1)" }}>
+                    <small><code>--sys-input-border</code> → Input border</small>
+                    <small><code>--sys-input-border-hover</code> → Input border hover</small>
+                    <small><code>--sys-input-border-focus</code> → Input border focus</small>
+                    <small><code>--sys-input-bg</code> → Input background</small>
+                    <small><code>--sys-input-fg</code> → Input text color</small>
                   </div>
                 </div>
                 <div>
-                  <div className="pobut_body" style={{ marginBottom: "var(--space-10)" }}><strong>Cards:</strong></div>
-                  <div className="pobut_caption" style={{ display: "grid", gap: "var(--layout-gap-1)" }}>
-                    <div><code>--sys-card-bg</code> → Card background</div>
+                  <p style={{ marginBottom: "var(--space-10)" }}><strong>Cards:</strong></p>
+                  <div style={{ display: "grid", gap: "var(--layout-gap-1)" }}>
+                    <small><code>--sys-card-bg</code> → Card background</small>
                     <div><code>--sys-card-border</code> → Card border</div>
                     <div><code>--sys-card-bg-hover</code> → Card hover background</div>
                   </div>
                 </div>
                 <div>
-                  <div className="pobut_body" style={{ marginBottom: "var(--space-10)" }}><strong>Navigation:</strong></div>
-                  <div className="pobut_caption" style={{ display: "grid", gap: "var(--layout-gap-1)" }}>
-                    <div><code>--sys-nav-bg</code> → Navigation background</div>
-                    <div><code>--sys-nav-link</code> → Navigation link color</div>
-                    <div><code>--sys-nav-link-hover</code> → Navigation link hover</div>
+                  <p style={{ marginBottom: "var(--space-10)" }}><strong>Navigation:</strong></p>
+                  <div style={{ display: "grid", gap: "var(--layout-gap-1)" }}>
+                    <small><code>--sys-nav-bg</code> → Navigation background</small>
+                    <small><code>--sys-nav-link</code> → Navigation link color</small>
+                    <small><code>--sys-nav-link-hover</code> → Navigation link hover</small>
                   </div>
                 </div>
               </div>
@@ -857,13 +836,13 @@ export default function MyPage() {
       <Section id="spacing">
         <Container>
           <InnerSection className="fe-gap-inner-section-y">
-            <h2 className="pobut_H2">Spacing System</h2>
-            <p className="pobut_body" style={{ marginBottom: "var(--layout-gap-2)" }}>
+            <h2>Spacing System</h2>
+            <p style={{ marginBottom: "var(--layout-gap-2)" }}>
               Complete guide to using spacing tokens and utilities. All spacing is mobile-first and responsive.
             </p>
-            <p className="pobut_caption" style={{ marginBottom: "var(--layout-gap-2)" }}>
+            <small style={{ marginBottom: "var(--layout-gap-2)", display: "block" }}>
               <strong>Mobile-First Approach:</strong> Base styles are for mobile, then enhanced for Tablet (≥48rem / 768px) and Desktop (≥64rem / 1024px).
-            </p>
+            </small>
         
         <div
           className="fe-card"
@@ -871,106 +850,106 @@ export default function MyPage() {
         >
           {/* Figma Spacing Reference */}
           <div style={{ padding: "var(--space-20)", background: "var(--sys-surface-2)", borderRadius: "var(--radius-lg)", marginBottom: "var(--space-20)" }}>
-            <h3 className="pobut_H3" style={{ marginBottom: "var(--space-20)" }}>Figma Design Spacing Reference</h3>
+            <h3 style={{ marginBottom: "var(--space-20)" }}>Figma Design Spacing Reference</h3>
             <div style={{ display: "grid", gap: "var(--layout-gap-1)" }}>
-              <div className="pobut_body"><strong>Desktop:</strong> Margin 150px | Spacing 20px/50px</div>
-              <div className="pobut_body"><strong>Tablet:</strong> Margin 50px | Spacing 10px/20px/30px</div>
-              <div className="pobut_body"><strong>Mobile:</strong> Margin 10px | Spacing 10px/20px</div>
-              <p className="pobut_caption" style={{ marginTop: "var(--space-10)" }}>
+              <p><strong>Desktop:</strong> Margin 150px | Spacing 20px/50px</p>
+              <p><strong>Tablet:</strong> Margin 50px | Spacing 10px/20px/30px</p>
+              <p><strong>Mobile:</strong> Margin 10px | Spacing 10px/20px</p>
+              <small style={{ marginTop: "var(--space-10)", display: "block" }}>
                 <strong>What this means:</strong>
                 <br />
                 • <strong>Margin</strong> = Layout margin token (available for custom use, not used by Page component)
                 <br />
                 • <strong>Spacing</strong> = Vertical gaps between elements (sections, cards, etc.)
-              </p>
+              </small>
             </div>
           </div>
 
           <div>
-            <h3 className="pobut_H3" style={{ marginBottom: "var(--space-20)" }}>Component Spacing Scale</h3>
-            <p className="pobut_caption" style={{ marginBottom: "var(--space-20)" }}>Raw spacing values for component-level padding/margins</p>
+            <h3 style={{ marginBottom: "var(--space-20)" }}>Component Spacing Scale</h3>
+            <small style={{ marginBottom: "var(--space-20)", display: "block" }}>Raw spacing values for component-level padding/margins</small>
             <div className="fe-gap-tight" style={{ display: "grid" }}>
               <div style={{ display: "flex", alignItems: "center", gap: "var(--space-20)" }}>
                 <div style={{ width: "var(--space-10)", height: "var(--space-10)", background: "var(--sys-accent)", borderRadius: "0.25rem" }} />
                 <div>
-                  <div className="pobut_body"><code>--space-10</code>: 0.625rem (10px)</div>
-                  <div className="pobut_caption">Use: <code>padding: var(--space-10)</code></div>
+                  <p><code>--space-10</code>: 0.625rem (10px)</p>
+                  <small>Use: <code>padding: var(--space-10)</code></small>
                 </div>
               </div>
               <div style={{ display: "flex", alignItems: "center", gap: "var(--space-20)" }}>
                 <div style={{ width: "var(--space-20)", height: "var(--space-20)", background: "var(--sys-accent)", borderRadius: "0.25rem" }} />
                 <div>
-                  <div className="pobut_body"><code>--space-20</code>: 1.25rem (20px)</div>
-                  <div className="pobut_caption">Use: <code>padding: var(--space-20)</code></div>
+                  <p><code>--space-20</code>: 1.25rem (20px)</p>
+                  <small>Use: <code>padding: var(--space-20)</code></small>
                 </div>
               </div>
               <div style={{ display: "flex", alignItems: "center", gap: "var(--space-20)" }}>
                 <div style={{ width: "var(--space-30)", height: "var(--space-30)", background: "var(--sys-accent)", borderRadius: "0.25rem" }} />
                 <div>
-                  <div className="pobut_body"><code>--space-30</code>: 1.875rem (30px) - Tablet only</div>
-                  <div className="pobut_caption">Use: <code>padding: var(--space-30)</code></div>
+                  <p><code>--space-30</code>: 1.875rem (30px) - Tablet only</p>
+                  <small>Use: <code>padding: var(--space-30)</code></small>
                 </div>
               </div>
               <div style={{ display: "flex", alignItems: "center", gap: "var(--space-20)" }}>
                 <div style={{ width: "var(--space-50)", height: "var(--space-50)", background: "var(--sys-accent)", borderRadius: "0.25rem" }} />
                 <div>
-                  <div className="pobut_body"><code>--space-50</code>: 3.125rem (50px) - Desktop only</div>
-                  <div className="pobut_caption">Use: <code>padding: var(--space-50)</code></div>
+                  <p><code>--space-50</code>: 3.125rem (50px) - Desktop only</p>
+                  <small>Use: <code>padding: var(--space-50)</code></small>
                 </div>
               </div>
             </div>
           </div>
 
           <div>
-            <h3 className="pobut_H3" style={{ marginBottom: "var(--space-20)" }}>Layout Spacing (From Figma)</h3>
-            <p className="pobut_caption" style={{ marginBottom: "var(--space-20)" }}>These values match your Figma design specifications</p>
+            <h3 style={{ marginBottom: "var(--space-20)" }}>Layout Spacing (From Figma)</h3>
+            <small style={{ marginBottom: "var(--space-20)", display: "block" }}>These values match your Figma design specifications</small>
             
             <div className="baseGap" style={{ display: "grid" }}>
               <div>
-                <div className="pobut_body" style={{ marginBottom: "var(--space-10)" }}><code>--layout-margin</code>: Layout margin token (available for custom use)</div>
-                <div className="pobut_caption fe-gap-tight" style={{ paddingLeft: "var(--space-20)", display: "grid" }}>
-                  <div>📱 <strong>Mobile:</strong> 0.625rem (10px)</div>
-                  <div>📱 <strong>Tablet:</strong> 3.125rem (50px)</div>
-                  <div>🖥️ <strong>Desktop:</strong> 9.375rem (150px)</div>
-                  <div style={{ marginTop: "var(--space-10)" }}>
+                <p style={{ marginBottom: "var(--space-10)" }}><code>--layout-margin</code>: Layout margin token (available for custom use)</p>
+                <div className="fe-gap-tight" style={{ paddingLeft: "var(--space-20)", display: "grid" }}>
+                  <small>📱 <strong>Mobile:</strong> 0.625rem (10px)</small>
+                  <small>📱 <strong>Tablet:</strong> 3.125rem (50px)</small>
+                  <small>🖥️ <strong>Desktop:</strong> 9.375rem (150px)</small>
+                  <small style={{ marginTop: "var(--space-10)" }}>
                     <strong>Note:</strong> Page component no longer uses this padding. Use Container component for width constraints.
-                  </div>
+                  </small>
                 </div>
               </div>
               
               <div>
-                <div className="pobut_body" style={{ marginBottom: "var(--space-10)" }}><code>--layout-gap-1</code>: Small vertical spacing</div>
-                <div className="pobut_caption fe-gap-tight" style={{ paddingLeft: "var(--space-20)", display: "grid" }}>
-                  <div>📱 <strong>Mobile:</strong> 0.625rem (10px)</div>
-                  <div>📱 <strong>Tablet:</strong> 0.625rem (10px)</div>
-                  <div>🖥️ <strong>Desktop:</strong> 1.25rem (20px)</div>
-                  <div style={{ marginTop: "var(--space-10)" }}>
+                <p style={{ marginBottom: "var(--space-10)" }}><code>--layout-gap-1</code>: Small vertical spacing</p>
+                <div className="fe-gap-tight" style={{ paddingLeft: "var(--space-20)", display: "grid" }}>
+                  <small>📱 <strong>Mobile:</strong> 0.625rem (10px)</small>
+                  <small>📱 <strong>Tablet:</strong> 0.625rem (10px)</small>
+                  <small>🖥️ <strong>Desktop:</strong> 1.25rem (20px)</small>
+                  <small style={{ marginTop: "var(--space-10)" }}>
                     <strong>Where to use:</strong> set <code>gap: var(--layout-gap-1)</code> (flex/grid) or set <code>--fe-inner-gap</code> for InnerSection rhythm
-                  </div>
+                  </small>
                 </div>
               </div>
               
               <div>
-                <div className="pobut_body" style={{ marginBottom: "var(--space-10)" }}><code>--layout-gap-2</code>: Medium vertical spacing</div>
-                <div className="pobut_caption fe-gap-tight" style={{ paddingLeft: "var(--space-20)", display: "grid" }}>
-                  <div>📱 <strong>Mobile:</strong> 1.25rem (20px)</div>
-                  <div>📱 <strong>Tablet:</strong> 1.25rem (20px)</div>
-                  <div>🖥️ <strong>Desktop:</strong> 3.125rem (50px)</div>
-                  <div style={{ marginTop: "var(--space-10)" }}>
+                <p style={{ marginBottom: "var(--space-10)" }}><code>--layout-gap-2</code>: Medium vertical spacing</p>
+                <div className="fe-gap-tight" style={{ paddingLeft: "var(--space-20)", display: "grid" }}>
+                  <small>📱 <strong>Mobile:</strong> 1.25rem (20px)</small>
+                  <small>📱 <strong>Tablet:</strong> 1.25rem (20px)</small>
+                  <small>🖥️ <strong>Desktop:</strong> 3.125rem (50px)</small>
+                  <small style={{ marginTop: "var(--space-10)" }}>
                     <strong>Where to use:</strong> set <code>gap: var(--layout-gap-2)</code> (flex/grid) or use the default InnerSection rhythm
-                  </div>
+                  </small>
                 </div>
               </div>
               
               <div>
-                <div className="pobut_body" style={{ marginBottom: "var(--space-10)" }}><code>--layout-gap-3</code>: Large vertical spacing (Tablet+)</div>
-                <div className="pobut_caption" style={{ paddingLeft: "var(--space-20)", display: "grid", gap: "var(--layout-gap-1)" }}>
-                  <div>📱 <strong>Mobile:</strong> Not available (falls back to gap-2)</div>
-                  <div>📱 <strong>Tablet:</strong> 1.875rem (30px)</div>
-                  <div>🖥️ <strong>Desktop:</strong> Falls back to gap-2 (50px)</div>
-                  <div style={{ marginTop: "var(--space-10)" }}>
+                <p style={{ marginBottom: "var(--space-10)" }}><code>--layout-gap-3</code>: Large vertical spacing (Tablet+)</p>
+                <div style={{ paddingLeft: "var(--space-20)", display: "grid", gap: "var(--layout-gap-1)" }}>
+                  <small>📱 <strong>Mobile:</strong> Not available (falls back to gap-2)</small>
+                  <small>📱 <strong>Tablet:</strong> 1.875rem (30px)</small>
+                  <small>🖥️ <strong>Desktop:</strong> Falls back to gap-2 (50px)</small>
+                  <small style={{ marginTop: "var(--space-10)" }}>
                     <strong>Where to use:</strong> set <code>gap: var(--layout-gap-3)</code> (flex/grid) or adjust <code>--fe-page-gap</code> for page-level spacing
-                  </div>
+                  </small>
                 </div>
               </div>
             </div>
@@ -978,31 +957,31 @@ export default function MyPage() {
 
           {/* Visual Example */}
           <div style={{ marginTop: "var(--space-20)", padding: "var(--space-20)", background: "var(--sys-surface-2)", borderRadius: "var(--radius-lg)" }}>
-            <h4 className="pobut_H3" style={{ marginBottom: "var(--space-20)" }}>Visual Example: How These Are Used</h4>
+            <h4 style={{ marginBottom: "var(--space-20)" }}>Visual Example: How These Are Used</h4>
             <div className="baseGap" style={{ display: "grid" }}>
               <div>
-                <div className="pobut_body" style={{ marginBottom: "var(--space-10)" }}>1. <strong>Page Container</strong> (uses <code>--layout-margin</code>):</div>
+                <p style={{ marginBottom: "var(--space-10)" }}>1. <strong>Page Container</strong> (uses <code>--layout-margin</code>):</p>
                 <div style={{ padding: "var(--space-10)", background: "var(--sys-surface)", border: "2px dashed var(--sys-border-strong)", borderRadius: "var(--radius-lg)" }}>
-                  <div className="pobut_caption" style={{ textAlign: "center" }}>
+                  <div style={{ textAlign: "center" }}>
                     <div style={{ display: "inline-block", padding: "var(--space-10) var(--space-20)", background: "var(--sys-accent)", color: "var(--sys-text-inverse)", borderRadius: "var(--radius-lg)" }}>
                       Page Content Area
                     </div>
-                    <div className="pobut_caption" style={{ marginTop: "var(--space-10)" }}>
+                    <small style={{ marginTop: "var(--space-10)", display: "block" }}>
                       ← <code>--layout-margin</code> (10px/50px/150px) → 
-                    </div>
+                    </small>
                   </div>
                 </div>
               </div>
               
               <div>
-                <div className="pobut_body" style={{ marginBottom: "var(--space-10)" }}>2. <strong>Vertical Stacking</strong> (uses <code>--layout-gap-*</code>):</div>
+                <p style={{ marginBottom: "var(--space-10)" }}>2. <strong>Vertical Stacking</strong> (uses <code>--layout-gap-*</code>):</p>
                 <div style={{ padding: "var(--space-10)", background: "var(--sys-surface)", border: "2px dashed var(--sys-border-strong)", borderRadius: "var(--radius-lg)", display: "grid", gap: "var(--layout-gap-2)" }}>
-                  <div style={{ padding: "var(--space-20)", background: "var(--sys-accent-secondary)", borderRadius: "var(--radius-lg)", textAlign: "center" }} className="pobut_caption">Section 1</div>
-                  <div style={{ padding: "var(--space-20)", background: "var(--sys-accent-secondary)", borderRadius: "var(--radius-lg)", textAlign: "center" }} className="pobut_caption">Section 2</div>
-                  <div style={{ padding: "var(--space-20)", background: "var(--sys-accent-secondary)", borderRadius: "var(--radius-lg)", textAlign: "center" }} className="pobut_caption">Section 3</div>
-                  <div className="pobut_caption" style={{ textAlign: "center", marginTop: "var(--space-10)" }}>
+                  <div style={{ padding: "var(--space-20)", background: "var(--sys-accent-secondary)", borderRadius: "var(--radius-lg)", textAlign: "center" }}><small>Section 1</small></div>
+                  <div style={{ padding: "var(--space-20)", background: "var(--sys-accent-secondary)", borderRadius: "var(--radius-lg)", textAlign: "center" }}><small>Section 2</small></div>
+                  <div style={{ padding: "var(--space-20)", background: "var(--sys-accent-secondary)", borderRadius: "var(--radius-lg)", textAlign: "center" }}><small>Section 3</small></div>
+                  <small style={{ textAlign: "center", marginTop: "var(--space-10)", display: "block" }}>
                     Gap between sections = <code>--layout-gap-2</code> (20px/20px/50px)
-                  </div>
+                  </small>
                 </div>
               </div>
             </div>
@@ -1017,27 +996,27 @@ export default function MyPage() {
               borderRadius: "var(--radius-lg)",
             }}
           >
-            <h4 className="pobut_H3" style={{ marginBottom: "var(--space-20)" }}>
+            <h4 style={{ marginBottom: "var(--space-20)" }}>
               Semantic InnerSection Gap (Y axis)
             </h4>
             <div style={{ display: "grid", gap: "var(--layout-gap-2)" }}>
-              <div className="pobut_caption fe-gap-base" style={{ display: "grid" }}>
-                <div>
+              <div className="fe-gap-base" style={{ display: "grid" }}>
+                <small>
                   <strong>Token:</strong> <code>--ds-inner-section-gap-y</code> — vertical distance between stacked
                   blocks (e.g. InnerSections).
-                </div>
-                <div>
+                </small>
+                <small>
                   Mobile: 20px (0.625rem) | Tablet: 30px (1.875rem) | Desktop: 50px (3.125rem)
-                </div>
-                <div>
+                </small>
+                <small>
                   <strong>Utility class:</strong> <code>fe-gap-inner-section-y</code> — applies{" "}
                   <code>margin-top: var(--ds-inner-section-gap-y)</code>.
-                </div>
-                <div>
+                </small>
+                <small>
                   <strong>Edit:</strong>{" "}
                   <code>src/app/styles/Spacing/spacing-tokens.css</code> (token) and{" "}
                   <code>src/app/styles/Spacing/spacing.css</code> (utility class).
-                </div>
+                </small>
               </div>
 
               {/* Mini demo */}
@@ -1052,7 +1031,7 @@ export default function MyPage() {
                   gap: "var(--layout-gap-2)",
                 }}
               >
-                <div className="pobut_body">Example: two InnerSections with semantic gap (via class, no inline spacing)</div>
+                <p>Example: two InnerSections with semantic gap (via class, no inline spacing)</p>
                 <div
                   style={{
                     borderRadius: "var(--radius-lg)",
@@ -1063,13 +1042,13 @@ export default function MyPage() {
                   }}
                 >
                   <InnerSection>
-                    <p className="pobut_caption">First InnerSection (no extra margin on top)</p>
+                    <small>First InnerSection (no extra margin on top)</small>
                   </InnerSection>
                   <InnerSection className="marginSections">
-                    <p className="pobut_caption">
+                    <small>
                       Second InnerSection with <code>className="fe-gap-inner-section-y"</code> — the space between
                       these two blocks is driven by <code>--ds-inner-section-gap-y</code> (20 / 30 / 50px in rem).
-                    </p>
+                    </small>
                   </InnerSection>
                 </div>
 
@@ -1096,15 +1075,15 @@ export default function MyPage() {
 
           {/* Comprehensive Usage Guide */}
           <div style={{ marginTop: "var(--space-20)", padding: "var(--space-20)", background: "var(--sys-surface-2)", borderRadius: "var(--radius-lg)" }}>
-            <h4 className="pobut_H3" style={{ marginBottom: "var(--space-20)" }}>How to Use Spacing in Your Components</h4>
+            <h4 style={{ marginBottom: "var(--space-20)" }}>How to Use Spacing in Your Components</h4>
             
             <div style={{ display: "grid", gap: "var(--layout-gap-2)" }}>
               {/* 1. Between Sections */}
               <div>
-                <h5 className="pobut_H3" style={{ marginBottom: "var(--space-10)" }}>1. Spacing Between Sections</h5>
-                <p className="pobut_caption" style={{ marginBottom: "var(--space-10)" }}>
+                <h5 style={{ marginBottom: "var(--space-10)" }}>1. Spacing Between Sections</h5>
+                <small style={{ marginBottom: "var(--space-10)", display: "block" }}>
                   Use <code>fe-gap-inner-section-y</code> class on InnerSection components to create consistent vertical spacing between sections.
-                </p>
+                </small>
                 <DsCodeBlock>{`// ✅ Correct: Use utility class
 <Section id="hero">
   <Container>
@@ -1128,10 +1107,10 @@ export default function MyPage() {
 
               {/* 2. Component Padding */}
               <div>
-                <h5 className="pobut_H3" style={{ marginBottom: "var(--space-10)" }}>2. Component Padding</h5>
-                <p className="pobut_caption" style={{ marginBottom: "var(--space-10)" }}>
+                <h5 style={{ marginBottom: "var(--space-10)" }}>2. Component Padding</h5>
+                <small style={{ marginBottom: "var(--space-10)", display: "block" }}>
                   Use <code>--space-*</code> tokens for component-level padding (cards, buttons, inputs, etc.).
-                </p>
+                </small>
                 <DsCodeBlock>{`// ✅ Correct: Use space tokens
 .fe-card {
   padding: var(--space-20);  /* 20px on all screens */
@@ -1150,10 +1129,10 @@ export default function MyPage() {
 
               {/* 3. Layout Gaps */}
               <div>
-                <h5 className="pobut_H3" style={{ marginBottom: "var(--space-10)" }}>3. Layout Gaps (Flex/Grid)</h5>
-                <p className="pobut_caption" style={{ marginBottom: "var(--space-10)" }}>
+                <h5 style={{ marginBottom: "var(--space-10)" }}>3. Layout Gaps (Flex/Grid)</h5>
+                <small style={{ marginBottom: "var(--space-10)", display: "block" }}>
                   Use <code>--layout-gap-*</code> tokens for gaps in flex/grid containers. These are responsive.
-                </p>
+                </small>
                 <DsCodeBlock>{`// ✅ Correct: Use layout gap tokens
 .container {
   display: grid;
@@ -1173,10 +1152,10 @@ export default function MyPage() {
 
               {/* 4. Vertical Stacking */}
               <div>
-                <h5 className="pobut_H3" style={{ marginBottom: "var(--space-10)" }}>4. Vertical Stacking (Stack Utilities)</h5>
-                <p className="pobut_caption" style={{ marginBottom: "var(--space-10)" }}>
+                <h5 style={{ marginBottom: "var(--space-10)" }}>4. Vertical Stacking (Stack Utilities)</h5>
+                <small style={{ marginBottom: "var(--space-10)", display: "block" }}>
                   Use <code>stack-*</code> utility classes for automatic vertical spacing between direct children.
-                </p>
+                </small>
                 <DsCodeBlock>{`// ✅ Correct: Use stack utilities
 <div className="stack-1">
   <div>First item</div>
@@ -1198,10 +1177,10 @@ export default function MyPage() {
 
               {/* 5. Page Top Padding */}
               <div>
-                <h5 className="pobut_H3" style={{ marginBottom: "var(--space-10)" }}>5. Page Top Padding</h5>
-                <p className="pobut_caption" style={{ marginBottom: "var(--space-10)" }}>
+                <h5 style={{ marginBottom: "var(--space-10)" }}>5. Page Top Padding</h5>
+                <small style={{ marginBottom: "var(--space-10)", display: "block" }}>
                   The Page component automatically applies responsive top padding using <code>--ds-inner-section-gap-y</code>.
-                </p>
+                </small>
                 <DsCodeBlock>{`// ✅ Correct: Page component handles top padding
 <Page data-app="frontend">
   {/* Automatically has padding-top: 20px / 30px / 50px */}
@@ -1217,40 +1196,40 @@ export default function MyPage() {
 
               {/* Common Mistakes */}
               <div>
-                <h5 className="pobut_H3" style={{ marginBottom: "var(--space-10)" }}>❌ Common Mistakes to Avoid</h5>
-                <div className="pobut_caption" style={{ display: "grid", gap: "var(--layout-gap-1)" }}>
-                  <div><strong>1. Don't use hardcoded pixel values:</strong></div>
-                  <div style={{ paddingLeft: "var(--space-20)" }}>
+                <h5 style={{ marginBottom: "var(--space-10)" }}>❌ Common Mistakes to Avoid</h5>
+                <div style={{ display: "grid", gap: "var(--layout-gap-1)" }}>
+                  <small><strong>1. Don't use hardcoded pixel values:</strong></small>
+                  <small style={{ paddingLeft: "var(--space-20)" }}>
                     ❌ <code>padding: 20px</code><br />
                     ✅ <code>padding: var(--space-20)</code>
-                  </div>
+                  </small>
                   
-                  <div><strong>2. Don't mix spacing systems:</strong></div>
-                  <div style={{ paddingLeft: "var(--space-20)" }}>
+                  <small><strong>2. Don't mix spacing systems:</strong></small>
+                  <small style={{ paddingLeft: "var(--space-20)" }}>
                     ❌ <code>gap: 20px</code> when you should use <code>gap: var(--layout-gap-2)</code><br />
                     ✅ Use <code>--space-*</code> for padding/margin, <code>--layout-gap-*</code> for gaps
-                  </div>
+                  </small>
                   
-                  <div><strong>3. Don't forget responsive spacing:</strong></div>
-                  <div style={{ paddingLeft: "var(--space-20)" }}>
+                  <small><strong>3. Don't forget responsive spacing:</strong></small>
+                  <small style={{ paddingLeft: "var(--space-20)" }}>
                     ❌ Fixed spacing that doesn't adapt to screen size<br />
                     ✅ Use responsive tokens that change at breakpoints
-                  </div>
+                  </small>
                   
-                  <div><strong>4. Don't add spacing to first InnerSection:</strong></div>
-                  <div style={{ paddingLeft: "var(--space-20)" }}>
+                  <small><strong>4. Don't add spacing to first InnerSection:</strong></small>
+                  <small style={{ paddingLeft: "var(--space-20)" }}>
                     ❌ <code>&lt;InnerSection className="fe-gap-inner-section-y"&gt;</code> on first section<br />
                     ✅ Only add spacing class to subsequent sections
-                  </div>
+                  </small>
                 </div>
               </div>
             </div>
           </div>
 
-          <p className="pobut_caption" style={{ marginTop: "var(--space-20)" }}>
+          <small style={{ marginTop: "var(--space-20)", display: "block" }}>
             <strong>Edit tokens:</strong> <code>src/app/styles/Spacing/spacing-tokens.css</code><br />
             <strong>Edit utilities:</strong> <code>src/app/styles/Spacing/spacing.css</code>
-          </p>
+          </small>
         </div>
           </InnerSection>
         </Container>
@@ -1260,31 +1239,31 @@ export default function MyPage() {
       <Section id="buttons">
         <Container>
           <InnerSection className="fe-gap-inner-section-y">
-            <h2 className="pobut_H2">Buttons</h2>
-            <p className="pobut_caption" style={{ marginBottom: "var(--layout-gap-2)" }}>
+            <h2>Buttons</h2>
+            <small style={{ marginBottom: "var(--layout-gap-2)", display: "block" }}>
               All Buttons use rounded pill shape (border-radius: 9999px). All use semantic
               tokens from <code>semantic-tokens.css</code>
-            </p>
+            </small>
         
         <div
           className="fe-card"
           style={{ padding: "var(--space-20)", display: "grid", gap: "var(--layout-gap-2)" }}
         >
           <div>
-            <h3 className="pobut_H3" style={{ marginBottom: "var(--space-20)" }}>Add to Cart Buttons (Додати в кошик)</h3>
+            <h3 style={{ marginBottom: "var(--space-20)" }}>Add to Cart Buttons (Додати в кошик)</h3>
             <div style={{ display: "grid", gap: "var(--layout-gap-2)" }}>
               <div style={{ display: "grid", gap: "var(--layout-gap-1)" }}>
                 <div className="flex flex-wrap" style={{ gap: "var(--layout-gap-2)" }}>
                   <Button variant="add-to-cart-outline">Додати в кошик</Button>
                   <Button variant="add-to-cart-outline" disabled>Додати в кошик</Button>
                 </div>
-                <p className="pobut_caption">
+                <small>
                   <code>variant="add-to-cart-outline"</code> or <code>className="fe-btn fe-btn--add-to-cart-outline"</code>
                   <br />
                   Background: Transparent | Border: Bright Green | Text: Bright Green
                   <br />
                   Hover: Lighter green | Active: Darker green
-                </p>
+                </small>
               </div>
 
               <div style={{ display: "grid", gap: "var(--layout-gap-1)" }}>
@@ -1292,30 +1271,30 @@ export default function MyPage() {
                   <Button variant="add-to-cart-filled">Додати в кошик</Button>
                   <Button variant="add-to-cart-filled" disabled>Додати в кошик</Button>
                 </div>
-                <p className="pobut_caption">
+                <small>
                   <code>variant="add-to-cart-filled"</code> or <code>className="fe-btn fe-btn--add-to-cart-filled"</code>
                   <br />
                   Background: Dark Green (#408000) | Text: White
                   <br />
                   Hover: Bright green | Active: Dark green
-                </p>
+                </small>
               </div>
             </div>
           </div>
 
           <div>
-            <h3 className="pobut_H3" style={{ marginBottom: "var(--space-20)", marginTop: "var(--space-20)" }}>Buy Buttons (Купити)</h3>
+            <h3 style={{ marginBottom: "var(--space-20)", marginTop: "var(--space-20)" }}>Buy Buttons (Купити)</h3>
             <div style={{ display: "grid", gap: "var(--layout-gap-2)" }}>
               <div style={{ display: "grid", gap: "var(--layout-gap-1)" }}>
                 <div className="flex flex-wrap" style={{ gap: "var(--layout-gap-2)" }}>
                   <Button variant="buy-primary">Купити</Button>
                   <Button variant="buy-primary" disabled>Купити</Button>
                 </div>
-                <p className="pobut_caption">
+                <small>
                   <code>variant="buy-primary"</code> or <code>className="fe-btn fe-btn--buy-primary"</code>
                   <br />
                   Background: Bright Lime Green (#72cb1a) | Text: White
-                </p>
+                </small>
               </div>
 
               <div style={{ display: "grid", gap: "var(--layout-gap-1)" }}>
@@ -1323,11 +1302,11 @@ export default function MyPage() {
                   <Button variant="buy-secondary">Купити</Button>
                   <Button variant="buy-secondary" disabled>Купити</Button>
                 </div>
-                <p className="pobut_caption">
+                <small>
                   <code>variant="buy-secondary"</code> or <code>className="fe-btn fe-btn--buy-secondary"</code>
                   <br />
                   Background: Light Pastel Green (#beff7e) | Text: Blue (changes to white on hover)
-                </p>
+                </small>
               </div>
 
               <div style={{ display: "grid", gap: "var(--layout-gap-1)" }}>
@@ -1335,17 +1314,17 @@ export default function MyPage() {
                   <Button variant="buy-tertiary">Купити</Button>
                   <Button variant="buy-tertiary" disabled>Купити</Button>
                 </div>
-                <p className="pobut_caption">
+                <small>
                   <code>variant="buy-tertiary"</code> or <code>className="fe-btn fe-btn--buy-tertiary"</code>
                   <br />
                   Background: Dark Olive Green (#408000) | Text: White
-                </p>
+                </small>
               </div>
             </div>
           </div>
 
           <div>
-            <h3 className="pobut_H3" style={{ marginBottom: "var(--space-20)", marginTop: "var(--space-20)" }}>More Button (Більше)</h3>
+            <h3 style={{ marginBottom: "var(--space-20)", marginTop: "var(--space-20)" }}>More Button (Більше)</h3>
             <div style={{ display: "grid", gap: "var(--layout-gap-1)" }}>
               <div className="flex flex-wrap" style={{ gap: "var(--layout-gap-2)" }}>
                 <Button variant="more" icon={<span>▼</span>} iconPosition="right">
@@ -1355,18 +1334,18 @@ export default function MyPage() {
                   Більше
                 </Button>
               </div>
-              <p className="pobut_caption">
+              <small>
                 <code>variant="more"</code> or <code>className="fe-btn fe-btn--more"</code>
                 <br />
                 Background: Dark Gray | Border: Bright Green | Text: Bright Green
                 <br />
                 Includes chevron icon (can be added via icon prop)
-              </p>
+              </small>
             </div>
           </div>
 
           <div>
-            <h3 className="pobut_H3" style={{ marginBottom: "var(--space-20)", marginTop: "var(--space-20)" }}>Catalog Button (Каталог)</h3>
+            <h3 style={{ marginBottom: "var(--space-20)", marginTop: "var(--space-20)" }}>Catalog Button (Каталог)</h3>
             <div style={{ display: "grid", gap: "var(--layout-gap-2)" }}>
               <div style={{ display: "grid", gap: "var(--layout-gap-1)" }}>
                 <div className="flex flex-wrap" style={{ gap: "var(--layout-gap-2)" }}>
@@ -1377,28 +1356,28 @@ export default function MyPage() {
                     Каталог
                   </Button>
                 </div>
-                <p className="pobut_caption">
+                <small>
                   <code>variant="catalog"</code> or <code>className="fe-btn fe-btn--catalog"</code>
                   <br />
                   Default: Dark Gray BG, Thin Green Border | Hover: Thicker Border | Active: Filled Green BG, White Text
                   <br />
                   Includes grid icon (can be added via icon prop)
-                </p>
+                </small>
               </div>
             </div>
           </div>
 
           <div>
-            <h3 className="pobut_H3" style={{ marginBottom: "var(--space-20)", marginTop: "var(--space-20)" }}>Legacy Variants</h3>
+            <h3 style={{ marginBottom: "var(--space-20)", marginTop: "var(--space-20)" }}>Legacy Variants</h3>
             <div style={{ display: "grid", gap: "var(--layout-gap-2)" }}>
               <div style={{ display: "grid", gap: "var(--layout-gap-1)" }}>
                 <div className="flex flex-wrap" style={{ gap: "var(--layout-gap-2)" }}>
                   <Button variant="primary">Primary Button</Button>
                   <Button variant="primary" disabled>Primary Disabled</Button>
                 </div>
-                <p className="pobut_caption">
+                <small>
                   <code>variant="primary"</code> or <code>className="fe-btn fe-btn--primary"</code>
-                </p>
+                </small>
               </div>
 
               <div style={{ display: "grid", gap: "var(--layout-gap-1)" }}>
@@ -1406,9 +1385,9 @@ export default function MyPage() {
                   <Button variant="outline">Outline Button</Button>
                   <Button variant="outline" disabled>Outline Disabled</Button>
                 </div>
-                <p className="pobut_caption">
+                <small>
                   <code>variant="outline"</code> or <code>className="fe-btn fe-btn--outline"</code>
-                </p>
+                </small>
               </div>
 
               <div style={{ display: "grid", gap: "var(--layout-gap-1)" }}>
@@ -1416,9 +1395,9 @@ export default function MyPage() {
                   <Button variant="danger">Danger Button</Button>
                   <Button variant="danger" disabled>Danger Disabled</Button>
                 </div>
-                <p className="pobut_caption">
+                <small>
                   <code>variant="danger"</code> or <code>className="fe-btn fe-btn--danger"</code>
-                </p>
+                </small>
               </div>
 
               <div style={{ display: "grid", gap: "var(--layout-gap-1)" }}>
@@ -1426,15 +1405,15 @@ export default function MyPage() {
                   <Button variant="qty">Quantity Button</Button>
                   <Button variant="qty" disabled>Quantity Disabled</Button>
                 </div>
-                <p className="pobut_caption">
+                <small>
                   <code>variant="qty"</code> or <code>className="fe-btn fe-btn--qty"</code>
-                </p>
+                </small>
               </div>
             </div>
           </div>
 
           <div style={{ marginTop: "var(--space-20)", padding: "var(--space-20)", background: "var(--sys-surface-2)", borderRadius: "var(--radius-lg)" }}>
-            <p className="pobut_caption">
+            <small>
               <strong>Usage:</strong> Import and use the Button component:
               <br />
               <code style={{ fontSize: "0.9em" }}>{`import { Button } from '@/components/Button'`}</code>
@@ -1443,7 +1422,7 @@ export default function MyPage() {
               <br />
               <br />
               <strong>Edit:</strong> <code>src/app/styles/Buttons/Button.css</code> & <code>src/app/styles/Buttons/Button-tokens.css</code>
-            </p>
+            </small>
           </div>
         </div>
           </InnerSection>
@@ -1454,21 +1433,21 @@ export default function MyPage() {
       <Section id="links">
         <Container>
           <InnerSection className="fe-gap-inner-section-y">
-            <h2 className="pobut_H2">Links</h2>
-            <p className="pobut_caption" style={{ marginBottom: "var(--layout-gap-2)" }}>Interactive link styles with hover and active states</p>
+            <h2 >Links</h2>
+            <small style={{ marginBottom: "var(--layout-gap-2)", display: "block" }}>Interactive link styles with hover and active states</small>
         
         <div className={`fe-card ${styles.card}`}>
           <div className={styles.gridGap1}>
             <div>
               <a className="fe-link pobut_body" href="#">Regular Link</a>
             </div>
-            <p className="pobut_caption">
+            <small>
               <code>className="fe-link"</code>
               <br />
               Color: Blue | Hover: Blue Hover | Active: Blue Click
               <br />
               Edit: <code>src/app/styles/Links/links.css</code>
-            </p>
+            </small>
           </div>
         </div>
           </InnerSection>
@@ -1479,8 +1458,8 @@ export default function MyPage() {
       <Section id="inputs">
         <Container>
           <InnerSection className="fe-gap-inner-section-y">
-            <h2 className="pobut_H2">Inputs</h2>
-            <p className="pobut_caption" style={{ marginBottom: "var(--layout-gap-2)" }}>Search input with icon support</p>
+            <h2 >Inputs</h2>
+            <small style={{ marginBottom: "var(--layout-gap-2)", display: "block" }}>Search input with icon support</small>
         
         <div className={`fe-card ${styles.card}`}>
           <div className={styles.gridGap1}>
@@ -1488,13 +1467,13 @@ export default function MyPage() {
           <span className="fe-search__icon">🔍</span>
           <input className="fe-input" placeholder="Шукати продукт або бренд" />
             </div>
-            <p className="pobut_caption">
+            <small>
               <code>className="fe-search"</code> wrapper with <code>className="fe-search__icon"</code> and <code>className="fe-input"</code>
               <br />
               Height: 2.5rem | Border-radius: 9999px (pill) | Padding: 2.75rem left (for icon) + 1rem right
               <br />
               Edit: <code>src/app/styles/Search/search.css</code> + <code>src/app/styles/Inputs/input.css</code>
-            </p>
+            </small>
           </div>
         </div>
           </InnerSection>
@@ -1505,32 +1484,32 @@ export default function MyPage() {
       <Section id="cards">
         <Container>
           <InnerSection className="fe-gap-inner-section-y">
-            <h2 className="pobut_H2">Cards & Surfaces</h2>
-            <p className="pobut_caption" style={{ marginBottom: "var(--layout-gap-2)" }}>Card components with different variants</p>
+            <h2 >Cards & Surfaces</h2>
+            <small style={{ marginBottom: "var(--layout-gap-2)", display: "block" }}>Card components with different variants</small>
         
         <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(250px, 1fr))", gap: "var(--layout-gap-2)" }}>
           <div className="fe-card" style={{ padding: "var(--space-20)", display: "grid", gap: "var(--layout-gap-1)" }}>
-            <div className="pobut_H3">Regular Card</div>
-            <p className="pobut_body">Background: White | Border: Neutral | Shadow: Small</p>
-            <p className="pobut_caption">
+            <div >Regular Card</div>
+            <p>Background: White | Border: Neutral | Shadow: Small</p>
+            <small>
               <code>className="fe-card"</code>
               <br />
               Border-radius: 0.75rem | Border: 1px solid
               <br />
               Edit: <code>src/app/styles/Cards/cards.css</code>
-            </p>
+            </small>
           </div>
 
           <div className="fe-card fe-card--soft" style={{ padding: "var(--space-20)", display: "grid", gap: "var(--layout-gap-1)" }}>
-            <div className="pobut_H3">Soft Card</div>
-            <p className="pobut_body">Background: Surface-2 | Border: Neutral</p>
-            <p className="pobut_caption">
+            <h3>Soft Card</h3>
+            <p>Background: Surface-2 | Border: Neutral</p>
+            <small>
               <code>className="fe-card fe-card--soft"</code>
               <br />
               Background: var(--sys-surface-2)
               <br />
               Edit: <code>src/app/styles/Cards/cards.css</code>
-            </p>
+            </small>
           </div>
         </div>
           </InnerSection>
@@ -1541,15 +1520,15 @@ export default function MyPage() {
       <Section id="badges">
         <Container>
           <InnerSection className="fe-gap-inner-section-y">
-            <h2 className="pobut_H2">Badges</h2>
-            <p className="pobut_caption" style={{ marginBottom: "var(--layout-gap-2)" }}>Inline badge component for labels and tags</p>
+            <h2 >Badges</h2>
+            <small style={{ marginBottom: "var(--layout-gap-2)", display: "block" }}>Inline badge component for labels and tags</small>
         
         <div className={`fe-card ${styles.card}`}>
           <div className={styles.gridGap1}>
             <div>
               <span className="fe-badge pobut_caption">Badge Example</span>
             </div>
-            <p className="pobut_caption">
+            <small>
               <code>className="fe-badge"</code>
               <br />
               Display: inline-flex | Padding: 0.25rem 0.5rem | Border-radius: 9999px
@@ -1557,7 +1536,7 @@ export default function MyPage() {
               Background: 10% accent color | Border: Strong border | Color: Accent
               <br />
               Edit: <code>src/app/styles/Badges/badges.css</code>
-            </p>
+            </small>
           </div>
         </div>
           </InnerSection>
@@ -1568,22 +1547,22 @@ export default function MyPage() {
       <Section id="product-card">
         <Container>
           <InnerSection className="fe-gap-inner-section-y">
-            <h2 className="pobut_H2">Product Card</h2>
-            <p className="pobut_caption" style={{ marginBottom: "var(--layout-gap-2)" }}>Complete product card component example</p>
+            <h2 >Product Card</h2>
+            <small style={{ marginBottom: "var(--layout-gap-2)", display: "block" }}>Complete product card component example</small>
         
         <div className={`fe-card ${styles.card}`}>
         <div className="fe-product" style={{ maxWidth: "22rem" }}>
             <div style={{ height: "10rem", background: "var(--sys-surface-2)", display: "flex", alignItems: "center", justifyContent: "center" }}>
-              <span className="pobut_caption">Product Image</span>
+              <small>Product Image</small>
             </div>
           <div className="fe-product__body" style={{ display: "grid", gap: "var(--layout-gap-1)" }}>
-            <div className="pobut_caption fe-availability">● в наявності</div>
-              <div className="pobut_body">Пакет паперовий / 220*280*120 мм / коричневий / 100 шт</div>
-              <div className="pobut_H3 fe-price">255 грн</div>
+            <div className="fe-availability"><small>● в наявності</small></div>
+              <p>Пакет паперовий / 220*280*120 мм / коричневий / 100 шт</p>
+              <h3 className="fe-price">255 грн</h3>
               <Button variant="add-to-cart-outline">Додати в кошик</Button>
             </div>
           </div>
-          <p className="pobut_caption">
+          <small>
             <code>className="fe-product"</code> with <code>className="fe-product__body"</code>
             <br />
             Border-radius: 0.75rem | Border: 1px solid strong border | Overflow: hidden
@@ -1593,7 +1572,7 @@ export default function MyPage() {
             Availability uses <code>className="fe-availability"</code> (green)
             <br />
             Edit: <code>src/app/styles/Product/product.css</code>
-          </p>
+          </small>
         </div>
           </InnerSection>
         </Container>
@@ -1603,21 +1582,21 @@ export default function MyPage() {
       <Section id="navigation">
         <Container>
           <InnerSection className="fe-gap-inner-section-y">
-            <h2 className="pobut_H2">Navigation</h2>
-            <p className="pobut_caption" style={{ marginBottom: "var(--layout-gap-2)" }}>Header and navigation bar components</p>
+            <h2 >Navigation</h2>
+            <small style={{ marginBottom: "var(--layout-gap-2)" }}>Header and navigation bar components</small>
         
         <div className={`fe-card ${styles.card}`}>
           <div className={styles.gridGap2}>
             <div>
-              <h3 className="pobut_H3" style={{ marginBottom: "var(--space-20)" }}>Header</h3>
+              <h3 style={{ marginBottom: "var(--space-20)" }}>Header</h3>
               <div className="fe-header" style={{ padding: "var(--space-20)", borderRadius: "var(--radius-lg)" }}>
                 <div className="fe-topbar">
-                  <div className="pobut_H2">Logo</div>
-                  <div style={{ background: "var(--sys-surface-2)", padding: "0.5rem", borderRadius: "0.25rem" }} className="pobut_caption">Search Bar Area</div>
-                  <div className="pobut_caption">User Icons</div>
+                  <h2>Logo</h2>
+                  <div style={{ background: "var(--sys-surface-2)", padding: "0.5rem", borderRadius: "0.25rem" }}><small>Search Bar Area</small></div>
+                  <small>User Icons</small>
                 </div>
               </div>
-              <p className="pobut_caption" style={{ marginTop: "var(--space-20)" }}>
+              <small style={{ marginTop: "var(--space-20)", display: "block" }}>
                 <code>className="fe-header"</code> with <code>className="fe-topbar"</code>
                 <br />
                 Background: Surface | Border-bottom: 1px solid border
@@ -1625,11 +1604,11 @@ export default function MyPage() {
                 Topbar: Grid layout (auto 1fr auto) | Gap: layout-gap-2
                 <br />
                 Edit: <code>src/app/styles/Header/header.css</code>
-              </p>
+              </small>
             </div>
 
             <div>
-              <h3 className="pobut_H3" style={{ marginBottom: "var(--space-20)" }}>Navigation Bar</h3>
+              <h3  style={{ marginBottom: "var(--space-20)" }}>Navigation Bar</h3>
               <div className="fe-nav" style={{ padding: "var(--space-20)", borderRadius: "var(--radius-lg)" }}>
                 <div className="fe-nav__row">
                   <a className="fe-nav__link pobut_body" href="#">Оптовим клієнтам</a>
@@ -1638,7 +1617,7 @@ export default function MyPage() {
                   <a className="fe-nav__link pobut_body" href="#">Відгуки</a>
                 </div>
               </div>
-              <p className="pobut_caption" style={{ marginTop: "var(--space-20)" }}>
+              <small style={{ marginTop: "var(--space-20)" }}>
                 <code>className="fe-nav"</code> with <code>className="fe-nav__row"</code> and <code>className="fe-nav__link"</code>
                 <br />
                 Background: Accent (green) | Color: Text inverse (white)
@@ -1646,7 +1625,7 @@ export default function MyPage() {
                 Links: Opacity 0.95 → 1 on hover
                 <br />
                 Edit: <code>src/app/styles/Nav/nav.css</code>
-              </p>
+              </small>
             </div>
           </div>
         </div>
@@ -1658,36 +1637,36 @@ export default function MyPage() {
       <Section id="layout-helpers">
         <Container>
           <InnerSection className="fe-gap-inner-section-y">
-            <h2 className="pobut_H2">Layout Helpers</h2>
-            <p className="pobut_caption" style={{ marginBottom: "var(--layout-gap-2)" }}>Use system spacing tokens (CSS vars) for custom layouts</p>
+            <h2 >Layout Helpers</h2>
+            <small style={{ marginBottom: "var(--layout-gap-2)", display: "block" }}>Use system spacing tokens (CSS vars) for custom layouts</small>
         
         <div className={`fe-card ${styles.card}`}>
           <div className={styles.gridGap1}>
             <div>
-              <div className="pobut_body"><code>fe-page</code></div>
-              <p className="pobut_caption">
+              <p><code>fe-page</code></p>
+              <small>
                 Legacy utility class. Use <code>Page</code> component instead.
-              </p>
+              </small>
             </div>
             <div>
-              <div className="pobut_body"><code>--layout-gap-1</code>, <code>--layout-gap-2</code>, <code>--layout-gap-3</code></div>
-              <p className="pobut_caption">
+              <p><code>--layout-gap-1</code>, <code>--layout-gap-2</code>, <code>--layout-gap-3</code></p>
+              <small>
                 Use these tokens for <code>gap</code> in flex/grid layouts, or override rhythm via <code>--fe-page-gap</code> / <code>--fe-inner-gap</code>.
                 <br />
                 Example: <code>{`style={{ gap: "var(--layout-gap-2)" }}`}</code>
-              </p>
+              </small>
             </div>
             <div>
-              <div className="pobut_body"><code>--space-10</code>, <code>--space-20</code>, <code>--space-30</code>, <code>--space-50</code></div>
-              <p className="pobut_caption">
+              <p><code>--space-10</code>, <code>--space-20</code>, <code>--space-30</code>, <code>--space-50</code></p>
+              <small>
                 Use these tokens for padding/margins.
                 <br />
                 Example: <code>{`style={{ padding: "var(--space-20)" }}`}</code>
-              </p>
+              </small>
             </div>
-            <p className="pobut_caption" style={{ marginTop: "var(--space-20)" }}>
+            <small style={{ marginTop: "var(--space-20)", display: "block" }}>
               Tokens live in: <code>src/app/styles/Spacing/spacing-tokens.css</code>
-            </p>
+            </small>
           </div>
         </div>
           </InnerSection>
@@ -1698,58 +1677,58 @@ export default function MyPage() {
       <Section id="layout-components">
         <Container>
           <InnerSection className="fe-gap-inner-section-y">
-            <h2 className="pobut_H2">Layout Components</h2>
-            <p className="pobut_caption" style={{ marginBottom: "var(--layout-gap-2)" }}>Structural components for consistent page layouts</p>
+            <h2 >Layout Components</h2>
+            <small style={{ marginBottom: "var(--layout-gap-2)", display: "block" }}>Structural components for consistent page layouts</small>
         
         <div className={`fe-card ${styles.card}`}>
           {/* Page Component */}
           <div>
-            <h3 className="pobut_H3" style={{ marginBottom: "var(--space-20)" }}>Page Component</h3>
-            <p className="pobut_caption" style={{ marginBottom: "var(--space-20)" }}>
+            <h3  style={{ marginBottom: "var(--space-20)" }}>Page Component</h3>
+            <small style={{ marginBottom: "var(--space-20)", display: "block" }}>
               Simple page wrapper with no padding. Use Container component explicitly inside when you need width constraints.
-            </p>
+            </small>
 
             <div style={{ display: "grid", gap: "var(--layout-gap-2)" }}>
               {/* Page with Container */}
               <div style={{ display: "grid", gap: "var(--layout-gap-1)" }}>
-                <div className="pobut_body" style={{ marginBottom: "var(--space-10)" }}><strong>Page with Container</strong></div>
+                <p style={{ marginBottom: "var(--space-10)" }}><strong>Page with Container</strong></p>
                 <div style={{ padding: "var(--space-20)", background: "var(--sys-surface-2)", borderRadius: "var(--radius-lg)", border: "1px dashed var(--sys-border)" }}>
                   <Page>
                     <Container>
                       <div className={`fe-card ${styles.card}`}>
-                        <div className="pobut_body">Page Content</div>
-                        <p className="pobut_caption">Container wraps content (max-width: 1440px)</p>
+                        <p>Page Content</p>
+                        <small>Container wraps content (max-width: 1440px)</small>
                       </div>
                     </Container>
                   </Page>
                 </div>
-                <p className="pobut_caption">
+                <small>
                   <code>{`<Page>`}</code>
                   <br />
                   <code style={{ paddingLeft: "1rem" }}>{`<Container>...</Container>`}</code>
                   <br />
                   Container must be used explicitly inside Page
-                </p>
+                </small>
               </div>
 
               {/* Page with Full-Width Section */}
               <div style={{ display: "grid", gap: "var(--layout-gap-1)" }}>
-                <div className="pobut_body" style={{ marginBottom: "var(--space-10)" }}><strong>Page with Full-Width Section</strong></div>
+                <p style={{ marginBottom: "var(--space-10)" }}><strong>Page with Full-Width Section</strong></p>
                 <div style={{ padding: "var(--space-20)", background: "var(--sys-surface-2)", borderRadius: "var(--radius-lg)", border: "1px dashed var(--sys-border)" }}>
                   <Page>
                     <div className="fe-card" style={{ padding: "var(--space-20)", background: "var(--sys-surface-accent)", display: "grid", gap: "var(--layout-gap-2)" }}>
-                      <div className="pobut_body" style={{ color: "var(--sys-text-on-accent)" }}>Full-Width Section</div>
-                      <p className="pobut_caption" style={{ color: "var(--sys-text-on-accent)" }}>This section spans full page width</p>
+                      <p style={{ color: "var(--sys-text-on-accent)" }}>Full-Width Section</p>
+                      <small style={{ color: "var(--sys-text-on-accent)" }}>This section spans full page width</small>
                     </div>
                     <Container>
                       <div className={`fe-card ${styles.card}`}>
-                        <div className="pobut_body">Contained Section</div>
-                        <p className="pobut_caption">This section is constrained by Container</p>
+                        <p>Contained Section</p>
+                        <small>This section is constrained by Container</small>
                       </div>
                     </Container>
                   </Page>
                 </div>
-                <p className="pobut_caption">
+                <small>
                   <code>{`<Page>`}</code>
                   <br />
                   <code style={{ paddingLeft: "1rem" }}>{`<div>Full-width content</div>`}</code>
@@ -1757,12 +1736,12 @@ export default function MyPage() {
                   <code style={{ paddingLeft: "1rem" }}>{`<Container>...</Container>`}</code>
                   <br />
                   Mix full-width and contained sections as needed
-                </p>
+                </small>
               </div>
             </div>
 
             <div style={{ marginTop: "var(--space-20)", padding: "var(--space-20)", background: "var(--sys-surface-2)", borderRadius: "var(--radius-lg)" }}>
-              <p className="pobut_caption">
+              <small>
                 <strong>Usage:</strong>
                 <br />
                 <code style={{ fontSize: "0.9em" }}>{`import { Page } from '@/components/Page'`}</code>
@@ -1793,37 +1772,37 @@ export default function MyPage() {
                 <br />
                 <br />
                 <strong>Edit:</strong> <code>src/components/Page/index.tsx</code> & <code>src/components/Page/Page.css</code>
-              </p>
+              </small>
             </div>
           </div>
 
           {/* Container Component */}
           <div style={{ marginTop: "var(--space-20)" }}>
-            <h3 className="pobut_H3" style={{ marginBottom: "var(--space-20)" }}>Container Component</h3>
-            <p className="pobut_caption" style={{ marginBottom: "var(--space-20)" }}>
+            <h3  style={{ marginBottom: "var(--space-20)" }}>Container Component</h3>
+            <small style={{ marginBottom: "var(--space-20)", display: "block" }}>
               Centered container with max-width constraints. Use for content that should be constrained in width.
-            </p>
+            </small>
 
             <div style={{ display: "grid", gap: "var(--layout-gap-2)" }}>
               {/* Default Container */}
               <div style={{ display: "grid", gap: "var(--layout-gap-1)" }}>
-                <div className="pobut_body" style={{ marginBottom: "var(--space-10)" }}><strong>Default Container</strong></div>
+                <p style={{ marginBottom: "var(--space-10)" }}><strong>Default Container</strong></p>
                 <div style={{ padding: "var(--space-20)", background: "var(--sys-surface-2)", borderRadius: "var(--radius-lg)", border: "1px dashed var(--sys-border)" }}>
                   <Container>
                     <div className="fe-card" style={{ padding: "var(--space-20)" }}>
-                      <div className="pobut_body">Max-width: 1440px (90rem)</div>
-                      <p className="pobut_caption">Centered content with default max-width</p>
+                      <p>Max-width: 1440px (90rem)</p>
+                      <small>Centered content with default max-width</small>
                     </div>
                   </Container>
                 </div>
-                <p className="pobut_caption">
+                <small>
                   <code>{`<Container>`}</code> - Max-width: 1440px
-                </p>
+                </small>
               </div>
             </div>
 
             <div style={{ marginTop: "var(--space-20)", padding: "var(--space-20)", background: "var(--sys-surface-2)", borderRadius: "var(--radius-lg)" }}>
-              <p className="pobut_caption">
+              <small>
                 <strong>Usage:</strong>
                 <br />
                 <code style={{ fontSize: "0.9em" }}>{`import { Container } from '@/components/Container'`}</code>
@@ -1837,31 +1816,31 @@ export default function MyPage() {
                 <br />
                 <br />
                 <strong>Edit:</strong> <code>src/components/Container/index.tsx</code> & <code>src/components/Container/Container.css</code>
-              </p>
+              </small>
             </div>
           </div>
 
           {/* Creating a New Page Example */}
           <div style={{ marginTop: "var(--space-20)" }}>
-            <h3 className="pobut_H3" style={{ marginBottom: "var(--space-20)" }}>Creating a New Page</h3>
-            <p className="pobut_caption" style={{ marginBottom: "var(--space-20)" }}>
+            <h3  style={{ marginBottom: "var(--space-20)" }}>Creating a New Page</h3>
+            <small style={{ marginBottom: "var(--space-20)", display: "block" }}>
               Simply create a new page file and return <code>{`<Page>`}</code> with your content. Use Container explicitly when needed.
-            </p>
+            </small>
             <div style={{ padding: "var(--space-20)", background: "var(--sys-surface-2)", borderRadius: "var(--radius-lg)", border: "1px dashed var(--sys-border)" }}>
               <Page>
                 <Container>
                   <div style={{ display: "grid", gap: "var(--layout-gap-2)" }}>
                     <div className={`fe-card ${styles.card}`}>
-                      <h3 className="pobut_H3">Example Page</h3>
-                      <p className="pobut_body">Page wrapper with explicit Container.</p>
-                      <p className="pobut_caption">Container handles width constraints, Page is just a wrapper.</p>
+                      <h3>Example Page</h3>
+                      <p>Page wrapper with explicit Container.</p>
+                      <small>Container handles width constraints, Page is just a wrapper.</small>
                     </div>
                   </div>
                 </Container>
               </Page>
             </div>
             <div style={{ marginTop: "var(--space-20)", padding: "var(--space-20)", background: "var(--sys-surface-2)", borderRadius: "var(--radius-lg)" }}>
-              <p className="pobut_caption">
+              <small>
                 <strong>Example Page File:</strong>
                 <br />
                 <code style={{ fontSize: "0.85em", display: "block", marginTop: "var(--space-10)" }}>
@@ -1873,14 +1852,14 @@ export default function MyPage() {
   return (
     <Page>
       <Container>
-        <h1 className="pobut_H1">My Page</h1>
-        <p className="pobut_body">Content goes here</p>
+        <h1 >My Page</h1>
+        <p>Content goes here</p>
       </Container>
     </Page>
   )
 }`}
                 </code>
-              </p>
+              </small>
             </div>
           </div>
         </div>
@@ -1892,37 +1871,37 @@ export default function MyPage() {
       <Section id="quick-reference">
         <Container>
           <InnerSection className="fe-gap-inner-section-y">
-            <h2 className="pobut_H2">Quick Reference: Where to Edit</h2>
+            <h2 >Quick Reference: Where to Edit</h2>
         
         <div className={`fe-card ${styles.card}`} style={{ marginTop: "var(--layout-gap-1)" }}>
           <div className={styles.gridGap1}>
             <div>
-              <div className="pobut_H3">Typography</div>
-              <p className="pobut_body">
+              <h3>Typography</h3>
+              <p>
                 <code>src/app/styles/Fonts/typography.css</code> - Font sizes, weights, line heights
                 <br />
                 <code>src/app/styles/Fonts/font-tokens.css</code> - Font families, weights, tracking
               </p>
             </div>
             <div>
-              <div className="pobut_H3">Colors</div>
-              <p className="pobut_body">
+              <h3>Colors</h3>
+              <p>
                 <code>src/app/styles/palette-tokens.css</code> - Brand colors (blue, green)
                 <br />
                 <code>src/app/styles/semantic-tokens.css</code> - Semantic colors (text, surfaces, borders)
               </p>
             </div>
             <div>
-              <div className="pobut_H3">Spacing</div>
-              <p className="pobut_body">
+              <h3>Spacing</h3>
+              <p>
                 <code>src/app/styles/Spacing/spacing-tokens.css</code> - All spacing values
                 <br />
                 Use CSS vars in components (e.g. <code>gap</code>, <code>padding</code>, <code>margin</code>) rather than utility classes.
               </p>
             </div>
             <div>
-              <div className="pobut_H3">Components</div>
-              <p className="pobut_body">
+              <h3>Components</h3>
+              <p>
                 <code>src/app/styles/&lt;Group&gt;/*.css</code> - Reusable UI patterns (cards/badges/links/nav/header/product/search/etc)
                 <br />
                 <code>src/components/Page/index.tsx</code> + <code>src/components/Page/Page.css</code> - Page layout component
@@ -1941,8 +1920,8 @@ export default function MyPage() {
               </p>
             </div>
             <div>
-              <div className="pobut_H3">Base Styles</div>
-              <p className="pobut_body">
+              <h3>Base Styles</h3>
+              <p>
                 <code>src/app/(app)/globals.css</code> - Base HTML element styles (h1-h6, p, a, Button, etc.)
               </p>
             </div>
