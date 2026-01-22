@@ -1,6 +1,5 @@
 'use client'
 
-import React from 'react'
 
 export function ProductCards() {
   const products = [
@@ -76,7 +75,7 @@ export function ProductCards() {
                   color: '#9CA3AF'
                 }}>
                   {/* Placeholder for product image */}
-                  <span className="pobut_caption">Product Image</span>
+                  <span>Product Image</span>
                 </div>
               </div>
 
@@ -89,7 +88,7 @@ export function ProductCards() {
               }}>
                 {/* Stock Status */}
                 {product.inStock && (
-                  <span className="pobut_caption" style={{
+                  <span style={{
                     color: 'var(--color-green)'
                   }}>
                     • в наявності
@@ -97,7 +96,7 @@ export function ProductCards() {
                 )}
 
                 {/* Product Name */}
-                <h3 className="pobut_body" style={{
+                <h3 style={{
                   color: 'var(--color-blue)',
                   fontWeight: 400
                 }}>
@@ -119,13 +118,13 @@ export function ProductCards() {
                     gap: 'var(--layout-spacing-small)'
                   }}>
                     <div>
-                      <div className="pobut_H3" style={{
+                      <div style={{
                         color: 'var(--color-green)',
                         lineHeight: '1.2'
                       }}>
                         {product.retailPrice} грн
                       </div>
-                      <span className="pobut_caption" style={{
+                      <span style={{
                         color: 'var(--color-blue)',
                         opacity: 0.6
                       }}>
@@ -166,13 +165,13 @@ export function ProductCards() {
                     gap: 'var(--layout-spacing-small)'
                   }}>
                     <div>
-                      <div className="pobut_H3" style={{
+                      <div style={{
                         color: 'var(--color-green)',
                         lineHeight: '1.2'
                       }}>
                         {product.wholesalePrice} грн
                       </div>
-                      <span className="pobut_caption" style={{
+                      <span style={{
                         color: 'var(--color-blue)',
                         opacity: 0.6
                       }}>

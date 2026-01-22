@@ -1526,7 +1526,7 @@ export default function MyPage() {
         <div className={`fe-card ${styles.card}`}>
           <div className={styles.gridGap1}>
             <div>
-              <span className="fe-badge pobut_caption">Badge Example</span>
+              <span className="fe-badge">Badge Example</span>
             </div>
             <small>
               <code>className="fe-badge"</code>

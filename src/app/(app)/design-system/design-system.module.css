@@ -24,54 +24,7 @@
   gap: var(--layout-gap-2);
 }
 
-/* Heading margins - scoped to design system page */
-[data-app="frontend"] .pobut_H1 {
-  margin-bottom: var(--layout-gap-2);
-  margin-top: 0;
-}
 
-[data-app="frontend"] .pobut_H2 {
-  margin-bottom: var(--layout-gap-1);
-  margin-top: 0;
-}
-
-[data-app="frontend"] .pobut_H3 {
-  margin-bottom: var(--layout-gap-1);
-  margin-top: 0;
-}
-
-/* Paragraph spacing after headings - remove top margin to avoid double spacing */
-[data-app="frontend"] .pobut_H1 + .pobut_body,
-[data-app="frontend"] .pobut_H1 + .pobut_caption {
-  margin-top: 0;
-}
-
-[data-app="frontend"] .pobut_H2 + .pobut_body,
-[data-app="frontend"] .pobut_H2 + .pobut_caption {
-  margin-top: 0;
-}
-
-[data-app="frontend"] .pobut_H3 + .pobut_body,
-[data-app="frontend"] .pobut_H3 + .pobut_caption {
-  margin-top: 0;
-}
-
-/* Body text spacing between consecutive paragraphs */
-[data-app="frontend"] .pobut_body + .pobut_body,
-[data-app="frontend"] .pobut_body + .pobut_caption {
-  margin-top: var(--layout-gap-1);
-}
-
-/* Caption text spacing between consecutive captions */
-[data-app="frontend"] .pobut_caption + .pobut_caption {
-  margin-top: var(--layout-gap-1);
-}
-
-/* Remove bottom margin from last child to avoid extra spacing */
-[data-app="frontend"] .pobut_body:last-child,
-[data-app="frontend"] .pobut_caption:last-child {
-  margin-bottom: 0;
-}
 
 .wrapRow {
   display: flex;

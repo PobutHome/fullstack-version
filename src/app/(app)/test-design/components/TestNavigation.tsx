@@ -1,6 +1,5 @@
 'use client'
 
-import React from 'react'
 
 export function TestNavigation() {
   const navItems = [
@@ -27,7 +26,6 @@ export function TestNavigation() {
         <a
           key={index}
           href="#"
-          className="pobut_body"
           style={{
             color: 'var(--color-white)',
             textDecoration: 'none',

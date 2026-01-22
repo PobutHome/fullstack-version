@@ -1,6 +1,5 @@
 'use client'
 
-import React from 'react'
 
 export function TestHeader() {
   return (
@@ -54,7 +53,7 @@ export function TestHeader() {
           alignItems: 'baseline',
           gap: '0.25rem'
         }}>
-          <span className="pobut_H2" style={{ 
+          <span style={{ 
             color: 'var(--color-blue)',
             lineHeight: '1'
           }}>
@@ -73,7 +72,7 @@ export function TestHeader() {
             />
           </svg>
         </div>
-        <span className="pobut_caption" style={{
+        <span style={{
           color: 'var(--color-blue)',
           opacity: 0.7,
           fontSize: '0.875rem'

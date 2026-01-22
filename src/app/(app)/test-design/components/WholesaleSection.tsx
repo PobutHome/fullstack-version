@@ -1,6 +1,5 @@
 'use client'
 
-import React from 'react'
 
 export function WholesaleSection() {
   const features = [
@@ -108,7 +107,7 @@ export function WholesaleSection() {
       {/* Content */}
       <div style={{ position: 'relative', zIndex: 1 }}>
         {/* Heading */}
-        <h2 className="pobut_H1" style={{
+        <h2 style={{
           color: 'var(--color-blue)',
           marginBottom: 'var(--layout-spacing-small)',
           textAlign: 'center'
@@ -117,7 +116,7 @@ export function WholesaleSection() {
         </h2>
 
         {/* Description */}
-        <p className="pobut_body" style={{
+        <p style={{
           color: 'var(--color-blue)',
           opacity: 0.8,
           textAlign: 'center',
@@ -168,7 +167,7 @@ export function WholesaleSection() {
               </div>
 
               {/* Feature Text */}
-              <p className="pobut_body" style={{
+              <p style={{
                 color: 'var(--color-green)',
                 textAlign: 'center',
                 maxWidth: '15rem'

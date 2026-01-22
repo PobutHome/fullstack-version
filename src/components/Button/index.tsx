@@ -78,7 +78,7 @@ export function Button({
   const content = (
     <>
       {icon && iconPosition === "left" && iconElement}
-      <span className="pobut_body">{children}</span>
+      <span>{children}</span>
       {icon && iconPosition === "right" && iconElement}
     </>
   )

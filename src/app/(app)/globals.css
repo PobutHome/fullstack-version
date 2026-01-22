@@ -1,7 +1,6 @@
 @config "../../../tailwind.config.mjs";
 @import 'tailwindcss';
 
-@import "../styles/frontend.design-system.css";
 /* palette tokens styling imports */
 @import '../styles/palette-tokens.css';
 

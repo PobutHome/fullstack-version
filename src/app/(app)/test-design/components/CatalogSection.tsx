@@ -10,7 +10,7 @@ export function CatalogSection() {
         paddingBottom: 'var(--layout-spacing-medium)'
       }}
     >
-      <h2 className="pobut_H1" style={{
+      <h2 style={{
         color: 'var(--color-blue)',
         marginBottom: 'var(--layout-spacing-medium)'
       }}>
@@ -37,7 +37,7 @@ export function CatalogSection() {
               color: '#9CA3AF'
             }}
           >
-            <span className="pobut_caption">Category {index + 1}</span>
+            <span >Category {index + 1}</span>
           </div>
         ))}
       </div>

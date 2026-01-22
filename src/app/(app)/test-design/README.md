@@ -18,7 +18,6 @@ Visit: `/test-design`
 ## Styles Used
 
 All components use the Figma design system:
-- Typography classes: `pobut_H1`, `pobut_H2`, `pobut_H3`, `pobut_body`, `pobut_caption`
 - Colors: `var(--color-blue)`, `var(--color-green)`, `var(--color-white)`, etc.
 - Spacing: `var(--layout-margin)`, `var(--layout-spacing-small)`, etc.
 - All values use `rem` units for responsiveness
