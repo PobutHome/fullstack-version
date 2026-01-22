@@ -15,10 +15,10 @@ export const Benefits = () => {
       <Container>
         <InnerSection>
           <div className="benefits-header">
-            <h2 id="home-benefits-title" className="benefits-title">
+            <h1 id="home-benefits-title">
               Оптовим клієнтам
-            </h2>
-            <p className="benefits-subtitle">
+            </h1>
+            <p>
               Отримайте спеціальні ціни при замовленні від 50 одиниць товару
             </p>
           </div>
@@ -36,6 +36,8 @@ export const Benefits = () => {
               </p>
             </div>
 
+            <div className="benefit-dot" aria-hidden="true"></div>
+
             <div className="benefit-item">
               <div className="benefit-icon-circle">
                 <SpeedIcon
@@ -47,6 +49,8 @@ export const Benefits = () => {
                 Швидка доставка по Україні
               </p>
             </div>
+
+            <div className="benefit-dot" aria-hidden="true"></div>
 
             <div className="benefit-item">
               <div className="benefit-icon-circle">
