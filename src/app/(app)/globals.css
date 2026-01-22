@@ -14,7 +14,7 @@
 @import '../styles/Fonts/font-tokens.css';
 @import '../styles/Fonts/typography.css';
 
-/* typography styles (applies styles to h1, h2, h3, p, etc.) */
+/* typography styles (applies styles to h1, h2, h3, p, etc.) for frontend part of the app*/
 @import '../styles/typography.css';
 
 /* inputs styling imports */
