@@ -60,10 +60,10 @@
 }
 
 /* ============================================
-   TABLET TYPOGRAPHY (768px - 1023px)
+   TABLET TYPOGRAPHY (≥ 768px)
    ============================================ */
 
-@media (min-width: 48rem) and (max-width: 63.9375rem) {
+@media (min-width: 48rem) {
   :root {
     --font-size-h1: 2rem;         /* 32px */
     --font-size-h2: 1.5rem;       /* 24px */

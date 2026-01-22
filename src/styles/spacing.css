@@ -38,10 +38,10 @@
 }
 
 /* ============================================
-   TABLET SPACING (768px - 1023px)
+   TABLET SPACING (≥ 768px)
    ============================================ */
 
-@media (min-width: 48rem) and (max-width: 63.9375rem) {
+@media (min-width: 48rem) {
   :root {
     --spacing-margin: 3.125rem;     /* 50px */
     --spacing-gap: 0.625rem;        /* 10px */

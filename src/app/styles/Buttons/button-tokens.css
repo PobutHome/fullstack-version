@@ -1,8 +1,15 @@
+/* ============================================
+   BUTTON TOKENS
+   Mobile-First System:
+   - Base styles: Mobile (default)
+   - Desktop: min-width: 48rem (768px)
+   ============================================ */
+
 :where([data-app="frontend"]) {
   /* base */
   --btn-radius: var(--radius-full);
   --btn-height: 3.25rem; /* adjust if needed */
-  --btn-px: 2.25rem; /* horizontal padding - can be overridden */
+  --btn-px: 1.25rem; /* horizontal padding - mobile default */
   --btn-py: 0.625rem; /* vertical padding (10px) - can be overridden */
 
   /* primary (filled) - bright green */
@@ -48,9 +55,9 @@
   --btn-danger-fg: var(--sys-text-inverse);
 }
 
-@media (max-width: 48rem) {
+/* Desktop ≥ 48rem (768px) */
+@media (min-width: 48rem) {
   :where([data-app="frontend"]) {
-    --btn-py: 0.625rem; 
-    --btn-px: 1.25rem; 
+    --btn-px: 2.25rem; 
   }
 }

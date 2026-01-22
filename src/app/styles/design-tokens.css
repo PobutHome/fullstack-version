@@ -16,6 +16,10 @@
 
 /* ============================================
    TYPOGRAPHY - EXACT FIGMA VARIABLE NAMES
+   Mobile-First System:
+   - Base styles: Mobile (default)
+   - Tablet: min-width: 48rem (768px)
+   - Desktop: min-width: 64rem (1024px)
    ============================================ */
 
 :root {
@@ -38,36 +42,36 @@
   --line-height-base: 1; /* 100% */
 
   /* ========================================
-     DESKTOP TYPOGRAPHY (Default)
+     MOBILE TYPOGRAPHY (Default - Mobile First)
      Using exact Figma variable names
      ======================================== */
 
-  /* pobut_H1 - Desktop */
-  --pobut_H1-size: 2.5rem; /* 40px */
+  /* pobut_H1 - Mobile */
+  --pobut_H1-size: 1.25rem; /* 20px */
   --pobut_H1-weight: var(--font-weight-bold);
   --pobut_H1-line-height: var(--line-height-base);
   --pobut_H1-letter-spacing: var(--letter-spacing-base);
 
-  /* pobut_H2 - Desktop */
-  --pobut_H2-size: 2rem; /* 32px */
+  /* pobut_H2 - Mobile */
+  --pobut_H2-size: 1rem; /* 16px */
   --pobut_H2-weight: var(--font-weight-regular);
   --pobut_H2-line-height: var(--line-height-base);
   --pobut_H2-letter-spacing: var(--letter-spacing-base);
 
-  /* pobut_H3 - Desktop */
-  --pobut_H3-size: 1.25rem; /* 20px */
+  /* pobut_H3 - Mobile */
+  --pobut_H3-size: 0.6875rem; /* 11px */
   --pobut_H3-weight: var(--font-weight-bold);
   --pobut_H3-line-height: var(--line-height-base);
   --pobut_H3-letter-spacing: var(--letter-spacing-base);
 
-  /* pobut_body - Desktop */
-  --pobut_body-size: 1.25rem; /* 20px */
+  /* pobut_body - Mobile */
+  --pobut_body-size: 0.6875rem; /* 11px */
   --pobut_body-weight: var(--font-weight-regular);
   --pobut_body-line-height: var(--line-height-base);
   --pobut_body-letter-spacing: var(--letter-spacing-base);
 
-  /* pobut_caption - Desktop */
-  --pobut_caption-size: 0.625rem; /* 10px */
+  /* pobut_caption - Mobile */
+  --pobut_caption-size: 0.4375rem; /* 7px */
   --pobut_caption-weight: var(--font-weight-regular);
   --pobut_caption-line-height: var(--line-height-base);
   --pobut_caption-letter-spacing: var(--letter-spacing-base);
@@ -97,7 +101,8 @@
    Using exact Figma variable names
    ======================================== */
 
-@media (max-width: 64rem) {
+/* Tablet ≥ 48rem (768px) */
+@media (min-width: 48rem) {
   :root {
     /* pobut_H1_tablet */
     --pobut_H1_tablet-size: 2rem; /* 32px */
@@ -129,7 +134,7 @@
     --pobut_caption_tablet-line-height: var(--line-height-base);
     --pobut_caption_tablet-letter-spacing: var(--letter-spacing-base);
 
-    /* Override desktop values for tablet */
+    /* Override mobile values for tablet */
     --pobut_H1-size: var(--pobut_H1_tablet-size);
     --pobut_H2-size: var(--pobut_H2_tablet-size);
     --pobut_H3-size: var(--pobut_H3_tablet-size);
@@ -146,48 +151,19 @@
 }
 
 /* ========================================
-   MOBILE TYPOGRAPHY
+   DESKTOP TYPOGRAPHY
    Using exact Figma variable names
    ======================================== */
 
-@media (max-width: 48rem) {
+/* Desktop ≥ 64rem (1024px) */
+@media (min-width: 64rem) {
   :root {
-    /* pobut_H1_mobile */
-    --pobut_H1_mobile-size: 1.25rem; /* 20px */
-    --pobut_H1_mobile-weight: var(--font-weight-bold);
-    --pobut_H1_mobile-line-height: var(--line-height-base);
-    --pobut_H1_mobile-letter-spacing: var(--letter-spacing-base);
-
-    /* pobut_H2_mobile */
-    --pobut_H2_mobile-size: 1rem; /* 16px */
-    --pobut_H2_mobile-weight: var(--font-weight-regular);
-    --pobut_H2_mobile-line-height: var(--line-height-base);
-    --pobut_H2_mobile-letter-spacing: var(--letter-spacing-base);
-
-    /* pobut_H3_mobile */
-    --pobut_H3_mobile-size: 0.6875rem; /* 11px */
-    --pobut_H3_mobile-weight: var(--font-weight-bold);
-    --pobut_H3_mobile-line-height: var(--line-height-base);
-    --pobut_H3_mobile-letter-spacing: var(--letter-spacing-base);
-
-    /* pobut_body_mobile */
-    --pobut_body_mobile-size: 0.6875rem; /* 11px */
-    --pobut_body_mobile-weight: var(--font-weight-regular);
-    --pobut_body_mobile-line-height: var(--line-height-base);
-    --pobut_body_mobile-letter-spacing: var(--letter-spacing-base);
-
-    /* pobut_caption_mobile */
-    --pobut_caption_mobile-size: 0.4375rem; /* 7px */
-    --pobut_caption_mobile-weight: var(--font-weight-regular);
-    --pobut_caption_mobile-line-height: var(--line-height-base);
-    --pobut_caption_mobile-letter-spacing: var(--letter-spacing-base);
-
-    /* Override desktop/tablet values for mobile */
-    --pobut_H1-size: var(--pobut_H1_mobile-size);
-    --pobut_H2-size: var(--pobut_H2_mobile-size);
-    --pobut_H3-size: var(--pobut_H3_mobile-size);
-    --pobut_body-size: var(--pobut_body_mobile-size);
-    --pobut_caption-size: var(--pobut_caption_mobile-size);
+    /* pobut_H1 - Desktop */
+    --pobut_H1-size: 2.5rem; /* 40px */
+    --pobut_H2-size: 2rem; /* 32px */
+    --pobut_H3-size: 1.25rem; /* 20px */
+    --pobut_body-size: 1.25rem; /* 20px */
+    --pobut_caption-size: 0.625rem; /* 10px */
 
     /* Legacy compatibility */
     --font-size-h1: var(--pobut_H1-size);
@@ -211,43 +187,43 @@
   --spacing-lg: 3.125rem; /* 50px */
 
   /* Layout Spacing (From Figma - Exact Values) */
-  /* Desktop: Margin 150, Spacing 20/50 */
-  --layout-margin-desktop: 9.375rem; /* 150px */
-  --layout-spacing-small-desktop: 1.25rem; /* 20px */
-  --layout-spacing-medium-desktop: 3.125rem; /* 50px */
+  /* Mobile: Margin 10, Spacing 10/20 */
+  --layout-margin-mobile: 0.625rem; /* 10px */
+  --layout-spacing-small-mobile: 0.625rem; /* 10px */
+  --layout-spacing-medium-mobile: 1.25rem; /* 20px */
 
-  /* Default (Desktop) */
-  --layout-margin: var(--layout-margin-desktop);
-  --layout-spacing-small: var(--layout-spacing-small-desktop);
-  --layout-spacing-medium: var(--layout-spacing-medium-desktop);
+  /* Default (Mobile) */
+  --layout-margin: var(--layout-margin-mobile);
+  --layout-spacing-small: var(--layout-spacing-small-mobile);
+  --layout-spacing-medium: var(--layout-spacing-medium-mobile);
 }
 
-/* Tablet Layout Spacing (1024px and below) - From Figma: Margin 50, Spacing 10/20/30 */
-@media (max-width: 64rem) {
+/* Tablet Layout Spacing ≥ 48rem (768px) - From Figma: Margin 50, Spacing 10/20/30 */
+@media (min-width: 48rem) {
   :root {
     --layout-margin-tablet: 3.125rem; /* 50px */
     --layout-spacing-small-tablet: 0.625rem; /* 10px */
     --layout-spacing-medium-tablet: 1.25rem; /* 20px */
     --layout-spacing-large-tablet: 1.875rem; /* 30px */
 
-    /* Override desktop values */
+    /* Override mobile values */
     --layout-margin: var(--layout-margin-tablet);
     --layout-spacing-small: var(--layout-spacing-small-tablet);
     --layout-spacing-medium: var(--layout-spacing-medium-tablet);
   }
 }
 
-/* Mobile Layout Spacing (768px and below) - From Figma: Margin 10, Spacing 10/20 */
-@media (max-width: 48rem) {
+/* Desktop Layout Spacing ≥ 64rem (1024px) - From Figma: Margin 150, Spacing 20/50 */
+@media (min-width: 64rem) {
   :root {
-    --layout-margin-mobile: 0.625rem; /* 10px */
-    --layout-spacing-small-mobile: 0.625rem; /* 10px */
-    --layout-spacing-medium-mobile: 1.25rem; /* 20px */
+    --layout-margin-desktop: 9.375rem; /* 150px */
+    --layout-spacing-small-desktop: 1.25rem; /* 20px */
+    --layout-spacing-medium-desktop: 3.125rem; /* 50px */
 
-    /* Override tablet/desktop values */
-    --layout-margin: var(--layout-margin-mobile);
-    --layout-spacing-small: var(--layout-spacing-small-mobile);
-    --layout-spacing-medium: var(--layout-spacing-medium-mobile);
+    /* Override tablet values */
+    --layout-margin: var(--layout-margin-desktop);
+    --layout-spacing-small: var(--layout-spacing-small-desktop);
+    --layout-spacing-medium: var(--layout-spacing-medium-desktop);
   }
 }
 

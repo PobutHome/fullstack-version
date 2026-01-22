@@ -1,6 +1,10 @@
 /* ============================================
    SPACING TOKENS
-   Source: Figma (Desktop / Tablet / Mobile)
+   Mobile-First System:
+   - Base styles: Mobile (default)
+   - Tablet: min-width: 48rem (768px)
+   - Desktop: min-width: 64rem (1024px)
+   Source: Figma (Mobile / Tablet / Desktop)
    ============================================ */
 
 [data-app="frontend"]{

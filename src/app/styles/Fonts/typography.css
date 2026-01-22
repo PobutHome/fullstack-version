@@ -1,10 +1,14 @@
 /* ============================================
    TYPOGRAPHY TOKENS
-   Source: Figma (Desktop / Tablet / Mobile)
+   Mobile-First System:
+   - Base styles: Mobile (default)
+   - Tablet: min-width: 48rem (768px)
+   - Desktop: min-width: 64rem (1024px)
+   Source: Figma (Mobile / Tablet / Desktop)
    Font: Unbounded
    ============================================ */
 
-:root {
+[data-app="frontend"] {
   /* ======================================
      BASE TYPOGRAPHY PRIMITIVES
      ====================================== */
@@ -15,7 +19,7 @@
   --leading-default: var(--leading-base);   /* 100% */
 
   /* ======================================
-     MOBILE (default)
+     MOBILE (default - Mobile-First)
      ====================================== */
 
   /* H1 */

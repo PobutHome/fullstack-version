@@ -2,7 +2,7 @@
 
 [data-app="frontend"] .page {
   width: 100%;
-  margin-top: var(--fe-page-gap);
+  padding-top: var(--ds-inner-section-gap-y);
 }
 
 

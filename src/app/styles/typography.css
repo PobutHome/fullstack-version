@@ -88,7 +88,9 @@
    */
 
   /* ============================================
-     DESKTOP TEXT STYLES (Default - Responsive)
+     RESPONSIVE TEXT STYLES (Mobile-First)
+     These classes use CSS variables that are mobile-first
+     Mobile → Tablet (≥48rem) → Desktop (≥64rem)
      ============================================ */
 
   /* pobut_H1 - Desktop: Unbounded Bold, 40px/Auto */

@@ -1,4 +1,5 @@
 import { Container } from '@/components/Container'
+import { HomeBanner } from '@/components/HomeBanner'
 import { InnerSection } from '@/components/InnerSection'
 import { Page } from '@/components/Page'
 import { Section } from '@/components/Section'
@@ -20,67 +21,7 @@ export function HomePage({ categories }: Props) {
       }}
     >
       {/* Hero / banner */}
-      <Section
-        id="hero"
-        aria-labelledby="home-hero-title"
-      >
-        <Container>
-          <InnerSection>
-            <div
-              style={{
-                display: 'grid',
-                gap: 'var(--layout-gap-2)',
-              }}
-            >
-              <h1 id="home-hero-title" className="pobut_H1">
-                Оптовим клієнтам
-              </h1>
-              <p className="pobut_body">
-                Отримуйте спеціальні умови та ціни при замовленні від 50 одиниць товару.
-              </p>
-              <p
-                className="pobut_caption"
-                style={{
-                  maxWidth: '40rem',
-                  color: 'var(--sys-text-on-accent)',
-                  opacity: 0.9,
-                }}
-              >
-                Індивідуальні знижки, швидка доставка по Україні та персональний менеджер допоможуть
-                зробити закупівлі для бізнесу простими та передбачуваними.
-              </p>
-
-              {/* Slider dots mimic (purely visual, using tokens) */}
-              <div
-                aria-hidden="true"
-                style={{
-                  display: 'flex',
-                  gap: '0.35rem',
-                  marginTop: 'var(--space-10)',
-                }}
-              >
-                {[0, 1, 2, 3, 4, 5, 6, 7].map((index) => (
-                  <span
-                    key={index}
-                    style={{
-                      width: '0.5rem',
-                      height: '0.5rem',
-                      borderRadius: '9999px',
-                      border: '1px solid var(--sys-text-on-accent)',
-                      background:
-                        index === 0
-                          ? 'var(--sys-text-on-accent)'
-                          : 'transparent',
-                      opacity: index === 0 ? 1 : 0.6,
-                    }}
-                  />
-                ))}
-              </div>
-            </div>
-          </InnerSection>
-        </Container>
-      </Section>
-
+      <HomeBanner />
       {/* Benefits for wholesale clients */}
       <Section
         id="benefits"
