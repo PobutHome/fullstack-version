@@ -4,6 +4,7 @@ import { Page } from '@/components/Page'
 import { Section } from '@/components/Section'
 import type { Category } from '@/payload-types'
 import { Benefits } from '@/sections/home/Benefits'
+import { FeaturedProducts } from '@/sections/home/FeaturedProducts'
 import { HomeBanner } from '@/sections/home/HomeBanner'
 import './HomePage.css'
 
@@ -21,7 +22,7 @@ export function HomePage({ categories }: Props) {
     >
       <HomeBanner />{/*implement homebanner fetching banners from cms, and enable creation of those banners */}
       <Benefits />
-      
+      <FeaturedProducts />
 
       {/* Catalog / categories from CMS */}
       <Section id="catalog" aria-labelledby="home-catalog-title">

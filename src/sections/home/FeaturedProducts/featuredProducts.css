@@ -1,0 +1,38 @@
+/* Featured Products Section Styles */
+[data-app="frontend"] .featured-products-header {
+  display: grid;
+  gap: var(--layout-gap-1);
+  margin-bottom: var(--layout-gap-2);
+  text-align: center;
+}
+
+[data-app="frontend"] .featured-products-header h1 {
+  font-size: var(--pobut_H1-size);
+  font-weight: var(--pobut_H1-weight);
+  line-height: var(--pobut_H1-line-height);
+  letter-spacing: var(--pobut_H1-letter-spacing);
+  color: var(--sys-text);
+}
+
+[data-app="frontend"] .featured-products-header p {
+  font-size: var(--pobut_body-size);
+  font-weight: var(--pobut_body-weight);
+  line-height: var(--pobut_body-line-height);
+  letter-spacing: var(--pobut_body-letter-spacing);
+  color: var(--sys-text-muted, var(--sys-text));
+}
+
+/* Loading state */
+[data-app="frontend"] .featured-products-loading {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 20rem;
+  padding: var(--layout-gap-2);
+}
+
+[data-app="frontend"] .featured-products-loading p {
+  font-size: var(--pobut_body-size);
+  color: var(--sys-text-muted, var(--sys-text));
+}
+
