@@ -24,12 +24,11 @@ type FeaturedProductsCarouselProps = {
 
 const DEFAULT_AUTO_SCROLL_INTERVAL = 5000 // 5s
 
-// Calculate items per view based on screen size
+// Calculate items per view based on screen size (mobile-first: 2 default, 3 on desktop)
 const getItemsPerView = (): number => {
-  if (typeof window === 'undefined') return 1
-  if (window.innerWidth >= 1024) return 3 // Desktop
-  if (window.innerWidth >= 768) return 2 // Tablet
-  return 1 // Mobile
+  if (typeof window === 'undefined') return 2
+  if (window.innerWidth >= 1152) return 3 // Desktop (72rem)
+  return 2 // Mobile and tablet
 }
 
 export function FeaturedProductsCarousel({

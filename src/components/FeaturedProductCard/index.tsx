@@ -54,26 +54,26 @@ export function FeaturedProductCard({
         {isAvailable && (
           <div className="fe-availability featured-product-card__availability">
             <span className="featured-product-card__availability-dot" aria-hidden="true"></span>
-            <span>в наявності</span>
+            <p>в наявності</p>
           </div>
         )}
 
         {/* Product Name and Specifications */}
         <div className="featured-product-card__info">
-          <h3 className="featured-product-card__name">{productName}</h3>
-          <p className="featured-product-card__specifications">{specifications}</p>
+          <h3>{productName}</h3>
+          <p>{specifications}</p>
         </div>
 
         {/* Retail Price Section */}
         <div className="featured-product-card__pricing-section">
           <div className="featured-product-card__price-group">
-            <span className="fe-price featured-product-card__price">
+            <h1 className="featured-product-card__price">
               {formatPrice(retailPrice)}
-            </span>
-            <span className="featured-product-card__price-label">роздріб</span>
+            </h1>
+            <small className="featured-product-card__price-label">роздріб</small>
           </div>
           <Button
-            variant="add-to-cart-outline"
+            variant="outline"
             size="md"
             className="featured-product-card__button"
             onClick={onRetailAddToCart}
@@ -85,15 +85,15 @@ export function FeaturedProductCard({
         {/* Wholesale Price Section */}
         <div className="featured-product-card__pricing-section">
           <div className="featured-product-card__price-group">
-            <span className="fe-price featured-product-card__price">
+            <h1 className="featured-product-card__price">
               {formatPrice(wholesalePrice)}
-            </span>
-            <span className="featured-product-card__price-label">
+            </h1>
+            <small className="featured-product-card__price-label">
               опт від {wholesaleMinQuantity} шт
-            </span>
+            </small>
           </div>
           <Button
-            variant="add-to-cart-outline"
+            variant="outline"
             size="md"
             className="featured-product-card__button"
             onClick={onWholesaleAddToCart}

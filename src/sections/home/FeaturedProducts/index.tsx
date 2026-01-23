@@ -24,7 +24,7 @@ type FeaturedProductsProps = {
 const defaultProducts: FeaturedProduct[] = [
   {
     id: '1',
-    imageUrl: undefined, // Will use placeholder
+    imageUrl: '/images/cups.png',
     imageAlt: 'Паперові стакани',
     isAvailable: true,
     productName: 'Паперові стакани',
@@ -35,7 +35,7 @@ const defaultProducts: FeaturedProduct[] = [
   },
   {
     id: '2',
-    imageUrl: undefined,
+    imageUrl: '/images/cups.png',
     imageAlt: 'Паперові стакани',
     isAvailable: true,
     productName: 'Паперові стакани',
@@ -46,7 +46,7 @@ const defaultProducts: FeaturedProduct[] = [
   },
   {
     id: '3',
-    imageUrl: undefined,
+    imageUrl: '/images/cups.png',
     imageAlt: 'Паперові стакани',
     isAvailable: true,
     productName: 'Паперові стакани',
@@ -57,7 +57,7 @@ const defaultProducts: FeaturedProduct[] = [
   },
   {
     id: '4',
-    imageUrl: undefined,
+    imageUrl: '/images/cups.png',
     imageAlt: 'Паперові стакани',
     isAvailable: true,
     productName: 'Паперові stookenes',
@@ -68,7 +68,7 @@ const defaultProducts: FeaturedProduct[] = [
   },
   {
     id: '5',
-    imageUrl: undefined,
+    imageUrl: '/images/cups.png',
     imageAlt: 'Паперові стакани',
     isAvailable: true,
     productName: 'Паперові стакани',
@@ -79,7 +79,7 @@ const defaultProducts: FeaturedProduct[] = [
   },
   {
     id: '6',
-    imageUrl: undefined,
+    imageUrl: '/images/cups.png',
     imageAlt: 'Паперові стакани',
     isAvailable: true,
     productName: 'Паперові стакани',
