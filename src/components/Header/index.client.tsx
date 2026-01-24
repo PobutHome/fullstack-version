@@ -40,12 +40,12 @@ export function HeaderClient({ header }: Props) {
                     <CMSLink
                       {...item.link}
                       size={'clear'}
-                      className={cn('relative navLink', {
+                      className={cn('relative overflow-hidden rounded-none', {
                         active:
                           item.link.url && item.link.url !== '/'
                             ? pathname.includes(item.link.url)
                             : false,
-                      })}
+                      }, 'after:content-[""] after:absolute after:-bottom-0.5 after:left-0 after:w-full after:h-0.5 after:bg-primary after:transition-transform after:duration-300 hover:after:translate-y-[-2px] active:after:translate-y-[-2px]')}
                       appearance="nav"
                     />
                   </li>

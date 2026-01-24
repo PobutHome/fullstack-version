@@ -46,36 +46,276 @@ export default {
         lg: 'var(--radius)',
         md: 'calc(var(--radius) - 2px)',
         sm: 'calc(var(--radius) - 4px)',
+        // Design token radius values
+        'radius-sm': 'var(--radius-sm)',
+        'radius-md': 'var(--radius-md)',
+        'radius-lg': 'var(--radius-lg)',
+        'radius-xl': 'var(--radius-xl)',
+        'radius-2xl': 'var(--radius-2xl)',
+        'radius-full': 'var(--radius-full)',
+      },
+      // Spacing tokens (for padding, margin, gap)
+      // Note: layout-gap-* tokens are RESPONSIVE - they automatically change at breakpoints!
+      // Use gap-layout-gap-1 instead of gap-space-10 md:gap-space-20
+      spacing: {
+        // Base spacing scale (static values)
+        'space-10': 'var(--space-10)',
+        'space-20': 'var(--space-20)',
+        'space-30': 'var(--space-30)',
+        'space-50': 'var(--space-50)',
+        // Button padding (responsive)
+        'btn-px': 'var(--btn-px)',
+        'btn-py': 'var(--btn-py)',
+        // Semantic spacing scale
+        'spacing-3xs': 'var(--spacing-3xs)',
+        'spacing-2xs': 'var(--spacing-2xs)',
+        'spacing-xs': 'var(--spacing-xs)',
+        'spacing-sm': 'var(--spacing-sm)',
+        'spacing-md': 'var(--spacing-md)',
+        'spacing-lg': 'var(--spacing-lg)',
+        'spacing-xl': 'var(--spacing-xl)',
+        'spacing-2xl': 'var(--spacing-2xl)',
+        'spacing-3xl': 'var(--spacing-3xl)',
+        'spacing-4xl': 'var(--spacing-4xl)',
+        'spacing-5xl': 'var(--spacing-5xl)',
+        'spacing-6xl': 'var(--spacing-6xl)',
+        // Layout spacing (RESPONSIVE - automatically adapts at breakpoints!)
+        'layout-margin': 'var(--layout-margin)',
+        'layout-gap-1': 'var(--layout-gap-1)',
+        'layout-gap-2': 'var(--layout-gap-2)',
+        'layout-gap-3': 'var(--layout-gap-3)',
+        'layout-spacing-small': 'var(--layout-spacing-small)',
+        'layout-spacing-medium': 'var(--layout-spacing-medium)',
+        'ds-inner-section-gap-y': 'var(--ds-inner-section-gap-y)',
+        // Container padding (responsive)
+        'container-padding': 'var(--layout-container-padding, 20px)',
+      },
+      // Font weights
+      fontWeight: {
+        regular: 'var(--font-weight-regular)',
+        bold: 'var(--font-weight-bold)',
+      },
+      // Shadows
+      boxShadow: {
+        'shadow-sm': 'var(--shadow-sm)',
+        'shadow-md': 'var(--shadow-md)',
+        'shadow-lg': 'var(--shadow-lg)',
+        'shadow-xl': 'var(--shadow-xl)',
+        'shadow-none': 'var(--shadow-none)',
+      },
+      // Transitions
+      transitionDuration: {
+        'transition-fast': 'var(--transition-fast)',
+        'transition-base': 'var(--transition-base)',
+        'transition-slow': 'var(--transition-slow)',
+      },
+      // Z-index
+      zIndex: {
+        'z-base': 'var(--z-index-base)',
+        'z-dropdown': 'var(--z-index-dropdown)',
+        'z-sticky': 'var(--z-index-sticky)',
+        'z-fixed': 'var(--z-index-fixed)',
+        'z-modal-backdrop': 'var(--z-index-modal-backdrop)',
+        'z-modal': 'var(--z-index-modal)',
+        'z-popover': 'var(--z-index-popover)',
+        'z-tooltip': 'var(--z-index-tooltip)',
       },
       colors: {
+        // Palette colors (from palette-tokens.css)
+        color: {
+          blue: "var(--color-blue)",
+          "blue-hover": "var(--color-blue-hover)",
+          "blue-click": "var(--color-blue-click)",
+          green: "var(--color-green)",
+          "green-hover": "var(--color-green-hover)",
+          "green-click": "var(--color-green-click)",
+          white: "var(--color-white)",
+          "neutral-border": "var(--color-neutral-border)",
+          "default-background": "var(--color-default-background)",
+          error: "var(--color-error)",
+          black: "var(--color-black)",
+        },
+        // Button tokens (from button-tokens.css)
+        "btn-primary": {
+          bg: "var(--btn-primary-bg)",
+          "bg-hover": "var(--btn-primary-bg-hover)",
+          "bg-active": "var(--btn-primary-bg-active)",
+          fg: "var(--btn-primary-fg)",
+        },
+        "btn-secondary": {
+          bg: "var(--btn-secondary-bg)",
+          "bg-hover": "var(--btn-secondary-bg-hover)",
+          "bg-active": "var(--btn-secondary-bg-active)",
+          fg: "var(--btn-secondary-fg)",
+        },
+        "btn-tertiary": {
+          bg: "var(--btn-tertiary-bg)",
+          "bg-hover": "var(--btn-tertiary-bg-hover)",
+          "bg-active": "var(--btn-tertiary-bg-active)",
+          fg: "var(--btn-tertiary-fg)",
+        },
+        "btn-outline": {
+          bg: "var(--btn-outline-bg)",
+          fg: "var(--btn-outline-fg)",
+          border: "var(--btn-outline-border)",
+          "border-hover": "var(--btn-outline-border-hover)",
+          "border-active": "var(--btn-outline-border-active)",
+          "fg-hover": "var(--btn-outline-fg-hover)",
+          "fg-active": "var(--btn-outline-fg-active)",
+        },
+        "btn-interactive": {
+          bg: "var(--btn-interactive-bg)",
+          fg: "var(--btn-interactive-fg)",
+          border: "var(--btn-interactive-border)",
+          "border-hover": "var(--btn-interactive-border-hover)",
+          "border-active": "var(--btn-interactive-border-active)",
+          "fg-hover": "var(--btn-interactive-fg-hover)",
+          "fg-active": "var(--btn-interactive-fg-active)",
+        },
+        "btn-danger": {
+          bg: "var(--btn-danger-bg)",
+          "bg-hover": "var(--btn-danger-bg-hover)",
+          "bg-active": "var(--btn-danger-bg-active)",
+          fg: "var(--btn-danger-fg)",
+        },
+        "sys-btn-primary": {
+          bg: "var(--sys-btn-primary-bg)",
+          "bg-hover": "var(--sys-btn-primary-bg-hover)",
+          "bg-active": "var(--sys-btn-primary-bg-active)",
+          fg: "var(--sys-btn-primary-fg)",
+        },
+        "sys-btn-secondary": {
+          bg: "var(--sys-btn-secondary-bg)",
+          "bg-hover": "var(--sys-btn-secondary-bg-hover)",
+          "bg-active": "var(--sys-btn-secondary-bg-active)",
+          fg: "var(--sys-btn-secondary-fg)",
+        },
+        "sys-btn-outline": {
+          border: "var(--sys-btn-outline-border)",
+          "border-hover": "var(--sys-btn-outline-border-hover)",
+          "border-active": "var(--sys-btn-outline-border-active)",
+          fg: "var(--sys-btn-outline-fg)",
+          "fg-hover": "var(--sys-btn-outline-fg-hover)",
+          "fg-active": "var(--sys-btn-outline-fg-active)",
+        },
+        "sys-btn-interactive": {
+          border: "var(--sys-btn-interactive-border)",
+          "border-hover": "var(--sys-btn-interactive-border-hover)",
+          "border-active": "var(--sys-btn-interactive-border-active)",
+          fg: "var(--sys-btn-interactive-fg)",
+          "fg-hover": "var(--sys-btn-interactive-fg-hover)",
+          "fg-active": "var(--sys-btn-interactive-fg-active)",
+        },
+        // Semantic system colors (from semantic-tokens.css)
         sys: {
           bg: "var(--sys-bg)",
           surface: "var(--sys-surface)",
           "surface-2": "var(--sys-surface-2)",
+          "surface-accent": "var(--sys-surface-accent)",
+          "surface-accent-hover": "var(--sys-surface-accent-hover)",
+          "surface-accent-active": "var(--sys-surface-accent-active)",
+          "surface-interactive": "var(--sys-surface-interactive)",
+          "surface-interactive-hover": "var(--sys-surface-interactive-hover)",
+          "surface-interactive-active": "var(--sys-surface-interactive-active)",
           overlay: "var(--sys-overlay)",
 
           text: "var(--sys-text)",
           "text-muted": "var(--sys-text-muted)",
           "text-subtle": "var(--sys-text-subtle)",
           "text-inverse": "var(--sys-text-inverse)",
+          "text-on-accent": "var(--sys-text-on-accent)",
+          "text-on-interactive": "var(--sys-text-on-interactive)",
+          "text-on-surface": "var(--sys-text-on-surface)",
 
           link: "var(--sys-link)",
           "link-hover": "var(--sys-link-hover)",
           "link-active": "var(--sys-link-active)",
 
+          interactive: "var(--sys-interactive)",
+          "interactive-hover": "var(--sys-interactive-hover)",
+          "interactive-active": "var(--sys-interactive-active)",
+
           accent: "var(--sys-accent)",
           "accent-hover": "var(--sys-accent-hover)",
           "accent-active": "var(--sys-accent-active)",
+          "accent-secondary": "var(--sys-accent-secondary)",
+          "accent-secondary-hover": "var(--sys-accent-secondary-hover)",
+          "accent-secondary-active": "var(--sys-accent-secondary-active)",
+          "accent-tertiary": "var(--sys-accent-tertiary)",
+          "accent-tertiary-hover": "var(--sys-accent-tertiary-hover)",
+          "accent-tertiary-active": "var(--sys-accent-tertiary-active)",
 
           border: "var(--sys-border)",
+          "border-hover": "var(--sys-border-hover)",
+          "border-active": "var(--sys-border-active)",
           "border-strong": "var(--sys-border-strong)",
+          "border-strong-hover": "var(--sys-border-strong-hover)",
+          "border-strong-active": "var(--sys-border-strong-active)",
           "border-subtle": "var(--sys-border-subtle)",
+          "border-interactive": "var(--sys-border-interactive)",
+          "border-interactive-hover": "var(--sys-border-interactive-hover)",
+          "border-interactive-active": "var(--sys-border-interactive-active)",
 
           focus: "var(--sys-focus)",
+          "focus-ring": "var(--sys-focus-ring)",
 
           danger: "var(--sys-danger)",
+          "danger-hover": "var(--sys-danger-hover)",
+          "danger-active": "var(--sys-danger-active)",
           warning: "var(--sys-warning)",
+          "warning-hover": "var(--sys-warning-hover)",
+          "warning-active": "var(--sys-warning-active)",
           success: "var(--sys-success)",
+          "success-hover": "var(--sys-success-hover)",
+          "success-active": "var(--sys-success-active)",
+        },
+        // Card tokens
+        "card": {
+          bg: "var(--sys-card-bg)",
+          "bg-hover": "var(--sys-card-bg-hover)",
+          border: "var(--sys-card-border)",
+          "border-hover": "var(--sys-card-border-hover)",
+        },
+        // Chip/Badge tokens
+        "chip": {
+          bg: "var(--sys-chip-bg)",
+          fg: "var(--sys-chip-fg)",
+          border: "var(--sys-chip-border)",
+        },
+        // Card component tokens (for direct use)
+        "sys-card": {
+          bg: "var(--sys-card-bg)",
+          "bg-hover": "var(--sys-card-bg-hover)",
+          border: "var(--sys-card-border)",
+          "border-hover": "var(--sys-card-border-hover)",
+        },
+        "sys-chip": {
+          bg: "var(--sys-chip-bg)",
+          fg: "var(--sys-chip-fg)",
+          border: "var(--sys-chip-border)",
+        },
+        // Input tokens
+        "sys-input": {
+          border: "var(--sys-input-border)",
+          "border-hover": "var(--sys-input-border-hover)",
+          "border-focus": "var(--sys-input-border-focus)",
+          bg: "var(--sys-input-bg)",
+          fg: "var(--sys-input-fg)",
+        },
+        // Navigation tokens
+        "sys-nav": {
+          bg: "var(--sys-nav-bg)",
+          fg: "var(--sys-nav-fg)",
+          link: "var(--sys-nav-link)",
+          "link-hover": "var(--sys-nav-link-hover)",
+          "link-active": "var(--sys-nav-link-active)",
+        },
+        // Field tokens (for forms)
+        field: {
+          bg: "var(--field-bg)",
+          fg: "var(--field-fg)",
+          bd: "var(--field-bd)",
+          "bd-focus": "var(--field-bd-focus)",
         },
         accent: {
           DEFAULT: 'hsl(var(--accent))',
@@ -126,10 +366,52 @@ export default {
             },
             a: {
               color: 'inherit',
-            },
-          },
+      },
+    },
+  },
+  plugins: [
+    plugin(function({ addUtilities }) {
+      addUtilities({
+        // Typography utility classes - pobut tokens
+        '.pobut-H1': {
+          'font-size': 'var(--pobut_H1-size)',
+          'font-weight': 'var(--pobut_H1-weight)',
+          'line-height': 'var(--pobut_H1-line-height)',
+          'letter-spacing': 'var(--pobut_H1-letter-spacing)',
+          'font-family': 'var(--font-family-heading, "Unbounded", system-ui, sans-serif)',
         },
-      }),
+        '.pobut-H2': {
+          'font-size': 'var(--pobut_H2-size)',
+          'font-weight': 'var(--pobut_H2-weight)',
+          'line-height': 'var(--pobut_H2-line-height)',
+          'letter-spacing': 'var(--pobut_H2-letter-spacing)',
+          'font-family': 'var(--font-family-heading, "Unbounded", system-ui, sans-serif)',
+        },
+        '.pobut-H3': {
+          'font-size': 'var(--pobut_H3-size)',
+          'font-weight': 'var(--pobut_H3-weight)',
+          'line-height': 'var(--pobut_H3-line-height)',
+          'letter-spacing': 'var(--pobut_H3-letter-spacing)',
+          'font-family': 'var(--font-family-heading, "Unbounded", system-ui, sans-serif)',
+        },
+        '.pobut-body': {
+          'font-size': 'var(--pobut_body-size)',
+          'font-weight': 'var(--pobut_body-weight)',
+          'line-height': 'var(--pobut_body-line-height)',
+          'letter-spacing': 'var(--pobut_body-letter-spacing)',
+          'font-family': 'var(--font-family-body, "Unbounded", system-ui, sans-serif)',
+        },
+        '.pobut-caption': {
+          'font-size': 'var(--pobut_caption-size)',
+          'font-weight': 'var(--pobut_caption-weight)',
+          'line-height': 'var(--pobut_caption-line-height)',
+          'letter-spacing': 'var(--pobut_caption-letter-spacing)',
+          'font-family': 'var(--font-family-body, "Unbounded", system-ui, sans-serif)',
+        },
+      })
+    }),
+  ],
+}),
       // fontFamily: {
       //   mono: ['var(--font-geist-mono)'],
       //   sans: ['var(--font-geist-sans)'],
@@ -207,7 +489,7 @@ export default {
   plugins: [
     require('@tailwindcss/container-queries'),
     require('@tailwindcss/typography'),
-    plugin(({ matchUtilities, theme }) => {
+    plugin(({ matchUtilities, theme, addUtilities }) => {
       matchUtilities(
         {
           'animation-delay': (value) => {
@@ -220,6 +502,44 @@ export default {
           values: theme('transitionDelay'),
         },
       )
+      // Typography utility classes - pobut tokens (RESPONSIVE - automatically adapts at breakpoints!)
+      addUtilities({
+        '.pobut-H1': {
+          'font-size': 'var(--pobut_H1-size)',
+          'font-weight': 'var(--pobut_H1-weight)',
+          'line-height': 'var(--pobut_H1-line-height)',
+          'letter-spacing': 'var(--pobut_H1-letter-spacing)',
+          'font-family': 'var(--font-family-heading, "Unbounded", system-ui, sans-serif)',
+        },
+        '.pobut-H2': {
+          'font-size': 'var(--pobut_H2-size)',
+          'font-weight': 'var(--pobut_H2-weight)',
+          'line-height': 'var(--pobut_H2-line-height)',
+          'letter-spacing': 'var(--pobut_H2-letter-spacing)',
+          'font-family': 'var(--font-family-heading, "Unbounded", system-ui, sans-serif)',
+        },
+        '.pobut-H3': {
+          'font-size': 'var(--pobut_H3-size)',
+          'font-weight': 'var(--pobut_H3-weight)',
+          'line-height': 'var(--pobut_H3-line-height)',
+          'letter-spacing': 'var(--pobut_H3-letter-spacing)',
+          'font-family': 'var(--font-family-heading, "Unbounded", system-ui, sans-serif)',
+        },
+        '.pobut-body': {
+          'font-size': 'var(--pobut_body-size)',
+          'font-weight': 'var(--pobut_body-weight)',
+          'line-height': 'var(--pobut_body-line-height)',
+          'letter-spacing': 'var(--pobut_body-letter-spacing)',
+          'font-family': 'var(--font-family-body, "Unbounded", system-ui, sans-serif)',
+        },
+        '.pobut-caption': {
+          'font-size': 'var(--pobut_caption-size)',
+          'font-weight': 'var(--pobut_caption-weight)',
+          'line-height': 'var(--pobut_caption-line-height)',
+          'letter-spacing': 'var(--pobut_caption-letter-spacing)',
+          'font-family': 'var(--font-family-body, "Unbounded", system-ui, sans-serif)',
+        },
+      })
     }),
   ],
 }

@@ -1,13 +1,7 @@
 @layer components {
+  /* Badge component - using Tailwind classes via @apply */
   [data-app="frontend"] .fe-badge {
-    display: inline-flex;
-    align-items: center;
-    gap: 0.5ch;
-    padding: 0.25rem 0.5rem;
-    border-radius: 9999px;
-    border: 1px solid var(--sys-chip-border);
-    color: var(--sys-chip-fg);
-    background: var(--sys-chip-bg);
+    @apply inline-flex items-center gap-[0.5ch] px-2 py-1 rounded-full border border-sys-chip-border text-sys-chip-fg bg-sys-chip-bg;
   }
 }
 

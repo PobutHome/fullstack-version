@@ -28,7 +28,7 @@
 /* button styling imports */
 @import '../styles/Buttons/button-tokens.css';
 
-/* non-component utility/demo class groups (global) */
+/* non-component utility/demo class groups (global) - Now using Tailwind @apply */
 @import '../styles/Links/links.css';
 @import '../styles/Cards/cards.css';
 @import '../styles/Badges/badges.css';

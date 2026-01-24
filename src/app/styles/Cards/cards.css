@@ -1,18 +1,14 @@
 @layer components {
+  /* Card component - using Tailwind classes via @apply */
   [data-app="frontend"] .fe-card {
-    background: var(--sys-card-bg);
-    border: 1px solid var(--sys-card-border);
-    border-radius: var(--radius-lg, 0.75rem);
-    box-shadow: var(--shadow-sm, 0 0.0625rem 0.125rem rgba(0,0,0,.05));
+    @apply bg-sys-card-bg border border-sys-card-border rounded-radius-lg shadow-shadow-sm;
   }
   [data-app="frontend"] .fe-card:hover {
-    background: var(--sys-card-bg-hover);
-    border-color: var(--sys-card-border-hover);
+    @apply bg-sys-card-bg-hover border-sys-card-border-hover;
   }
 
   [data-app="frontend"] .fe-card--soft {
-    background: var(--sys-surface-2);
-    border: 1px solid var(--sys-border);
+    @apply bg-sys-surface-2 border-sys-border;
   }
 }
 

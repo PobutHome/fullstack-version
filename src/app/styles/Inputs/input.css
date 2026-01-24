@@ -1,6 +1,10 @@
-.field{
-  background: var(--field-bg);
-  color: var(--field-fg);
-  border: var(--field-bd);
+@layer components {
+  /* Field component - using Tailwind classes via @apply */
+  .field {
+    @apply bg-field-bg text-field-fg;
+    border: var(--field-bd);
+  }
+  .field:focus-within {
+    border: var(--field-bd-focus);
+  }
 }
-.field:focus-within{ border: var(--field-bd-focus); }

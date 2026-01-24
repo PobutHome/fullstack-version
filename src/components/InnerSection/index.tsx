@@ -1,5 +1,4 @@
 import type { CSSProperties, HTMLAttributes, ReactNode } from "react"
-import "./InnerSection.css"
 
 type Props = HTMLAttributes<HTMLDivElement> & {
   children: ReactNode
@@ -16,7 +15,8 @@ type Props = HTMLAttributes<HTMLDivElement> & {
  * Use inside a <Container> (or any width-constraining wrapper).
  */
 export function InnerSection({ children, className = "", style, ...props }: Props) {
-  const innerClassName = `innerSection ${className}`.trim()
+  // Using Tailwind classes - full width with min-width 0 for flex/grid children
+  const innerClassName = `w-full min-w-0 ${className}`.trim()
 
   return (
     <div className={innerClassName} style={style} {...props}>

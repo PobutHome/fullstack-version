@@ -10,8 +10,8 @@ const FeaturedProductsCarousel = dynamic(
   {
     ssr: false, // Disable SSR for carousel to reduce initial load
     loading: () => (
-      <div className="featured-products-loading">
-        <p>Завантаження товарів...</p>
+      <div className="flex justify-center items-center min-h-[20rem] p-layout-gap-2">
+        <p className="text-sys-text-muted">Завантаження товарів...</p>
       </div>
     ),
   }

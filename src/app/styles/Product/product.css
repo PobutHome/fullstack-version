@@ -1,22 +1,19 @@
 @layer components {
+  /* Product component - using Tailwind classes via @apply */
   [data-app="frontend"] .fe-product {
-    border-radius: var(--radius-lg, 0.75rem);
-    border: 1px solid var(--sys-border-strong);
-    background: var(--sys-surface);
-    overflow: hidden;
+    @apply rounded-radius-lg border border-sys-border-strong bg-sys-surface overflow-hidden;
   }
 
   [data-app="frontend"] .fe-product__body {
-    padding: var(--space-20);
+    @apply p-space-20;
   }
 
   [data-app="frontend"] .fe-price {
-    color: var(--sys-accent);
-    font-weight: var(--font-weight-bold, 700);
+    @apply text-sys-accent font-bold;
   }
 
   [data-app="frontend"] .fe-availability {
-    color: var(--sys-accent);
+    @apply text-sys-accent;
   }
 }
 

@@ -1,26 +1,19 @@
 @layer components {
+  /* Nav component - using Tailwind classes via @apply */
   [data-app="frontend"] .fe-nav {
-    background: var(--sys-nav-bg);
-    color: var(--sys-nav-fg);
+    @apply bg-sys-nav-bg text-sys-nav-fg;
   }
   [data-app="frontend"] .fe-nav__row {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: var(--layout-gap-2);
-    padding-block: var(--layout-gap-1);
+    @apply flex items-center justify-between gap-layout-gap-2 py-layout-gap-1;
   }
   [data-app="frontend"] .fe-nav__link {
-    color: var(--sys-nav-link);
-    text-decoration: none;
-    opacity: 0.95;
+    @apply text-sys-nav-link no-underline opacity-95;
   }
   [data-app="frontend"] .fe-nav__link:hover {
-    color: var(--sys-nav-link-hover);
-    opacity: 1;
+    @apply text-sys-nav-link-hover opacity-100;
   }
   [data-app="frontend"] .fe-nav__link:active {
-    color: var(--sys-nav-link-active);
+    @apply text-sys-nav-link-active;
   }
 }
 

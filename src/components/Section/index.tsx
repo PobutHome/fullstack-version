@@ -1,5 +1,4 @@
 import type { HTMLAttributes, ReactNode } from "react"
-import "./Section.css"
 
 type Props = HTMLAttributes<HTMLElement> & {
   children: ReactNode
@@ -19,7 +18,8 @@ export function Section({
   style,
   ...props
 }: Props) {
-  const sectionClassName = `section ${className}`.trim()
+  // Using Tailwind classes - full width, relative positioning
+  const sectionClassName = `w-full relative ${className}`.trim()
 
   return (
     <section className={sectionClassName} style={style} {...props}>

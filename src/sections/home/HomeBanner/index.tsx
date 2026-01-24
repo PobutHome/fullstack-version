@@ -2,7 +2,6 @@
 
 import { Section } from '@/components/Section'
 import React, { useCallback, useEffect, useRef, useState } from 'react'
-import './homeBanner.css'
 
 type HomeBannerProps = {
   images?: string[]
@@ -99,35 +98,35 @@ export const HomeBanner: React.FC<HomeBannerProps> = ({
   return (
     <Section id="home-banner" >
     <div
-      className="carousel"
+      className="relative w-full max-w-full m-0 p-0 select-none overflow-hidden box-border"
       onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseLeave}
     >
       <div
-        className="carousel-window"
+        className="overflow-hidden rounded-none w-full relative"
         onTouchStart={onTouchStart}
         onTouchMove={onTouchMove}
         onTouchEnd={onTouchEnd}
       >
         <div
-          className="carousel-track"
+          className="flex transition-transform duration-[450ms] ease-in-out w-full"
           style={{
             transform: `translateX(-${displayIndex * 100}%)`,
           }}
         >
           {images.map((src, i) => (
-            <div className="carousel-slide" key={i}>
-              <img src={src} alt={`Slide ${i + 1}`} />
+            <div className="min-w-full w-full h-[236px] md:h-[380px] lg:h-[500px] relative shrink-0" key={i}>
+              <img src={src} alt={`Slide ${i + 1}`} className="w-full h-full object-cover block" />
             </div>
           ))}
         </div>
       </div>
 
-      <div className="dots">
+      <div className="flex justify-center gap-2 mt-3.5 p-0 w-full box-border">
         {images.map((_, i) => (
           <button
             key={i}
-            className={`dot ${i === displayIndex ? 'active' : ''}`}
+            className={`w-2.5 h-2.5 md:w-4 md:h-4 lg:w-[25px] lg:h-[25px] rounded-full border border-sys-accent bg-color-default-background cursor-pointer ${i === displayIndex ? 'bg-sys-accent' : ''}`}
             onClick={() => goTo(i)}
             aria-label={`Go to slide ${i + 1}`}
             type="button"

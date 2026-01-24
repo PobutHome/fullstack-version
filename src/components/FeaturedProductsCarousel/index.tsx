@@ -2,7 +2,6 @@
 
 import { FeaturedProductCard } from '@/components/FeaturedProductCard'
 import { useCallback, useEffect, useRef, useState } from 'react'
-import './featuredProductsCarousel.css'
 
 type FeaturedProduct = {
   id: string
@@ -155,35 +154,36 @@ export function FeaturedProductsCarousel({
 
   return (
     <div
-      className="featured-products-carousel"
+      className="relative"
       onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseLeave}
     >
       <div
-        className="featured-products-carousel__window"
+        className="w-full"
         onTouchStart={onTouchStart}
         onTouchMove={onTouchMove}
         onTouchEnd={onTouchEnd}
       >
-        <div className="featured-products-grid">
+        <div className="grid grid-cols-2 lg:grid-cols-3 w-full min-w-0 gap-layout-gap-1">
           {displayProducts.map((product, index) => {
             if (!product) {
-              return <div key={`empty-${index}`} className="featured-products-grid__empty-slot" />
+              return <div key={`empty-${index}`} className="invisible pointer-events-none" />
             }
             return (
-              <FeaturedProductCard
-                key={product.id}
-                imageUrl={product.imageUrl}
-                imageAlt={product.imageAlt}
-                isAvailable={product.isAvailable}
-                productName={product.productName}
-                specifications={product.specifications}
-                retailPrice={product.retailPrice}
-                wholesalePrice={product.wholesalePrice}
-                wholesaleMinQuantity={product.wholesaleMinQuantity}
-                onRetailAddToCart={() => handleRetailAddToCart(product.id)}
-                onWholesaleAddToCart={() => handleWholesaleAddToCart(product.id)}
-              />
+              <div key={product.id} className="transition-opacity duration-200 ease-in-out">
+                <FeaturedProductCard
+                  imageUrl={product.imageUrl}
+                  imageAlt={product.imageAlt}
+                  isAvailable={product.isAvailable}
+                  productName={product.productName}
+                  specifications={product.specifications}
+                  retailPrice={product.retailPrice}
+                  wholesalePrice={product.wholesalePrice}
+                  wholesaleMinQuantity={product.wholesaleMinQuantity}
+                  onRetailAddToCart={() => handleRetailAddToCart(product.id)}
+                  onWholesaleAddToCart={() => handleWholesaleAddToCart(product.id)}
+                />
+              </div>
             )
           })}
         </div>
@@ -191,10 +191,10 @@ export function FeaturedProductsCarousel({
 
       {/* Navigation Arrows */}
       {maxIndex > 0 && (
-        <div className="featured-products-navigation">
+        <div className="flex justify-center items-center gap-layout-gap-1 mt-layout-gap-2">
           <button
             type="button"
-            className="featured-products-navigation__arrow"
+            className="bg-transparent border-none cursor-pointer p-2 flex items-center justify-center transition-colors duration-200 ease-in-out text-sys-accent hover:text-sys-accent-hover active:text-sys-accent-active rounded-radius-md hover:bg-[color-mix(in_srgb,var(--sys-accent)_10%,transparent)] focus-visible:outline-2 focus-visible:outline-sys-focus focus-visible:outline-offset-2 disabled:opacity-40 disabled:cursor-not-allowed disabled:pointer-events-none"
             onClick={goToPrevious}
             disabled={!canGoPrevious}
             aria-label="Попередні товари"
@@ -206,6 +206,7 @@ export function FeaturedProductsCarousel({
               fill="none"
               xmlns="http://www.w3.org/2000/svg"
               aria-hidden="true"
+              className="w-6 h-6 shrink-0"
             >
               <path
                 d="M15 18L9 12L15 6"
@@ -218,7 +219,7 @@ export function FeaturedProductsCarousel({
           </button>
           <button
             type="button"
-            className="featured-products-navigation__arrow"
+            className="bg-transparent border-none cursor-pointer p-2 flex items-center justify-center transition-colors duration-200 ease-in-out text-sys-accent hover:text-sys-accent-hover active:text-sys-accent-active rounded-radius-md hover:bg-[color-mix(in_srgb,var(--sys-accent)_10%,transparent)] focus-visible:outline-2 focus-visible:outline-sys-focus focus-visible:outline-offset-2 disabled:opacity-40 disabled:cursor-not-allowed disabled:pointer-events-none"
             onClick={goToNext}
             disabled={!canGoNext}
             aria-label="Наступні товари"
@@ -230,6 +231,7 @@ export function FeaturedProductsCarousel({
               fill="none"
               xmlns="http://www.w3.org/2000/svg"
               aria-hidden="true"
+              className="w-6 h-6 shrink-0"
             >
               <path
                 d="M9 18L15 12L9 6"

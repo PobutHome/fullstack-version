@@ -1,15 +1,11 @@
 @layer components {
+  /* Header component - using Tailwind classes via @apply */
   [data-app="frontend"] .fe-header {
-    background: var(--sys-surface);
-    border-bottom: 1px solid var(--sys-border);
+    @apply bg-sys-surface border-b border-sys-border;
   }
 
   [data-app="frontend"] .fe-topbar {
-    display: grid;
-    grid-template-columns: auto 1fr auto;
-    align-items: center;
-    gap: var(--layout-gap-2);
-    padding-block: var(--layout-gap-1);
+    @apply grid grid-cols-[auto_1fr_auto] items-center gap-layout-gap-2 py-layout-gap-1;
   }
 }
 

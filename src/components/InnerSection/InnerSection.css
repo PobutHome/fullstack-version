@@ -1,6 +1,0 @@
-/* Global (non-module) styles for <InnerSection /> */
-
-[data-app="frontend"] .innerSection {
-  width: 100%;
-  min-width: 0;
-}

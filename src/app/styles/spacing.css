@@ -1,8 +1,18 @@
 /**
  * SPACING UTILITIES
  * 
- * Reusable spacing classes using design tokens.
- * Automatically responsive via CSS variables.
+ * ⚠️ DEPRECATED: These utilities are now redundant.
+ * Use Tailwind classes instead:
+ * - .p-xs → p-spacing-xs
+ * - .m-sm → m-spacing-sm  
+ * - .gap-md → gap-spacing-md
+ * - .layout-margin → ml-layout-margin mr-layout-margin
+ * 
+ * For responsive spacing, use layout-gap tokens:
+ * - gap-layout-gap-1 (automatically responsive: 10px/10px/20px)
+ * - gap-layout-gap-2 (automatically responsive: 20px/20px/50px)
+ * 
+ * This file can be removed once all components are migrated to Tailwind.
  */
 
 @layer utilities {

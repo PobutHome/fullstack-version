@@ -6,7 +6,6 @@ import type { Category } from '@/payload-types'
 import { Benefits } from '@/sections/home/Benefits'
 import { FeaturedProducts } from '@/sections/home/FeaturedProducts'
 import { HomeBanner } from '@/sections/home/HomeBanner'
-import './HomePage.css'
 
 type Props = {
   categories: Category[]
@@ -18,7 +17,7 @@ export function HomePage({ categories }: Props) {
   return (
     <Page
       data-app="frontend"
-      className="home-page sections-margin page-background"
+      className="sections-margin page-background pt-space-20 pb-space-50"
     >
       <HomeBanner />{/*implement homebanner fetching banners from cms, and enable creation of those banners */}
       <Benefits />
@@ -28,27 +27,27 @@ export function HomePage({ categories }: Props) {
       <Section id="catalog" aria-labelledby="home-catalog-title">
         <Container>
           <InnerSection>
-            <div className="home-section-grid">
+            <div className="grid gap-layout-gap-2">
               <header>
                 <h2 id="home-catalog-title">
                   Каталог
                 </h2>
-                <p className="home-catalog-header-caption">
+                <p className="text-sys-text-muted mt-space-10">
                   Основні розділи асортименту. Оберіть потрібну категорію, щоб перейти до
                   товарів.
                 </p>
               </header>
 
-              <div className="fe-card home-catalog-card">
+              <div className="fe-card p-space-20 grid gap-layout-gap-2 bg-sys-surface">
                 <ul
                   aria-label="Категорії товарів"
-                  className="home-catalog-list"
+                  className="list-none m-0 p-0 grid grid-cols-[repeat(auto-fit,minmax(140px,1fr))] gap-layout-gap-2"
                 >
                   {categories.map((category) => (
                     <li key={category.id}>
                       <a
                         href={`/shop/${category.slug}`}
-                        className="fe-card home-catalog-item-link"
+                        className="fe-card grid gap-layout-gap-1 p-space-20 no-underline text-sys-text"
                       >
                         <span>{category.title}</span>
                       </a>
@@ -65,19 +64,19 @@ export function HomePage({ categories }: Props) {
       <Section
         id="offers"
         aria-labelledby="home-offers-title"
-        className="home-offers-section"
+        className="bg-sys-surface-accent"
       >
         <Container>
           <InnerSection>
-            <div className="home-section-grid">
+            <div className="grid gap-layout-gap-2">
               <h2
                 id="home-offers-title"
-                className="home-offers-title"
+                className="text-sys-text-on-accent"
               >
                 Акції і пропозиції
               </h2>
 
-              <div className="home-offers-grid">
+              <div className="grid grid-cols-[repeat(auto-fit,minmax(220px,1fr))] gap-layout-gap-2">
                 {[
                   {
                     title: 'Лояльні ціни та система знижок',
@@ -98,7 +97,7 @@ export function HomePage({ categories }: Props) {
                 ].map((card) => (
                   <article
                     key={card.title}
-                    className="fe-card home-offer-card"
+                    className="fe-card bg-sys-surface grid gap-layout-gap-1 p-space-20"
                   >
                     <h3>{card.title}</h3>
                     <p>{card.body}</p>

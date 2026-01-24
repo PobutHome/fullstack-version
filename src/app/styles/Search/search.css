@@ -1,33 +1,21 @@
 @layer components {
+  /* Input and Search components - using Tailwind classes via @apply */
   [data-app="frontend"] .fe-input {
-    height: var(--input-height-md, 2.5rem);
-    width: 100%;
-    border-radius: 9999px;
-    border: 1px solid var(--sys-input-border);
-    background: var(--sys-input-bg);
-    color: var(--sys-input-fg);
-    padding-inline: 2.75rem 1rem; /* room for icon */
-    outline: none;
+    @apply h-10 w-full rounded-full border border-sys-input-border bg-sys-input-bg text-sys-input-fg pl-11 pr-4 outline-none;
   }
   [data-app="frontend"] .fe-input:hover {
-    border-color: var(--sys-input-border-hover);
+    @apply border-sys-input-border-hover;
   }
   [data-app="frontend"] .fe-input:focus {
-    border-color: var(--sys-input-border-focus);
+    @apply border-sys-input-border-focus;
     box-shadow: 0 0 0 0.1875rem var(--sys-focus-ring);
   }
 
   [data-app="frontend"] .fe-search {
-    position: relative;
-    width: 100%;
+    @apply relative w-full;
   }
   [data-app="frontend"] .fe-search__icon {
-    position: absolute;
-    left: 0.875rem;
-    top: 50%;
-    transform: translateY(-50%);
-    color: var(--sys-interactive);
-    pointer-events: none;
+    @apply absolute left-3.5 top-1/2 -translate-y-1/2 text-sys-interactive pointer-events-none;
   }
 }
 

@@ -33,7 +33,7 @@ export default async function DesignSystemPage() {
               Complete reference guide for all design tokens, components, and utilities
               used in the frontend application.
             </p>
-            <div className={styles.textSpacing} style={{ marginTop: "var(--layout-gap-1)" }}>
+            <div className={`${styles.textSpacing} mt-layout-gap-1`}>
               <small>
                 All styles are scoped to{" "}
                 <code className={styles.inlineCodePill}>
@@ -56,7 +56,7 @@ export default async function DesignSystemPage() {
         <Container>
           <InnerSection className="fe-gap-inner-section-y">
             <h2>Conventions (Read This First)</h2>
-            <small style={{ marginBottom: "var(--layout-gap-2)", display: "block" }}>
+            <small className="mb-layout-gap-2 block">
               The goal is "fast changes with zero guessing": one way to build layouts, one
               way to apply spacing, one place to edit tokens.
             </small>
@@ -200,12 +200,11 @@ export function MyCard({ children }: { children: React.ReactNode }) {
             </small>
 
         <div
-          className="fe-card baseGap"
-          style={{ padding: "var(--space-20)", display: "grid" }}
+          className="fe-card baseGap p-space-20 grid"
         >
-          <div style={{ display: "grid", gap: "var(--layout-gap-1)" }}>
+          <div className="grid gap-layout-gap-1">
             <h3>Rules</h3>
-            <div style={{ display: "grid", gap: "var(--layout-gap-1)" }}>
+            <div className="grid gap-layout-gap-1">
               <small><strong>1)</strong> Every page starts with <code>{`<Page data-app="frontend">`}</code> — the page is the shell.</small>
               <small><strong>2)</strong> Pages are composed of top-level <code>{`<Section id="...">`}</code> blocks (semantic, supports anchors via <code>id</code>).</small>
               <small><strong>3)</strong> Use explicit <code>{`<Container>`}</code> + <code>{`<InnerSection>`}</code> inside each <code>{`<Section>`}</code>.</small>
@@ -214,16 +213,16 @@ export function MyCard({ children }: { children: React.ReactNode }) {
             </div>
           </div>
 
-          <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(320px, 1fr))", gap: "var(--layout-gap-2)" }}>
+          <div className="grid grid-cols-[repeat(auto-fit,minmax(320px,1fr))] gap-layout-gap-2">
             {/* Visual demo */}
-            <div className="fe-gap-tight" style={{ display: "grid" }}>
+            <div className="fe-gap-tight grid">
               <p><strong>Visual: Page → Section → Container → Inner</strong></p>
-              <div style={{ padding: "var(--space-20)", background: "var(--sys-surface-2)", borderRadius: "var(--radius-lg)", border: "1px dashed var(--sys-border)" }}>
-                <div style={{ display: "grid", gap: "var(--layout-gap-1)" }}>
+              <div className="p-space-20 bg-sys-surface-2 rounded-radius-lg border border-dashed border-sys-border">
+                <div className="grid gap-layout-gap-1">
                   <small><strong>Page</strong> (full width)</small>
-                  <div style={{ padding: "var(--space-20)", background: "var(--sys-surface-1)", borderRadius: "var(--radius-lg)", border: "1px dashed var(--sys-border)" }}>
+                  <div className="p-space-20 bg-sys-surface rounded-radius-lg border border-dashed border-sys-border">
                     <small><strong>Section</strong> (vertical rhythm / background / semantics)</small>
-                    <div style={{ marginTop: "var(--space-20)", padding: "var(--space-20)", background: "var(--sys-surface-2)", borderRadius: "var(--radius-lg)", border: "1px dashed var(--sys-border)" }}>
+                    <div className="mt-space-20 p-space-20 bg-sys-surface-2 rounded-radius-lg border border-dashed border-sys-border">
                       <small><strong>Container</strong> (centered + max-width + padding-inline)</small>
                       <div className={styles.demoInnerBox}>
                         <small><strong>Inner</strong> (any layout)</small>
@@ -238,7 +237,7 @@ export function MyCard({ children }: { children: React.ReactNode }) {
             </div>
 
             {/* Code demo */}
-            <div style={{ display: "grid", gap: "var(--layout-gap-1)" }}>
+            <div className="grid gap-layout-gap-1">
               <p><strong>Code</strong></p>
                 <DsCodeBlock>{`import { Page } from "@/components/Page"
 import { Section } from "@/components/Section"
@@ -249,7 +248,7 @@ export default function ExamplePage() {
   return (
     <Page
       data-app="frontend"
-      style={{ paddingTop: "var(--space-20)", paddingBottom: "var(--space-50)" }}
+      className="pt-space-20 pb-space-50"
     >
       <Section id="hero">
         {/* Optional: full-width content can live here */}
@@ -297,16 +296,15 @@ export default function ExamplePage() {
         <Container>
           <InnerSection className="fe-gap-inner-section-y">
             <h2>Layout Recipes (Copy/Paste)</h2>
-            <small style={{ marginBottom: "var(--layout-gap-2)", display: "block" }}>
+            <small className="mb-layout-gap-2 block">
               These are the only "approved" layout patterns. If a page needs something else,
               we add a new layout primitive (don't freestyle per-page).
             </small>
 
             <div
-              className="fe-card"
-              style={{ padding: "var(--space-20)", display: "grid", gap: "var(--layout-gap-2)" }}
+              className="fe-card p-space-20 grid gap-layout-gap-2"
             >
-              <div style={{ display: "grid", gap: "var(--layout-gap-1)" }}>
+              <div className="grid gap-layout-gap-1">
                 <h3>Recipe A: Standard page sections</h3>
                 <pre
                   className={styles.codeBlock}
@@ -345,7 +343,7 @@ export default function MyPage() {
                 </div>
               </div>
 
-              <div style={{ display: "grid", gap: "var(--layout-gap-1)" }}>
+              <div className="grid gap-layout-gap-1">
                 <h3>Recipe B: Full-width band + contained content</h3>
                 <pre
                   className={styles.codeBlock}
@@ -376,16 +374,15 @@ export default function MyPage() {
         <Container>
           <InnerSection className="fe-gap-inner-section-y">
             <h2>Typography</h2>
-            <small style={{ marginBottom: "var(--layout-gap-2)", display: "block" }}>
+            <small className="mb-layout-gap-2 block">
               Font: Unbounded | Responsive sizes: Mobile → Tablet (48rem) → Desktop
               (64rem) | Styles are applied directly to HTML tags (h1, h2, h3, p, small)
             </small>
         
         <div
-          className="fe-card"
-          style={{ padding: "var(--space-20)", display: "grid", gap: "var(--layout-gap-2)" }}
+          className="fe-card p-space-20 grid gap-layout-gap-2"
         >
-          <div style={{ display: "grid", gap: "var(--layout-gap-1)" }}>
+          <div className="grid gap-layout-gap-1">
             <div>
               <h1>Heading 1 — Unbounded Bold</h1>
               <small style={{ marginTop: "0.5rem", display: "block" }}>
@@ -451,22 +448,21 @@ export default function MyPage() {
         <Container>
           <InnerSection className="fe-gap-inner-section-y">
             <h2>Colors</h2>
-            <small style={{ marginBottom: "var(--layout-gap-2)", display: "block" }}>Brand colors, semantic tokens, and text colors</small>
+            <small className="mb-layout-gap-2 block">Brand colors, semantic tokens, and text colors</small>
         
         <div
-          className="fe-card"
-          style={{ padding: "var(--space-20)", display: "grid", gap: "var(--layout-gap-2)" }}
+          className="fe-card p-space-20 grid gap-layout-gap-2"
         >
           <div>
-            <h3 style={{ marginBottom: "var(--space-20)" }}>Brand Colors</h3>
-            <small style={{ marginBottom: "var(--space-20)", display: "block" }}>All raw brand colors from Figma. These are the source of truth for your brand palette.</small>
+            <h3 className="mb-space-20">Brand Colors</h3>
+            <small className="mb-space-20 block">All raw brand colors from Figma. These are the source of truth for your brand palette.</small>
             
-            <div style={{ display: "grid", gap: "var(--layout-gap-2)" }}>
+            <div className="grid gap-layout-gap-2">
               <div>
-                <h4 style={{ marginBottom: "var(--space-20)" }}>Blue (Primary Brand Color)</h4>
-                <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(180px, 1fr))", gap: "var(--layout-gap-2)" }}>
-                  <div style={{ display: "grid", gap: "var(--layout-gap-1)" }}>
-                    <div style={{ height: "4rem", background: "var(--color-blue)", borderRadius: "var(--radius-lg)" }} />
+                <h4 className="mb-space-20">Blue (Primary Brand Color)</h4>
+                <div className="grid grid-cols-[repeat(auto-fit,minmax(180px,1fr))] gap-layout-gap-2">
+                  <div className="grid gap-layout-gap-1">
+                    <div className="h-16 bg-color-blue rounded-radius-lg" />
                     <small>
                       <strong>Blue:</strong> #00004c<br />
                       <code>var(--color-blue)</code>
@@ -1421,7 +1417,7 @@ export default function MyPage() {
               <code style={{ fontSize: "0.9em" }}>{`<Button variant="add-to-cart-outline">Додати в кошик</Button>`}</code>
               <br />
               <br />
-              <strong>Edit:</strong> <code>src/app/styles/Buttons/Button.css</code> & <code>src/app/styles/Buttons/Button-tokens.css</code>
+              <strong>Edit:</strong> <code>src/app/styles/Buttons/button-tokens.css</code> (Button component uses Tailwind classes directly)
             </small>
           </div>
         </div>
@@ -1904,17 +1900,15 @@ export default function MyPage() {
               <p>
                 <code>src/app/styles/&lt;Group&gt;/*.css</code> - Reusable UI patterns (cards/badges/links/nav/header/product/search/etc)
                 <br />
-                <code>src/components/Page/index.tsx</code> + <code>src/components/Page/Page.css</code> - Page layout component
+                <code>src/components/Page/index.tsx</code> - Page layout component (uses Tailwind classes directly)
                 <br />
-                <code>src/components/Container/index.tsx</code> + <code>src/components/Container/Container.css</code> - Container component
+                <code>src/components/Container/index.tsx</code> - Container component (uses Tailwind classes directly)
                 <br />
-                <code>src/components/Section/index.tsx</code> + <code>src/components/Section/Section.css</code> - Section (semantic wrapper)
+                <code>src/components/Section/index.tsx</code> - Section (semantic wrapper, uses Tailwind classes directly)
                 <br />
-                <code>src/components/InnerSection/index.tsx</code> + <code>src/components/InnerSection/InnerSection.css</code> - InnerSection (default rhythm)
+                <code>src/components/InnerSection/index.tsx</code> - InnerSection (uses Tailwind classes directly)
                 <br />
-                <code>src/components/Button/index.tsx</code> - Button component
-                <br />
-                <code>src/components/Button/Button.css</code> - Button styles
+                <code>src/components/Button/index.tsx</code> - Button component (uses Tailwind classes directly)
                 <br />
                 <code>src/app/styles/Buttons/button-tokens.css</code> - Button tokens
               </p>

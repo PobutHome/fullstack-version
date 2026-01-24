@@ -2,7 +2,6 @@ import { Container } from '@/components/Container'
 import { FeaturedProductsCarouselWrapper } from '@/components/FeaturedProductsCarousel/Wrapper.client'
 import { InnerSection } from '@/components/InnerSection'
 import { Section } from '@/components/Section'
-import './featuredProducts.css'
 
 type FeaturedProduct = {
   id: string
