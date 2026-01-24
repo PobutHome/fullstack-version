@@ -969,21 +969,24 @@ export default function MyPage() {
                     <div className="h-16 bg-color-blue rounded-radius-lg" />
                     <small>
                       <strong>Blue:</strong> #00004c<br />
-                      <code>var(--color-blue)</code>
+                      <code>var(--color-blue)</code><br />
+                      <code className="text-sys-text-muted">bg-color-blue</code>
                     </small>
                   </div>
                   <div className="grid gap-layout-gap-1">
                     <div className="h-16 bg-color-blue-hover rounded-radius-lg" />
                     <small>
                       <strong>Blue Hover:</strong> #3b3bf9<br />
-                      <code>var(--color-blue-hover)</code>
+                      <code>var(--color-blue-hover)</code><br />
+                      <code className="text-sys-text-muted">bg-color-blue-hover</code>
                     </small>
                   </div>
                   <div className="grid gap-layout-gap-1">
                     <div className="h-16 bg-color-blue-click rounded-radius-lg" />
                     <small>
                       <strong>Blue Click:</strong> #00001f<br />
-                      <code>var(--color-blue-click)</code>
+                      <code>var(--color-blue-click)</code><br />
+                      <code className="text-sys-text-muted">bg-color-blue-click</code>
                     </small>
                   </div>
                 </div>
@@ -996,21 +999,24 @@ export default function MyPage() {
                     <div className="h-16 bg-color-green rounded-radius-lg" />
                     <small>
                       <strong>Green:</strong> #72cb1a<br />
-                      <code>var(--color-green)</code>
+                      <code>var(--color-green)</code><br />
+                      <code className="text-sys-text-muted">bg-color-green</code>
                     </small>
                   </div>
                   <div className="grid gap-layout-gap-1">
                     <div className="h-16 bg-color-green-hover rounded-radius-lg" />
                     <small>
                       <strong>Green Hover:</strong> #beff7e<br />
-                      <code>var(--color-green-hover)</code>
+                      <code>var(--color-green-hover)</code><br />
+                      <code className="text-sys-text-muted">bg-color-green-hover</code>
                     </small>
                   </div>
                   <div className="grid gap-layout-gap-1">
                     <div className="h-16 bg-color-green-click rounded-radius-lg" />
                     <small>
                       <strong>Green Click:</strong> #408000<br />
-                      <code>var(--color-green-click)</code>
+                      <code>var(--color-green-click)</code><br />
+                      <code className="text-sys-text-muted">bg-color-green-click</code>
                     </small>
                   </div>
                 </div>
@@ -1023,28 +1029,32 @@ export default function MyPage() {
                     <div className="h-16 bg-color-white border border-sys-border rounded-radius-lg" />
                     <small>
                       <strong>White:</strong> #ffffff<br />
-                      <code>var(--color-white)</code>
+                      <code>var(--color-white)</code><br />
+                      <code className="text-sys-text-muted">bg-color-white</code>
                     </small>
                   </div>
                   <div className="grid gap-layout-gap-1">
                     <div className="h-16 bg-color-black rounded-radius-lg" />
                     <small>
                       <strong>Black:</strong> #000000<br />
-                      <code>var(--color-black)</code>
+                      <code>var(--color-black)</code><br />
+                      <code className="text-sys-text-muted">bg-color-black</code>
                     </small>
                   </div>
                   <div className="grid gap-layout-gap-1">
                     <div className="h-16 bg-color-neutral-border border border-sys-border rounded-radius-lg" />
                     <small>
                       <strong>Neutral Border:</strong> #e5e7eb<br />
-                      <code>var(--color-neutral-border)</code>
+                      <code>var(--color-neutral-border)</code><br />
+                      <code className="text-sys-text-muted">bg-color-neutral-border</code>
                     </small>
                   </div>
                   <div className="grid gap-layout-gap-1">
                     <div className="h-16 bg-color-default-background border border-sys-border rounded-radius-lg" />
                     <small>
                       <strong>Default Background:</strong> #ffffff<br />
-                      <code>var(--color-default-background)</code>
+                      <code>var(--color-default-background)</code><br />
+                      <code className="text-sys-text-muted">bg-color-default-background</code>
                     </small>
                   </div>
                 </div>
@@ -1057,7 +1067,8 @@ export default function MyPage() {
                     <div className="h-16 bg-color-error rounded-radius-lg" />
                     <small>
                       <strong>Error:</strong> #ff0000<br />
-                      <code>var(--color-error)</code>
+                      <code>var(--color-error)</code><br />
+                      <code className="text-sys-text-muted">bg-color-error</code>
                     </small>
                   </div>
                 </div>
@@ -1065,11 +1076,14 @@ export default function MyPage() {
             </div>
             
             <small className="mt-space-20 p-space-20 bg-sys-surface-2 rounded-radius-lg block">
-              <strong>Note:</strong> These are raw palette tokens. They should NOT be used directly in components.
+              <strong>⚠️ Important:</strong> These are raw palette tokens. They should NOT be used directly in components.
               <br />
-              Use semantic tokens instead (e.g., <code>--sys-accent</code> instead of <code>--color-green</code>).
+              Use semantic tokens instead (e.g., <code>bg-sys-accent</code> / <code>var(--sys-accent)</code> instead of <code>bg-color-green</code> / <code>var(--color-green)</code>).
               <br />
-              Edit: <code>src/app/styles/palette-tokens.css</code>
+              <br />
+              <strong>Tailwind classes available:</strong> <code>bg-color-blue</code>, <code>bg-color-green</code>, <code>bg-color-white</code>, <code>bg-color-black</code>, etc.
+              <br />
+              <strong>Edit:</strong> <code>src/app/styles/palette-tokens.css</code>
             </small>
           </div>
 
@@ -1080,26 +1094,32 @@ export default function MyPage() {
             {/* Interactive Colors (Blue) */}
             <div>
                 <h4 className="mb-space-20 mt-space-20">Interactive (Blue - Links, Clickable Text)</h4>
-              <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(180px, 1fr))", gap: "var(--layout-gap-2)" }}>
-                <div style={{ display: "grid", gap: "var(--layout-gap-1)" }}>
+              <div className="grid grid-cols-[repeat(auto-fit,minmax(180px,1fr))] gap-layout-gap-2">
+                <div className="grid gap-layout-gap-1">
                   <div className="h-12 bg-sys-interactive rounded-radius-lg" />
                   <small>
                     <strong>Interactive:</strong> Blue<br />
-                    <code>var(--sys-interactive)</code>
+                    <code>var(--sys-interactive)</code><br />
+                    <code className="text-sys-text-muted">bg-sys-interactive</code><br />
+                    <code className="text-sys-text-muted">text-sys-interactive</code>
                   </small>
                 </div>
-                <div style={{ display: "grid", gap: "var(--layout-gap-1)" }}>
+                <div className="grid gap-layout-gap-1">
                   <div className="h-12 bg-sys-interactive-hover rounded-radius-lg" />
                   <small>
                     <strong>Interactive Hover:</strong><br />
-                    <code>var(--sys-interactive-hover)</code>
+                    <code>var(--sys-interactive-hover)</code><br />
+                    <code className="text-sys-text-muted">bg-sys-interactive-hover</code><br />
+                    <code className="text-sys-text-muted">hover:bg-sys-interactive-hover</code>
                   </small>
                 </div>
-                <div style={{ display: "grid", gap: "var(--layout-gap-1)" }}>
+                <div className="grid gap-layout-gap-1">
                   <div className="h-12 bg-sys-interactive-active rounded-radius-lg" />
                   <small>
                     <strong>Interactive Active:</strong><br />
-                    <code>var(--sys-interactive-active)</code>
+                    <code>var(--sys-interactive-active)</code><br />
+                    <code className="text-sys-text-muted">bg-sys-interactive-active</code><br />
+                    <code className="text-sys-text-muted">active:bg-sys-interactive-active</code>
                   </small>
                 </div>
               </div>
@@ -1108,40 +1128,48 @@ export default function MyPage() {
             {/* Accent Colors (Green) */}
             <div>
                 <h4 className="mb-space-20 mt-space-20">Accent (Green - Primary Actions, Buttons)</h4>
-              <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(180px, 1fr))", gap: "var(--layout-gap-2)" }}>
-                <div style={{ display: "grid", gap: "var(--layout-gap-1)" }}>
+              <div className="grid grid-cols-[repeat(auto-fit,minmax(180px,1fr))] gap-layout-gap-2">
+                <div className="grid gap-layout-gap-1">
                   <div className="h-12 bg-sys-accent rounded-radius-lg" />
                   <small>
                     <strong>Accent (Primary):</strong> Bright Green<br />
-                    <code>var(--sys-accent)</code>
+                    <code>var(--sys-accent)</code><br />
+                    <code className="text-sys-text-muted">bg-sys-accent</code><br />
+                    <code className="text-sys-text-muted">text-sys-accent</code>
                   </small>
                 </div>
-                <div style={{ display: "grid", gap: "var(--layout-gap-1)" }}>
+                <div className="grid gap-layout-gap-1">
                   <div className="h-12 bg-sys-accent-hover rounded-radius-lg" />
                   <small>
                     <strong>Accent Hover:</strong><br />
-                    <code>var(--sys-accent-hover)</code>
+                    <code>var(--sys-accent-hover)</code><br />
+                    <code className="text-sys-text-muted">bg-sys-accent-hover</code><br />
+                    <code className="text-sys-text-muted">hover:bg-sys-accent-hover</code>
                   </small>
                 </div>
-                <div style={{ display: "grid", gap: "var(--layout-gap-1)" }}>
+                <div className="grid gap-layout-gap-1">
                   <div className="h-12 bg-sys-accent-active rounded-radius-lg" />
                   <small>
                     <strong>Accent Active:</strong><br />
-                    <code>var(--sys-accent-active)</code>
+                    <code>var(--sys-accent-active)</code><br />
+                    <code className="text-sys-text-muted">bg-sys-accent-active</code><br />
+                    <code className="text-sys-text-muted">active:bg-sys-accent-active</code>
                   </small>
                 </div>
-                <div style={{ display: "grid", gap: "var(--layout-gap-1)" }}>
+                <div className="grid gap-layout-gap-1">
                   <div className="h-12 bg-sys-accent-secondary rounded-radius-lg" />
                   <small>
                     <strong>Accent Secondary:</strong> Light Pastel<br />
-                    <code>var(--sys-accent-secondary)</code>
+                    <code>var(--sys-accent-secondary)</code><br />
+                    <code className="text-sys-text-muted">bg-sys-accent-secondary</code>
                   </small>
                 </div>
-                <div style={{ display: "grid", gap: "var(--layout-gap-1)" }}>
+                <div className="grid gap-layout-gap-1">
                   <div className="h-12 bg-sys-accent-tertiary rounded-radius-lg" />
                   <small>
                     <strong>Accent Tertiary:</strong> Dark Olive<br />
-                    <code>var(--sys-accent-tertiary)</code>
+                    <code>var(--sys-accent-tertiary)</code><br />
+                    <code className="text-sys-text-muted">bg-sys-accent-tertiary</code>
                   </small>
                 </div>
               </div>
@@ -1150,33 +1178,37 @@ export default function MyPage() {
             {/* Surfaces */}
             <div>
                 <h4 className="mb-space-20 mt-space-20">Surfaces (Backgrounds)</h4>
-              <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(180px, 1fr))", gap: "var(--layout-gap-2)" }}>
-                <div style={{ display: "grid", gap: "var(--layout-gap-1)" }}>
+              <div className="grid grid-cols-[repeat(auto-fit,minmax(180px,1fr))] gap-layout-gap-2">
+                <div className="grid gap-layout-gap-1">
                   <div className="h-12 bg-sys-surface border border-sys-border rounded-radius-lg" />
                   <small>
                     <strong>Surface:</strong> White<br />
-                    <code>var(--sys-surface)</code>
+                    <code>var(--sys-surface)</code><br />
+                    <code className="text-sys-text-muted">bg-sys-surface</code>
                   </small>
                 </div>
-                <div style={{ display: "grid", gap: "var(--layout-gap-1)" }}>
+                <div className="grid gap-layout-gap-1">
                   <div className="h-12 bg-sys-surface-2 border border-sys-border rounded-radius-lg" />
                   <small>
                     <strong>Surface 2:</strong> Alternative<br />
-                    <code>var(--sys-surface-2)</code>
+                    <code>var(--sys-surface-2)</code><br />
+                    <code className="text-sys-text-muted">bg-sys-surface-2</code>
                   </small>
                 </div>
-                <div style={{ display: "grid", gap: "var(--layout-gap-1)" }}>
+                <div className="grid gap-layout-gap-1">
                   <div className="h-12 bg-sys-surface-accent rounded-radius-lg" />
                   <small>
                     <strong>Surface Accent:</strong> Green BG<br />
-                    <code>var(--sys-surface-accent)</code>
+                    <code>var(--sys-surface-accent)</code><br />
+                    <code className="text-sys-text-muted">bg-sys-surface-accent</code>
                   </small>
                 </div>
-                <div style={{ display: "grid", gap: "var(--layout-gap-1)" }}>
+                <div className="grid gap-layout-gap-1">
                   <div className="h-12 bg-sys-surface-interactive rounded-radius-lg" />
                   <small>
                     <strong>Surface Interactive:</strong> Blue BG<br />
-                    <code>var(--sys-surface-interactive)</code>
+                    <code>var(--sys-surface-interactive)</code><br />
+                    <code className="text-sys-text-muted">bg-sys-surface-interactive</code>
                   </small>
                 </div>
               </div>
@@ -1185,37 +1217,41 @@ export default function MyPage() {
             {/* Text Colors */}
             <div>
                 <h4 className="mb-space-20 mt-space-20">Text Colors</h4>
-              <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(180px, 1fr))", gap: "var(--layout-gap-2)" }}>
-                <div style={{ display: "grid", gap: "var(--layout-gap-1)" }}>
+              <div className="grid grid-cols-[repeat(auto-fit,minmax(180px,1fr))] gap-layout-gap-2">
+                <div className="grid gap-layout-gap-1">
                   <div className="h-12 bg-sys-text rounded-radius-lg text-sys-text-inverse flex items-center justify-center">
                     <p>Text</p>
                   </div>
                   <small>
                     <strong>Text:</strong> Blue<br />
-                    <code>var(--sys-text)</code>
+                    <code>var(--sys-text)</code><br />
+                    <code className="text-sys-text-muted">text-sys-text</code>
                   </small>
                 </div>
-                <div style={{ display: "grid", gap: "var(--layout-gap-1)" }}>
+                <div className="grid gap-layout-gap-1">
                   <div className="h-12 bg-sys-text-muted rounded-radius-lg border border-sys-border" />
                   <small>
                     <strong>Text Muted:</strong> 65% opacity<br />
-                    <code>var(--sys-text-muted)</code>
+                    <code>var(--sys-text-muted)</code><br />
+                    <code className="text-sys-text-muted">text-sys-text-muted</code>
                   </small>
                 </div>
-                <div style={{ display: "grid", gap: "var(--layout-gap-1)" }}>
+                <div className="grid gap-layout-gap-1">
                   <div className="h-12 bg-sys-text-subtle rounded-radius-lg border border-sys-border" />
                   <small>
                     <strong>Text Subtle:</strong> 40% opacity<br />
-                    <code>var(--sys-text-subtle)</code>
+                    <code>var(--sys-text-subtle)</code><br />
+                    <code className="text-sys-text-muted">text-sys-text-subtle</code>
                   </small>
                 </div>
-                <div style={{ display: "grid", gap: "var(--layout-gap-1)" }}>
+                <div className="grid gap-layout-gap-1">
                   <div className="h-12 bg-sys-accent rounded-radius-lg text-sys-text-on-accent flex items-center justify-center">
                     <p>On Accent</p>
                   </div>
                   <small>
                     <strong>Text On Accent:</strong> White<br />
-                    <code>var(--sys-text-on-accent)</code>
+                    <code>var(--sys-text-on-accent)</code><br />
+                    <code className="text-sys-text-muted">text-sys-text-on-accent</code>
                   </small>
                 </div>
               </div>
@@ -1224,33 +1260,37 @@ export default function MyPage() {
             {/* Borders */}
             <div>
                 <h4 className="mb-space-20 mt-space-20">Borders</h4>
-              <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(180px, 1fr))", gap: "var(--layout-gap-2)" }}>
-                <div style={{ display: "grid", gap: "var(--layout-gap-1)" }}>
+              <div className="grid grid-cols-[repeat(auto-fit,minmax(180px,1fr))] gap-layout-gap-2">
+                <div className="grid gap-layout-gap-1">
                   <div className="h-12 bg-sys-surface border-2 border-sys-border rounded-radius-lg" />
                   <small>
                     <strong>Border:</strong> Neutral Gray<br />
-                    <code>var(--sys-border)</code>
+                    <code>var(--sys-border)</code><br />
+                    <code className="text-sys-text-muted">border-sys-border</code>
                   </small>
                 </div>
-                <div style={{ display: "grid", gap: "var(--layout-gap-1)" }}>
+                <div className="grid gap-layout-gap-1">
                   <div className="h-12 bg-sys-surface border-2 border-sys-border-strong rounded-radius-lg" />
                   <small>
                     <strong>Border Strong:</strong> Green<br />
-                    <code>var(--sys-border-strong)</code>
+                    <code>var(--sys-border-strong)</code><br />
+                    <code className="text-sys-text-muted">border-sys-border-strong</code>
                   </small>
                 </div>
-                <div style={{ display: "grid", gap: "var(--layout-gap-1)" }}>
+                <div className="grid gap-layout-gap-1">
                   <div className="h-12 bg-sys-surface border-2 border-sys-border-interactive rounded-radius-lg" />
                   <small>
                     <strong>Border Interactive:</strong> Blue<br />
-                    <code>var(--sys-border-interactive)</code>
+                    <code>var(--sys-border-interactive)</code><br />
+                    <code className="text-sys-text-muted">border-sys-border-interactive</code>
                   </small>
                 </div>
-                <div style={{ display: "grid", gap: "var(--layout-gap-1)" }}>
+                <div className="grid gap-layout-gap-1">
                   <div className="h-12 bg-sys-surface border-2 border-sys-border-subtle rounded-radius-lg" />
                   <small>
                     <strong>Border Subtle:</strong> 60% opacity<br />
-                    <code>var(--sys-border-subtle)</code>
+                    <code>var(--sys-border-subtle)</code><br />
+                    <code className="text-sys-text-muted">border-sys-border-subtle</code>
                   </small>
                 </div>
               </div>
@@ -1259,26 +1299,29 @@ export default function MyPage() {
             {/* States */}
             <div>
                 <h4 className="mb-space-20 mt-space-20">States (Error, Warning, Success)</h4>
-              <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(180px, 1fr))", gap: "var(--layout-gap-2)" }}>
-                <div style={{ display: "grid", gap: "var(--layout-gap-1)" }}>
+              <div className="grid grid-cols-[repeat(auto-fit,minmax(180px,1fr))] gap-layout-gap-2">
+                <div className="grid gap-layout-gap-1">
                   <div className="h-12 bg-sys-danger rounded-radius-lg" />
                   <small>
                     <strong>Danger:</strong> Red<br />
-                    <code>var(--sys-danger)</code>
+                    <code>var(--sys-danger)</code><br />
+                    <code className="text-sys-text-muted">bg-sys-danger</code>
                   </small>
                 </div>
-                <div style={{ display: "grid", gap: "var(--layout-gap-1)" }}>
+                <div className="grid gap-layout-gap-1">
                   <div className="h-12 bg-sys-warning rounded-radius-lg" />
                   <small>
                     <strong>Warning:</strong> Orange<br />
-                    <code>var(--sys-warning)</code>
+                    <code>var(--sys-warning)</code><br />
+                    <code className="text-sys-text-muted">bg-sys-warning</code>
                   </small>
                 </div>
-                <div style={{ display: "grid", gap: "var(--layout-gap-1)" }}>
+                <div className="grid gap-layout-gap-1">
                   <div className="h-12 bg-sys-success rounded-radius-lg" />
                   <small>
                     <strong>Success:</strong> Green<br />
-                    <code>var(--sys-success)</code>
+                    <code>var(--sys-success)</code><br />
+                    <code className="text-sys-text-muted">bg-sys-success</code>
                   </small>
                 </div>
               </div>
@@ -1291,37 +1334,37 @@ export default function MyPage() {
                 <div>
                     <p className="mb-space-10"><strong>Buttons:</strong></p>
                   <div className="grid gap-layout-gap-1">
-                    <small><code>--sys-btn-primary-bg</code> → Primary Button background</small>
-                    <small><code>--sys-btn-secondary-bg</code> → Secondary Button background</small>
-                    <small><code>--sys-btn-tertiary-bg</code> → Tertiary Button background</small>
-                    <small><code>--sys-btn-outline-border</code> → Outline Button border</small>
-                    <small><code>--sys-btn-interactive-border</code> → Interactive Button border</small>
+                    <small><code>--sys-btn-primary-bg</code> → <code className="text-sys-text-muted">bg-sys-btn-primary-bg</code></small>
+                    <small><code>--sys-btn-secondary-bg</code> → <code className="text-sys-text-muted">bg-sys-btn-secondary-bg</code></small>
+                    <small><code>--sys-btn-tertiary-bg</code> → <code className="text-sys-text-muted">bg-sys-btn-tertiary-bg</code></small>
+                    <small><code>--sys-btn-outline-border</code> → <code className="text-sys-text-muted">border-sys-btn-outline-border</code></small>
+                    <small><code>--sys-btn-interactive-border</code> → <code className="text-sys-text-muted">border-sys-btn-interactive-border</code></small>
                   </div>
                 </div>
                 <div>
                     <p className="mb-space-10"><strong>Inputs:</strong></p>
                   <div className="grid gap-layout-gap-1">
-                    <small><code>--sys-input-border</code> → Input border</small>
-                    <small><code>--sys-input-border-hover</code> → Input border hover</small>
-                    <small><code>--sys-input-border-focus</code> → Input border focus</small>
-                    <small><code>--sys-input-bg</code> → Input background</small>
-                    <small><code>--sys-input-fg</code> → Input text color</small>
+                    <small><code>--sys-input-border</code> → <code className="text-sys-text-muted">border-sys-input-border</code></small>
+                    <small><code>--sys-input-border-hover</code> → <code className="text-sys-text-muted">hover:border-sys-input-border-hover</code></small>
+                    <small><code>--sys-input-border-focus</code> → <code className="text-sys-text-muted">focus:border-sys-input-border-focus</code></small>
+                    <small><code>--sys-input-bg</code> → <code className="text-sys-text-muted">bg-sys-input-bg</code></small>
+                    <small><code>--sys-input-fg</code> → <code className="text-sys-text-muted">text-sys-input-fg</code></small>
                   </div>
                 </div>
                 <div>
                     <p className="mb-space-10"><strong>Cards:</strong></p>
                   <div className="grid gap-layout-gap-1">
-                    <small><code>--sys-card-bg</code> → Card background</small>
-                    <div><code>--sys-card-border</code> → Card border</div>
-                    <div><code>--sys-card-bg-hover</code> → Card hover background</div>
+                    <small><code>--sys-card-bg</code> → <code className="text-sys-text-muted">bg-sys-card-bg</code></small>
+                    <small><code>--sys-card-border</code> → <code className="text-sys-text-muted">border-sys-card-border</code></small>
+                    <small><code>--sys-card-bg-hover</code> → <code className="text-sys-text-muted">hover:bg-sys-card-bg-hover</code></small>
                   </div>
                 </div>
                 <div>
                     <p className="mb-space-10"><strong>Navigation:</strong></p>
                   <div className="grid gap-layout-gap-1">
-                    <small><code>--sys-nav-bg</code> → Navigation background</small>
-                    <small><code>--sys-nav-link</code> → Navigation link color</small>
-                    <small><code>--sys-nav-link-hover</code> → Navigation link hover</small>
+                    <small><code>--sys-nav-bg</code> → <code className="text-sys-text-muted">bg-sys-nav-bg</code></small>
+                    <small><code>--sys-nav-link</code> → <code className="text-sys-text-muted">text-sys-nav-link</code></small>
+                    <small><code>--sys-nav-link-hover</code> → <code className="text-sys-text-muted">hover:text-sys-nav-link-hover</code></small>
                   </div>
                 </div>
               </div>
@@ -1344,10 +1387,7 @@ export default function MyPage() {
               <strong>Mobile-First Approach:</strong> Base styles are for mobile, then enhanced for Tablet (≥48rem / 768px) and Desktop (≥64rem / 1024px).
             </small>
         
-        <div
-          className="fe-card"
-          style={{ padding: "var(--space-20)", display: "grid", gap: "var(--layout-gap-2)" }}
-        >
+        <div className="fe-card p-space-20 grid gap-layout-gap-2">
           {/* Figma Spacing Reference */}
           <div className="p-space-20 bg-sys-surface-2 rounded-radius-lg mb-space-20">
             <h3 className="mb-space-20">Figma Design Spacing Reference</h3>
@@ -1366,52 +1406,52 @@ export default function MyPage() {
           </div>
 
           <div>
-            <h3 style={{ marginBottom: "var(--space-20)" }}>Component Spacing Scale</h3>
-            <small style={{ marginBottom: "var(--space-20)", display: "block" }}>Raw spacing values for component-level padding/margins</small>
+            <h3 className="mb-space-20">Component Spacing Scale</h3>
+            <small className="mb-space-20 block">Raw spacing values for component-level padding/margins</small>
             <div className="fe-gap-tight grid">
               <div className="flex items-center gap-space-20">
                 <div className="w-space-10 h-space-10 bg-sys-accent rounded" />
                 <div>
                   <p><code>--space-10</code>: 0.625rem (10px)</p>
-                  <small>Use: <code>padding: var(--space-10)</code></small>
+                  <small>Use: <code>padding: var(--space-10)</code> or <code className="text-sys-text-muted">p-space-10</code></small>
                 </div>
               </div>
               <div className="flex items-center gap-space-20">
                 <div className="w-space-20 h-space-20 bg-sys-accent rounded" />
                 <div>
                   <p><code>--space-20</code>: 1.25rem (20px)</p>
-                  <small>Use: <code>padding: var(--space-20)</code></small>
+                  <small>Use: <code>padding: var(--space-20)</code> or <code className="text-sys-text-muted">p-space-20</code></small>
                 </div>
               </div>
               <div className="flex items-center gap-space-20">
                 <div className="w-space-30 h-space-30 bg-sys-accent rounded" />
                 <div>
                   <p><code>--space-30</code>: 1.875rem (30px) - Tablet only</p>
-                  <small>Use: <code>padding: var(--space-30)</code></small>
+                  <small>Use: <code>padding: var(--space-30)</code> or <code className="text-sys-text-muted">p-space-30</code></small>
                 </div>
               </div>
               <div className="flex items-center gap-space-20">
                 <div className="w-space-50 h-space-50 bg-sys-accent rounded" />
                 <div>
                   <p><code>--space-50</code>: 3.125rem (50px) - Desktop only</p>
-                  <small>Use: <code>padding: var(--space-50)</code></small>
+                  <small>Use: <code>padding: var(--space-50)</code> or <code className="text-sys-text-muted">p-space-50</code></small>
                 </div>
               </div>
             </div>
           </div>
 
           <div>
-            <h3 style={{ marginBottom: "var(--space-20)" }}>Layout Spacing (From Figma)</h3>
-            <small style={{ marginBottom: "var(--space-20)", display: "block" }}>These values match your Figma design specifications</small>
+            <h3 className="mb-space-20">Layout Spacing (From Figma)</h3>
+            <small className="mb-space-20 block">These values match your Figma design specifications</small>
             
-            <div className="baseGap" style={{ display: "grid" }}>
+            <div className="baseGap grid">
               <div>
                     <p className="mb-space-10"><code>--layout-margin</code>: Layout margin token (available for custom use)</p>
                 <div className="fe-gap-tight pl-space-20 grid">
                   <small>📱 <strong>Mobile:</strong> 0.625rem (10px)</small>
                   <small>📱 <strong>Tablet:</strong> 3.125rem (50px)</small>
                   <small>🖥️ <strong>Desktop:</strong> 9.375rem (150px)</small>
-                  <small style={{ marginTop: "var(--space-10)" }}>
+                  <small className="mt-space-10 block">
                     <strong>Note:</strong> Page component no longer uses this padding. Use Container component for width constraints.
                   </small>
                 </div>
@@ -1423,8 +1463,8 @@ export default function MyPage() {
                   <small>📱 <strong>Mobile:</strong> 0.625rem (10px)</small>
                   <small>📱 <strong>Tablet:</strong> 0.625rem (10px)</small>
                   <small>🖥️ <strong>Desktop:</strong> 1.25rem (20px)</small>
-                  <small style={{ marginTop: "var(--space-10)" }}>
-                    <strong>Where to use:</strong> set <code>gap: var(--layout-gap-1)</code> (flex/grid) or set <code>--fe-inner-gap</code> for InnerSection rhythm
+                  <small className="mt-space-10 block">
+                    <strong>Where to use:</strong> set <code>gap: var(--layout-gap-1)</code> or use <code className="text-sys-text-muted">gap-layout-gap-1</code> (flex/grid) or set <code>--fe-inner-gap</code> for InnerSection rhythm
                   </small>
                 </div>
               </div>
@@ -1435,8 +1475,8 @@ export default function MyPage() {
                   <small>📱 <strong>Mobile:</strong> 1.25rem (20px)</small>
                   <small>📱 <strong>Tablet:</strong> 1.25rem (20px)</small>
                   <small>🖥️ <strong>Desktop:</strong> 3.125rem (50px)</small>
-                  <small style={{ marginTop: "var(--space-10)" }}>
-                    <strong>Where to use:</strong> set <code>gap: var(--layout-gap-2)</code> (flex/grid) or use the default InnerSection rhythm
+                  <small className="mt-space-10 block">
+                    <strong>Where to use:</strong> set <code>gap: var(--layout-gap-2)</code> or use <code className="text-sys-text-muted">gap-layout-gap-2</code> (flex/grid) or use the default InnerSection rhythm
                   </small>
                 </div>
               </div>
@@ -1447,8 +1487,8 @@ export default function MyPage() {
                   <small>📱 <strong>Mobile:</strong> Not available (falls back to gap-2)</small>
                   <small>📱 <strong>Tablet:</strong> 1.875rem (30px)</small>
                   <small>🖥️ <strong>Desktop:</strong> Falls back to gap-2 (50px)</small>
-                  <small style={{ marginTop: "var(--space-10)" }}>
-                    <strong>Where to use:</strong> set <code>gap: var(--layout-gap-3)</code> (flex/grid) or adjust <code>--fe-page-gap</code> for page-level spacing
+                  <small className="mt-space-10 block">
+                    <strong>Where to use:</strong> set <code>gap: var(--layout-gap-3)</code> or use <code className="text-sys-text-muted">gap-layout-gap-3</code> (flex/grid) or adjust <code>--fe-page-gap</code> for page-level spacing
                   </small>
                 </div>
               </div>
@@ -1672,27 +1712,27 @@ export default function MyPage() {
               {/* Common Mistakes */}
               <div>
                 <h5 className="mb-space-10">❌ Common Mistakes to Avoid</h5>
-                <div style={{ display: "grid", gap: "var(--layout-gap-1)" }}>
+                <div className="grid gap-layout-gap-1">
                   <small><strong>1. Don't use hardcoded pixel values:</strong></small>
-                  <small style={{ paddingLeft: "var(--space-20)" }}>
+                  <small className="pl-space-20">
                     ❌ <code>padding: 20px</code><br />
                     ✅ <code>padding: var(--space-20)</code>
                   </small>
                   
                   <small><strong>2. Don't mix spacing systems:</strong></small>
-                  <small style={{ paddingLeft: "var(--space-20)" }}>
+                  <small className="pl-space-20">
                     ❌ <code>gap: 20px</code> when you should use <code>gap: var(--layout-gap-2)</code><br />
                     ✅ Use <code>--space-*</code> for padding/margin, <code>--layout-gap-*</code> for gaps
                   </small>
                   
                   <small><strong>3. Don't forget responsive spacing:</strong></small>
-                  <small style={{ paddingLeft: "var(--space-20)" }}>
+                  <small className="pl-space-20">
                     ❌ Fixed spacing that doesn't adapt to screen size<br />
                     ✅ Use responsive tokens that change at breakpoints
                   </small>
                   
                   <small><strong>4. Don't add spacing to first InnerSection:</strong></small>
-                  <small style={{ paddingLeft: "var(--space-20)" }}>
+                  <small className="pl-space-20">
                     ❌ <code>&lt;InnerSection className="fe-gap-inner-section-y"&gt;</code> on first section<br />
                     ✅ Only add spacing class to subsequent sections
                   </small>
@@ -1701,7 +1741,7 @@ export default function MyPage() {
             </div>
           </div>
 
-          <small style={{ marginTop: "var(--space-20)", display: "block" }}>
+          <small className="mt-space-20 block">
             <strong>Edit tokens:</strong> <code>src/app/styles/Spacing/spacing-tokens.css</code><br />
             <strong>Edit utilities:</strong> <code>src/app/styles/Spacing/spacing.css</code>
           </small>
@@ -1720,15 +1760,12 @@ export default function MyPage() {
               tokens from <code>semantic-tokens.css</code>
             </small>
         
-        <div
-          className="fe-card"
-          style={{ padding: "var(--space-20)", display: "grid", gap: "var(--layout-gap-2)" }}
-        >
+        <div className="fe-card p-space-20 grid gap-layout-gap-2">
           <div>
-            <h3 style={{ marginBottom: "var(--space-20)" }}>Add to Cart Buttons (Додати в кошик)</h3>
+            <h3 className="mb-space-20">Add to Cart Buttons (Додати в кошик)</h3>
             <div className="grid gap-layout-gap-2">
-              <div style={{ display: "grid", gap: "var(--layout-gap-1)" }}>
-                <div className="flex flex-wrap" style={{ gap: "var(--layout-gap-2)" }}>
+              <div className="grid gap-layout-gap-1">
+                <div className="flex flex-wrap gap-layout-gap-2">
                   <Button variant="add-to-cart-outline">Додати в кошик</Button>
                   <Button variant="add-to-cart-outline" disabled>Додати в кошик</Button>
                 </div>
@@ -1741,8 +1778,8 @@ export default function MyPage() {
                 </small>
               </div>
 
-              <div style={{ display: "grid", gap: "var(--layout-gap-1)" }}>
-                <div className="flex flex-wrap" style={{ gap: "var(--layout-gap-2)" }}>
+              <div className="grid gap-layout-gap-1">
+                <div className="flex flex-wrap gap-layout-gap-2">
                   <Button variant="add-to-cart-filled">Додати в кошик</Button>
                   <Button variant="add-to-cart-filled" disabled>Додати в кошик</Button>
                 </div>
@@ -1760,8 +1797,8 @@ export default function MyPage() {
           <div>
             <h3 className="mb-space-20 mt-space-20">Buy Buttons (Купити)</h3>
             <div className="grid gap-layout-gap-2">
-              <div style={{ display: "grid", gap: "var(--layout-gap-1)" }}>
-                <div className="flex flex-wrap" style={{ gap: "var(--layout-gap-2)" }}>
+              <div className="grid gap-layout-gap-1">
+                <div className="flex flex-wrap gap-layout-gap-2">
                   <Button variant="buy-primary">Купити</Button>
                   <Button variant="buy-primary" disabled>Купити</Button>
                 </div>
@@ -1772,8 +1809,8 @@ export default function MyPage() {
                 </small>
               </div>
 
-              <div style={{ display: "grid", gap: "var(--layout-gap-1)" }}>
-                <div className="flex flex-wrap" style={{ gap: "var(--layout-gap-2)" }}>
+              <div className="grid gap-layout-gap-1">
+                <div className="flex flex-wrap gap-layout-gap-2">
                   <Button variant="buy-secondary">Купити</Button>
                   <Button variant="buy-secondary" disabled>Купити</Button>
                 </div>
@@ -1784,8 +1821,8 @@ export default function MyPage() {
                 </small>
               </div>
 
-              <div style={{ display: "grid", gap: "var(--layout-gap-1)" }}>
-                <div className="flex flex-wrap" style={{ gap: "var(--layout-gap-2)" }}>
+              <div className="grid gap-layout-gap-1">
+                <div className="flex flex-wrap gap-layout-gap-2">
                   <Button variant="buy-tertiary">Купити</Button>
                   <Button variant="buy-tertiary" disabled>Купити</Button>
                 </div>
@@ -1800,8 +1837,8 @@ export default function MyPage() {
 
           <div>
             <h3 className="mb-space-20 mt-space-20">More Button (Більше)</h3>
-            <div style={{ display: "grid", gap: "var(--layout-gap-1)" }}>
-              <div className="flex flex-wrap" style={{ gap: "var(--layout-gap-2)" }}>
+            <div className="grid gap-layout-gap-1">
+              <div className="flex flex-wrap gap-layout-gap-2">
                 <Button variant="more" icon={<span>▼</span>} iconPosition="right">
                   Більше
                 </Button>
@@ -1822,8 +1859,8 @@ export default function MyPage() {
           <div>
             <h3 className="mb-space-20 mt-space-20">Catalog Button (Каталог)</h3>
             <div className="grid gap-layout-gap-2">
-              <div style={{ display: "grid", gap: "var(--layout-gap-1)" }}>
-                <div className="flex flex-wrap" style={{ gap: "var(--layout-gap-2)" }}>
+              <div className="grid gap-layout-gap-1">
+                <div className="flex flex-wrap gap-layout-gap-2">
                   <Button variant="catalog" icon={<span>☰</span>} iconPosition="left">
                     Каталог
                   </Button>
@@ -1843,10 +1880,10 @@ export default function MyPage() {
           </div>
 
           <div>
-            <h3 style={{ marginBottom: "var(--space-20)", marginTop: "var(--space-20)" }}>Legacy Variants</h3>
+            <h3 className="mb-space-20 mt-space-20">Legacy Variants</h3>
             <div className="grid gap-layout-gap-2">
-              <div style={{ display: "grid", gap: "var(--layout-gap-1)" }}>
-                <div className="flex flex-wrap" style={{ gap: "var(--layout-gap-2)" }}>
+              <div className="grid gap-layout-gap-1">
+                <div className="flex flex-wrap gap-layout-gap-2">
                   <Button variant="primary">Primary Button</Button>
                   <Button variant="primary" disabled>Primary Disabled</Button>
                 </div>
@@ -1855,8 +1892,8 @@ export default function MyPage() {
                 </small>
               </div>
 
-              <div style={{ display: "grid", gap: "var(--layout-gap-1)" }}>
-                <div className="flex flex-wrap" style={{ gap: "var(--layout-gap-2)" }}>
+              <div className="grid gap-layout-gap-1">
+                <div className="flex flex-wrap gap-layout-gap-2">
                   <Button variant="outline">Outline Button</Button>
                   <Button variant="outline" disabled>Outline Disabled</Button>
                 </div>
@@ -1865,8 +1902,8 @@ export default function MyPage() {
                 </small>
               </div>
 
-              <div style={{ display: "grid", gap: "var(--layout-gap-1)" }}>
-                <div className="flex flex-wrap" style={{ gap: "var(--layout-gap-2)" }}>
+              <div className="grid gap-layout-gap-1">
+                <div className="flex flex-wrap gap-layout-gap-2">
                   <Button variant="danger">Danger Button</Button>
                   <Button variant="danger" disabled>Danger Disabled</Button>
                 </div>
@@ -1875,8 +1912,8 @@ export default function MyPage() {
                 </small>
               </div>
 
-              <div style={{ display: "grid", gap: "var(--layout-gap-1)" }}>
-                <div className="flex flex-wrap" style={{ gap: "var(--layout-gap-2)" }}>
+              <div className="grid gap-layout-gap-1">
+                <div className="flex flex-wrap gap-layout-gap-2">
                   <Button variant="qty">Quantity Button</Button>
                   <Button variant="qty" disabled>Quantity Disabled</Button>
                 </div>
@@ -1887,13 +1924,13 @@ export default function MyPage() {
             </div>
           </div>
 
-          <div style={{ marginTop: "var(--space-20)", padding: "var(--space-20)", background: "var(--sys-surface-2)", borderRadius: "var(--radius-lg)" }}>
-            <small>
+          <div className="mt-space-20 p-space-20 bg-sys-surface-2 rounded-radius-lg">
+              <small>
               <strong>Usage:</strong> Import and use the Button component:
               <br />
-              <code style={{ fontSize: "0.9em" }}>{`import { Button } from '@/components/Button'`}</code>
+              <code className="text-sm">{`import { Button } from '@/components/Button'`}</code>
               <br />
-              <code style={{ fontSize: "0.9em" }}>{`<Button variant="add-to-cart-outline">Додати в кошик</Button>`}</code>
+              <code className="text-sm">{`<Button variant="add-to-cart-outline">Додати в кошик</Button>`}</code>
               <br />
               <br />
               <strong>Edit:</strong> <code>src/app/styles/Buttons/button-tokens.css</code> (Button component uses Tailwind classes directly)
@@ -1938,7 +1975,7 @@ export default function MyPage() {
         
         <div className="fe-card p-space-20 grid gap-layout-gap-2">
           <div className="grid gap-layout-gap-1">
-        <div className="fe-search" style={{ maxWidth: "42rem" }}>
+        <div className="fe-search max-w-[42rem]">
           <span className="fe-search__icon">🔍</span>
           <input className="fe-input" placeholder="Шукати продукт або бренд" />
             </div>
@@ -1963,7 +2000,7 @@ export default function MyPage() {
             <small className="mb-layout-gap-2 block">Card components with different variants</small>
         
                 <div className="grid grid-cols-[repeat(auto-fit,minmax(250px,1fr))] gap-layout-gap-2">
-          <div className="fe-card" style={{ padding: "var(--space-20)", display: "grid", gap: "var(--layout-gap-1)" }}>
+          <div className="fe-card p-space-20 grid gap-layout-gap-1">
             <div >Regular Card</div>
             <p>Background: White | Border: Neutral | Shadow: Small</p>
             <small>
@@ -1975,7 +2012,7 @@ export default function MyPage() {
             </small>
           </div>
 
-          <div className="fe-card fe-card--soft" style={{ padding: "var(--space-20)", display: "grid", gap: "var(--layout-gap-1)" }}>
+          <div className="fe-card fe-card--soft p-space-20 grid gap-layout-gap-1">
             <h3>Soft Card</h3>
             <p>Background: Surface-2 | Border: Neutral</p>
             <small>
@@ -2026,11 +2063,11 @@ export default function MyPage() {
             <small className="mb-layout-gap-2 block">Complete product card component example</small>
         
         <div className="fe-card p-space-20 grid gap-layout-gap-2">
-        <div className="fe-product" style={{ maxWidth: "22rem" }}>
-            <div style={{ height: "10rem", background: "var(--sys-surface-2)", display: "flex", alignItems: "center", justifyContent: "center" }}>
+        <div className="fe-product max-w-[22rem]">
+            <div className="h-40 bg-sys-surface-2 flex items-center justify-center">
               <small>Product Image</small>
             </div>
-          <div className="fe-product__body" style={{ display: "grid", gap: "var(--layout-gap-1)" }}>
+          <div className="fe-product__body grid gap-layout-gap-1">
             <div className="fe-availability"><small>● в наявності</small></div>
               <p>Пакет паперовий / 220*280*120 мм / коричневий / 100 шт</p>
               <h3 className="fe-price">255 грн</h3>
@@ -2058,16 +2095,16 @@ export default function MyPage() {
         <Container>
           <InnerSection className="fe-gap-inner-section-y">
             <h2 >Navigation</h2>
-            <small style={{ marginBottom: "var(--layout-gap-2)" }}>Header and navigation bar components</small>
+            <small className="mb-layout-gap-2 block">Header and navigation bar components</small>
         
         <div className="fe-card p-space-20 grid gap-layout-gap-2">
           <div className="grid gap-layout-gap-2">
             <div>
-              <h3 style={{ marginBottom: "var(--space-20)" }}>Header</h3>
-              <div className="fe-header" style={{ padding: "var(--space-20)", borderRadius: "var(--radius-lg)" }}>
+              <h3 className="mb-space-20">Header</h3>
+              <div className="fe-header p-space-20 rounded-radius-lg">
                 <div className="fe-topbar">
                   <h2>Logo</h2>
-                  <div style={{ background: "var(--sys-surface-2)", padding: "0.5rem", borderRadius: "0.25rem" }}><small>Search Bar Area</small></div>
+                  <div className="bg-sys-surface-2 p-2 rounded"><small>Search Bar Area</small></div>
                   <small>User Icons</small>
                 </div>
               </div>
@@ -2083,8 +2120,8 @@ export default function MyPage() {
             </div>
 
             <div>
-              <h3  style={{ marginBottom: "var(--space-20)" }}>Navigation Bar</h3>
-              <div className="fe-nav" style={{ padding: "var(--space-20)", borderRadius: "var(--radius-lg)" }}>
+              <h3 className="mb-space-20">Navigation Bar</h3>
+              <div className="fe-nav p-space-20 rounded-radius-lg">
                 <div className="fe-nav__row">
                   <a className="fe-nav__link pobut-body" href="#">Оптовим клієнтам</a>
                   <a className="fe-nav__link pobut-body" href="#">Каталог</a>
@@ -2092,7 +2129,7 @@ export default function MyPage() {
                   <a className="fe-nav__link pobut-body" href="#">Відгуки</a>
                 </div>
               </div>
-              <small style={{ marginTop: "var(--space-20)" }}>
+              <small className="mt-space-20 block">
                 <code>className="fe-nav"</code> with <code>className="fe-nav__row"</code> and <code>className="fe-nav__link"</code>
                 <br />
                 Background: Accent (green) | Color: Text inverse (white)
@@ -2206,7 +2243,7 @@ export default function MyPage() {
                 <small>
                   <code>{`<Page>`}</code>
                   <br />
-                  <code style={{ paddingLeft: "1rem" }}>{`<div>Full-width content</div>`}</code>
+                  <code className="pl-4">{`<div>Full-width content</div>`}</code>
                   <br />
                   <code className="pl-4">{`<Container>...</Container>`}</code>
                   <br />
@@ -2219,15 +2256,15 @@ export default function MyPage() {
               <small>
                 <strong>Usage:</strong>
                 <br />
-                <code style={{ fontSize: "0.9em" }}>{`import { Page } from '@/components/Page'`}</code>
+                <code className="text-sm">{`import { Page } from '@/components/Page'`}</code>
                 <br />
-                <code style={{ fontSize: "0.9em" }}>{`import { Container } from '@/components/Container'`}</code>
+                <code className="text-sm">{`import { Container } from '@/components/Container'`}</code>
                 <br />
-                <code style={{ fontSize: "0.9em" }}>{`<Page>`}</code>
+                <code className="text-sm">{`<Page>`}</code>
                 <br />
-                <code style={{ fontSize: "0.9em", paddingLeft: "1rem" }}>{`<Container>...</Container>`}</code>
+                <code className="text-sm pl-4">{`<Container>...</Container>`}</code>
                 <br />
-                <code style={{ fontSize: "0.9em" }}>{`</Page>`}</code>
+                <code className="text-sm">{`</Page>`}</code>
                 <br />
                 <br />
                 <strong>Props:</strong>
@@ -2280,9 +2317,9 @@ export default function MyPage() {
               <small>
                 <strong>Usage:</strong>
                 <br />
-                <code style={{ fontSize: "0.9em" }}>{`import { Container } from '@/components/Container'`}</code>
+                <code className="text-sm">{`import { Container } from '@/components/Container'`}</code>
                 <br />
-                <code style={{ fontSize: "0.9em" }}>{`<Container>...</Container>`}</code>
+                <code className="text-sm">{`<Container>...</Container>`}</code>
                 <br />
                 <br />
                 <strong>Props:</strong>
@@ -2318,7 +2355,7 @@ export default function MyPage() {
               <small>
                 <strong>Example Page File:</strong>
                 <br />
-                <code style={{ fontSize: "0.85em", display: "block", marginTop: "var(--space-10)" }}>
+                <code className="text-sm block mt-space-10">
                   {`// src/app/my-page/page.tsx
 import { Page } from '@/components/Page'
 import { Container } from '@/components/Container'
@@ -2589,7 +2626,7 @@ export default function MyPage() {
                   </div>
                   <div className="p-space-20 bg-sys-surface-2 rounded-radius-lg border border-sys-border">
                     <small className="pobut-caption">Caption text (pobut-caption)</small>
-                    <small style={{ display: "block", marginTop: "var(--space-10)" }}>Responsive: Mobile 7px → Tablet 9px → Desktop 10px</small>
+                    <small className="block mt-space-10">Responsive: Mobile 7px → Tablet 9px → Desktop 10px</small>
                   </div>
                 </div>
 
@@ -2799,7 +2836,7 @@ export default function MyPage() {
               {/* Input Utilities */}
               <div>
                 <h3 className="mb-space-20 mt-space-20">Input Utilities</h3>
-                <div style={{ display: "grid", gap: "var(--layout-gap-1)" }}>
+                <div className="grid gap-layout-gap-1">
                   <input 
                     type="text" 
                     placeholder="Input example"
@@ -2829,7 +2866,7 @@ export default function MyPage() {
                     <p className="pobut-body text-sys-text-muted">
                       This card demonstrates multiple Tailwind utility classes working together.
                     </p>
-                    <div style={{ display: "flex", gap: "var(--layout-gap-1)", flexWrap: "wrap" }}>
+                    <div className="flex gap-layout-gap-1 flex-wrap">
                       <button className="px-space-20 py-space-10 bg-sys-accent text-sys-text-on-accent rounded-radius-full pobut-body hover:bg-sys-accent-hover transition-all duration-transition-base">
                         Primary Action
                       </button>
@@ -2871,7 +2908,7 @@ export default function MyPage() {
               {/* Best Practices */}
               <div>
                 <h3 className="mb-space-20 mt-space-20">Best Practices</h3>
-                <div style={{ display: "grid", gap: "var(--layout-gap-1)" }}>
+                <div className="grid gap-layout-gap-1">
                   <div className="p-space-20 bg-sys-surface-2 rounded-radius-lg border border-sys-border">
                     <small>
                       <strong>✅ DO:</strong> Use semantic color classes (<code>bg-sys-surface</code>, <code>text-sys-text</code>) instead of raw palette colors
@@ -2900,6 +2937,45 @@ export default function MyPage() {
                 </div>
               </div>
 
+              {/* Quick Reference: All Tailwind Color Classes */}
+              <div>
+                <h4 className="mb-space-20 mt-space-20">Quick Reference: All Tailwind Color Classes</h4>
+                <div className="p-space-20 bg-sys-surface-2 rounded-radius-lg border border-sys-border">
+                  <div className="grid gap-layout-gap-2">
+                    <div>
+                      <p className="mb-space-10"><strong>Background Colors:</strong></p>
+                      <div className="grid gap-layout-gap-1">
+                        <small><code>bg-sys-surface</code>, <code>bg-sys-surface-2</code>, <code>bg-sys-surface-accent</code>, <code>bg-sys-surface-interactive</code></small>
+                        <small><code>bg-sys-accent</code>, <code>bg-sys-accent-secondary</code>, <code>bg-sys-accent-tertiary</code></small>
+                        <small><code>bg-sys-interactive</code>, <code>bg-sys-danger</code>, <code>bg-sys-warning</code>, <code>bg-sys-success</code></small>
+                        <small><code>bg-color-blue</code>, <code>bg-color-green</code>, <code>bg-color-white</code>, <code>bg-color-black</code></small>
+                      </div>
+                    </div>
+                    <div>
+                      <p className="mb-space-10"><strong>Text Colors:</strong></p>
+                      <div className="grid gap-layout-gap-1">
+                        <small><code>text-sys-text</code>, <code>text-sys-text-muted</code>, <code>text-sys-text-subtle</code></small>
+                        <small><code>text-sys-text-on-accent</code>, <code>text-sys-text-on-interactive</code>, <code>text-sys-text-inverse</code></small>
+                      </div>
+                    </div>
+                    <div>
+                      <p className="mb-space-10"><strong>Border Colors:</strong></p>
+                      <div className="grid gap-layout-gap-1">
+                        <small><code>border-sys-border</code>, <code>border-sys-border-strong</code>, <code>border-sys-border-interactive</code>, <code>border-sys-border-subtle</code></small>
+                      </div>
+                    </div>
+                    <div>
+                      <p className="mb-space-10"><strong>Hover/Active States:</strong></p>
+                      <div className="grid gap-layout-gap-1">
+                        <small><code>hover:bg-sys-accent-hover</code>, <code>active:bg-sys-accent-active</code></small>
+                        <small><code>hover:text-sys-text-hover</code>, <code>hover:border-sys-border-hover</code></small>
+                        <small>All colors have <code>-hover</code> and <code>-active</code> variants available</small>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
               <small className="mt-space-20 block">
                 <strong>Edit Tailwind config:</strong> <code>tailwind.config.mjs</code><br />
                 <strong>All tokens are defined in:</strong> <code>src/app/styles/*-tokens.css</code>
@@ -2915,7 +2991,7 @@ export default function MyPage() {
           <InnerSection className="fe-gap-inner-section-y">
             <h2 >Quick Reference: Where to Edit</h2>
         
-        <div className="fe-card p-space-20 grid gap-layout-gap-2" style={{ marginTop: "var(--layout-gap-1)" }}>
+        <div className="fe-card p-space-20 grid gap-layout-gap-2 mt-layout-gap-1">
           <div className="grid gap-layout-gap-1">
             <div>
               <h3>Typography</h3>
