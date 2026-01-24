@@ -73,7 +73,7 @@
 }
 
 [data-app="frontend"] .featured-product-card__info p {
-  color: var(--sys-text);
+  color: var(--color-black);
   word-wrap: break-word;
   overflow-wrap: break-word;
 }

@@ -60,8 +60,8 @@ export function FeaturedProductCard({
 
         {/* Product Name and Specifications */}
         <div className="featured-product-card__info">
-          <h3>{productName}</h3>
-          <p>{specifications}</p>
+          
+          <p className="text-">{productName} {specifications}</p>
         </div>
 
         {/* Retail Price Section */}
