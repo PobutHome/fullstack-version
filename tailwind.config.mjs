@@ -159,15 +159,15 @@ export default {
           "bg-active": "var(--btn-tertiary-bg-active)",
           fg: "var(--btn-tertiary-fg)",
         },
-        "btn-outline": {
-          bg: "var(--btn-outline-bg)",
-          fg: "var(--btn-outline-fg)",
-          border: "var(--btn-outline-border)",
-          "border-hover": "var(--btn-outline-border-hover)",
-          "border-active": "var(--btn-outline-border-active)",
-          "fg-hover": "var(--btn-outline-fg-hover)",
-          "fg-active": "var(--btn-outline-fg-active)",
-        },
+        // "btn-outline": {
+        //   bg: "var(--btn-outline-bg)",
+        //   fg: "var(--btn-outline-fg)",
+        //   border: "var(--btn-outline-border)",
+        //   "border-hover": "var(--btn-outline-border-hover)",
+        //   "border-active": "var(--btn-outline-border-active)",
+        //   "fg-hover": "var(--btn-outline-fg-hover)",
+        //   "fg-active": "var(--btn-outline-fg-active)",
+        // },
         "btn-interactive": {
           bg: "var(--btn-interactive-bg)",
           fg: "var(--btn-interactive-fg)",
@@ -245,9 +245,9 @@ export default {
           warning: "var(--sys-warning)",
           "warning-hover": "var(--sys-warning-hover)",
           "warning-active": "var(--sys-warning-active)",
-          success: "var(--sys-accent)",
-          "success-hover": "var(--sys-accent-hover)",
-          "success-active": "var(--sys-accent-active)",
+          success: "var(--sys-success)",
+          "success-hover": "var(--sys-success-hover)",
+          "success-active": "var(--sys-success-active)",
 
           // Button tokens (flattened for Tailwind access)
           "btn-primary-bg": "var(--sys-btn-primary-bg)",
@@ -265,6 +265,9 @@ export default {
           "btn-tertiary-bg-active": "var(--sys-btn-tertiary-bg-active)",
           "btn-tertiary-fg": "var(--sys-btn-tertiary-fg)",
           
+          "btn-outline-bg": "var(--sys-btn-outline-bg)",
+          "btn-outline-bg-hover": "var(--sys-btn-outline-bg-hover)",
+          "btn-outline-bg-active": "var(--sys-btn-outline-bg-active)",
           "btn-outline-border": "var(--sys-btn-outline-border)",
           "btn-outline-border-hover": "var(--sys-btn-outline-border-hover)",
           "btn-outline-border-active": "var(--sys-btn-outline-border-active)",

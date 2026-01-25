@@ -49,8 +49,8 @@ export function Button({
     primary: "bg-sys-accent text-sys-text-inverse border-none hover:bg-sys-accent-hover active:bg-sys-accent-active",
     // Secondary: light pastel lime green with white text
     secondary: "bg-sys-accent-secondary text-sys-text-inverse border-none hover:bg-sys-accent hover:text-sys-text-inverse active:bg-sys-accent-active active:text-sys-text-inverse",
-    // Outline: transparent background with accent color text and border
-    outline: "bg-transparent text-sys-btn-outline border border-sys-btn-outline hover:bg-sys-accent-hover/10 active:bg-sys-accent-active/15 hover:text-sys-btn-outline-hover hover:border-sys-btn-outline-hover active:text-sys-btn-outline-active active:border-sys-btn-outline-active",
+    // Outline: transparent background with bright lime green text and thin border (pill shape)
+    outline: "bg-sys-btn-outline-bg text-sys-btn-outline-fg border border-sys-btn-outline-border hover:bg-sys-btn-outline-bg-hover hover:text-sys-btn-outline-fg-hover hover:border-sys-btn-outline-border-hover active:bg-sys-btn-outline-bg-active active:text-sys-btn-outline-fg-active active:border-sys-btn-outline-border-active",
     // Danger: destructive action button
     danger: "bg-sys-danger text-sys-text-on-danger border-none hover:bg-sys-danger-hover active:bg-sys-danger-active",
     // More button: dark background with bright green text and border

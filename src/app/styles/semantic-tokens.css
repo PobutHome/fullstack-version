@@ -96,10 +96,10 @@
   --sys-warning-active: color-mix(in srgb, var(--sys-warning) 80%, var(--color-black));
   --sys-text-on-warning: var(--color-black);
 
-  /* Success (uses accent green) */
-  --sys-success: var(--sys-accent);
-  --sys-success-hover: var(--sys-accent-hover);
-  --sys-success-active: var(--sys-accent-active);
+  /* Success (green - independent from accent) */
+  --sys-success: var(--color-green);
+  --sys-success-hover: var(--color-green-hover);
+  --sys-success-active: var(--color-green-click);
   --sys-text-on-success: var(--color-white);
 
 
@@ -123,12 +123,15 @@
   --sys-btn-tertiary-bg-active: var(--sys-accent-active);
   --sys-btn-tertiary-fg: var(--sys-text-inverse);
   
+  --sys-btn-outline-bg: transparent;
+  --sys-btn-outline-bg-hover: transparent;
+  --sys-btn-outline-bg-active: var(--sys-accent-active);
   --sys-btn-outline-border: var(--sys-accent);
   --sys-btn-outline-border-hover: var(--sys-accent-hover);
   --sys-btn-outline-border-active: var(--sys-accent-active);
   --sys-btn-outline-fg: var(--sys-accent);
   --sys-btn-outline-fg-hover: var(--sys-accent-hover);
-  --sys-btn-outline-fg-active: var(--sys-accent-active);
+  --sys-btn-outline-fg-active: var(--sys-text-inverse);
   
   --sys-btn-interactive-border: var(--sys-border-interactive);
   --sys-btn-interactive-border-hover: var(--sys-border-interactive-hover);
