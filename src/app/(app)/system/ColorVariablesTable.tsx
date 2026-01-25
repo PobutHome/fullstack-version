@@ -1,6 +1,6 @@
 "use client"
 
-import { useState, useMemo } from "react"
+import { useMemo, useState } from "react"
 
 type VariableType = "bg" | "fg" | "both"
 type VariableCategory = "all" | "surfaces" | "text" | "states" | "buttons" | "cards" | "chips" | "inputs" | "nav" | "links" | "borders"
@@ -41,16 +41,42 @@ const colorVariables: ColorVariable[] = [
   { cssVar: "--sys-text-on-danger", tailwindClass: "text-sys-text-on-danger", type: "fg", category: ["text", "states"], textClasses: "bg-sys-danger text-sys-text-on-danger" },
   { cssVar: "--sys-warning", tailwindClass: "bg-sys-warning / text-sys-warning", type: "both", category: ["states"], bgClasses: "bg-sys-warning text-sys-text-on-warning", textClasses: "bg-sys-surface text-sys-warning" },
   { cssVar: "--sys-text-on-warning", tailwindClass: "text-sys-text-on-warning", type: "fg", category: ["text", "states"], textClasses: "bg-sys-warning text-sys-text-on-warning" },
-  { cssVar: "--sys-success", tailwindClass: "bg-sys-success / text-sys-success", type: "both", category: ["states"], bgClasses: "bg-sys-accent text-sys-text-on-success", textClasses: "bg-sys-surface text-sys-accent" },
+  { cssVar: "--sys-success", tailwindClass: "bg-sys-success / text-sys-success", type: "both", category: ["states"], bgClasses: "bg-sys-success text-sys-text-on-success", textClasses: "bg-sys-success text-sys-text-on-success" },
   { cssVar: "--sys-text-on-success", tailwindClass: "text-sys-text-on-success", type: "fg", category: ["text", "states"], textClasses: "bg-sys-accent text-sys-text-on-success" },
   
-  // Component Tokens - Buttons
-  { cssVar: "--sys-btn-primary-bg", tailwindClass: "bg-sys-btn-primary", type: "bg", category: ["buttons"], bgClasses: "bg-sys-btn-primary text-sys-btn-primary" },
+  // Component Tokens - Buttons - Primary
+  { cssVar: "--sys-btn-primary-bg", tailwindClass: "bg-sys-btn-primary", type: "bg", category: ["buttons"], bgClasses: "bg-sys-btn-primary text-sys-text-inverse" },
+  { cssVar: "--sys-btn-primary-bg-hover", tailwindClass: "bg-sys-btn-primary-hover", type: "bg", category: ["buttons"], bgClasses: "bg-sys-btn-primary-hover text-sys-text-inverse" },
+  { cssVar: "--sys-btn-primary-bg-active", tailwindClass: "bg-sys-btn-primary-active", type: "bg", category: ["buttons"], bgClasses: "bg-sys-btn-primary-active text-sys-text-inverse" },
   { cssVar: "--sys-btn-primary-fg", tailwindClass: "text-sys-btn-primary", type: "fg", category: ["buttons"], textClasses: "bg-sys-btn-primary text-sys-btn-primary" },
-  { cssVar: "--sys-btn-secondary-bg", tailwindClass: "bg-sys-btn-secondary", type: "bg", category: ["buttons"], bgClasses: "bg-sys-btn-secondary text-sys-btn-secondary" },
+  
+  // Component Tokens - Buttons - Secondary
+  { cssVar: "--sys-btn-secondary-bg", tailwindClass: "bg-sys-btn-secondary", type: "bg", category: ["buttons"], bgClasses: "bg-sys-btn-secondary-bg text-sys-btn-secondary" },
+  { cssVar: "--sys-btn-secondary-bg-hover", tailwindClass: "bg-sys-btn-secondary-hover", type: "bg", category: ["buttons"], bgClasses: "bg-sys-btn-secondary-hover text-sys-btn-secondary" },
+  { cssVar: "--sys-btn-secondary-bg-active", tailwindClass: "bg-sys-btn-secondary-active", type: "bg", category: ["buttons"], bgClasses: "bg-sys-btn-secondary-active text-sys-btn-secondary" },
   { cssVar: "--sys-btn-secondary-fg", tailwindClass: "text-sys-btn-secondary", type: "fg", category: ["buttons"], textClasses: "bg-sys-btn-secondary text-sys-btn-secondary" },
+  
+  // Component Tokens - Buttons - Tertiary
+  { cssVar: "--sys-btn-tertiary-bg", tailwindClass: "bg-sys-btn-tertiary", type: "bg", category: ["buttons"], bgClasses: "bg-sys-btn-tertiary text-sys-text-inverse" },
+  { cssVar: "--sys-btn-tertiary-bg-hover", tailwindClass: "bg-sys-btn-tertiary-hover", type: "bg", category: ["buttons"], bgClasses: "bg-sys-btn-tertiary-hover text-sys-text-inverse" },
+  { cssVar: "--sys-btn-tertiary-bg-active", tailwindClass: "bg-sys-btn-tertiary-active", type: "bg", category: ["buttons"], bgClasses: "bg-sys-btn-tertiary-active text-sys-text-inverse" },
+  { cssVar: "--sys-btn-tertiary-fg", tailwindClass: "text-sys-btn-tertiary", type: "fg", category: ["buttons"], textClasses: "bg-sys-btn-tertiary text-sys-btn-tertiary" },
+  
+  // Component Tokens - Buttons - Outline
+  { cssVar: "--sys-btn-outline-border", tailwindClass: "border-sys-btn-outline", type: "both", category: ["buttons"], bgClasses: "bg-sys-surface border-[3px] border-sys-btn-outline", textClasses: "bg-sys-surface border-[3px] border-sys-btn-outline" },
+  { cssVar: "--sys-btn-outline-border-hover", tailwindClass: "border-sys-btn-outline-hover", type: "both", category: ["buttons"], bgClasses: "bg-sys-surface border-[3px] border-sys-btn-outline-hover", textClasses: "bg-sys-surface border-[3px] border-sys-btn-outline-hover" },
+  { cssVar: "--sys-btn-outline-border-active", tailwindClass: "border-sys-btn-outline-active", type: "both", category: ["buttons"], bgClasses: "bg-sys-surface border-[3px] border-sys-btn-outline-active", textClasses: "bg-sys-surface border-[3px] border-sys-btn-outline-active" },
   { cssVar: "--sys-btn-outline-fg", tailwindClass: "text-sys-btn-outline", type: "fg", category: ["buttons"], textClasses: "bg-sys-surface text-sys-btn-outline" },
+  { cssVar: "--sys-btn-outline-fg-hover", tailwindClass: "text-sys-btn-outline-hover", type: "fg", category: ["buttons"], textClasses: "bg-sys-surface text-sys-btn-outline-hover" },
+  { cssVar: "--sys-btn-outline-fg-active", tailwindClass: "text-sys-btn-outline-active", type: "fg", category: ["buttons"], textClasses: "bg-sys-surface text-sys-btn-outline-active" },
+  
+  // Component Tokens - Buttons - Interactive
+  { cssVar: "--sys-btn-interactive-border", tailwindClass: "border-sys-btn-interactive", type: "both", category: ["buttons"], bgClasses: "bg-sys-surface border-[3px] border-sys-btn-interactive", textClasses: "bg-sys-surface border-[3px] border-sys-btn-interactive" },
+  { cssVar: "--sys-btn-interactive-border-hover", tailwindClass: "border-sys-btn-interactive-hover", type: "both", category: ["buttons"], bgClasses: "bg-sys-surface border-[3px] border-sys-btn-interactive-hover", textClasses: "bg-sys-surface border-[3px] border-sys-btn-interactive-hover" },
+  { cssVar: "--sys-btn-interactive-border-active", tailwindClass: "border-sys-btn-interactive-active", type: "both", category: ["buttons"], bgClasses: "bg-sys-surface border-[3px] border-sys-btn-interactive-active", textClasses: "bg-sys-surface border-[3px] border-sys-btn-interactive-active" },
   { cssVar: "--sys-btn-interactive-fg", tailwindClass: "text-sys-btn-interactive", type: "fg", category: ["buttons"], textClasses: "bg-sys-surface text-sys-btn-interactive" },
+  { cssVar: "--sys-btn-interactive-fg-hover", tailwindClass: "text-sys-btn-interactive-hover", type: "fg", category: ["buttons"], textClasses: "bg-sys-surface text-sys-btn-interactive-hover" },
+  { cssVar: "--sys-btn-interactive-fg-active", tailwindClass: "text-sys-btn-interactive-active", type: "fg", category: ["buttons"], textClasses: "bg-sys-surface text-sys-btn-interactive-active" },
   
   // Component Tokens - Cards
   { cssVar: "--sys-card-bg", tailwindClass: "bg-sys-card", type: "bg", category: ["cards"], bgClasses: "bg-sys-card" },
@@ -303,14 +329,20 @@ export function ColorVariablesTable() {
                     <td className="p-space-10 font-mono text-sys-text-muted">{variable.tailwindClass}</td>
                     <td className="p-space-10">
                       {variable.bgClasses ? (
-                        <span className={variable.bgClasses}>Background</span>
+                        <div className={`${variable.bgClasses} min-w-[120px] min-h-[40px] px-space-10 py-space-10 rounded-radius-sm flex items-center justify-center`}>
+                          <span className="pobut-body">
+                            {variable.cssVar.includes("border") ? "Border" : "Background"}
+                          </span>
+                        </div>
                       ) : (
                         <span className="text-sys-text-subtle">—</span>
                       )}
                     </td>
                     <td className="p-space-10">
                       {variable.textClasses ? (
-                        <span className={variable.textClasses}>Text</span>
+                        <div className={`${variable.textClasses} min-w-[120px] min-h-[40px] px-space-10 py-space-10 rounded-radius-sm flex items-center justify-center`}>
+                          <span className="pobut-body">Text</span>
+                        </div>
                       ) : (
                         <span className="text-sys-text-subtle">—</span>
                       )}

@@ -359,8 +359,8 @@ export function Badge({ variant = "default", children }: { variant?: "default" |
   
   const variantClasses = {
     default: "bg-sys-surface-2 text-sys-text border border-sys-border",
-    success: "bg-sys-success text-sys-text-inverse",
-    warning: "bg-sys-warning text-sys-text"
+    success: "bg-sys-success text-sys-text-on-success",
+    warning: "bg-sys-warning text-sys-text-on-warning"
   }
   
   return (
@@ -1032,13 +1032,13 @@ export default function MyPage() {
                     <h4 className="mb-space-10">State Colors</h4>
                     <div className="grid grid-cols-[repeat(auto-fit,minmax(200px,1fr))] gap-layout-gap-1">
                       <div className="p-space-10 bg-sys-danger rounded-radius-lg">
-                        <small className="text-sys-text-inverse"><code>bg-sys-danger</code></small>
+                        <small className="text-sys-text-on-danger"><code>bg-sys-danger</code></small>
                       </div>
                       <div className="p-space-10 bg-sys-warning rounded-radius-lg">
-                        <small><code>bg-sys-warning</code></small>
+                        <small className="text-sys-text-on-warning"><code>bg-sys-warning</code></small>
                       </div>
                       <div className="p-space-10 bg-sys-success rounded-radius-lg">
-                        <small className="text-sys-text-inverse"><code>bg-sys-success</code></small>
+                        <small className="text-sys-text-on-success"><code>bg-sys-success</code></small>
                       </div>
                     </div>
                   </div>
@@ -1462,49 +1462,17 @@ export default function MyPage() {
             </small>
         
         <div className="fe-card p-space-20 grid gap-layout-gap-2">
-          <div>
-            <h3 className="mb-space-20">Add to Cart Buttons (Додати в кошик)</h3>
-            <div className="grid gap-layout-gap-2">
-              <div className="grid gap-layout-gap-1">
-                <div className="flex flex-wrap gap-layout-gap-2">
-                  <Button variant="add-to-cart-outline">Додати в кошик</Button>
-                  <Button variant="add-to-cart-outline" disabled>Додати в кошик</Button>
-                </div>
-                <small>
-                  <code>variant="add-to-cart-outline"</code> or <code>className="fe-btn fe-btn--add-to-cart-outline"</code>
-                  <br />
-                  Background: Transparent | Border: Bright Green | Text: Bright Green
-                  <br />
-                  Hover: Lighter green | Active: Darker green
-                </small>
-              </div>
-
-              <div className="grid gap-layout-gap-1">
-                <div className="flex flex-wrap gap-layout-gap-2">
-                  <Button variant="add-to-cart-filled">Додати в кошик</Button>
-                  <Button variant="add-to-cart-filled" disabled>Додати в кошик</Button>
-                </div>
-                <small>
-                  <code>variant="add-to-cart-filled"</code> or <code>className="fe-btn fe-btn--add-to-cart-filled"</code>
-                  <br />
-                  Background: Dark Green (#408000) | Text: White
-                  <br />
-                  Hover: Bright green | Active: Dark green
-                </small>
-              </div>
-            </div>
-          </div>
 
           <div>
             <h3 className="mb-space-20 mt-space-20">Buy Buttons (Купити)</h3>
             <div className="grid gap-layout-gap-2">
               <div className="grid gap-layout-gap-1">
                 <div className="flex flex-wrap gap-layout-gap-2">
-                  <Button variant="buy-primary">Купити</Button>
-                  <Button variant="buy-primary" disabled>Купити</Button>
+                  <Button variant="primary">Купити</Button>
+                  <Button variant="primary" disabled>Купити</Button>
                 </div>
                 <small>
-                  <code>variant="buy-primary"</code> or <code>className="fe-btn fe-btn--buy-primary"</code>
+                  <code>variant="primary"</code> or <code>className="fe-btn fe-btn--primary"</code>
                   <br />
                   Background: Bright Lime Green (#72cb1a) | Text: White
                 </small>
@@ -1512,27 +1480,16 @@ export default function MyPage() {
 
               <div className="grid gap-layout-gap-1">
                 <div className="flex flex-wrap gap-layout-gap-2">
-                  <Button variant="buy-secondary">Купити</Button>
-                  <Button variant="buy-secondary" disabled>Купити</Button>
+                  <Button variant="secondary">Купити</Button>
+                  <Button variant="secondary" disabled>Купити</Button>
                 </div>
                 <small>
-                  <code>variant="buy-secondary"</code> or <code>className="fe-btn fe-btn--buy-secondary"</code>
+                  <code>variant="secondary"</code> or <code>className="fe-btn fe-btn--secondary"</code>
                   <br />
                   Background: Light Pastel Green (#beff7e) | Text: Blue (changes to white on hover)
                 </small>
               </div>
 
-              <div className="grid gap-layout-gap-1">
-                <div className="flex flex-wrap gap-layout-gap-2">
-                  <Button variant="buy-tertiary">Купити</Button>
-                  <Button variant="buy-tertiary" disabled>Купити</Button>
-                </div>
-                <small>
-                  <code>variant="buy-tertiary"</code> or <code>className="fe-btn fe-btn--buy-tertiary"</code>
-                  <br />
-                  Background: Dark Olive Green (#408000) | Text: White
-                </small>
-              </div>
             </div>
           </div>
 
@@ -1631,10 +1588,10 @@ export default function MyPage() {
               <br />
               <code className="text-sm">{`import { Button } from '@/components/Button'`}</code>
               <br />
-              <code className="text-sm">{`<Button variant="add-to-cart-outline">Додати в кошик</Button>`}</code>
+              <code className="text-sm">{`<Button variant="outline">Додати в кошик</Button>`}</code>
               <br />
               <br />
-              <strong>Edit:</strong> <code>src/app/styles/Buttons/button-tokens.css</code> (Button component uses Tailwind classes directly)
+              <strong>Edit:</strong> <code>src/app/styles/semantic-tokens.css</code> (Button color tokens) and <code>src/app/styles/design-tokens.css</code> (Button sizing tokens)
             </small>
           </div>
         </div>
@@ -1772,7 +1729,7 @@ export default function MyPage() {
             <div className="fe-availability"><small>● в наявності</small></div>
               <p>Пакет паперовий / 220*280*120 мм / коричневий / 100 шт</p>
               <h3 className="fe-price">255 грн</h3>
-              <Button variant="add-to-cart-outline">Додати в кошик</Button>
+              <Button variant="outline">Додати в кошик</Button>
             </div>
           </div>
           <small>
@@ -2608,7 +2565,8 @@ export default function MyPage() {
                 <br />
                 <code>src/components/Button/index.tsx</code> - Button component (uses Tailwind classes directly)
                 <br />
-                <code>src/app/styles/Buttons/button-tokens.css</code> - Button tokens
+                <code>src/app/styles/semantic-tokens.css</code> - Button color tokens<br />
+                <code>src/app/styles/design-tokens.css</code> - Button sizing tokens
               </p>
             </div>
             <div>

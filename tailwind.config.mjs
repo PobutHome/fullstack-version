@@ -69,8 +69,8 @@ export default {
         'space-30': 'var(--sys-space-30)',
         'space-50': 'var(--sys-space-50)',
         // Button padding (responsive)
-        'btn-px': 'var(--btn-px)',
-        'btn-py': 'var(--btn-py)',
+        'btn-px': 'var(--sys-btn-px)',
+        'btn-py': 'var(--sys-btn-py)',
         // Semantic spacing scale
         'spacing-3xs': 'var(--spacing-3xs)',
         'spacing-2xs': 'var(--spacing-2xs)',
@@ -194,6 +194,12 @@ export default {
           "bg-hover": "var(--sys-btn-secondary-bg-hover)",
           "bg-active": "var(--sys-btn-secondary-bg-active)",
           fg: "var(--sys-btn-secondary-fg)",
+        },
+        "sys-btn-tertiary": {
+          bg: "var(--sys-btn-tertiary-bg)",
+          "bg-hover": "var(--sys-btn-tertiary-bg-hover)",
+          "bg-active": "var(--sys-btn-tertiary-bg-active)",
+          fg: "var(--sys-btn-tertiary-fg)",
         },
         "sys-btn-outline": {
           border: "var(--sys-btn-outline-border)",

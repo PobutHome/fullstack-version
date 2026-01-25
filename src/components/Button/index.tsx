@@ -2,13 +2,9 @@ import type { ButtonHTMLAttributes, ReactNode } from "react"
 
 type Variant = 
   | "primary" 
+  | "secondary"
   | "outline" 
   | "danger"
-  | "add-to-cart-outline"
-  | "add-to-cart-filled"
-  | "buy-primary"
-  | "buy-secondary"
-  | "buy-tertiary"
   | "more"
   | "catalog"
   | "qty"
@@ -47,26 +43,29 @@ export function Button({
     lg: "py-btn-py px-btn-px text-base", // px uses responsive btn-px variable
   }
 
-  // Variant classes - all using Tailwind
+  // Variant classes - all using Tailwind sys- classes
   const variantClasses = {
-    primary: "bg-sys-btn-primary-bg text-sys-btn-primary-fg border-none hover:bg-sys-btn-primary-bg-hover active:bg-sys-btn-primary-bg-active",
-    outline: "bg-transparent text-sys-btn-outline-fg border border-sys-btn-outline-border hover:bg-sys-accent-hover/10 active:bg-sys-accent-active/15 hover:text-sys-btn-outline-fg active:text-sys-btn-outline-fg-active active:border-sys-btn-outline-border-active",
-    danger: "bg-sys-danger text-sys-text-inverse border-none hover:bg-sys-danger-hover active:bg-sys-danger-active",
-    "add-to-cart-outline": "bg-transparent text-sys-accent border border-sys-accent hover:bg-sys-accent-hover/10 hover:border-sys-accent active:bg-sys-accent-active/15 active:text-sys-accent-active active:border-sys-accent-active",
-    "add-to-cart-filled": "bg-sys-accent-active text-sys-text-inverse border-none hover:bg-sys-accent active:bg-sys-accent-active",
-    "buy-primary": "bg-sys-accent text-sys-text-inverse border-none hover:bg-sys-accent-hover active:bg-sys-accent-active",
-    "buy-secondary": "bg-sys-accent-secondary text-sys-text border-none hover:bg-sys-accent hover:text-sys-text-inverse active:bg-sys-accent-active active:text-sys-text-inverse",
-    "buy-tertiary": "bg-sys-accent-tertiary text-sys-text-inverse border-none hover:bg-sys-accent active:bg-sys-accent-hover",
-    more: "bg-color-black text-sys-accent border border-sys-accent hover:text-sys-accent-hover hover:border-sys-accent-hover active:text-sys-accent-active active:border-sys-accent-active",
-    catalog: "bg-color-black text-sys-accent border border-sys-accent shadow-[0_0_0_0_var(--sys-accent)] hover:text-sys-accent-hover hover:border-sys-accent-hover hover:shadow-[0_0_0_1px_var(--sys-accent-hover)] active:bg-sys-accent active:text-sys-text-inverse active:border-sys-accent active:shadow-[0_0_0_0_var(--sys-accent)]",
-    qty: "bg-transparent text-sys-btn-interactive-fg border border-sys-btn-interactive-border hover:text-sys-btn-interactive-fg-hover hover:border-sys-btn-interactive-border-hover active:text-sys-btn-interactive-fg-active active:border-sys-btn-interactive-border-active",
+    // Primary: medium lime green with white text (main CTA)
+    primary: "bg-sys-accent text-sys-text-inverse border-none hover:bg-sys-accent-hover active:bg-sys-accent-active",
+    // Secondary: light pastel lime green with white text
+    secondary: "bg-sys-accent-secondary text-sys-text-inverse border-none hover:bg-sys-accent hover:text-sys-text-inverse active:bg-sys-accent-active active:text-sys-text-inverse",
+    // Outline: transparent background with accent color text and border
+    outline: "bg-transparent text-sys-btn-outline border border-sys-btn-outline hover:bg-sys-accent-hover/10 active:bg-sys-accent-active/15 hover:text-sys-btn-outline-hover hover:border-sys-btn-outline-hover active:text-sys-btn-outline-active active:border-sys-btn-outline-active",
+    // Danger: destructive action button
+    danger: "bg-sys-danger text-sys-text-on-danger border-none hover:bg-sys-danger-hover active:bg-sys-danger-active",
+    // More button: dark background with bright green text and border
+    more: "bg-black text-sys-accent border border-sys-accent hover:text-sys-accent-hover hover:border-sys-accent-hover active:text-sys-accent-active active:border-sys-accent-active",
+    // Catalog button: dark background with shadow effects
+    catalog: "bg-black text-sys-accent border border-sys-accent shadow-[0_0_0_0_var(--sys-accent)] hover:text-sys-accent-hover hover:border-sys-accent-hover hover:shadow-[0_0_0_1px_var(--sys-accent-hover)] active:bg-sys-accent active:text-sys-text-inverse active:border-sys-accent active:shadow-[0_0_0_0_var(--sys-accent)]",
+    // Quantity selector button
+    qty: "bg-transparent text-sys-btn-interactive border border-sys-btn-interactive hover:text-sys-btn-interactive-hover hover:border-sys-btn-interactive-hover active:text-sys-btn-interactive-active active:border-sys-btn-interactive-active",
   }
 
   const widthClass = fullWidth ? "w-full" : ""
 
   // Icon rendering
   const iconElement = icon ? (
-    <span className="inline-flex items-center text-[inherit]">
+    <span className="inline-flex items-center text-inherit">
       {icon}
     </span>
   ) : null

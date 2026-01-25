@@ -4,6 +4,7 @@ import { Container } from "@/components/Container"
 import { InnerSection } from "@/components/InnerSection"
 import { Page } from "@/components/Page"
 import { Section } from "@/components/Section"
+import { ButtonsShowcase } from "./ButtonsShowcase"
 import { ColorVariablesTable } from "./ColorVariablesTable"
 
 export default async function SystemPage() {
@@ -243,13 +244,13 @@ export default async function SystemPage() {
                   <h3 className="text-sys-text">States</h3>
                   <div className="grid gap-space-10">
                     <div className="bg-sys-success p-space-10 rounded-radius-md">
-                      <p className="text-sys-text-on-accent">bg-sys-success</p>
+                      <p className="text-sys-text-on-success">bg-sys-success</p>
                     </div>
                     <div className="bg-sys-warning p-space-10 rounded-radius-md">
-                      <p className="text-sys-text">bg-sys-warning</p>
+                      <p className="text-sys-text-on-warning">bg-sys-warning</p>
                     </div>
                     <div className="bg-sys-danger p-space-10 rounded-radius-md">
-                      <p className="text-sys-text-on-accent">bg-sys-danger</p>
+                      <p className="text-sys-text-on-danger">bg-sys-danger</p>
                     </div>
                   </div>
                 </div>
@@ -365,6 +366,21 @@ export default async function SystemPage() {
                 </div>
               </div>
             </div>
+          </InnerSection>
+        </Container>
+      </Section>
+
+      {/* Buttons */}
+      <Section id="buttons">
+        <Container>
+          <InnerSection className="grid gap-layout-gap-2">
+            <div>
+              <h2>Buttons</h2>
+              <p className="text-sys-text-muted">
+                All available button variants, sizes, and states using the Button component.
+              </p>
+            </div>
+            <ButtonsShowcase />
           </InnerSection>
         </Container>
       </Section>

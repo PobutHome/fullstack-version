@@ -118,9 +118,9 @@
   --sys-btn-secondary-bg-active: var(--sys-accent-secondary-active);
   --sys-btn-secondary-fg: var(--sys-text);
   
-  --sys-btn-tertiary-bg: var(--sys-accent-tertiary);
-  --sys-btn-tertiary-bg-hover: var(--sys-accent-tertiary-hover);
-  --sys-btn-tertiary-bg-active: var(--sys-accent-tertiary-active);
+  --sys-btn-tertiary-bg: var(--sys-accent-active);
+  --sys-btn-tertiary-bg-hover: var(--sys-accent);
+  --sys-btn-tertiary-bg-active: var(--sys-accent-active);
   --sys-btn-tertiary-fg: var(--sys-text-inverse);
   
   --sys-btn-outline-border: var(--sys-accent);
