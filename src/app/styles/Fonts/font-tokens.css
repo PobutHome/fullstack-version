@@ -14,16 +14,14 @@
   font-display: swap;
 }
 [data-app="frontend"] {
-  /* Families */
-  --font-family-sans: "Unbounded", system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif;
-  --font-family-heading: var(--font-family-sans);
-  --font-family-body: var(--font-family-sans);
+  /* Families - all use Unbounded */
+  --sys-font-family-sans: "Unbounded", system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif;
 
   /* Weights */
-  --font-weight-regular: 400;
-  --font-weight-bold: 700;
+  --sys-font-weight-regular: 400;
+  --sys-font-weight-bold: 700;
 
   /* Global defaults */
-  --tracking-base: 0.03em;  /* Figma 3% */
-  --leading-base: 1;        /* Figma 100% */
+  --sys-tracking-base: 0.03em;  /* Figma 3% */
+  --sys-leading-base: 1;        /* Figma 100% */
 }

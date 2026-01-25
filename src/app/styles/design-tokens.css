@@ -4,26 +4,17 @@
   font-size: 16px;
 
   /* Convert to rem multiplier (1px = 0.0625rem at 16px base) */
-  --rem-base: 1rem;
+  --sys-rem-base: 1rem;
 }
 :root {
   /* Font Family - Unbounded is the only font used across the app */
-  --font-family-unbounded: 'Unbounded', system-ui, -apple-system, sans-serif;
-
-  /* Base fonts - ALL use Unbounded */
-  --font-family-base: 'Unbounded', system-ui, -apple-system, sans-serif;
-  --font-family-heading: 'Unbounded', system-ui, -apple-system, sans-serif;
-  --font-family-body: 'Unbounded', system-ui, -apple-system, sans-serif;
+  --sys-font-family-base: 'Unbounded', system-ui, -apple-system, sans-serif;
+  --sys-font-family-heading: 'Unbounded', system-ui, -apple-system, sans-serif;
+  --sys-font-family-body: 'Unbounded', system-ui, -apple-system, sans-serif;
 
   /* Font Weights */
-  --font-weight-regular: 400;
-  --font-weight-bold: 700;
-
-  /* Letter Spacing (From Figma: 3%) */
-  --letter-spacing-base: 0.03em; /* 3% */
-
-  /* Line Height (From Figma: 100% = 1.0) */
-  --line-height-base: 1; /* 100% */
+  --sys-font-weight-regular: 400;
+  --sys-font-weight-bold: 700;
 
   /* ========================================
      MOBILE TYPOGRAPHY (Default - Mobile First)
@@ -31,53 +22,35 @@
      ======================================== */
 
   /* pobut_H1 - Mobile */
-  --pobut_H1-size: 1.25rem; /* 20px */
-  --pobut_H1-weight: var(--font-weight-bold);
-  --pobut_H1-line-height: var(--line-height-base);
-  --pobut_H1-letter-spacing: var(--letter-spacing-base);
+  --sys-pobut_H1-size: 1.25rem; /* 20px */
+  --sys-pobut_H1-weight: 700;
+  --sys-pobut_H1-line-height: 1;
+  --sys-pobut_H1-letter-spacing: 0.03em;
 
   /* pobut_H2 - Mobile */
-  --pobut_H2-size: 1rem; /* 16px */
-  --pobut_H2-weight: var(--font-weight-regular);
-  --pobut_H2-line-height: var(--line-height-base);
-  --pobut_H2-letter-spacing: var(--letter-spacing-base);
+  --sys-pobut_H2-size: 1rem; /* 16px */
+  --sys-pobut_H2-weight: 400;
+  --sys-pobut_H2-line-height: 1;
+  --sys-pobut_H2-letter-spacing: 0.03em;
 
   /* pobut_H3 - Mobile */
-  --pobut_H3-size: 0.6875rem; /* 11px */
-  --pobut_H3-weight: var(--font-weight-bold);
-  --pobut_H3-line-height: var(--line-height-base);
-  --pobut_H3-letter-spacing: var(--letter-spacing-base);
+  --sys-pobut_H3-size: 0.6875rem; /* 11px */
+  --sys-pobut_H3-weight: 700;
+  --sys-pobut_H3-line-height: 1;
+  --sys-pobut_H3-letter-spacing: 0.03em;
 
   /* pobut_body - Mobile */
-  --pobut_body-size: 0.6875rem; /* 11px */
-  --pobut_body-weight: var(--font-weight-regular);
-  --pobut_body-line-height: var(--line-height-base);
-  --pobut_body-letter-spacing: var(--letter-spacing-base);
+  --sys-pobut_body-size: 0.6875rem; /* 11px */
+  --sys-pobut_body-weight: 400;
+  --sys-pobut_body-line-height: 1;
+  --sys-pobut_body-letter-spacing: 0.03em;
 
   /* pobut_caption - Mobile */
-  --pobut_caption-size: 0.4375rem; /* 7px */
-  --pobut_caption-weight: var(--font-weight-regular);
-  --pobut_caption-line-height: var(--line-height-base);
-  --pobut_caption-letter-spacing: var(--letter-spacing-base);
+  --sys-pobut_caption-size: 0.4375rem; /* 7px */
+  --sys-pobut_caption-weight: 400;
+  --sys-pobut_caption-line-height: 1;
+  --sys-pobut_caption-letter-spacing: 0.03em;
 
-  /* Legacy compatibility - map to semantic names */
-  --font-size-h1: var(--pobut_H1-size);
-  --font-size-h2: var(--pobut_H2-size);
-  --font-size-h3: var(--pobut_H3-size);
-  --font-size-body: var(--pobut_body-size);
-  --font-size-caption: var(--pobut_caption-size);
-
-  --font-weight-h1: var(--pobut_H1-weight);
-  --font-weight-h2: var(--pobut_H2-weight);
-  --font-weight-h3: var(--pobut_H3-weight);
-  --font-weight-body: var(--pobut_body-weight);
-  --font-weight-caption: var(--pobut_caption-weight);
-
-  --line-height-h1: var(--pobut_H1-line-height);
-  --line-height-h2: var(--pobut_H2-line-height);
-  --line-height-h3: var(--pobut_H3-line-height);
-  --line-height-body: var(--pobut_body-line-height);
-  --line-height-caption: var(--pobut_caption-line-height);
 }
 
 /* ========================================
@@ -89,48 +62,41 @@
 @media (min-width: 48rem) {
   :root {
     /* pobut_H1_tablet */
-    --pobut_H1_tablet-size: 2rem; /* 32px */
-    --pobut_H1_tablet-weight: var(--font-weight-bold);
-    --pobut_H1_tablet-line-height: var(--line-height-base);
-    --pobut_H1_tablet-letter-spacing: var(--letter-spacing-base);
+    --sys-pobut_H1_tablet-size: 2rem; /* 32px */
+    --sys-pobut_H1_tablet-weight: 700;
+    --sys-pobut_H1_tablet-line-height: 1;
+    --sys-pobut_H1_tablet-letter-spacing: 0.03em;
 
     /* pobut_H2_tablet */
-    --pobut_H2_tablet-size: 1.5rem; /* 24px */
-    --pobut_H2_tablet-weight: var(--font-weight-regular);
-    --pobut_H2_tablet-line-height: var(--line-height-base);
-    --pobut_H2_tablet-letter-spacing: var(--letter-spacing-base);
+    --sys-pobut_H2_tablet-size: 1.5rem; /* 24px */
+    --sys-pobut_H2_tablet-weight: 400;
+    --sys-pobut_H2_tablet-line-height: 1;
+    --sys-pobut_H2_tablet-letter-spacing: 0.03em;
 
     /* pobut_H3_tablet */
-    --pobut_H3_tablet-size: 1rem; /* 16px */
-    --pobut_H3_tablet-weight: var(--font-weight-bold);
-    --pobut_H3_tablet-line-height: var(--line-height-base);
-    --pobut_H3_tablet-letter-spacing: var(--letter-spacing-base);
+    --sys-pobut_H3_tablet-size: 1rem; /* 16px */
+    --sys-pobut_H3_tablet-weight: 700;
+    --sys-pobut_H3_tablet-line-height: 1;
+    --sys-pobut_H3_tablet-letter-spacing: 0.03em;
 
     /* pobut_body_tablet */
-    --pobut_body_tablet-size: 1rem; /* 16px */
-    --pobut_body_tablet-weight: var(--font-weight-regular);
-    --pobut_body_tablet-line-height: var(--line-height-base);
-    --pobut_body_tablet-letter-spacing: var(--letter-spacing-base);
+    --sys-pobut_body_tablet-size: 1rem; /* 16px */
+    --sys-pobut_body_tablet-weight: 400;
+    --sys-pobut_body_tablet-line-height: 1;
+    --sys-pobut_body_tablet-letter-spacing: 0.03em;
 
     /* pobut_caption_tablet */
-    --pobut_caption_tablet-size: 0.5625rem; /* 9px */
-    --pobut_caption_tablet-weight: var(--font-weight-regular);
-    --pobut_caption_tablet-line-height: var(--line-height-base);
-    --pobut_caption_tablet-letter-spacing: var(--letter-spacing-base);
+    --sys-pobut_caption_tablet-size: 0.5625rem; /* 9px */
+    --sys-pobut_caption_tablet-weight: 400;
+    --sys-pobut_caption_tablet-line-height: 1;
+    --sys-pobut_caption_tablet-letter-spacing: 0.03em;
 
     /* Override mobile values for tablet */
-    --pobut_H1-size: var(--pobut_H1_tablet-size);
-    --pobut_H2-size: var(--pobut_H2_tablet-size);
-    --pobut_H3-size: var(--pobut_H3_tablet-size);
-    --pobut_body-size: var(--pobut_body_tablet-size);
-    --pobut_caption-size: var(--pobut_caption_tablet-size);
-
-    /* Legacy compatibility */
-    --font-size-h1: var(--pobut_H1-size);
-    --font-size-h2: var(--pobut_H2-size);
-    --font-size-h3: var(--pobut_H3-size);
-    --font-size-body: var(--pobut_body-size);
-    --font-size-caption: var(--pobut_caption-size);
+    --sys-pobut_H1-size: var(--sys-pobut_H1_tablet-size);
+    --sys-pobut_H2-size: var(--sys-pobut_H2_tablet-size);
+    --sys-pobut_H3-size: var(--sys-pobut_H3_tablet-size);
+    --sys-pobut_body-size: var(--sys-pobut_body_tablet-size);
+    --sys-pobut_caption-size: var(--sys-pobut_caption_tablet-size);
   }
 }
 
@@ -143,18 +109,11 @@
 @media (min-width: 64rem) {
   :root {
     /* pobut_H1 - Desktop */
-    --pobut_H1-size: 2.5rem; /* 40px */
-    --pobut_H2-size: 2rem; /* 32px */
-    --pobut_H3-size: 1.25rem; /* 20px */
-    --pobut_body-size: 1.25rem; /* 20px */
-    --pobut_caption-size: 0.625rem; /* 10px */
-
-    /* Legacy compatibility */
-    --font-size-h1: var(--pobut_H1-size);
-    --font-size-h2: var(--pobut_H2-size);
-    --font-size-h3: var(--pobut_H3-size);
-    --font-size-body: var(--pobut_body-size);
-    --font-size-caption: var(--pobut_caption-size);
+    --sys-pobut_H1-size: 2.5rem; /* 40px */
+    --sys-pobut_H2-size: 2rem; /* 32px */
+    --sys-pobut_H3-size: 1.25rem; /* 20px */
+    --sys-pobut_body-size: 1.25rem; /* 20px */
+    --sys-pobut_caption-size: 0.625rem; /* 10px */
   }
 }
 
@@ -165,49 +124,49 @@
 :root {
   /* Base Spacing Scale (for components, gaps, etc.) - Converted to rem */
   /* 10px → 0.625rem, 20px → 1.25rem, 30px → 1.875rem, 50px → 3.125rem */
-  --spacing-xs: 0.625rem; /* 10px */
-  --spacing-sm: 1.25rem; /* 20px */
-  --spacing-md: 1.875rem; /* 30px */
-  --spacing-lg: 3.125rem; /* 50px */
+  --sys-spacing-xs: 0.625rem; /* 10px */
+  --sys-spacing-sm: 1.25rem; /* 20px */
+  --sys-spacing-md: 1.875rem; /* 30px */
+  --sys-spacing-lg: 3.125rem; /* 50px */
 
   /* Layout Spacing (From Figma - Exact Values) */
   /* Mobile: Margin 10, Spacing 10/20 */
-  --layout-margin-mobile: 0.625rem; /* 10px */
-  --layout-spacing-small-mobile: 0.625rem; /* 10px */
-  --layout-spacing-medium-mobile: 1.25rem; /* 20px */
+  --sys-layout-margin-mobile: 0.625rem; /* 10px */
+  --sys-layout-spacing-small-mobile: 0.625rem; /* 10px */
+  --sys-layout-spacing-medium-mobile: 1.25rem; /* 20px */
 
   /* Default (Mobile) */
-  --layout-margin: var(--layout-margin-mobile);
-  --layout-spacing-small: var(--layout-spacing-small-mobile);
-  --layout-spacing-medium: var(--layout-spacing-medium-mobile);
+  --sys-layout-margin: var(--sys-layout-margin-mobile);
+  --sys-layout-spacing-small: var(--sys-layout-spacing-small-mobile);
+  --sys-layout-spacing-medium: var(--sys-layout-spacing-medium-mobile);
 }
 
 /* Tablet Layout Spacing ≥ 48rem (768px) - From Figma: Margin 50, Spacing 10/20/30 */
 @media (min-width: 48rem) {
   :root {
-    --layout-margin-tablet: 3.125rem; /* 50px */
-    --layout-spacing-small-tablet: 0.625rem; /* 10px */
-    --layout-spacing-medium-tablet: 1.25rem; /* 20px */
-    --layout-spacing-large-tablet: 1.875rem; /* 30px */
+    --sys-layout-margin-tablet: 3.125rem; /* 50px */
+    --sys-layout-spacing-small-tablet: 0.625rem; /* 10px */
+    --sys-layout-spacing-medium-tablet: 1.25rem; /* 20px */
+    --sys-layout-spacing-large-tablet: 1.875rem; /* 30px */
 
     /* Override mobile values */
-    --layout-margin: var(--layout-margin-tablet);
-    --layout-spacing-small: var(--layout-spacing-small-tablet);
-    --layout-spacing-medium: var(--layout-spacing-medium-tablet);
+    --sys-layout-margin: var(--sys-layout-margin-tablet);
+    --sys-layout-spacing-small: var(--sys-layout-spacing-small-tablet);
+    --sys-layout-spacing-medium: var(--sys-layout-spacing-medium-tablet);
   }
 }
 
 /* Desktop Layout Spacing ≥ 64rem (1024px) - From Figma: Margin 150, Spacing 20/50 */
 @media (min-width: 64rem) {
   :root {
-    --layout-margin-desktop: 9.375rem; /* 150px */
-    --layout-spacing-small-desktop: 1.25rem; /* 20px */
-    --layout-spacing-medium-desktop: 3.125rem; /* 50px */
+    --sys-layout-margin-desktop: 9.375rem; /* 150px */
+    --sys-layout-spacing-small-desktop: 1.25rem; /* 20px */
+    --sys-layout-spacing-medium-desktop: 3.125rem; /* 50px */
 
     /* Override tablet values */
-    --layout-margin: var(--layout-margin-desktop);
-    --layout-spacing-small: var(--layout-spacing-small-desktop);
-    --layout-spacing-medium: var(--layout-spacing-medium-desktop);
+    --sys-layout-margin: var(--sys-layout-margin-desktop);
+    --sys-layout-spacing-small: var(--sys-layout-spacing-small-desktop);
+    --sys-layout-spacing-medium: var(--sys-layout-spacing-medium-desktop);
   }
 }
 
@@ -218,19 +177,19 @@
 :root {
   /* Container Max Widths - Converted to rem */
   /* 1440px → 90rem, 1200px → 75rem, 1600px → 100rem */
-  --container-max-width: 90rem; /* 1440px */
-  --container-max-width-narrow: 75rem; /* 1200px */
-  --container-max-width-wide: 100rem; /* 1600px */
+  --sys-container-max-width: 90rem; /* 1440px */
+  --sys-container-max-width-narrow: 75rem; /* 1200px */
+  --sys-container-max-width-wide: 100rem; /* 1600px */
 
   /* Breakpoints - Keep in rem for consistency */
-  --breakpoint-mobile: 48rem; /* 768px */
-  --breakpoint-tablet: 64rem; /* 1024px */
-  --breakpoint-desktop: 80rem; /* 1280px */
-  --breakpoint-large: 90rem; /* 1440px */
+  --sys-breakpoint-mobile: 48rem; /* 768px */
+  --sys-breakpoint-tablet: 64rem; /* 1024px */
+  --sys-breakpoint-desktop: 80rem; /* 1280px */
+  --sys-breakpoint-large: 90rem; /* 1440px */
 
   /* Grid */
-  --grid-columns: 12;
-  --grid-gap: var(--spacing-sm);
+  --sys-grid-columns: 12;
+  --sys-grid-gap: 1.25rem; /* 20px */
 }
 
 /* ============================================
@@ -239,22 +198,22 @@
 
 :root {
   /* Border Widths - Keep 1px as px (standard for thin borders) */
-  --border-width-thin: 1px;
-  --border-width-medium: 0.125rem; /* 2px */
-  --border-width-thick: 0.1875rem; /* 3px */
+  --sys-border-width-thin: 1px;
+  --sys-border-width-medium: 0.125rem; /* 2px */
+  --sys-border-width-thick: 0.1875rem; /* 3px */
 
   /* Border Radius - Converted to rem */
   /* 4px → 0.25rem, 8px → 0.5rem, 12px → 0.75rem, 16px → 1rem */
-  --radius-none: 0;
-  --radius-sm: 0.25rem; /* 4px */
-  --radius-md: 0.5rem; /* 8px */
-  --radius-lg: 0.75rem; /* 12px */
-  --radius-xl: 1rem; /* 16px */
-  --radius-full: 9999px; /* Keep as px for circular shapes */
+  --sys-radius-none: 0;
+  --sys-radius-sm: 0.25rem; /* 4px */
+  --sys-radius-md: 0.5rem; /* 8px */
+  --sys-radius-lg: 0.75rem; /* 12px */
+  --sys-radius-xl: 1rem; /* 16px */
+  --sys-radius-full: 9999px; /* Keep as px for circular shapes */
 
   /* Default Border */
-  --border-default: var(--border-width-thin) solid var(--color-border);
-  --border-active: var(--border-width-thin) solid var(--color-brand-green);
+  --sys-border-default: 1px solid var(--color-border);
+  --sys-border-active: 1px solid var(--color-brand-green);
 }
 
 /* ============================================
@@ -264,26 +223,26 @@
 :root {
   /* Shadows - Keep shadows in rem for better scaling */
   /* Converted: 1px → 0.0625rem, 2px → 0.125rem, 4px → 0.25rem, etc. */
-  --shadow-none: none;
-  --shadow-sm: 0 0.0625rem 0.125rem rgba(0, 0, 0, 0.05);
-  --shadow-md: 0 0.25rem 0.375rem rgba(0, 0, 0, 0.1);
-  --shadow-lg: 0 0.625rem 0.9375rem rgba(0, 0, 0, 0.1);
-  --shadow-xl: 0 1.25rem 1.5625rem rgba(0, 0, 0, 0.15);
+  --sys-shadow-none: none;
+  --sys-shadow-sm: 0 0.0625rem 0.125rem rgba(0, 0, 0, 0.05);
+  --sys-shadow-md: 0 0.25rem 0.375rem rgba(0, 0, 0, 0.1);
+  --sys-shadow-lg: 0 0.625rem 0.9375rem rgba(0, 0, 0, 0.1);
+  --sys-shadow-xl: 0 1.25rem 1.5625rem rgba(0, 0, 0, 0.15);
 
   /* Transitions - Keep as-is (time-based, not size-based) */
-  --transition-fast: 150ms ease-in-out;
-  --transition-base: 200ms ease-in-out;
-  --transition-slow: 300ms ease-in-out;
+  --sys-transition-fast: 150ms ease-in-out;
+  --sys-transition-base: 200ms ease-in-out;
+  --sys-transition-slow: 300ms ease-in-out;
 
   /* Z-Index Scale - Keep as-is (unitless) */
-  --z-index-base: 0;
-  --z-index-dropdown: 1000;
-  --z-index-sticky: 1020;
-  --z-index-fixed: 1030;
-  --z-index-modal-backdrop: 1040;
-  --z-index-modal: 1050;
-  --z-index-popover: 1060;
-  --z-index-tooltip: 1070;
+  --sys-z-index-base: 0;
+  --sys-z-index-dropdown: 1000;
+  --sys-z-index-sticky: 1020;
+  --sys-z-index-fixed: 1030;
+  --sys-z-index-modal-backdrop: 1040;
+  --sys-z-index-modal: 1050;
+  --sys-z-index-popover: 1060;
+  --sys-z-index-tooltip: 1070;
 }
 
 /* ============================================
@@ -293,29 +252,29 @@
 :root {
   /* Button - Converted to rem */
   /* 32px → 2rem, 40px → 2.5rem, 48px → 3rem, 16px → 1rem, 24px → 1.5rem */
-  --button-height-sm: 2rem; /* 32px */
-  --button-height-md: 2.5rem; /* 40px */
-  --button-height-lg: 3rem; /* 48px */
-  --button-padding-x-sm: 1rem; /* 16px */
-  --button-padding-x-md: 1.5rem; /* 24px */
-  --button-padding-x-lg: 2rem; /* 32px */
-  --button-radius: var(--radius-md);
+  --sys-button-height-sm: 2rem; /* 32px */
+  --sys-button-height-md: 2.5rem; /* 40px */
+  --sys-button-height-lg: 3rem; /* 48px */
+  --sys-button-padding-x-sm: 1rem; /* 16px */
+  --sys-button-padding-x-md: 1.5rem; /* 24px */
+  --sys-button-padding-x-lg: 2rem; /* 32px */
+  --sys-button-radius: 0.5rem; /* 8px */
 
   /* Input - Converted to rem */
-  --input-height-sm: 2rem; /* 32px */
-  --input-height-md: 2.5rem; /* 40px */
-  --input-height-lg: 3rem; /* 48px */
-  --input-padding-x: 0.75rem; /* 12px */
-  --input-padding-y: 0.5rem; /* 8px */
-  --input-radius: var(--radius-md);
+  --sys-input-height-sm: 2rem; /* 32px */
+  --sys-input-height-md: 2.5rem; /* 40px */
+  --sys-input-height-lg: 3rem; /* 48px */
+  --sys-input-padding-x: 0.75rem; /* 12px */
+  --sys-input-padding-y: 0.5rem; /* 8px */
+  --sys-input-radius: 0.5rem; /* 8px */
 
   /* Card - Uses spacing tokens (already in rem) */
-  --card-padding-sm: var(--spacing-xs);
-  --card-padding-md: var(--spacing-sm);
-  --card-padding-lg: var(--spacing-md);
-  --card-radius: var(--radius-lg);
-  --card-shadow: var(--shadow-md);
-  --card-shadow-hover: var(--shadow-lg);
+  --sys-card-padding-sm: 0.625rem; /* 10px */
+  --sys-card-padding-md: 1.25rem; /* 20px */
+  --sys-card-padding-lg: 1.875rem; /* 30px */
+  --sys-card-radius: 0.75rem; /* 12px */
+  --sys-card-shadow: 0 0.25rem 0.375rem rgba(0, 0, 0, 0.1);
+  --sys-card-shadow-hover: 0 0.625rem 0.9375rem rgba(0, 0, 0, 0.1);
 }
 
 /* ============================================
@@ -332,5 +291,5 @@
   --secondary: var(--color-accent);
   --secondary-foreground: var(--color-accent-foreground);
   --border: var(--color-border);
-  --radius: var(--radius-md);
+  --radius: var(--sys-radius-md);
 }

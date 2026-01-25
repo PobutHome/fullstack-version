@@ -38,10 +38,6 @@
   --sys-link-hover: var(--color-blue-hover);
   --sys-link-active: var(--color-blue-click);
   
-  /* Alias for interactive elements (links, clickable text, buttons) */
-  --sys-interactive: var(--sys-link);
-  --sys-interactive-hover: var(--sys-link-hover);
-  --sys-interactive-active: var(--sys-link-active);
 
   /* =========================
      Accent (Green - Primary Actions, Buttons, Highlights)
@@ -92,16 +88,20 @@
   --sys-danger: var(--color-error);
   --sys-danger-hover: color-mix(in srgb, var(--sys-danger) 90%, var(--color-white));
   --sys-danger-active: color-mix(in srgb, var(--sys-danger) 80%, var(--color-black));
+  --sys-text-on-danger: var(--color-white);
 
   /* Warning (placeholder - add to palette later) */
   --sys-warning: #ffb800;
   --sys-warning-hover: color-mix(in srgb, var(--sys-warning) 90%, var(--color-white));
   --sys-warning-active: color-mix(in srgb, var(--sys-warning) 80%, var(--color-black));
+  --sys-text-on-warning: var(--color-black);
 
   /* Success (uses accent green) */
   --sys-success: var(--sys-accent);
   --sys-success-hover: var(--sys-accent-hover);
   --sys-success-active: var(--sys-accent-active);
+  --sys-text-on-success: var(--color-white);
+
 
   /* =========================
      Component-Specific Semantic Tokens
@@ -133,9 +133,9 @@
   --sys-btn-interactive-border: var(--sys-border-interactive);
   --sys-btn-interactive-border-hover: var(--sys-border-interactive-hover);
   --sys-btn-interactive-border-active: var(--sys-border-interactive-active);
-  --sys-btn-interactive-fg: var(--sys-interactive);
-  --sys-btn-interactive-fg-hover: var(--sys-interactive-hover);
-  --sys-btn-interactive-fg-active: var(--sys-interactive-active);
+  --sys-btn-interactive-fg: var(--sys-link);
+  --sys-btn-interactive-fg-hover: var(--sys-link-hover);
+  --sys-btn-interactive-fg-active: var(--sys-link-active);
 
   /* Inputs */
   --sys-input-border: var(--sys-border-strong);

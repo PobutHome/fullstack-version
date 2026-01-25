@@ -122,7 +122,7 @@ export const HomeBanner: React.FC<HomeBannerProps> = ({
         </div>
       </div>
 
-      <div className="flex justify-center gap-2 mt-3.5 p-0 w-full box-border">
+      <div className="flex justify-center gap-1  mt-3.5 p-0 w-full box-border">
         {images.map((_, i) => (
           <button
             key={i}

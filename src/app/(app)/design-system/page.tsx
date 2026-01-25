@@ -948,432 +948,133 @@ export default function MyPage() {
       </Section>
 
       {/* Colors Section */}
-      <Section id="colors">
-        <Container>
-          <InnerSection className="fe-gap-inner-section-y">
-            <h2>Colors</h2>
-            <small className="mb-layout-gap-2 block">Brand colors, semantic tokens, and text colors</small>
-        
-        <div
-          className="fe-card p-space-20 grid gap-layout-gap-2"
-        >
-          <div>
-            <h3 className="mb-space-20">Brand Colors</h3>
-            <small className="mb-space-20 block">All raw brand colors from Figma. These are the source of truth for your brand palette.</small>
-            
-            <div className="grid gap-layout-gap-2">
-              <div>
-                <h4 className="mb-space-20">Blue (Primary Brand Color)</h4>
-                <div className="grid grid-cols-[repeat(auto-fit,minmax(180px,1fr))] gap-layout-gap-2">
-                  <div className="grid gap-layout-gap-1">
-                    <div className="h-16 bg-color-blue rounded-radius-lg" />
-                    <small>
-                      <strong>Blue:</strong> #00004c<br />
-                      <code>var(--color-blue)</code><br />
-                      <code className="text-sys-text-muted">bg-color-blue</code>
-                    </small>
+    <Section>
+    <div>
+                <h3 className="mb-space-20 mt-space-20">Color Utilities</h3>
+                <small className="mb-space-20 block">
+                  All semantic colors use the <code>sys-*</code> prefix. These reference design tokens and should be used instead of raw palette colors.
+                </small>
+
+                <div className="grid gap-layout-gap-2">
+                  <div>
+                    <h4 className="mb-space-10">Background Colors</h4>
+                    <div className="grid grid-cols-[repeat(auto-fit,minmax(200px,1fr))] gap-layout-gap-1">
+                      <div className="p-space-10 bg-sys-surface rounded-radius-lg border border-sys-border">
+                        <small><code>bg-sys-surface</code></small>
+                      </div>
+                      <div className="p-space-10 bg-sys-surface-2 rounded-radius-lg border border-sys-border">
+                        <small><code>bg-sys-surface-2</code></small>
+                      </div>
+                      <div className="p-space-10 bg-sys-surface-accent rounded-radius-lg">
+                        <small className="text-sys-text-on-accent"><code>bg-sys-surface-accent</code></small>
+                      </div>
+                      <div className="p-space-10 bg-sys-surface-interactive rounded-radius-lg">
+                        <small className="text-sys-text-on-interactive"><code>bg-sys-surface-interactive</code></small>
+                      </div>
+                    </div>
                   </div>
-                  <div className="grid gap-layout-gap-1">
-                    <div className="h-16 bg-color-blue-hover rounded-radius-lg" />
-                    <small>
-                      <strong>Blue Hover:</strong> #3b3bf9<br />
-                      <code>var(--color-blue-hover)</code><br />
-                      <code className="text-sys-text-muted">bg-color-blue-hover</code>
-                    </small>
+
+                  <div>
+                    <h4 className="mb-space-10">Text Colors</h4>
+                    <div className="grid gap-layout-gap-1">
+                      <div className="p-space-10 bg-sys-surface rounded-radius-lg">
+                        <p className="text-sys-text"><code>text-sys-text</code></p>
+                      </div>
+                      <div className="p-space-10 bg-sys-surface rounded-radius-lg">
+                        <p className="text-sys-text-muted"><code>text-sys-text-muted</code></p>
+                      </div>
+                      <div className="p-space-10 bg-sys-surface rounded-radius-lg">
+                        <p className="text-sys-text-subtle"><code>text-sys-text-subtle</code></p>
+                      </div>
+                      <div className="p-space-10 bg-sys-accent rounded-radius-lg">
+                        <p className="text-sys-text-on-accent"><code>text-sys-text-on-accent</code></p>
+                      </div>
+                    </div>
                   </div>
-                  <div className="grid gap-layout-gap-1">
-                    <div className="h-16 bg-color-blue-click rounded-radius-lg" />
-                    <small>
-                      <strong>Blue Click:</strong> #00001f<br />
-                      <code>var(--color-blue-click)</code><br />
-                      <code className="text-sys-text-muted">bg-color-blue-click</code>
-                    </small>
+
+                  <div>
+                    <h4 className="mb-space-10">Border Colors</h4>
+                    <div className="grid gap-layout-gap-1">
+                      <div className="p-space-10 bg-sys-surface rounded-radius-lg border-2 border-sys-border">
+                        <small><code>border-sys-border</code></small>
+                      </div>
+                      <div className="p-space-10 bg-sys-surface rounded-radius-lg border-2 border-sys-border-strong">
+                        <small><code>border-sys-border-strong</code></small>
+                      </div>
+                      <div className="p-space-10 bg-sys-surface rounded-radius-lg border-2 border-sys-border-interactive">
+                        <small><code>border-sys-border-interactive</code></small>
+                      </div>
+                      <div className="p-space-10 bg-sys-surface rounded-radius-lg border-2 border-sys-border-subtle">
+                        <small><code>border-sys-border-subtle</code></small>
+                      </div>
+                    </div>
                   </div>
+
+                  <div>
+                    <h4 className="mb-space-10">Accent & Interactive Colors</h4>
+                    <div className="grid grid-cols-[repeat(auto-fit,minmax(200px,1fr))] gap-layout-gap-1">
+                      <div className="p-space-10 bg-sys-accent rounded-radius-lg">
+                        <small className="text-sys-text-on-accent"><code>bg-sys-accent</code></small>
+                      </div>
+                      <div className="p-space-10 bg-sys-accent-secondary rounded-radius-lg">
+                        <small><code>bg-sys-accent-secondary</code></small>
+                      </div>
+                      <div className="p-space-10 bg-sys-accent-tertiary rounded-radius-lg">
+                        <small className="text-sys-text-on-accent"><code>bg-sys-accent-tertiary</code></small>
+                      </div>
+                      <div className="p-space-10 bg-sys-interactive rounded-radius-lg">
+                        <small className="text-sys-text-on-interactive"><code>bg-sys-interactive</code></small>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div>
+                    <h4 className="mb-space-10">State Colors</h4>
+                    <div className="grid grid-cols-[repeat(auto-fit,minmax(200px,1fr))] gap-layout-gap-1">
+                      <div className="p-space-10 bg-sys-danger rounded-radius-lg">
+                        <small className="text-sys-text-inverse"><code>bg-sys-danger</code></small>
+                      </div>
+                      <div className="p-space-10 bg-sys-warning rounded-radius-lg">
+                        <small><code>bg-sys-warning</code></small>
+                      </div>
+                      <div className="p-space-10 bg-sys-success rounded-radius-lg">
+                        <small className="text-sys-text-inverse"><code>bg-sys-success</code></small>
+                      </div>
+                    </div>
+                  </div>
+
+                  <DsCodeBlock>{`// Background colors
+<div className="bg-sys-surface">Surface</div>
+<div className="bg-sys-surface-2">Surface 2</div>
+<div className="bg-sys-surface-accent">Accent Surface</div>
+<div className="bg-sys-accent">Accent</div>
+<div className="bg-sys-interactive">Interactive</div>
+
+// Text colors
+<p className="text-sys-text">Default text</p>
+<p className="text-sys-text-muted">Muted text</p>
+<p className="text-sys-text-subtle">Subtle text</p>
+<p className="text-sys-text-on-accent">Text on accent</p>
+
+// Border colors
+<div className="border border-sys-border">Default border</div>
+<div className="border border-sys-border-strong">Strong border</div>
+<div className="border border-sys-border-interactive">Interactive border</div>
+
+// Hover states (automatically available)
+<div className="bg-sys-accent hover:bg-sys-accent-hover">Hover example</div>
+<div className="border-sys-border hover:border-sys-border-hover">Border hover</div>
+
+// All available sys-* colors:
+// sys-surface, sys-surface-2, sys-surface-accent, sys-surface-interactive
+// sys-text, sys-text-muted, sys-text-subtle, sys-text-on-accent
+// sys-accent, sys-accent-secondary, sys-accent-tertiary
+// sys-interactive, sys-border, sys-border-strong, sys-border-interactive
+// sys-danger, sys-warning, sys-success`}</DsCodeBlock>
                 </div>
               </div>
 
-              <div>
-                <h4 className="mb-space-20">Green (Accent Brand Color)</h4>
-                <div className="grid grid-cols-[repeat(auto-fit,minmax(180px,1fr))] gap-layout-gap-2">
-                  <div className="grid gap-layout-gap-1">
-                    <div className="h-16 bg-color-green rounded-radius-lg" />
-                    <small>
-                      <strong>Green:</strong> #72cb1a<br />
-                      <code>var(--color-green)</code><br />
-                      <code className="text-sys-text-muted">bg-color-green</code>
-                    </small>
-                  </div>
-                  <div className="grid gap-layout-gap-1">
-                    <div className="h-16 bg-color-green-hover rounded-radius-lg" />
-                    <small>
-                      <strong>Green Hover:</strong> #beff7e<br />
-                      <code>var(--color-green-hover)</code><br />
-                      <code className="text-sys-text-muted">bg-color-green-hover</code>
-                    </small>
-                  </div>
-                  <div className="grid gap-layout-gap-1">
-                    <div className="h-16 bg-color-green-click rounded-radius-lg" />
-                    <small>
-                      <strong>Green Click:</strong> #408000<br />
-                      <code>var(--color-green-click)</code><br />
-                      <code className="text-sys-text-muted">bg-color-green-click</code>
-                    </small>
-                  </div>
-                </div>
-              </div>
-
-              <div>
-                <h4 className="mb-space-20">Neutral Colors</h4>
-                <div className="grid grid-cols-[repeat(auto-fit,minmax(180px,1fr))] gap-layout-gap-2">
-                  <div className="grid gap-layout-gap-1">
-                    <div className="h-16 bg-color-white border border-sys-border rounded-radius-lg" />
-                    <small>
-                      <strong>White:</strong> #ffffff<br />
-                      <code>var(--color-white)</code><br />
-                      <code className="text-sys-text-muted">bg-color-white</code>
-                    </small>
-                  </div>
-                  <div className="grid gap-layout-gap-1">
-                    <div className="h-16 bg-color-black rounded-radius-lg" />
-                    <small>
-                      <strong>Black:</strong> #000000<br />
-                      <code>var(--color-black)</code><br />
-                      <code className="text-sys-text-muted">bg-color-black</code>
-                    </small>
-                  </div>
-                  <div className="grid gap-layout-gap-1">
-                    <div className="h-16 bg-color-neutral-border border border-sys-border rounded-radius-lg" />
-                    <small>
-                      <strong>Neutral Border:</strong> #e5e7eb<br />
-                      <code>var(--color-neutral-border)</code><br />
-                      <code className="text-sys-text-muted">bg-color-neutral-border</code>
-                    </small>
-                  </div>
-                  <div className="grid gap-layout-gap-1">
-                    <div className="h-16 bg-color-default-background border border-sys-border rounded-radius-lg" />
-                    <small>
-                      <strong>Default Background:</strong> #ffffff<br />
-                      <code>var(--color-default-background)</code><br />
-                      <code className="text-sys-text-muted">bg-color-default-background</code>
-                    </small>
-                  </div>
-                </div>
-              </div>
-
-              <div>
-                <h4 className="mb-space-20">Status Colors</h4>
-                <div className="grid grid-cols-[repeat(auto-fit,minmax(180px,1fr))] gap-layout-gap-2">
-                  <div className="grid gap-layout-gap-1">
-                    <div className="h-16 bg-color-error rounded-radius-lg" />
-                    <small>
-                      <strong>Error:</strong> #ff0000<br />
-                      <code>var(--color-error)</code><br />
-                      <code className="text-sys-text-muted">bg-color-error</code>
-                    </small>
-                  </div>
-                </div>
-              </div>
-            </div>
-            
-            <small className="mt-space-20 p-space-20 bg-sys-surface-2 rounded-radius-lg block">
-              <strong>⚠️ Important:</strong> These are raw palette tokens. They should NOT be used directly in components.
-              <br />
-              Use semantic tokens instead (e.g., <code>bg-sys-accent</code> / <code>var(--sys-accent)</code> instead of <code>bg-color-green</code> / <code>var(--color-green)</code>).
-              <br />
-              <br />
-              <strong>Tailwind classes available:</strong> <code>bg-color-blue</code>, <code>bg-color-green</code>, <code>bg-color-white</code>, <code>bg-color-black</code>, etc.
-              <br />
-              <strong>Edit:</strong> <code>src/app/styles/palette-tokens.css</code>
-            </small>
-          </div>
-
-          <div className="grid gap-layout-gap-2">
-            <h3 className="mb-space-20">Semantic Colors</h3>
-            <small>All semantic tokens reference palette tokens. Edit: <code>src/app/styles/semantic-tokens.css</code></small>
-            
-            {/* Interactive Colors (Blue) */}
-            <div>
-                <h4 className="mb-space-20 mt-space-20">Interactive (Blue - Links, Clickable Text)</h4>
-              <div className="grid grid-cols-[repeat(auto-fit,minmax(180px,1fr))] gap-layout-gap-2">
-                <div className="grid gap-layout-gap-1">
-                  <div className="h-12 bg-sys-interactive rounded-radius-lg" />
-                  <small>
-                    <strong>Interactive:</strong> Blue<br />
-                    <code>var(--sys-interactive)</code><br />
-                    <code className="text-sys-text-muted">bg-sys-interactive</code><br />
-                    <code className="text-sys-text-muted">text-sys-interactive</code>
-                  </small>
-                </div>
-                <div className="grid gap-layout-gap-1">
-                  <div className="h-12 bg-sys-interactive-hover rounded-radius-lg" />
-                  <small>
-                    <strong>Interactive Hover:</strong><br />
-                    <code>var(--sys-interactive-hover)</code><br />
-                    <code className="text-sys-text-muted">bg-sys-interactive-hover</code><br />
-                    <code className="text-sys-text-muted">hover:bg-sys-interactive-hover</code>
-                  </small>
-                </div>
-                <div className="grid gap-layout-gap-1">
-                  <div className="h-12 bg-sys-interactive-active rounded-radius-lg" />
-                  <small>
-                    <strong>Interactive Active:</strong><br />
-                    <code>var(--sys-interactive-active)</code><br />
-                    <code className="text-sys-text-muted">bg-sys-interactive-active</code><br />
-                    <code className="text-sys-text-muted">active:bg-sys-interactive-active</code>
-                  </small>
-                </div>
-              </div>
-            </div>
-
-            {/* Accent Colors (Green) */}
-            <div>
-                <h4 className="mb-space-20 mt-space-20">Accent (Green - Primary Actions, Buttons)</h4>
-              <div className="grid grid-cols-[repeat(auto-fit,minmax(180px,1fr))] gap-layout-gap-2">
-                <div className="grid gap-layout-gap-1">
-                  <div className="h-12 bg-sys-accent rounded-radius-lg" />
-                  <small>
-                    <strong>Accent (Primary):</strong> Bright Green<br />
-                    <code>var(--sys-accent)</code><br />
-                    <code className="text-sys-text-muted">bg-sys-accent</code><br />
-                    <code className="text-sys-text-muted">text-sys-accent</code>
-                  </small>
-                </div>
-                <div className="grid gap-layout-gap-1">
-                  <div className="h-12 bg-sys-accent-hover rounded-radius-lg" />
-                  <small>
-                    <strong>Accent Hover:</strong><br />
-                    <code>var(--sys-accent-hover)</code><br />
-                    <code className="text-sys-text-muted">bg-sys-accent-hover</code><br />
-                    <code className="text-sys-text-muted">hover:bg-sys-accent-hover</code>
-                  </small>
-                </div>
-                <div className="grid gap-layout-gap-1">
-                  <div className="h-12 bg-sys-accent-active rounded-radius-lg" />
-                  <small>
-                    <strong>Accent Active:</strong><br />
-                    <code>var(--sys-accent-active)</code><br />
-                    <code className="text-sys-text-muted">bg-sys-accent-active</code><br />
-                    <code className="text-sys-text-muted">active:bg-sys-accent-active</code>
-                  </small>
-                </div>
-                <div className="grid gap-layout-gap-1">
-                  <div className="h-12 bg-sys-accent-secondary rounded-radius-lg" />
-                  <small>
-                    <strong>Accent Secondary:</strong> Light Pastel<br />
-                    <code>var(--sys-accent-secondary)</code><br />
-                    <code className="text-sys-text-muted">bg-sys-accent-secondary</code>
-                  </small>
-                </div>
-                <div className="grid gap-layout-gap-1">
-                  <div className="h-12 bg-sys-accent-tertiary rounded-radius-lg" />
-                  <small>
-                    <strong>Accent Tertiary:</strong> Dark Olive<br />
-                    <code>var(--sys-accent-tertiary)</code><br />
-                    <code className="text-sys-text-muted">bg-sys-accent-tertiary</code>
-                  </small>
-                </div>
-              </div>
-            </div>
-
-            {/* Surfaces */}
-            <div>
-                <h4 className="mb-space-20 mt-space-20">Surfaces (Backgrounds)</h4>
-              <div className="grid grid-cols-[repeat(auto-fit,minmax(180px,1fr))] gap-layout-gap-2">
-                <div className="grid gap-layout-gap-1">
-                  <div className="h-12 bg-sys-surface border border-sys-border rounded-radius-lg" />
-                  <small>
-                    <strong>Surface:</strong> White<br />
-                    <code>var(--sys-surface)</code><br />
-                    <code className="text-sys-text-muted">bg-sys-surface</code>
-                  </small>
-                </div>
-                <div className="grid gap-layout-gap-1">
-                  <div className="h-12 bg-sys-surface-2 border border-sys-border rounded-radius-lg" />
-                  <small>
-                    <strong>Surface 2:</strong> Alternative<br />
-                    <code>var(--sys-surface-2)</code><br />
-                    <code className="text-sys-text-muted">bg-sys-surface-2</code>
-                  </small>
-                </div>
-                <div className="grid gap-layout-gap-1">
-                  <div className="h-12 bg-sys-surface-accent rounded-radius-lg" />
-                  <small>
-                    <strong>Surface Accent:</strong> Green BG<br />
-                    <code>var(--sys-surface-accent)</code><br />
-                    <code className="text-sys-text-muted">bg-sys-surface-accent</code>
-                  </small>
-                </div>
-                <div className="grid gap-layout-gap-1">
-                  <div className="h-12 bg-sys-surface-interactive rounded-radius-lg" />
-                  <small>
-                    <strong>Surface Interactive:</strong> Blue BG<br />
-                    <code>var(--sys-surface-interactive)</code><br />
-                    <code className="text-sys-text-muted">bg-sys-surface-interactive</code>
-                  </small>
-                </div>
-              </div>
-            </div>
-
-            {/* Text Colors */}
-            <div>
-                <h4 className="mb-space-20 mt-space-20">Text Colors</h4>
-              <div className="grid grid-cols-[repeat(auto-fit,minmax(180px,1fr))] gap-layout-gap-2">
-                <div className="grid gap-layout-gap-1">
-                  <div className="h-12 bg-sys-text rounded-radius-lg text-sys-text-inverse flex items-center justify-center">
-                    <p>Text</p>
-                  </div>
-                  <small>
-                    <strong>Text:</strong> Blue<br />
-                    <code>var(--sys-text)</code><br />
-                    <code className="text-sys-text-muted">text-sys-text</code>
-                  </small>
-                </div>
-                <div className="grid gap-layout-gap-1">
-                  <div className="h-12 bg-sys-text-muted rounded-radius-lg border border-sys-border" />
-                  <small>
-                    <strong>Text Muted:</strong> 65% opacity<br />
-                    <code>var(--sys-text-muted)</code><br />
-                    <code className="text-sys-text-muted">text-sys-text-muted</code>
-                  </small>
-                </div>
-                <div className="grid gap-layout-gap-1">
-                  <div className="h-12 bg-sys-text-subtle rounded-radius-lg border border-sys-border" />
-                  <small>
-                    <strong>Text Subtle:</strong> 40% opacity<br />
-                    <code>var(--sys-text-subtle)</code><br />
-                    <code className="text-sys-text-muted">text-sys-text-subtle</code>
-                  </small>
-                </div>
-                <div className="grid gap-layout-gap-1">
-                  <div className="h-12 bg-sys-accent rounded-radius-lg text-sys-text-on-accent flex items-center justify-center">
-                    <p>On Accent</p>
-                  </div>
-                  <small>
-                    <strong>Text On Accent:</strong> White<br />
-                    <code>var(--sys-text-on-accent)</code><br />
-                    <code className="text-sys-text-muted">text-sys-text-on-accent</code>
-                  </small>
-                </div>
-              </div>
-            </div>
-
-            {/* Borders */}
-            <div>
-                <h4 className="mb-space-20 mt-space-20">Borders</h4>
-              <div className="grid grid-cols-[repeat(auto-fit,minmax(180px,1fr))] gap-layout-gap-2">
-                <div className="grid gap-layout-gap-1">
-                  <div className="h-12 bg-sys-surface border-2 border-sys-border rounded-radius-lg" />
-                  <small>
-                    <strong>Border:</strong> Neutral Gray<br />
-                    <code>var(--sys-border)</code><br />
-                    <code className="text-sys-text-muted">border-sys-border</code>
-                  </small>
-                </div>
-                <div className="grid gap-layout-gap-1">
-                  <div className="h-12 bg-sys-surface border-2 border-sys-border-strong rounded-radius-lg" />
-                  <small>
-                    <strong>Border Strong:</strong> Green<br />
-                    <code>var(--sys-border-strong)</code><br />
-                    <code className="text-sys-text-muted">border-sys-border-strong</code>
-                  </small>
-                </div>
-                <div className="grid gap-layout-gap-1">
-                  <div className="h-12 bg-sys-surface border-2 border-sys-border-interactive rounded-radius-lg" />
-                  <small>
-                    <strong>Border Interactive:</strong> Blue<br />
-                    <code>var(--sys-border-interactive)</code><br />
-                    <code className="text-sys-text-muted">border-sys-border-interactive</code>
-                  </small>
-                </div>
-                <div className="grid gap-layout-gap-1">
-                  <div className="h-12 bg-sys-surface border-2 border-sys-border-subtle rounded-radius-lg" />
-                  <small>
-                    <strong>Border Subtle:</strong> 60% opacity<br />
-                    <code>var(--sys-border-subtle)</code><br />
-                    <code className="text-sys-text-muted">border-sys-border-subtle</code>
-                  </small>
-                </div>
-              </div>
-            </div>
-
-            {/* States */}
-            <div>
-                <h4 className="mb-space-20 mt-space-20">States (Error, Warning, Success)</h4>
-              <div className="grid grid-cols-[repeat(auto-fit,minmax(180px,1fr))] gap-layout-gap-2">
-                <div className="grid gap-layout-gap-1">
-                  <div className="h-12 bg-sys-danger rounded-radius-lg" />
-                  <small>
-                    <strong>Danger:</strong> Red<br />
-                    <code>var(--sys-danger)</code><br />
-                    <code className="text-sys-text-muted">bg-sys-danger</code>
-                  </small>
-                </div>
-                <div className="grid gap-layout-gap-1">
-                  <div className="h-12 bg-sys-warning rounded-radius-lg" />
-                  <small>
-                    <strong>Warning:</strong> Orange<br />
-                    <code>var(--sys-warning)</code><br />
-                    <code className="text-sys-text-muted">bg-sys-warning</code>
-                  </small>
-                </div>
-                <div className="grid gap-layout-gap-1">
-                  <div className="h-12 bg-sys-success rounded-radius-lg" />
-                  <small>
-                    <strong>Success:</strong> Green<br />
-                    <code>var(--sys-success)</code><br />
-                    <code className="text-sys-text-muted">bg-sys-success</code>
-                  </small>
-                </div>
-              </div>
-            </div>
-
-            {/* Component-Specific */}
-            <div>
-                <h4 className="mb-space-20 mt-space-20">Component-Specific Tokens</h4>
-              <div className="grid gap-layout-gap-2">
-                <div>
-                    <p className="mb-space-10"><strong>Buttons:</strong></p>
-                  <div className="grid gap-layout-gap-1">
-                    <small><code>--sys-btn-primary-bg</code> → <code className="text-sys-text-muted">bg-sys-btn-primary-bg</code></small>
-                    <small><code>--sys-btn-secondary-bg</code> → <code className="text-sys-text-muted">bg-sys-btn-secondary-bg</code></small>
-                    <small><code>--sys-btn-tertiary-bg</code> → <code className="text-sys-text-muted">bg-sys-btn-tertiary-bg</code></small>
-                    <small><code>--sys-btn-outline-border</code> → <code className="text-sys-text-muted">border-sys-btn-outline-border</code></small>
-                    <small><code>--sys-btn-interactive-border</code> → <code className="text-sys-text-muted">border-sys-btn-interactive-border</code></small>
-                  </div>
-                </div>
-                <div>
-                    <p className="mb-space-10"><strong>Inputs:</strong></p>
-                  <div className="grid gap-layout-gap-1">
-                    <small><code>--sys-input-border</code> → <code className="text-sys-text-muted">border-sys-input-border</code></small>
-                    <small><code>--sys-input-border-hover</code> → <code className="text-sys-text-muted">hover:border-sys-input-border-hover</code></small>
-                    <small><code>--sys-input-border-focus</code> → <code className="text-sys-text-muted">focus:border-sys-input-border-focus</code></small>
-                    <small><code>--sys-input-bg</code> → <code className="text-sys-text-muted">bg-sys-input-bg</code></small>
-                    <small><code>--sys-input-fg</code> → <code className="text-sys-text-muted">text-sys-input-fg</code></small>
-                  </div>
-                </div>
-                <div>
-                    <p className="mb-space-10"><strong>Cards:</strong></p>
-                  <div className="grid gap-layout-gap-1">
-                    <small><code>--sys-card-bg</code> → <code className="text-sys-text-muted">bg-sys-card-bg</code></small>
-                    <small><code>--sys-card-border</code> → <code className="text-sys-text-muted">border-sys-card-border</code></small>
-                    <small><code>--sys-card-bg-hover</code> → <code className="text-sys-text-muted">hover:bg-sys-card-bg-hover</code></small>
-                  </div>
-                </div>
-                <div>
-                    <p className="mb-space-10"><strong>Navigation:</strong></p>
-                  <div className="grid gap-layout-gap-1">
-                    <small><code>--sys-nav-bg</code> → <code className="text-sys-text-muted">bg-sys-nav-bg</code></small>
-                    <small><code>--sys-nav-link</code> → <code className="text-sys-text-muted">text-sys-nav-link</code></small>
-                    <small><code>--sys-nav-link-hover</code> → <code className="text-sys-text-muted">hover:text-sys-nav-link-hover</code></small>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-          </InnerSection>
-        </Container>
-      </Section>
+    </Section>
 
       {/* Spacing Section */}
       <Section id="spacing">
@@ -2474,132 +2175,7 @@ export default function MyPage() {
                 </div>
               </div>
 
-              {/* Color Utilities */}
-              <div>
-                <h3 className="mb-space-20 mt-space-20">Color Utilities</h3>
-                <small className="mb-space-20 block">
-                  All semantic colors use the <code>sys-*</code> prefix. These reference design tokens and should be used instead of raw palette colors.
-                </small>
-
-                <div className="grid gap-layout-gap-2">
-                  <div>
-                    <h4 className="mb-space-10">Background Colors</h4>
-                    <div className="grid grid-cols-[repeat(auto-fit,minmax(200px,1fr))] gap-layout-gap-1">
-                      <div className="p-space-10 bg-sys-surface rounded-radius-lg border border-sys-border">
-                        <small><code>bg-sys-surface</code></small>
-                      </div>
-                      <div className="p-space-10 bg-sys-surface-2 rounded-radius-lg border border-sys-border">
-                        <small><code>bg-sys-surface-2</code></small>
-                      </div>
-                      <div className="p-space-10 bg-sys-surface-accent rounded-radius-lg">
-                        <small className="text-sys-text-on-accent"><code>bg-sys-surface-accent</code></small>
-                      </div>
-                      <div className="p-space-10 bg-sys-surface-interactive rounded-radius-lg">
-                        <small className="text-sys-text-on-interactive"><code>bg-sys-surface-interactive</code></small>
-                      </div>
-                    </div>
-                  </div>
-
-                  <div>
-                    <h4 className="mb-space-10">Text Colors</h4>
-                    <div className="grid gap-layout-gap-1">
-                      <div className="p-space-10 bg-sys-surface rounded-radius-lg">
-                        <p className="text-sys-text"><code>text-sys-text</code></p>
-                      </div>
-                      <div className="p-space-10 bg-sys-surface rounded-radius-lg">
-                        <p className="text-sys-text-muted"><code>text-sys-text-muted</code></p>
-                      </div>
-                      <div className="p-space-10 bg-sys-surface rounded-radius-lg">
-                        <p className="text-sys-text-subtle"><code>text-sys-text-subtle</code></p>
-                      </div>
-                      <div className="p-space-10 bg-sys-accent rounded-radius-lg">
-                        <p className="text-sys-text-on-accent"><code>text-sys-text-on-accent</code></p>
-                      </div>
-                    </div>
-                  </div>
-
-                  <div>
-                    <h4 className="mb-space-10">Border Colors</h4>
-                    <div className="grid gap-layout-gap-1">
-                      <div className="p-space-10 bg-sys-surface rounded-radius-lg border-2 border-sys-border">
-                        <small><code>border-sys-border</code></small>
-                      </div>
-                      <div className="p-space-10 bg-sys-surface rounded-radius-lg border-2 border-sys-border-strong">
-                        <small><code>border-sys-border-strong</code></small>
-                      </div>
-                      <div className="p-space-10 bg-sys-surface rounded-radius-lg border-2 border-sys-border-interactive">
-                        <small><code>border-sys-border-interactive</code></small>
-                      </div>
-                      <div className="p-space-10 bg-sys-surface rounded-radius-lg border-2 border-sys-border-subtle">
-                        <small><code>border-sys-border-subtle</code></small>
-                      </div>
-                    </div>
-                  </div>
-
-                  <div>
-                    <h4 className="mb-space-10">Accent & Interactive Colors</h4>
-                    <div className="grid grid-cols-[repeat(auto-fit,minmax(200px,1fr))] gap-layout-gap-1">
-                      <div className="p-space-10 bg-sys-accent rounded-radius-lg">
-                        <small className="text-sys-text-on-accent"><code>bg-sys-accent</code></small>
-                      </div>
-                      <div className="p-space-10 bg-sys-accent-secondary rounded-radius-lg">
-                        <small><code>bg-sys-accent-secondary</code></small>
-                      </div>
-                      <div className="p-space-10 bg-sys-accent-tertiary rounded-radius-lg">
-                        <small className="text-sys-text-on-accent"><code>bg-sys-accent-tertiary</code></small>
-                      </div>
-                      <div className="p-space-10 bg-sys-interactive rounded-radius-lg">
-                        <small className="text-sys-text-on-interactive"><code>bg-sys-interactive</code></small>
-                      </div>
-                    </div>
-                  </div>
-
-                  <div>
-                    <h4 className="mb-space-10">State Colors</h4>
-                    <div className="grid grid-cols-[repeat(auto-fit,minmax(200px,1fr))] gap-layout-gap-1">
-                      <div className="p-space-10 bg-sys-danger rounded-radius-lg">
-                        <small className="text-sys-text-inverse"><code>bg-sys-danger</code></small>
-                      </div>
-                      <div className="p-space-10 bg-sys-warning rounded-radius-lg">
-                        <small><code>bg-sys-warning</code></small>
-                      </div>
-                      <div className="p-space-10 bg-sys-success rounded-radius-lg">
-                        <small className="text-sys-text-inverse"><code>bg-sys-success</code></small>
-                      </div>
-                    </div>
-                  </div>
-
-                  <DsCodeBlock>{`// Background colors
-<div className="bg-sys-surface">Surface</div>
-<div className="bg-sys-surface-2">Surface 2</div>
-<div className="bg-sys-surface-accent">Accent Surface</div>
-<div className="bg-sys-accent">Accent</div>
-<div className="bg-sys-interactive">Interactive</div>
-
-// Text colors
-<p className="text-sys-text">Default text</p>
-<p className="text-sys-text-muted">Muted text</p>
-<p className="text-sys-text-subtle">Subtle text</p>
-<p className="text-sys-text-on-accent">Text on accent</p>
-
-// Border colors
-<div className="border border-sys-border">Default border</div>
-<div className="border border-sys-border-strong">Strong border</div>
-<div className="border border-sys-border-interactive">Interactive border</div>
-
-// Hover states (automatically available)
-<div className="bg-sys-accent hover:bg-sys-accent-hover">Hover example</div>
-<div className="border-sys-border hover:border-sys-border-hover">Border hover</div>
-
-// All available sys-* colors:
-// sys-surface, sys-surface-2, sys-surface-accent, sys-surface-interactive
-// sys-text, sys-text-muted, sys-text-subtle, sys-text-on-accent
-// sys-accent, sys-accent-secondary, sys-accent-tertiary
-// sys-interactive, sys-border, sys-border-strong, sys-border-interactive
-// sys-danger, sys-warning, sys-success`}</DsCodeBlock>
-                </div>
-              </div>
-
+              
               {/* Typography Utilities */}
               <div>
                 <h3 className="mb-space-20 mt-space-20">Typography Utilities</h3>

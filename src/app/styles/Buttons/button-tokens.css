@@ -7,7 +7,7 @@
 
 :where([data-app="frontend"]) {
   /* base */
-  --btn-radius: var(--radius-full);
+  --btn-radius: var(--sys-radius-full);
   --btn-height: 3.25rem; /* adjust if needed */
   --btn-px: 1.25rem; /* horizontal padding - mobile default */
   --btn-py: 0.625rem; /* vertical padding (10px) - can be overridden */

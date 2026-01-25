@@ -164,7 +164,7 @@ export function FeaturedProductsCarousel({
         onTouchMove={onTouchMove}
         onTouchEnd={onTouchEnd}
       >
-        <div className="grid grid-cols-2 lg:grid-cols-3 w-full min-w-0 gap-layout-gap-1">
+        <div className="grid grid-cols-2 wide:grid-cols-3 w-full min-w-0 gap-layout-gap-1">
           {displayProducts.map((product, index) => {
             if (!product) {
               return <div key={`empty-${index}`} className="invisible pointer-events-none" />

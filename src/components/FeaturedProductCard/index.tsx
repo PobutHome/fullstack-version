@@ -63,7 +63,7 @@ export function FeaturedProductCard({
         </div>
 
         {/* Retail Price Section */}
-        <div className="flex items-start justify-between min-w-0 shrink-0 flex-col sm:flex-row sm:flex-wrap">
+        <div className="flex items-start justify-between min-w-0 shrink-0 flex-col sm:flex-row sm:flex-nowrap gap-layout-gap-1">
           <div className="grid gap-1 flex-1 min-w-0 w-full sm:w-auto sm:flex-[1_1_auto]">
             <h1 className="min-w-0 break-words text-sys-surface-accent">
               {formatPrice(retailPrice)}
@@ -81,7 +81,7 @@ export function FeaturedProductCard({
         </div>
 
         {/* Wholesale Price Section */}
-        <div className="flex items-start justify-between min-w-0 shrink-0 flex-col sm:flex-row sm:flex-wrap">
+        <div className="flex items-start justify-between min-w-0 shrink-0 flex-col sm:flex-row sm:flex-nowrap gap-layout-gap-1">
           <div className="grid gap-1 flex-1 min-w-0 w-full sm:w-auto sm:flex-[1_1_auto]">
             <h1 className="min-w-0 break-words text-sys-surface-accent">
               {formatPrice(wholesalePrice)}
