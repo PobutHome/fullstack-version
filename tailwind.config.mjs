@@ -183,40 +183,6 @@ export default {
           "bg-active": "var(--btn-danger-bg-active)",
           fg: "var(--btn-danger-fg)",
         },
-        "sys-btn-primary": {
-          bg: "var(--sys-btn-primary-bg)",
-          "bg-hover": "var(--sys-btn-primary-bg-hover)",
-          "bg-active": "var(--sys-btn-primary-bg-active)",
-          fg: "var(--sys-btn-primary-fg)",
-        },
-        "sys-btn-secondary": {
-          bg: "var(--sys-btn-secondary-bg)",
-          "bg-hover": "var(--sys-btn-secondary-bg-hover)",
-          "bg-active": "var(--sys-btn-secondary-bg-active)",
-          fg: "var(--sys-btn-secondary-fg)",
-        },
-        "sys-btn-tertiary": {
-          bg: "var(--sys-btn-tertiary-bg)",
-          "bg-hover": "var(--sys-btn-tertiary-bg-hover)",
-          "bg-active": "var(--sys-btn-tertiary-bg-active)",
-          fg: "var(--sys-btn-tertiary-fg)",
-        },
-        "sys-btn-outline": {
-          border: "var(--sys-btn-outline-border)",
-          "border-hover": "var(--sys-btn-outline-border-hover)",
-          "border-active": "var(--sys-btn-outline-border-active)",
-          fg: "var(--sys-btn-outline-fg)",
-          "fg-hover": "var(--sys-btn-outline-fg-hover)",
-          "fg-active": "var(--sys-btn-outline-fg-active)",
-        },
-        "sys-btn-interactive": {
-          border: "var(--sys-btn-interactive-border)",
-          "border-hover": "var(--sys-btn-interactive-border-hover)",
-          "border-active": "var(--sys-btn-interactive-border-active)",
-          fg: "var(--sys-btn-interactive-fg)",
-          "fg-hover": "var(--sys-btn-interactive-fg-hover)",
-          "fg-active": "var(--sys-btn-interactive-fg-active)",
-        },
         // Semantic system colors (from semantic-tokens.css)
         sys: {
           bg: "var(--sys-bg)",
@@ -282,47 +248,71 @@ export default {
           success: "var(--sys-accent)",
           "success-hover": "var(--sys-accent-hover)",
           "success-active": "var(--sys-accent-active)",
+
+          // Button tokens (flattened for Tailwind access)
+          "btn-primary-bg": "var(--sys-btn-primary-bg)",
+          "btn-primary-bg-hover": "var(--sys-btn-primary-bg-hover)",
+          "btn-primary-bg-active": "var(--sys-btn-primary-bg-active)",
+          "btn-primary-fg": "var(--sys-btn-primary-fg)",
+          
+          "btn-secondary-bg": "var(--sys-btn-secondary-bg)",
+          "btn-secondary-bg-hover": "var(--sys-btn-secondary-bg-hover)",
+          "btn-secondary-bg-active": "var(--sys-btn-secondary-bg-active)",
+          "btn-secondary-fg": "var(--sys-btn-secondary-fg)",
+          
+          "btn-tertiary-bg": "var(--sys-btn-tertiary-bg)",
+          "btn-tertiary-bg-hover": "var(--sys-btn-tertiary-bg-hover)",
+          "btn-tertiary-bg-active": "var(--sys-btn-tertiary-bg-active)",
+          "btn-tertiary-fg": "var(--sys-btn-tertiary-fg)",
+          
+          "btn-outline-border": "var(--sys-btn-outline-border)",
+          "btn-outline-border-hover": "var(--sys-btn-outline-border-hover)",
+          "btn-outline-border-active": "var(--sys-btn-outline-border-active)",
+          "btn-outline-fg": "var(--sys-btn-outline-fg)",
+          "btn-outline-fg-hover": "var(--sys-btn-outline-fg-hover)",
+          "btn-outline-fg-active": "var(--sys-btn-outline-fg-active)",
+          
+          "btn-interactive-border": "var(--sys-btn-interactive-border)",
+          "btn-interactive-border-hover": "var(--sys-btn-interactive-border-hover)",
+          "btn-interactive-border-active": "var(--sys-btn-interactive-border-active)",
+          "btn-interactive-fg": "var(--sys-btn-interactive-fg)",
+          "btn-interactive-fg-hover": "var(--sys-btn-interactive-fg-hover)",
+          "btn-interactive-fg-active": "var(--sys-btn-interactive-fg-active)",
+
+          // Component tokens (flattened for Tailwind access)
+          "card-bg": "var(--sys-card-bg)",
+          "card-bg-hover": "var(--sys-card-bg-hover)",
+          "card-border": "var(--sys-card-border)",
+          "card-border-hover": "var(--sys-card-border-hover)",
+          
+          "chip-bg": "var(--sys-chip-bg)",
+          "chip-fg": "var(--sys-chip-fg)",
+          "chip-border": "var(--sys-chip-border)",
+          
+          "input-border": "var(--sys-input-border)",
+          "input-border-hover": "var(--sys-input-border-hover)",
+          "input-border-focus": "var(--sys-input-border-focus)",
+          "input-bg": "var(--sys-input-bg)",
+          "input-fg": "var(--sys-input-fg)",
+          
+          "nav-bg": "var(--sys-nav-bg)",
+          "nav-fg": "var(--sys-nav-fg)",
+          "nav-link": "var(--sys-nav-link)",
+          "nav-link-hover": "var(--sys-nav-link-hover)",
+          "nav-link-active": "var(--sys-nav-link-active)",
         },
-        // Card tokens
+        // Card tokens (legacy - kept for backward compatibility)
         "card": {
           bg: "var(--sys-card-bg)",
           "bg-hover": "var(--sys-card-bg-hover)",
           border: "var(--sys-card-border)",
           "border-hover": "var(--sys-card-border-hover)",
         },
-        // Chip/Badge tokens
+        // Chip/Badge tokens (legacy - kept for backward compatibility)
         "chip": {
           bg: "var(--sys-chip-bg)",
           fg: "var(--sys-chip-fg)",
           border: "var(--sys-chip-border)",
-        },
-        // Card component tokens (for direct use)
-        "sys-card": {
-          bg: "var(--sys-card-bg)",
-          "bg-hover": "var(--sys-card-bg-hover)",
-          border: "var(--sys-card-border)",
-          "border-hover": "var(--sys-card-border-hover)",
-        },
-        "sys-chip": {
-          bg: "var(--sys-chip-bg)",
-          fg: "var(--sys-chip-fg)",
-          border: "var(--sys-chip-border)",
-        },
-        // Input tokens
-        "sys-input": {
-          border: "var(--sys-input-border)",
-          "border-hover": "var(--sys-input-border-hover)",
-          "border-focus": "var(--sys-input-border-focus)",
-          bg: "var(--sys-input-bg)",
-          fg: "var(--sys-input-fg)",
-        },
-        // Navigation tokens
-        "sys-nav": {
-          bg: "var(--sys-nav-bg)",
-          fg: "var(--sys-nav-fg)",
-          link: "var(--sys-nav-link)",
-          "link-hover": "var(--sys-nav-link-hover)",
-          "link-active": "var(--sys-nav-link-active)",
         },
         // Field tokens (for forms)
         field: {
