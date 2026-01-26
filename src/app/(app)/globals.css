@@ -18,23 +18,13 @@
 @import '../styles/typography.css';
 
 /* inputs styling imports */
-@import '../styles/Spacing/spacing-tokens.css';
-@import '../styles/Spacing/spacing.css';
+@import '../styles/spacing-tokens.css';
 
 /* inputs styling imports */
-@import '../styles/Inputs/input-tokens.css';
-@import '../styles/Inputs/input.css';
+@import '../styles/input-tokens.css';
 
 
 /* non-component utility/demo class groups (global) - Now using Tailwind @apply */
-@import '../styles/Links/links.css';
-@import '../styles/Cards/cards.css';
-@import '../styles/Badges/badges.css';
-@import '../styles/Search/search.css';
-@import '../styles/Header/header.css';
-@import '../styles/Nav/nav.css';
-@import '../styles/Product/product.css';
-@import '../styles/Drawer/drawer.css';
 
 
 

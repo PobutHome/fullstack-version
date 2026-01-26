@@ -11,7 +11,7 @@ export function Page({
   ...props
 }: Props) {
   // Using Tailwind classes - responsive padding-top via ds-inner-section-gap-y
-  const baseClasses = "w-full pt-ds-inner-section-gap-y"
+  const baseClasses = "w-full pt-layout-gap-3 grid gap-layout-gap-3"
   
   // Handle special variants via className
   // 'page-background' adds background image

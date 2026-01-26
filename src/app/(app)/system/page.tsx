@@ -319,27 +319,57 @@ export default async function SystemPage() {
 
               {/* Layout Gaps */}
               <div className="border border-sys-border rounded-radius-lg p-space-20 bg-sys-surface">
-                <h3 className="mb-space-10">Layout Gaps (Responsive)</h3>
+                <h3 className="mb-space-10">gap- pd- mg- layout-gap-1 (Responsive) Mobile 10px → Desktop 20px </h3>
                 <div className="grid gap-layout-gap-1">
-                  <div className="bg-sys-surface-2 p-space-10 rounded-radius-md">
+                  <div className="bg-sys-surface-2 rounded-radius-md">
                     <small className="font-mono text-sys-text-muted">
-                      gap-layout-gap-1: Mobile 10px → Desktop 20px
+                      item 1
                     </small>
                   </div>
-                  <div className="bg-sys-surface-2 p-space-10 rounded-radius-md">
+                  <div className="bg-sys-surface-2 rounded-radius-md">
                     <small className="font-mono text-sys-text-muted">
-                      gap-layout-gap-2: Mobile 20px → Desktop 50px
+                     item 2
+                    </small>
+                  </div>
+                </div>
+              </div>
+              <div className="border border-sys-border rounded-radius-lg p-space-20 bg-sys-surface">
+                <h3 className="mb-space-10">gap- pd- mg- layout-gap-2 (Responsive) Mobile 20px → Desktop 50px </h3>
+                <div className="grid gap-layout-gap-2">
+                  <div className="bg-sys-surface-2 rounded-radius-md">
+                    <small className="font-mono text-sys-text-muted">
+                      item 1
+                    </small>
+                  </div>
+                  <div className="bg-sys-surface-2 rounded-radius-md">
+                    <small className="font-mono text-sys-text-muted">
+                     item 2
                     </small>
                   </div>
                 </div>
               </div>
 
+              <div className="border border-sys-border rounded-radius-lg p-space-20 bg-sys-surface">
+                <h3 className="mb-space-10">gap- pd- mg- layout-gap-3 (Responsive) Mobile 20px → Tablet 30px → Desktop 50px </h3>
+                <div className="grid gap-layout-gap-3">
+                  <div className="bg-sys-surface-2 rounded-radius-md">
+                    <small className="font-mono text-sys-text-muted">
+                      item 1
+                    </small>
+                  </div>
+                  <div className="bg-sys-surface-2 rounded-radius-md">
+                    <small className="font-mono text-sys-text-muted">
+                     item 2
+                    </small>
+                  </div>
+                </div>
+              </div>
               {/* Layout Margin */}
               <div className="border border-sys-border rounded-radius-lg p-space-20 bg-sys-surface">
                 <h3 className="mb-space-10">Layout Margin (Responsive)</h3>
-                <div className="bg-sys-surface-2 p-space-10 rounded-radius-md">
+                <div className="bg-sys-surface-2 spacing-layout-margin rounded-radius-md">
                   <small className="font-mono text-sys-text-muted">
-                    --layout-margin: Mobile 10px → Tablet 50px → Desktop 150px
+                    --sys-layout-margin: tw: spacing-layout-margin: Mobile 10px → Tablet 50px → Desktop 150px
                   </small>
                 </div>
               </div>
