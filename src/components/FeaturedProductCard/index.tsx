@@ -29,7 +29,7 @@ export function FeaturedProductCard({
 }: FeaturedProductCardProps) {
 
   return (
-    <article className="fe-product flex flex-col h-full">
+    <article className="fe-product flex flex-col h-full bg-sys-surface rounded-xl border border-sys-accent relative box-border ">
       {/* Product Image */}
       <div className="w-full aspect-square flex items-center justify-center overflow-hidden">
         {imageUrl ? (
@@ -73,7 +73,7 @@ export function FeaturedProductCard({
           <Button
             variant="outline"
             size="md"
-            className="shrink-0 whitespace-nowrap text-sm w-full tablet:w-auto tablet:shrink-0 tablet:min-w-fit py-space-10 px-space-20"
+            className="shrink-0 whitespace-nowrap text-sm w-full tablet:w-auto tablet:shrink-0 tablet:min-w-fit py-space-10 px-space-20 tablet:text-lg wide:text-inherit"
             onClick={onRetailAddToCart}
           >
             Додати в кошик

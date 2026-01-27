@@ -1,7 +1,13 @@
 'use client'
 
 import { FeaturedProductCard } from '@/components/FeaturedProductCard'
-import { useCallback, useEffect, useRef, useState } from 'react'
+import {
+  type TouchEvent,
+  useCallback,
+  useEffect,
+  useRef,
+  useState,
+} from 'react'
 
 type FeaturedProduct = {
   id: string
@@ -35,46 +41,52 @@ export function FeaturedProductsCarousel({
   itemsPerView: initialItemsPerView,
   autoScrollInterval = DEFAULT_AUTO_SCROLL_INTERVAL,
 }: FeaturedProductsCarouselProps) {
-  const [currentIndex, setCurrentIndex] = useState<number>(0)
-  const [itemsPerView, setItemsPerView] = useState<number>(
-    initialItemsPerView || getItemsPerView()
-  )
+  const [currentIndex, setCurrentIndex] = useState<number>(0) // index of the left-most visible item
+
+  // Clamp initial items per view so we never request more visible slots
+  // than we actually have products. This keeps the left-most item layout stable
+  // and avoids rendering duplicates on first paint.
+  const [itemsPerView, setItemsPerView] = useState<number>(() => {
+    const base = initialItemsPerView ?? getItemsPerView()
+    const safeProductsCount = Math.max(1, products.length)
+    return Math.min(base, safeProductsCount)
+  })
   const intervalRef = useRef<NodeJS.Timeout | null>(null)
 
-  // Calculate max index (can't go beyond this)
-  const maxIndex = Math.max(0, products.length - itemsPerView)
+  const totalItems = products.length
 
   // Update items per view on resize
   useEffect(() => {
     const handleResize = () => {
       const newItemsPerView = getItemsPerView()
-      setItemsPerView(newItemsPerView)
-      // Adjust currentIndex if it would be out of bounds
-      const newMaxIndex = Math.max(0, products.length - newItemsPerView)
-      setCurrentIndex((prev) => Math.min(prev, newMaxIndex))
+      const safeProductsCount = Math.max(1, products.length)
+      // Never show more slots than products we actually have
+      const clampedItemsPerView = Math.min(newItemsPerView, safeProductsCount)
+      setItemsPerView(clampedItemsPerView)
+      // For circular carousel we keep currentIndex but normalize it
+      setCurrentIndex((prev) =>
+        totalItems === 0 ? 0 : ((prev % totalItems) + totalItems) % totalItems,
+      )
     }
 
     window.addEventListener('resize', handleResize)
     return () => window.removeEventListener('resize', handleResize)
-  }, [products.length])
+  }, [products.length, totalItems])
 
   const goToNext = useCallback((): void => {
-    setCurrentIndex((prev) => {
-      if (prev >= maxIndex) return prev
-      return prev + 1
-    })
-  }, [maxIndex])
+    if (totalItems === 0) return
+    setCurrentIndex((prev) => (prev + 1) % totalItems)
+  }, [totalItems])
 
   const goToPrevious = useCallback((): void => {
-    setCurrentIndex((prev) => {
-      if (prev <= 0) return prev
-      return prev - 1
-    })
-  }, [])
+    if (totalItems === 0) return
+    setCurrentIndex((prev) => (prev - 1 + totalItems) % totalItems)
+  }, [totalItems])
 
   // Auto-scroll functionality
   useEffect(() => {
-    if (products.length <= itemsPerView || maxIndex <= 0) return
+    if (totalItems === 0) return
+    if (totalItems <= itemsPerView) return
 
     intervalRef.current = setInterval(goToNext, autoScrollInterval)
 
@@ -83,7 +95,7 @@ export function FeaturedProductsCarousel({
         clearInterval(intervalRef.current)
       }
     }
-  }, [goToNext, autoScrollInterval, products.length, itemsPerView, maxIndex])
+  }, [goToNext, autoScrollInterval, totalItems, itemsPerView])
 
   const handleMouseEnter = (): void => {
     if (intervalRef.current) {
@@ -92,7 +104,7 @@ export function FeaturedProductsCarousel({
   }
 
   const handleMouseLeave = (): void => {
-    if (products.length > itemsPerView && maxIndex > 0) {
+    if (totalItems > itemsPerView) {
       intervalRef.current = setInterval(goToNext, autoScrollInterval)
     }
   }
@@ -101,14 +113,14 @@ export function FeaturedProductsCarousel({
   const startX = useRef<number>(0)
   const currentX = useRef<number>(0)
 
-  const onTouchStart = (e: React.TouchEvent<HTMLDivElement>): void => {
+  const onTouchStart = (e: TouchEvent<HTMLDivElement>): void => {
     startX.current = e.touches[0].clientX
     if (intervalRef.current) {
       clearInterval(intervalRef.current)
     }
   }
 
-  const onTouchMove = (e: React.TouchEvent<HTMLDivElement>): void => {
+  const onTouchMove = (e: TouchEvent<HTMLDivElement>): void => {
     currentX.current = e.touches[0].clientX
   }
 
@@ -123,7 +135,7 @@ export function FeaturedProductsCarousel({
       goToPrevious()
     }
 
-    if (products.length > itemsPerView && maxIndex > 0) {
+    if (totalItems > itemsPerView) {
       intervalRef.current = setInterval(goToNext, autoScrollInterval)
     }
   }
@@ -142,15 +154,14 @@ export function FeaturedProductsCarousel({
     return null
   }
 
-  // Get visible products - show items from currentIndex to currentIndex + itemsPerView
-  const visibleProducts = products.slice(currentIndex, currentIndex + itemsPerView)
-  
-  // Fill with empty slots if needed to maintain grid layout
-  const emptySlots = Math.max(0, itemsPerView - visibleProducts.length)
-  const displayProducts = [...visibleProducts, ...Array(emptySlots).fill(null)]
+  // Build visible products in a circular (endless) manner,
+  // always starting from the left-most `currentIndex`
+  const displayProducts = Array.from({ length: itemsPerView }, (_, i) => {
+    const index = (currentIndex + i) % totalItems
+    return products[index]
+  })
 
-  const canGoPrevious = currentIndex > 0
-  const canGoNext = currentIndex < maxIndex
+  const showArrows = totalItems > itemsPerView
 
   return (
     <div
@@ -165,10 +176,7 @@ export function FeaturedProductsCarousel({
         onTouchEnd={onTouchEnd}
       >
         <div className="grid grid-cols-2 wide:grid-cols-3 w-full min-w-0 gap-layout-gap-1">
-          {displayProducts.map((product, index) => {
-            if (!product) {
-              return <div key={`empty-${index}`} className="invisible pointer-events-none" />
-            }
+          {displayProducts.map((product) => {
             return (
               <div key={product.id} className="transition-opacity duration-200 ease-in-out">
                 <FeaturedProductCard
@@ -190,13 +198,14 @@ export function FeaturedProductsCarousel({
       </div>
 
       {/* Navigation Arrows */}
-      {maxIndex > 0 && (
+      {showArrows && (
         <div className="flex justify-center items-center gap-layout-gap-1 mt-layout-gap-2">
           <button
             type="button"
             className="bg-transparent border-none cursor-pointer p-2 flex items-center justify-center transition-colors duration-200 ease-in-out text-sys-accent hover:text-sys-accent-hover active:text-sys-accent-active rounded-radius-md hover:bg-[color-mix(in_srgb,var(--sys-accent)_10%,transparent)] focus-visible:outline-2 focus-visible:outline-sys-focus focus-visible:outline-offset-2 disabled:opacity-40 disabled:cursor-not-allowed disabled:pointer-events-none"
             onClick={goToPrevious}
-            disabled={!canGoPrevious}
+            // In endless mode we never disable arrows (unless there's not enough items, handled above)
+            disabled={false}
             aria-label="Попередні товари"
           >
             <svg
@@ -221,7 +230,7 @@ export function FeaturedProductsCarousel({
             type="button"
             className="bg-transparent border-none cursor-pointer p-2 flex items-center justify-center transition-colors duration-200 ease-in-out text-sys-accent hover:text-sys-accent-hover active:text-sys-accent-active rounded-radius-md hover:bg-[color-mix(in_srgb,var(--sys-accent)_10%,transparent)] focus-visible:outline-2 focus-visible:outline-sys-focus focus-visible:outline-offset-2 disabled:opacity-40 disabled:cursor-not-allowed disabled:pointer-events-none"
             onClick={goToNext}
-            disabled={!canGoNext}
+            disabled={false}
             aria-label="Наступні товари"
           >
             <svg
