@@ -116,6 +116,10 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
   }, [])
 
   useEffect(() => {
+    let didCancel = false
+    const controller = new AbortController()
+    const timeoutId = setTimeout(() => controller.abort(), 4000)
+
     const fetchMe = async () => {
       try {
         const res = await fetch('/api/users/me', {
@@ -124,22 +128,51 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
             'Content-Type': 'application/json',
           },
           method: 'GET',
+          signal: controller.signal,
         })
 
         if (res.ok) {
           const { user: meUser } = await res.json()
+          if (didCancel) return
           setUser(meUser || null)
-          setStatus(meUser ? 'loggedIn' : undefined)
-        } else {
-          throw new Error('An error occurred while fetching your account.')
+          setStatus(meUser ? 'loggedIn' : 'loggedOut')
+          return
         }
-      } catch (e) {
+
+        if (didCancel) return
         setUser(null)
-        throw new Error('An error occurred while fetching your account.')
+        setStatus('loggedOut')
+      } catch {
+        // If the request is slow/hung (common in dev), avoid forcing a "logged out" state.
+        if (didCancel || controller.signal.aborted) return
+        setUser(null)
+        setStatus('loggedOut')
       }
     }
 
-    void fetchMe()
+    // Defer request so initial paint isn't contending with auth fetch in dev.
+    const ric = (globalThis as any).requestIdleCallback as
+      | undefined
+      | ((cb: () => void, opts?: { timeout: number }) => number)
+    const cic = (globalThis as any).cancelIdleCallback as undefined | ((id: number) => void)
+
+    if (typeof ric === 'function') {
+      const idleId = ric(() => void fetchMe(), { timeout: 1500 })
+      return () => {
+        didCancel = true
+        if (typeof cic === 'function') cic(idleId)
+        clearTimeout(timeoutId)
+        controller.abort()
+      }
+    }
+
+    const t = setTimeout(() => void fetchMe(), 0)
+    return () => {
+      didCancel = true
+      clearTimeout(t)
+      clearTimeout(timeoutId)
+      controller.abort()
+    }
   }, [])
 
   const forgotPassword = useCallback<ForgotPassword>(async (args) => {

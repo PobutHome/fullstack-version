@@ -17,7 +17,9 @@ export function HomePage({ categories }: Props) {
   return (
     <Page
       data-app="frontend"
-      className="sections-margin page-background pt-space-20 pb-space-50"
+      background
+      sectionsMargin
+      className="pt-space-20 pb-space-50"
     >
       <HomeBanner />{/*implement homebanner fetching banners from cms, and enable creation of those banners */}
       <Benefits />

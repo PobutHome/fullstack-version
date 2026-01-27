@@ -1,6 +1,6 @@
 "use client"
 
-import { useMemo, useState } from "react"
+import { useDeferredValue, useMemo, useState, useTransition } from "react"
 
 type VariableType = "bg" | "fg" | "both"
 type VariableCategory = "all" | "surfaces" | "text" | "states" | "buttons" | "cards" | "chips" | "inputs" | "nav" | "links" | "borders"
@@ -99,9 +99,53 @@ export function ColorVariablesTable() {
   const [filter, setFilter] = useState<VariableType | "all">("all")
   const [categoryFilter, setCategoryFilter] = useState<VariableCategory>("all")
   const [searchQuery, setSearchQuery] = useState("")
+  const deferredSearchQuery = useDeferredValue(searchQuery)
+  const [, startTransition] = useTransition()
+
+  const computedVariables = useMemo(() => {
+    return colorVariables.map((variable) => {
+      const bgTokens = variable.bgClasses?.split(/\s+/).filter(Boolean) ?? []
+      const textTokens = variable.textClasses?.split(/\s+/).filter(Boolean) ?? []
+
+      // Extract background color class from bgClasses
+      const bgColorClass =
+        bgTokens.find((cls) => cls.startsWith("bg-")) ??
+        (variable.type === "bg" && variable.tailwindClass.startsWith("bg-")
+          ? variable.tailwindClass.split(" ")[0] // first class
+          : null)
+
+      // Extract border color class from bgClasses (for border variables)
+      const borderColorClass =
+        bgTokens.find((cls) => cls.startsWith("border-") && !cls.includes("[")) ?? null
+
+      // Extract text color class from textClasses
+      const textColorClass =
+        textTokens.find((cls) => cls.startsWith("text-")) ??
+        (variable.type === "fg" && variable.tailwindClass.startsWith("text-")
+          ? variable.tailwindClass.split(" ")[0] // first class
+          : null)
+
+      const showBorder = variable.cssVar.includes("border")
+      const backgroundDisplay = showBorder && borderColorClass ? borderColorClass : bgColorClass
+
+      // For text column, use bg class from textClasses if available, otherwise row bg color.
+      const textBgClass =
+        textTokens.find((cls) => cls.startsWith("bg-")) ?? bgColorClass ?? "bg-sys-surface"
+
+      return {
+        ...variable,
+        bgColorClass,
+        borderColorClass,
+        textColorClass,
+        showBorder,
+        backgroundDisplay,
+        textBgClass,
+      }
+    })
+  }, [])
 
   const filteredVariables = useMemo(() => {
-    let filtered = colorVariables
+    let filtered = computedVariables
 
     // Apply type filter
     if (filter !== "all") {
@@ -114,8 +158,8 @@ export function ColorVariablesTable() {
     }
 
     // Apply search filter
-    if (searchQuery.trim()) {
-      const query = searchQuery.toLowerCase().trim()
+    if (deferredSearchQuery.trim()) {
+      const query = deferredSearchQuery.toLowerCase().trim()
       filtered = filtered.filter((v) => {
         const cssVarLower = v.cssVar.toLowerCase()
         const tailwindLower = v.tailwindClass.toLowerCase()
@@ -124,7 +168,7 @@ export function ColorVariablesTable() {
     }
 
     return filtered
-  }, [filter, categoryFilter, searchQuery])
+  }, [computedVariables, filter, categoryFilter, deferredSearchQuery])
 
   return (
     <div className="border border-sys-border rounded-radius-lg p-space-20 bg-sys-surface">
@@ -149,7 +193,7 @@ export function ColorVariablesTable() {
             <div className="mb-space-10 text-sys-text-muted pobut-body">Type:</div>
             <div className="flex flex-wrap gap-space-10">
               <button
-                onClick={() => setFilter("all")}
+                onClick={() => startTransition(() => setFilter("all"))}
                 className={`px-space-20 py-space-10 rounded-radius-md pobut-body transition-colors ${
                   filter === "all"
                     ? "bg-sys-accent text-sys-text-on-accent"
@@ -159,7 +203,7 @@ export function ColorVariablesTable() {
                 All
               </button>
               <button
-                onClick={() => setFilter("bg")}
+                onClick={() => startTransition(() => setFilter("bg"))}
                 className={`px-space-20 py-space-10 rounded-radius-md pobut-body transition-colors ${
                   filter === "bg"
                     ? "bg-sys-accent text-sys-text-on-accent"
@@ -169,7 +213,7 @@ export function ColorVariablesTable() {
                 Background
               </button>
               <button
-                onClick={() => setFilter("fg")}
+                onClick={() => startTransition(() => setFilter("fg"))}
                 className={`px-space-20 py-space-10 rounded-radius-md pobut-body transition-colors ${
                   filter === "fg"
                     ? "bg-sys-accent text-sys-text-on-accent"
@@ -179,7 +223,7 @@ export function ColorVariablesTable() {
                 Foreground
               </button>
               <button
-                onClick={() => setFilter("both")}
+                onClick={() => startTransition(() => setFilter("both"))}
                 className={`px-space-20 py-space-10 rounded-radius-md pobut-body transition-colors ${
                   filter === "both"
                     ? "bg-sys-accent text-sys-text-on-accent"
@@ -196,7 +240,7 @@ export function ColorVariablesTable() {
             <div className="mb-space-10 text-sys-text-muted pobut-body">Category:</div>
             <div className="flex flex-wrap gap-space-10">
               <button
-                onClick={() => setCategoryFilter("all")}
+                onClick={() => startTransition(() => setCategoryFilter("all"))}
                 className={`px-space-20 py-space-10 rounded-radius-md pobut-body transition-colors ${
                   categoryFilter === "all"
                     ? "bg-sys-accent text-sys-text-on-accent"
@@ -206,7 +250,7 @@ export function ColorVariablesTable() {
                 All
               </button>
               <button
-                onClick={() => setCategoryFilter("surfaces")}
+                onClick={() => startTransition(() => setCategoryFilter("surfaces"))}
                 className={`px-space-20 py-space-10 rounded-radius-md pobut-body transition-colors ${
                   categoryFilter === "surfaces"
                     ? "bg-sys-accent text-sys-text-on-accent"
@@ -216,7 +260,7 @@ export function ColorVariablesTable() {
                 Surfaces
               </button>
               <button
-                onClick={() => setCategoryFilter("text")}
+                onClick={() => startTransition(() => setCategoryFilter("text"))}
                 className={`px-space-20 py-space-10 rounded-radius-md pobut-body transition-colors ${
                   categoryFilter === "text"
                     ? "bg-sys-accent text-sys-text-on-accent"
@@ -226,7 +270,7 @@ export function ColorVariablesTable() {
                 Text
               </button>
               <button
-                onClick={() => setCategoryFilter("states")}
+                onClick={() => startTransition(() => setCategoryFilter("states"))}
                 className={`px-space-20 py-space-10 rounded-radius-md pobut-body transition-colors ${
                   categoryFilter === "states"
                     ? "bg-sys-accent text-sys-text-on-accent"
@@ -236,7 +280,7 @@ export function ColorVariablesTable() {
                 States
               </button>
               <button
-                onClick={() => setCategoryFilter("buttons")}
+                onClick={() => startTransition(() => setCategoryFilter("buttons"))}
                 className={`px-space-20 py-space-10 rounded-radius-md pobut-body transition-colors ${
                   categoryFilter === "buttons"
                     ? "bg-sys-accent text-sys-text-on-accent"
@@ -246,7 +290,7 @@ export function ColorVariablesTable() {
                 Buttons
               </button>
               <button
-                onClick={() => setCategoryFilter("cards")}
+                onClick={() => startTransition(() => setCategoryFilter("cards"))}
                 className={`px-space-20 py-space-10 rounded-radius-md pobut-body transition-colors ${
                   categoryFilter === "cards"
                     ? "bg-sys-accent text-sys-text-on-accent"
@@ -256,7 +300,7 @@ export function ColorVariablesTable() {
                 Cards
               </button>
               <button
-                onClick={() => setCategoryFilter("chips")}
+                onClick={() => startTransition(() => setCategoryFilter("chips"))}
                 className={`px-space-20 py-space-10 rounded-radius-md pobut-body transition-colors ${
                   categoryFilter === "chips"
                     ? "bg-sys-accent text-sys-text-on-accent"
@@ -266,7 +310,7 @@ export function ColorVariablesTable() {
                 Chips
               </button>
               <button
-                onClick={() => setCategoryFilter("inputs")}
+                onClick={() => startTransition(() => setCategoryFilter("inputs"))}
                 className={`px-space-20 py-space-10 rounded-radius-md pobut-body transition-colors ${
                   categoryFilter === "inputs"
                     ? "bg-sys-accent text-sys-text-on-accent"
@@ -276,7 +320,7 @@ export function ColorVariablesTable() {
                 Inputs
               </button>
               <button
-                onClick={() => setCategoryFilter("nav")}
+                onClick={() => startTransition(() => setCategoryFilter("nav"))}
                 className={`px-space-20 py-space-10 rounded-radius-md pobut-body transition-colors ${
                   categoryFilter === "nav"
                     ? "bg-sys-accent text-sys-text-on-accent"
@@ -286,7 +330,7 @@ export function ColorVariablesTable() {
                 Navigation
               </button>
               <button
-                onClick={() => setCategoryFilter("links")}
+                onClick={() => startTransition(() => setCategoryFilter("links"))}
                 className={`px-space-20 py-space-10 rounded-radius-md pobut-body transition-colors ${
                   categoryFilter === "links"
                     ? "bg-sys-accent text-sys-text-on-accent"
@@ -323,50 +367,26 @@ export function ColorVariablesTable() {
                   </td>
                 </tr>
               ) : (
-                filteredVariables.map((variable, index) => {
-                  // Extract background color class from bgClasses
-                  let bgColorClass = variable.bgClasses?.split(' ').find(cls => cls.startsWith('bg-')) || null
-                  // If no bg class found in bgClasses but type is "bg", use tailwindClass
-                  if (!bgColorClass && variable.type === "bg" && variable.tailwindClass.startsWith("bg-")) {
-                    bgColorClass = variable.tailwindClass.split(' ')[0] // Get first class (before any "/")
-                  }
-                  // Extract border color class from bgClasses (for border variables)
-                  const borderColorClass = variable.bgClasses?.split(' ').find(cls => cls.startsWith('border-') && !cls.includes('[')) || null
-                  // Extract text color class from textClasses
-                  let textColorClass = variable.textClasses?.split(' ').find(cls => cls.startsWith('text-')) || null
-                  // If no text class found in textClasses but type is "fg", use tailwindClass
-                  if (!textColorClass && variable.type === "fg" && variable.tailwindClass.startsWith("text-")) {
-                    textColorClass = variable.tailwindClass.split(' ')[0] // Get first class (before any "/")
-                  }
-                  
-                  // Determine what to show in background column
-                  const showBorder = variable.cssVar.includes("border")
-                  const backgroundDisplay = showBorder && borderColorClass 
-                    ? borderColorClass 
-                    : bgColorClass
-                  
-                  // For text column, use the background color from the same row (extract from textClasses if available, otherwise use bgColorClass)
-                  const textBgClass = variable.textClasses?.split(' ').find(cls => cls.startsWith('bg-')) || bgColorClass || 'bg-sys-surface'
-                  
+                filteredVariables.map((variable) => {
                   return (
-                    <tr key={index} className="border-b border-sys-border-subtle">
+                    <tr key={variable.cssVar} className="border-b border-sys-border-subtle">
                       <td className="p-space-10 font-mono text-sys-text-muted">{variable.cssVar}</td>
                       <td className="p-space-10 font-mono text-sys-text-muted">{variable.tailwindClass}</td>
                       <td className="p-space-10">
-                        {backgroundDisplay ? (
-                          showBorder && borderColorClass ? (
-                            <div className={`bg-sys-surface min-w-[120px] min-h-[40px] rounded-radius-sm border-[3px] ${borderColorClass}`} />
+                        {variable.backgroundDisplay ? (
+                          variable.showBorder && variable.borderColorClass ? (
+                            <div className={`bg-sys-surface min-w-[120px] min-h-[40px] rounded-radius-sm border-[3px] ${variable.borderColorClass}`} />
                           ) : (
-                            <div className={`${bgColorClass} min-w-[120px] min-h-[40px] rounded-radius-sm border border-sys-border-subtle`} />
+                            <div className={`${variable.bgColorClass} min-w-[120px] min-h-[40px] rounded-radius-sm border border-sys-border-subtle`} />
                           )
                         ) : (
                           <span className="text-sys-text-subtle">—</span>
                         )}
                       </td>
                       <td className="p-space-10">
-                        {textColorClass ? (
-                          <div className={`${textBgClass} min-w-[120px] min-h-[40px] rounded-radius-sm border border-sys-border-subtle flex items-center justify-center`}>
-                            <div className={`${textColorClass} pobut-body`}>Aa</div>
+                        {variable.textColorClass ? (
+                          <div className={`${variable.textBgClass} min-w-[120px] min-h-[40px] rounded-radius-sm border border-sys-border-subtle flex items-center justify-center`}>
+                            <div className={`${variable.textColorClass} pobut-body`}>Aa</div>
                           </div>
                         ) : (
                           <span className="text-sys-text-subtle">—</span>

@@ -2,29 +2,31 @@ import type { HTMLAttributes, ReactNode } from "react"
 
 type Props = HTMLAttributes<HTMLDivElement> & {
   children: ReactNode
+  background?: boolean
+  sectionsMargin?: boolean
 }
 
 export function Page({
   className = "",
+  background = false,
+  sectionsMargin = false,
   children,
   style,
   ...props
 }: Props) {
   // Using Tailwind classes - responsive padding-top via ds-inner-section-gap-y
   const baseClasses = "w-full pt-layout-gap-3 grid gap-layout-gap-3"
-  
-  // Handle special variants via className
-  // 'page-background' adds background image
-  // 'sections-margin' adds gap between sections
-  const hasBackground = className.includes('page-background')
-  const hasSectionsMargin = className.includes('sections-margin')
-  
-  const variantClasses = [
-    hasBackground && "bg-[url('/images/background.svg')] bg-cover bg-center bg-no-repeat bg-fixed",
-    hasSectionsMargin && "flex flex-col gap-ds-inner-section-gap-y",
-  ].filter(Boolean).join(' ')
-  
-  const combinedClassName = `${baseClasses} ${variantClasses} ${className}`.trim()
+
+  const combinedClassName = [
+    baseClasses,
+    // Background image is decorative: avoid `bg-fixed` on small screens (can hurt LCP/scroll perf).
+    background && "bg-[url('/images/background.svg')] bg-cover bg-center bg-no-repeat md:bg-fixed",
+    sectionsMargin && "flex flex-col gap-ds-inner-section-gap-y",
+    className,
+  ]
+    .filter(Boolean)
+    .join(" ")
+    .trim()
   
   return (
     <div 

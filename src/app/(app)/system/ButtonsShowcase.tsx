@@ -34,7 +34,7 @@ export function ButtonsShowcase() {
                 </Button>
                 <div className="bg-sys-surface-2 p-space-10 rounded-radius-md">
                   <small className="font-mono text-sys-text-muted pobut-body">
-                    variant="{variant}"
+                    {`variant="${variant}"`}
                   </small>
                 </div>
               </div>
@@ -60,7 +60,7 @@ export function ButtonsShowcase() {
                 </Button>
                 <div className="bg-sys-surface-2 p-space-10 rounded-radius-md">
                   <small className="font-mono text-sys-text-muted pobut-body">
-                    size="{size}"
+                    {`size="${size}"`}
                   </small>
                 </div>
               </div>

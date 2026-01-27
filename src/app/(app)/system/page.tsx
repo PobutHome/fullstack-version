@@ -40,7 +40,7 @@ export default async function SystemPage() {
                 </p>
                 <div className="bg-sys-surface-2 p-space-10 rounded-radius-md">
                   <small className="font-mono text-sys-text-muted">
-                    className="w-full relative"
+                    {`className="w-full relative"`}
                   </small>
                 </div>
               </div>
@@ -64,7 +64,7 @@ export default async function SystemPage() {
                 </p>
                 <div className="bg-sys-surface-2 p-space-10 rounded-radius-md">
                   <small className="font-mono text-sys-text-muted">
-                    className="w-full min-w-0"
+                    {`className="w-full min-w-0"`}
                   </small>
                 </div>
               </div>
@@ -90,7 +90,7 @@ export default async function SystemPage() {
                 <div className="grid gap-space-10">
                   <div className="bg-sys-surface-2 p-space-10 rounded-radius-md">
                     <small className="font-mono text-sys-text-muted">
-                      &lt;h1&gt; or className="pobut-H1"
+                      {`<h1> or className="pobut-H1"`}
                     </small>
                   </div>
                 </div>
@@ -101,7 +101,7 @@ export default async function SystemPage() {
                 <div className="grid gap-space-10">
                   <div className="bg-sys-surface-2 p-space-10 rounded-radius-md">
                     <small className="font-mono text-sys-text-muted">
-                      &lt;h2&gt; or className="pobut-H2"
+                      {`<h2> or className="pobut-H2"`}
                     </small>
                   </div>
                 </div>
@@ -112,7 +112,7 @@ export default async function SystemPage() {
                 <div className="grid gap-space-10">
                   <div className="bg-sys-surface-2 p-space-10 rounded-radius-md">
                     <small className="font-mono text-sys-text-muted">
-                      &lt;h3&gt; or className="pobut-H3"
+                      {`<h3> or className="pobut-H3"`}
                     </small>
                   </div>
                 </div>
@@ -125,7 +125,7 @@ export default async function SystemPage() {
                 <div className="grid gap-space-10">
                   <div className="bg-sys-surface-2 p-space-10 rounded-radius-md">
                     <small className="font-mono text-sys-text-muted">
-                      &lt;p&gt; or className="pobut-body"
+                      {`<p> or className="pobut-body"`}
                     </small>
                   </div>
                 </div>
@@ -138,7 +138,7 @@ export default async function SystemPage() {
                 <div className="grid gap-space-10">
                   <div className="bg-sys-surface-2 p-space-10 rounded-radius-md">
                     <small className="font-mono text-sys-text-muted">
-                      &lt;small&gt; or className="pobut-caption"
+                      {`<small> or className="pobut-caption"`}
                     </small>
                   </div>
                 </div>
@@ -380,17 +380,17 @@ export default async function SystemPage() {
                 <div className="grid gap-space-10">
                   <div className="bg-sys-surface-2 p-space-10 rounded-radius-md">
                     <small className="font-mono text-sys-text-muted">
-                      className="gap-layout-gap-2" (responsive gap)
+                      {`className="gap-layout-gap-2"`} (responsive gap)
                     </small>
                   </div>
                   <div className="bg-sys-surface-2 p-space-10 rounded-radius-md">
                     <small className="font-mono text-sys-text-muted">
-                      className="p-space-20" (static padding)
+                      {`className="p-space-20"`} (static padding)
                     </small>
                   </div>
                   <div className="bg-sys-surface-2 p-space-10 rounded-radius-md">
                     <small className="font-mono text-sys-text-muted">
-                      className="mt-layout-gap-2" (responsive margin-top)
+                      {`className="mt-layout-gap-2"`} (responsive margin-top)
                     </small>
                   </div>
                 </div>
