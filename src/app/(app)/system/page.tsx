@@ -264,7 +264,7 @@ export default async function SystemPage() {
                     <div className="border border-sys-border p-space-10 rounded-radius-md">
                       <p className="text-sys-text">border-sys-border</p>
                     </div>
-                    <div className="border border-sys-border-strong p-space-10 rounded-radius-md">
+                    <div className="border border-sys-accent p-space-10 rounded-radius-md">
                       <p className="text-sys-text">border-sys-border-strong</p>
                     </div>
                     <div className="border border-sys-border-subtle p-space-10 rounded-radius-md">

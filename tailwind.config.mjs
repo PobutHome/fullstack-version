@@ -21,6 +21,16 @@ export default {
     'bg-success/30',
     'border-warning',
     'bg-warning/30',
+    // Pobut utilities - base classes
+    'pobut-H1',
+    'pobut-H2',
+    'pobut-H3',
+    'pobut-body',
+    'pobut-caption',
+    // Pobut utilities - responsive variants (using patterns)
+    {
+      pattern: /^(tablet|desktop|wide|large):pobut-(H1|H2|H3|body|caption)$/,
+    },
   ],
   theme: {
     container: {
@@ -46,6 +56,7 @@ export default {
         'tablet': '48rem',  // 768px - tablet breakpoint
         'desktop': '64rem',  // 1024px - desktop breakpoint
         'wide': '72rem',     // 1152px - wide breakpoint for featured products
+        'large': '90rem',    // 1440px - large breakpoint for featured products
       },
       borderRadius: {
         lg: 'var(--radius)',
@@ -225,16 +236,16 @@ export default {
           "accent-tertiary-hover": "var(--sys-accent-tertiary-hover)",
           "accent-tertiary-active": "var(--sys-accent-tertiary-active)",
 
-          border: "var(--sys-border)",
-          "border-hover": "var(--sys-border-hover)",
-          "border-active": "var(--sys-border-active)",
-          "border-strong": "var(--sys-border-strong)",
-          "border-strong-hover": "var(--sys-border-strong-hover)",
-          "border-strong-active": "var(--sys-border-strong-active)",
-          "border-subtle": "var(--sys-border-subtle)",
-          "border-interactive": "var(--sys-border-interactive)",
-          "border-interactive-hover": "var(--sys-border-interactive-hover)",
-          "border-interactive-active": "var(--sys-border-interactive-active)",
+          "sys-border": "var(--sys-border)",
+          "sys-border-hover": "var(--sys-border-hover)",
+          "sys-border-active": "var(--sys-border-active)",
+          "sys-border-strong": "var(--sys-border-strong)",
+          "sys-border-strong-hover": "var(--sys-border-strong-hover)",
+          "sys-border-strong-active": "var(--sys-border-strong-active)",
+          "sys-border-subtle": "var(--sys-border-subtle)",
+          "sys-border-interactive": "var(--sys-border-interactive)",
+          "sys-border-interactive-hover": "var(--sys-border-interactive-hover)",
+          "sys-border-interactive-active": "var(--sys-border-interactive-active)",
 
           focus: "var(--sys-focus)",
           "focus-ring": "var(--sys-focus-ring)",
@@ -373,52 +384,10 @@ export default {
             },
             a: {
               color: 'inherit',
-      },
-    },
-  },
-  plugins: [
-    plugin(function({ addUtilities }) {
-      addUtilities({
-        // Typography utility classes - pobut tokens
-        '.pobut-H1': {
-          'font-size': 'var(--sys-pobut_H1-size)',
-          'font-weight': 'var(--sys-pobut_H1-weight)',
-          'line-height': 'var(--sys-pobut_H1-line-height)',
-          'letter-spacing': 'var(--sys-pobut_H1-letter-spacing)',
-          'font-family': 'var(--sys-font-family-heading, "Unbounded", system-ui, sans-serif)',
+            },
+          },
         },
-        '.pobut-H2': {
-          'font-size': 'var(--sys-pobut_H2-size)',
-          'font-weight': 'var(--sys-pobut_H2-weight)',
-          'line-height': 'var(--sys-pobut_H2-line-height)',
-          'letter-spacing': 'var(--sys-pobut_H2-letter-spacing)',
-          'font-family': 'var(--sys-font-family-heading, "Unbounded", system-ui, sans-serif)',
-        },
-        '.pobut-H3': {
-          'font-size': 'var(--sys-pobut_H3-size)',
-          'font-weight': 'var(--sys-pobut_H3-weight)',
-          'line-height': 'var(--sys-pobut_H3-line-height)',
-          'letter-spacing': 'var(--sys-pobut_H3-letter-spacing)',
-          'font-family': 'var(--sys-font-family-heading, "Unbounded", system-ui, sans-serif)',
-        },
-        '.pobut-body': {
-          'font-size': 'var(--sys-pobut_body-size)',
-          'font-weight': 'var(--sys-pobut_body-weight)',
-          'line-height': 'var(--sys-pobut_body-line-height)',
-          'letter-spacing': 'var(--sys-pobut_body-letter-spacing)',
-          'font-family': 'var(--sys-font-family-body, "Unbounded", system-ui, sans-serif)',
-        },
-        '.pobut-caption': {
-          'font-size': 'var(--sys-pobut_caption-size)',
-          'font-weight': 'var(--sys-pobut_caption-weight)',
-          'line-height': 'var(--sys-pobut_caption-line-height)',
-          'letter-spacing': 'var(--sys-pobut_caption-letter-spacing)',
-          'font-family': 'var(--sys-font-family-body, "Unbounded", system-ui, sans-serif)',
-        },
-      })
-    }),
-  ],
-}),
+      }),
       // fontFamily: {
       //   mono: ['var(--font-geist-mono)'],
       //   sans: ['var(--font-geist-sans)'],
@@ -509,44 +478,6 @@ export default {
           values: theme('transitionDelay'),
         },
       )
-      // Typography utility classes - pobut tokens (RESPONSIVE - automatically adapts at breakpoints!)
-      addUtilities({
-        '.pobut-H1': {
-          'font-size': 'var(--sys-pobut_H1-size)',
-          'font-weight': 'var(--sys-pobut_H1-weight)',
-          'line-height': 'var(--sys-pobut_H1-line-height)',
-          'letter-spacing': 'var(--sys-pobut_H1-letter-spacing)',
-          'font-family': 'var(--sys-font-family-heading, "Unbounded", system-ui, sans-serif)',
-        },
-        '.pobut-H2': {
-          'font-size': 'var(--sys-pobut_H2-size)',
-          'font-weight': 'var(--sys-pobut_H2-weight)',
-          'line-height': 'var(--sys-pobut_H2-line-height)',
-          'letter-spacing': 'var(--sys-pobut_H2-letter-spacing)',
-          'font-family': 'var(--sys-font-family-heading, "Unbounded", system-ui, sans-serif)',
-        },
-        '.pobut-H3': {
-          'font-size': 'var(--sys-pobut_H3-size)',
-          'font-weight': 'var(--sys-pobut_H3-weight)',
-          'line-height': 'var(--sys-pobut_H3-line-height)',
-          'letter-spacing': 'var(--sys-pobut_H3-letter-spacing)',
-          'font-family': 'var(--sys-font-family-heading, "Unbounded", system-ui, sans-serif)',
-        },
-        '.pobut-body': {
-          'font-size': 'var(--sys-pobut_body-size)',
-          'font-weight': 'var(--sys-pobut_body-weight)',
-          'line-height': 'var(--sys-pobut_body-line-height)',
-          'letter-spacing': 'var(--sys-pobut_body-letter-spacing)',
-          'font-family': 'var(--sys-font-family-body, "Unbounded", system-ui, sans-serif)',
-        },
-        '.pobut-caption': {
-          'font-size': 'var(--sys-pobut_caption-size)',
-          'font-weight': 'var(--sys-pobut_caption-weight)',
-          'line-height': 'var(--sys-pobut_caption-line-height)',
-          'letter-spacing': 'var(--sys-pobut_caption-letter-spacing)',
-          'font-family': 'var(--sys-font-family-body, "Unbounded", system-ui, sans-serif)',
-        },
-      })
     }),
   ],
 }

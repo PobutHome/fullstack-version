@@ -27,7 +27,6 @@ export function FeaturedProductCard({
   onRetailAddToCart,
   onWholesaleAddToCart,
 }: FeaturedProductCardProps) {
-  const formatPrice = (price: number) => `${price} грн`
 
   return (
     <article className="fe-product flex flex-col h-full">
@@ -58,22 +57,23 @@ export function FeaturedProductCard({
         )}
 
         {/* Product Name and Specifications */}
-        <div className="grid gap-1 min-w-0 break-words">
-          <p className="text-color-black break-words">{productName} {specifications}</p>
+        <div className="grid gap-1 min-w-0">
+          <p className="text-color-black truncate">{productName}</p>
+          <p className="text-color-black truncate">{specifications}</p>
         </div>
 
         {/* Retail Price Section */}
-        <div className="flex items-start justify-between min-w-0 shrink-0 flex-col sm:flex-row sm:flex-nowrap gap-layout-gap-1">
-          <div className="grid gap-1 flex-1 min-w-0 w-full sm:w-auto sm:flex-[1_1_auto]">
-            <h1 className="min-w-0 break-words text-sys-surface-accent">
-              {formatPrice(retailPrice)}
+        <div className="flex items-start justify-between min-w-0 shrink-0 flex-col tablet:flex-row tablet:flex-wrap  gap-layout-gap-1">
+          <div className="grid gap-1 flex-1 min-w-0 w-full tablet:w-auto tablet:flex-[1_1_auto]">
+            <h1 className="min-w-0  text-sys-surface-accent">
+              {retailPrice} <span className="pobut-body">грн</span>
             </h1>
-            <small className="break-words text-sys-accent">роздріб</small>
+            <small className=" text-sys-accent">роздріб</small>
           </div>
           <Button
             variant="outline"
             size="md"
-            className="shrink-0 whitespace-nowrap text-sm w-full sm:w-auto sm:shrink-0 sm:min-w-fit py-space-10 px-space-20"
+            className="shrink-0 whitespace-nowrap text-sm w-full tablet:w-auto tablet:shrink-0 tablet:min-w-fit py-space-10 px-space-20"
             onClick={onRetailAddToCart}
           >
             Додати в кошик
@@ -81,19 +81,19 @@ export function FeaturedProductCard({
         </div>
 
         {/* Wholesale Price Section */}
-        <div className="flex items-start justify-between min-w-0 shrink-0 flex-col sm:flex-row sm:flex-nowrap gap-layout-gap-1">
+        <div className="flex items-start justify-between min-w-0 shrink-0 flex-col tablet:flex-row tablet:flex-wrap gap-layout-gap-1">
           <div className="grid gap-1 flex-1 min-w-0 w-full sm:w-auto sm:flex-[1_1_auto]">
-            <h1 className="min-w-0 break-words text-sys-surface-accent">
-              {formatPrice(wholesalePrice)}
+            <h1 className="min-w-0  text-sys-surface-accent">
+              {wholesalePrice} <span className="pobut-body">грн</span>
             </h1>
-            <small className="break-words text-sys-accent">
+            <small className=" text-sys-accent">
               опт від {wholesaleMinQuantity} шт
             </small>
           </div>
           <Button
             variant="outline"
             size="md"
-            className="shrink-0 whitespace-nowrap text-sm w-full sm:w-auto sm:shrink-0 sm:min-w-fit py-space-10 px-space-20"
+            className="shrink-0 whitespace-nowrap text-sm w-full tablet:w-auto tablet:shrink-0 tablet:min-w-fit py-space-10 px-space-20"
             onClick={onWholesaleAddToCart}
           >
             Додати в кошик

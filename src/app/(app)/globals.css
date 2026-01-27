@@ -46,6 +46,12 @@
   /* Container Configuration */
   --container-max-width: var(--container-max-width, 1440px);
   --container-padding: var(--layout-container-padding, 20px);
+
+  /* Custom Breakpoints - Required for responsive utilities */
+  --breakpoint-tablet: 48rem;   /* 768px */
+  --breakpoint-desktop: 64rem;  /* 1024px */
+  --breakpoint-wide: 72rem;     /* 1152px */
+  --breakpoint-large: 90rem;    /* 1440px */
 }
 
 @utility container {
@@ -207,6 +213,47 @@
       system-ui,
       -apple-system,
       sans-serif;
+  }
+
+  /* Pobut Typography Utilities - Responsive typography tokens */
+  .pobut-H1 {
+    font-size: var(--sys-pobut_H1-size);
+    font-weight: var(--sys-pobut_H1-weight);
+    line-height: var(--sys-pobut_H1-line-height);
+    letter-spacing: var(--sys-pobut_H1-letter-spacing);
+    font-family: var(--sys-font-family-heading, 'Unbounded', system-ui, sans-serif);
+  }
+
+  .pobut-H2 {
+    font-size: var(--sys-pobut_H2-size);
+    font-weight: var(--sys-pobut_H2-weight);
+    line-height: var(--sys-pobut_H2-line-height);
+    letter-spacing: var(--sys-pobut_H2-letter-spacing);
+    font-family: var(--sys-font-family-heading, 'Unbounded', system-ui, sans-serif);
+  }
+
+  .pobut-H3 {
+    font-size: var(--sys-pobut_H3-size);
+    font-weight: var(--sys-pobut_H3-weight);
+    line-height: var(--sys-pobut_H3-line-height);
+    letter-spacing: var(--sys-pobut_H3-letter-spacing);
+    font-family: var(--sys-font-family-heading, 'Unbounded', system-ui, sans-serif);
+  }
+
+  .pobut-body {
+    font-size: var(--sys-pobut_body-size);
+    font-weight: var(--sys-pobut_body-weight);
+    line-height: var(--sys-pobut_body-line-height);
+    letter-spacing: var(--sys-pobut_body-letter-spacing);
+    font-family: var(--sys-font-family-body, 'Unbounded', system-ui, sans-serif);
+  }
+
+  .pobut-caption {
+    font-size: var(--sys-pobut_caption-size);
+    font-weight: var(--sys-pobut_caption-weight);
+    line-height: var(--sys-pobut_caption-line-height);
+    letter-spacing: var(--sys-pobut_caption-letter-spacing);
+    font-family: var(--sys-font-family-body, 'Unbounded', system-ui, sans-serif);
   }
 }
 
