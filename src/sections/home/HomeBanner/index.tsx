@@ -1,6 +1,8 @@
 'use client'
 
 import { Section } from '@/components/Section'
+import { ArrowLeftIcon } from '@/components/icons/ArrowLeftIcon'
+import { ArrowRightIcon } from '@/components/icons/ArrowRightIcon'
 import React, { useCallback, useEffect, useRef, useState } from 'react'
 
 type HomeBannerProps = {
@@ -40,6 +42,10 @@ export const HomeBanner: React.FC<HomeBannerProps> = ({
     setRawIndex((prev) => prev + 1)
   }, [])
 
+  const goToPrevious = useCallback((): void => {
+    setRawIndex((prev) => Math.max(prev - 1, 0))
+  }, [])
+
   useEffect(() => {
     if (images.length <= 1) return
 
@@ -71,7 +77,7 @@ export const HomeBanner: React.FC<HomeBannerProps> = ({
     }
 
     if (diff < -50) {
-      setRawIndex((prev) => Math.max(prev - 1, 0))
+      goToPrevious()
     }
 
     if (images.length > 1) {
@@ -96,44 +102,73 @@ export const HomeBanner: React.FC<HomeBannerProps> = ({
   }
 
   return (
-    <Section id="home-banner" >
-    <div
-      className="relative w-full max-w-full m-0 p-0 select-none overflow-hidden box-border"
-      onMouseEnter={handleMouseEnter}
-      onMouseLeave={handleMouseLeave}
-    >
+    <Section id="home-banner">
       <div
-        className="overflow-hidden rounded-none w-full relative"
-        onTouchStart={onTouchStart}
-        onTouchMove={onTouchMove}
-        onTouchEnd={onTouchEnd}
+        className="relative w-full max-w-full m-0 p-0 select-none overflow-hidden box-border"
+        onMouseEnter={handleMouseEnter}
+        onMouseLeave={handleMouseLeave}
       >
         <div
-          className="flex transition-transform duration-[450ms] ease-in-out w-full"
-          style={{
-            transform: `translateX(-${displayIndex * 100}%)`,
-          }}
+          className="overflow-hidden rounded-none w-full relative"
+          onTouchStart={onTouchStart}
+          onTouchMove={onTouchMove}
+          onTouchEnd={onTouchEnd}
         >
-          {images.map((src, i) => (
-            <div className="min-w-full w-full h-[236px] md:h-[380px] lg:h-[500px] relative shrink-0" key={i}>
-              <img src={src} alt={`Slide ${i + 1}`} className="w-full h-full object-cover block" />
-            </div>
+          <div
+            className="flex transition-transform duration-450 ease-in-out w-full"
+            style={{
+              transform: `translateX(-${displayIndex * 100}%)`,
+            }}
+          >
+            {images.map((src, i) => (
+              <div
+                className="min-w-full w-full h-[236px] md:h-[380px] lg:h-[500px] relative shrink-0"
+                key={i}
+              >
+                <img
+                  src={src}
+                  alt={`Slide ${i + 1}`}
+                  className="w-full h-full object-cover block"
+                />
+              </div>
+            ))}
+          </div>
+        </div>
+
+        {/* Desktop-only navigation arrows */}
+        {images.length > 1 && (
+          <div className="pointer-events-none hidden desktop:flex items-center justify-between absolute inset-y-0 left-0 right-0 px-space-20">
+            <button
+              type="button"
+              className="pointer-events-auto bg-transparent border-none text-sys-accent p-space-10 hover:bg-transparent active:bg-transparent transition-base"
+              onClick={goToPrevious}
+              aria-label="Попередній банер"
+            >
+              <ArrowLeftIcon />
+            </button>
+            <button
+              type="button"
+              className="pointer-events-auto bg-transparent border-none text-sys-accent border border-sys-accent rounded-radius-full p-space-10 hover:bg-sys-accent hover:text-sys-text-on-accent transition-base"
+              onClick={goToNext}
+              aria-label="Наступний банер"
+            >
+              <ArrowRightIcon />
+            </button>
+          </div>
+        )}
+
+        <div className="flex justify-center gap-1 mt-3.5 p-0 w-full box-border">
+          {images.map((_, i) => (
+            <button
+              key={i}
+              className={`w-2.5 h-2.5 md:w-4 md:h-4 lg:w-[25px] lg:h-[25px] rounded-full border border-sys-accent bg-color-default-background cursor-pointer ${i === displayIndex ? 'bg-sys-accent' : ''}`}
+              onClick={() => goTo(i)}
+              aria-label={`Go to slide ${i + 1}`}
+              type="button"
+            />
           ))}
         </div>
       </div>
-
-      <div className="flex justify-center gap-1  mt-3.5 p-0 w-full box-border">
-        {images.map((_, i) => (
-          <button
-            key={i}
-            className={`w-2.5 h-2.5 md:w-4 md:h-4 lg:w-[25px] lg:h-[25px] rounded-full border border-sys-accent bg-color-default-background cursor-pointer ${i === displayIndex ? 'bg-sys-accent' : ''}`}
-            onClick={() => goTo(i)}
-            aria-label={`Go to slide ${i + 1}`}
-            type="button"
-          />
-        ))}
-      </div>
-    </div>
     </Section>
   )
 }

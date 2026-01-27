@@ -29,7 +29,7 @@ export function FeaturedProductCard({
 }: FeaturedProductCardProps) {
 
   return (
-    <article className="fe-product flex flex-col h-full bg-sys-surface rounded-xl border border-sys-accent relative box-border ">
+    <article className="fe-product flex flex-col h-full bg-sys-surface rounded-2xl border border-sys-accent relative box-border overflow-hidden ">
       {/* Product Image */}
       <div className="w-full aspect-square flex items-center justify-center overflow-hidden">
         {imageUrl ? (
@@ -52,7 +52,7 @@ export function FeaturedProductCard({
         {isAvailable && (
           <div className="fe-availability flex items-center gap-1.5">
             <span className="w-2 h-2 rounded-full shrink-0 bg-sys-accent" aria-hidden="true"></span>
-            <small className="m-0">в наявності</small>
+            <small className="m-0 text-sys-accent">в наявності</small>
           </div>
         )}
 
@@ -73,7 +73,7 @@ export function FeaturedProductCard({
           <Button
             variant="outline"
             size="md"
-            className="shrink-0 whitespace-nowrap text-sm w-full tablet:w-auto tablet:shrink-0 tablet:min-w-fit py-space-10 px-space-20 tablet:text-lg wide:text-inherit"
+            className="shrink-0 whitespace-nowrap text-sm w-full tablet:w-auto tablet:shrink-0 tablet:min-w-fit py-space-10 px-space-20 "
             onClick={onRetailAddToCart}
           >
             Додати в кошик

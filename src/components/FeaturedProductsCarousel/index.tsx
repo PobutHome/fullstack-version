@@ -1,6 +1,8 @@
 'use client'
 
 import { FeaturedProductCard } from '@/components/FeaturedProductCard'
+import { ArrowLeftIcon } from '@/components/icons/ArrowLeftIcon'
+import { ArrowRightIcon } from '@/components/icons/ArrowRightIcon'
 import {
   type TouchEvent,
   useCallback,
@@ -208,23 +210,7 @@ export function FeaturedProductsCarousel({
             disabled={false}
             aria-label="Попередні товари"
           >
-            <svg
-              width="24"
-              height="24"
-              viewBox="0 0 24 24"
-              fill="none"
-              xmlns="http://www.w3.org/2000/svg"
-              aria-hidden="true"
-              className="w-6 h-6 shrink-0"
-            >
-              <path
-                d="M15 18L9 12L15 6"
-                stroke="currentColor"
-                strokeWidth="2"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-              />
-            </svg>
+            <ArrowLeftIcon />
           </button>
           <button
             type="button"
@@ -233,23 +219,7 @@ export function FeaturedProductsCarousel({
             disabled={false}
             aria-label="Наступні товари"
           >
-            <svg
-              width="24"
-              height="24"
-              viewBox="0 0 24 24"
-              fill="none"
-              xmlns="http://www.w3.org/2000/svg"
-              aria-hidden="true"
-              className="w-6 h-6 shrink-0"
-            >
-              <path
-                d="M9 18L15 12L9 6"
-                stroke="currentColor"
-                strokeWidth="2"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-              />
-            </svg>
+            <ArrowRightIcon />
           </button>
         </div>
       )}
