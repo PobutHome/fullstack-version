@@ -20,6 +20,12 @@ const nextConfig = {
   },
   reactStrictMode: true,
   redirects,
+  turbopack: {
+    // Turbopack does not read `webpack.resolve.extensionAlias`.
+    // This at least keeps extension resolution predictable when running `next dev --turbo`.
+    // Make sure to include the defaults.
+    resolveExtensions: ['.tsx', '.ts', '.jsx', '.js', '.mts', '.mjs', '.cts', '.cjs', '.json'],
+  },
   webpack: (webpackConfig) => {
     webpackConfig.resolve.extensionAlias = {
       '.cjs': ['.cts', '.cjs'],

@@ -140,7 +140,7 @@ export const HomeBanner: React.FC<HomeBannerProps> = ({
           <div className="pointer-events-none hidden desktop:flex items-center justify-between absolute inset-y-0 left-0 right-0 px-space-20">
             <button
               type="button"
-              className="pointer-events-auto bg-transparent border-none text-sys-accent p-space-10 hover:bg-transparent active:bg-transparent transition-base"
+              className="pointer-events-auto bg-transparent border-none text-sys-accent border border-sys-accent rounded-radius-full p-space-10 hover:bg-sys-accent hover:text-sys-text-on-accent transition-base"
               onClick={goToPrevious}
               aria-label="Попередній банер"
             >
