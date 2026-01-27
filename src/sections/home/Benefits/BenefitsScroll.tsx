@@ -157,7 +157,7 @@ export function BenefitsScroll() {
       <div
         id="benefits-scroll"
         ref={scrollRef}
-        className="benefits-scroll grid items-start w-full min-w-0 gap-layout-gap-2 max-tablet:gap-space-10 max-tablet:grid-flow-col max-tablet:auto-cols-[minmax(80%,_1fr)] max-tablet:overflow-x-scroll max-tablet:overflow-y-hidden max-tablet:h-[140px] max-tablet:items-center tablet:grid-cols-3 tablet:justify-between tablet:items-center desktop:grid-cols-[1fr_auto_1fr_auto_1fr] desktop:gap-layout-gap-2"
+        className="benefits-scroll grid items-start w-full min-w-0 gap-layout-gap-2 max-tablet:gap-space-10 max-tablet:grid-flow-col max-tablet:auto-cols-[minmax(50%,_1fr)] max-tablet:overflow-x-scroll max-tablet:overflow-y-hidden max-tablet:h-[140px] max-tablet:items-center tablet:grid-cols-3 tablet:justify-between tablet:items-center desktop:grid-cols-[1fr_auto_1fr_auto_1fr] desktop:gap-layout-gap-2"
         role="region"
         aria-label="Переваги для оптових клієнтів"
       >
