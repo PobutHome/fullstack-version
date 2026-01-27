@@ -1,0 +1,38 @@
+<svg width="1200" height="600" viewBox="0 0 1200 600" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="g1" x1="0" y1="0" x2="1200" y2="600" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#E9F9E6"/>
+      <stop offset="0.55" stop-color="#FFFFFF"/>
+      <stop offset="1" stop-color="#EAF2FF"/>
+    </linearGradient>
+    <linearGradient id="chip" x1="0" y1="0" x2="1" y2="1">
+      <stop stop-color="#39B54A"/>
+      <stop offset="1" stop-color="#72CB1A"/>
+    </linearGradient>
+  </defs>
+
+  <rect x="0" y="0" width="1200" height="600" rx="44" fill="url(#g1)"/>
+  <path d="M-10 560C120 420 290 430 450 520C640 628 770 610 1210 370" stroke="#39B54A" stroke-opacity="0.25" stroke-width="16"/>
+  <path d="M-10 420C190 280 390 300 560 390C720 475 870 480 1210 250" stroke="#1F3B73" stroke-opacity="0.12" stroke-width="14"/>
+
+  <g>
+    <rect x="70" y="86" width="520" height="88" rx="28" fill="url(#chip)"/>
+    <text x="110" y="144" font-family="system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif" font-size="44" font-weight="700" fill="#FFFFFF">
+      :FVO B86=O
+    </text>
+  </g>
+
+  <text x="70" y="238" font-family="system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif" font-size="44" font-weight="800" fill="#1F3B73">
+    =86:8 =0 ?0:C20==O
+  </text>
+  <text x="70" y="296" font-family="system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif" font-size="28" fill="#1F3B73" opacity="0.75">
+    15@VBL :0B53>@VN B0 >B@8<09B5 283V4=V C<>28.
+  </text>
+
+  <g opacity="0.95">
+    <rect x="780" y="120" width="350" height="360" rx="36" fill="#FFFFFF" stroke="#39B54A" stroke-opacity="0.35" stroke-width="6"/>
+    <path d="M910 190c0-22 18-40 40-40h40c22 0 40 18 40 40v220c0 22-18 40-40 40h-40c-22 0-40-18-40-40V190z" fill="#39B54A" fill-opacity="0.10" stroke="#39B54A" stroke-width="6"/>
+    <circle cx="990" cy="300" r="46" fill="#39B54A" fill-opacity="0.10" stroke="#39B54A" stroke-width="6"/>
+    <path d="M964 300h52" stroke="#39B54A" stroke-width="6" stroke-linecap="round"/>
+  </g>
+</svg>
