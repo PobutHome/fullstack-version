@@ -6,9 +6,12 @@ import Link from 'next/link'
 import { Suspense } from 'react'
 import { MobileMenu } from './MobileMenu'
 
+import { CatalogIcon } from '@/components/icons/CatalogIcon'
+import { ChevronDownIcon } from '@/components/icons/ChevronDownIcon'
 import { LogoIcon } from '@/components/icons/logo'
+import { PhoneIcon } from '@/components/icons/PhoneIcon'
+import { UserRoundIcon } from '@/components/icons/UserRoundIcon'
 import { cn } from '@/utilities/cn'
-import { ChevronDown, Phone, UserRound } from 'lucide-react'
 
 export function HeaderClient() {
   return (
@@ -32,7 +35,7 @@ export function HeaderClient() {
               'border-primary/30 text-primary hover:border-primary/60',
             )}
           >
-            <span className="inline-flex size-4 items-center justify-center rounded-sm border border-primary/30" />
+            <CatalogIcon className="size-5 text-sys-accent" />
             <span>Каталог</span>
           </Link>
         </div>
@@ -48,16 +51,22 @@ export function HeaderClient() {
 
         <div className="col-start-3 justify-self-end flex items-center gap-3">
           <div className="hidden md:flex items-center gap-3 text-primary/70">
-            <button className="inline-flex items-center justify-center size-9 rounded-md hover:text-primary">
-              <UserRound className="size-5" />
-            </button>
-            <button className="inline-flex items-center justify-center size-9 rounded-md hover:text-primary">
-              <Phone className="size-5" />
-            </button>
-
-            <Suspense
-              fallback={<OpenCartButton className="text-primary/70 hover:text-primary" />}
+            <Link
+              aria-label="Профіль"
+              className="inline-flex items-center justify-center size-9 rounded-md hover:text-primary"
+              href="/account"
             >
+              <UserRoundIcon className="size-5" />
+            </Link>
+            <a
+              aria-label="Подзвонити"
+              className="inline-flex items-center justify-center size-9 rounded-md hover:text-primary"
+              href="tel:+380987307280"
+            >
+              <PhoneIcon className="size-5" />
+            </a>
+
+            <Suspense fallback={<OpenCartButton className="text-primary/70 hover:text-primary" />}>
               <Cart />
             </Suspense>
 
@@ -68,7 +77,7 @@ export function HeaderClient() {
               type="button"
             >
               УКР
-              <ChevronDown className="size-4" />
+              <ChevronDownIcon className="size-4" />
             </button>
           </div>
 
