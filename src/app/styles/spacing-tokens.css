@@ -28,6 +28,13 @@
      Desktop → 50px
   */
   --sys-ds-inner-section-gap-y: var(--sys-space-20);
+
+  /* Semantic: small InnerSection padding
+     Mobile  → 5px
+     Tablet  → 15px
+     Desktop → 50px
+  */
+  --sys-ds-inner-section-pad-sm: 0.3125rem; /* 5px */
 }
 
 /* Tablet ≥ 48rem (768px): Margin 50, Spacing 10/20/30 */
@@ -38,6 +45,7 @@
     --sys-layout-gap-2: var(--sys-space-20);
     --sys-layout-gap-3: var(--sys-space-30);
     --sys-ds-inner-section-gap-y: var(--sys-space-30);
+    --sys-ds-inner-section-pad-sm: 0.9375rem; /* 15px */
   }
 }
 
@@ -49,5 +57,6 @@
     --sys-layout-gap-2: var(--sys-space-50); /* 50 */
     --sys-layout-gap-3: var(--sys-space-50); /* 50 */
     --sys-ds-inner-section-gap-y: var(--sys-space-50);
+    --sys-ds-inner-section-pad-sm: var(--sys-space-50); /* 50px */
   }
 }

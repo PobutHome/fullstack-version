@@ -75,6 +75,7 @@ export default {
       // Use gap-layout-gap-1 instead of gap-space-10 md:gap-space-20
       spacing: {
         // Base spacing scale (static values)
+        
         'space-10': 'var(--sys-space-10)',
         'space-20': 'var(--sys-space-20)',
         'space-30': 'var(--sys-space-30)',
@@ -103,6 +104,7 @@ export default {
         'layout-spacing-small': 'var(--sys-layout-spacing-small)',
         'layout-spacing-medium': 'var(--sys-layout-spacing-medium)',
         'ds-inner-section-gap-y': 'var(--sys-ds-inner-section-gap-y)',
+        'ds-inner-section-pad-sm': 'var(--sys-ds-inner-section-pad-sm)',
         // Container padding (responsive)
         'container-padding': 'var(--layout-container-padding, 20px)',
       },

@@ -28,13 +28,13 @@ export function HomeAboutMap() {
             {/* Content card */}
             <div
               className={[
-                'rounded-radius-lg',
+                'rounded-radius-xl',
                 'border border-sys-accent',
                 'bg-sys-surface',
-                'p-space-20 md:p-space-30',
+                'p-ds-inner-section-pad-sm',
               ].join(' ')}
             >
-              <div className="grid gap-layout-gap-2 lg:grid-cols-[1fr_1.25fr] lg:items-stretch">
+              <div className="grid gap-layout-gap-2 desktop:grid-cols-[minmax(0,1fr)_800px] desktop:items-start">
                 {/* Text column */}
                 <div className="min-w-0 grid gap-layout-gap-2">
                   <div className="min-w-0 grid gap-space-10">
@@ -86,14 +86,14 @@ export function HomeAboutMap() {
                 {/* Map column (lazy-loaded) */}
                 <div
                   className={[
-                    'min-w-0',
                     'overflow-hidden',
                     'rounded-radius-lg',
-                    'border border-sys-border-subtle',
                     'bg-sys-surface-2',
-                    'h-[240px] sm:h-[280px] md:h-[320px] lg:h-auto',
-                    // Prevent layout shift (keeps a stable box even before Leaflet loads)
-                    'aspect-16/10 lg:aspect-auto',
+                    // Size requirements:
+                    // - Mobile: full width x 310px
+                    // - Tablet: full width x 310px
+                    // - Desktop: 800px x 680px
+                    'w-full h-[310px] desktop:h-[680px]',
                   ].join(' ')}
                 >
                   <LazyLeafletMap
