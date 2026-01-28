@@ -1,6 +1,6 @@
 import { Button } from '@/components/ui/button'
-import React from 'react'
 import { cn } from '@/utilities/cn'
+import React from 'react'
 
 function CartBagIcon(props: React.ComponentPropsWithoutRef<'svg'>) {
   return (
@@ -33,6 +33,7 @@ export function OpenCartButton({
       className={cn(
         'navLink relative flex items-center justify-center hover:cursor-pointer',
         'p-0',
+        'text-sys-btn-interactive-fg hover:text-sys-btn-interactive-fg-hover active:text-sys-btn-interactive-fg-active',
         className,
       )}
       {...rest}

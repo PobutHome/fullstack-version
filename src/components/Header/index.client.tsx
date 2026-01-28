@@ -50,23 +50,27 @@ export function HeaderClient() {
         </div>
 
         <div className="col-start-3 justify-self-end flex items-center gap-3">
-          <div className="hidden md:flex items-center gap-3 text-primary/70">
+          <div className="hidden md:flex items-center gap-3">
             <Link
               aria-label="Профіль"
-              className="inline-flex items-center justify-center size-9 rounded-md hover:text-primary"
+              className="inline-flex items-center justify-center size-9 rounded-md text-sys-btn-interactive-fg hover:text-sys-btn-interactive-fg-hover active:text-sys-btn-interactive-fg-active"
               href="/account"
             >
               <UserRoundIcon className="size-5" />
             </Link>
             <a
               aria-label="Подзвонити"
-              className="inline-flex items-center justify-center size-9 rounded-md hover:text-primary"
+              className="inline-flex items-center justify-center size-9 rounded-md text-sys-btn-interactive-fg hover:text-sys-btn-interactive-fg-hover active:text-sys-btn-interactive-fg-active"
               href="tel:+380987307280"
             >
               <PhoneIcon className="size-5" />
             </a>
 
-            <Suspense fallback={<OpenCartButton className="text-primary/70 hover:text-primary" />}>
+            <Suspense
+              fallback={
+                <OpenCartButton className="text-sys-btn-interactive-fg hover:text-sys-btn-interactive-fg-hover active:text-sys-btn-interactive-fg-active" />
+              }
+            >
               <Cart />
             </Suspense>
 
