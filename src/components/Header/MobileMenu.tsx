@@ -10,17 +10,66 @@ import {
   SheetTrigger,
 } from '@/components/ui/sheet'
 import { useAuth } from '@/providers/Auth'
+import type { AppLocale } from '@/utilities/locale'
 import { MenuIcon } from 'lucide-react'
 import Link from 'next/link'
 import { usePathname, useSearchParams } from 'next/navigation'
 import { useEffect, useState } from 'react'
 
 interface Props {
-  // no props (static menu)
+  locale: AppLocale
 }
 
-export function MobileMenu({}: Props) {
+const menuCopy: Record<
+  AppLocale,
+  {
+    storeTitle: string
+    catalog: string
+    about: string
+    contacts: string
+    accountTitle: string
+    orders: string
+    addresses: string
+    manageAccount: string
+    logout: string
+    login: string
+    createAccount: string
+    or: string
+  }
+> = {
+  ua: {
+    storeTitle: 'Магазин',
+    catalog: 'Каталог',
+    about: 'Про нас',
+    contacts: 'Контакти',
+    accountTitle: 'Мій акаунт',
+    orders: 'Замовлення',
+    addresses: 'Адреси',
+    manageAccount: 'Профіль',
+    logout: 'Вийти',
+    login: 'Увійти',
+    createAccount: 'Створити акаунт',
+    or: 'або',
+  },
+  ru: {
+    storeTitle: 'Магазин',
+    catalog: 'Каталог',
+    about: 'О нас',
+    contacts: 'Контакты',
+    accountTitle: 'Мой аккаунт',
+    orders: 'Заказы',
+    addresses: 'Адреса',
+    manageAccount: 'Профиль',
+    logout: 'Выйти',
+    login: 'Войти',
+    createAccount: 'Создать аккаунт',
+    or: 'или',
+  },
+}
+
+export function MobileMenu({ locale }: Props) {
   const { user } = useAuth()
+  const t = menuCopy[locale]
 
   const pathname = usePathname()
   const searchParams = useSearchParams()
@@ -45,12 +94,12 @@ export function MobileMenu({}: Props) {
   return (
     <Sheet onOpenChange={setIsOpen} open={isOpen}>
       <SheetTrigger className="relative flex items-center justify-center rounded-md text-sys-accent transition-colors">
-        <MenuIcon className="size-6" />
+        <MenuIcon className="size-[30px]" />
       </SheetTrigger>
 
       <SheetContent side="left" className="px-4">
         <SheetHeader className="px-0 pt-4 pb-0">
-          <SheetTitle>My Store</SheetTitle>
+          <SheetTitle>{t.storeTitle}</SheetTitle>
 
           <SheetDescription />
         </SheetHeader>
@@ -58,48 +107,48 @@ export function MobileMenu({}: Props) {
         <div className="py-4">
           <ul className="flex w-full flex-col">
             <li className="py-2">
-              <Link href="/catalog">Каталог</Link>
+              <Link href="/catalog">{t.catalog}</Link>
             </li>
             <li className="py-2">
-              <Link href="/">Про нас</Link>
+              <Link href="/">{t.about}</Link>
             </li>
             <li className="py-2">
-              <Link href="/">Контакти</Link>
+              <Link href="/">{t.contacts}</Link>
             </li>
           </ul>
         </div>
 
         {user ? (
           <div className="mt-4">
-            <h2 className="text-xl mb-4">My account</h2>
+            <h2 className="text-xl mb-4">{t.accountTitle}</h2>
             <hr className="my-2" />
             <ul className="flex flex-col gap-2">
               <li>
-                <Link href="/orders">Orders</Link>
+                <Link href="/orders">{t.orders}</Link>
               </li>
               <li>
-                <Link href="/account/addresses">Addresses</Link>
+                <Link href="/account/addresses">{t.addresses}</Link>
               </li>
               <li>
-                <Link href="/account">Manage account</Link>
+                <Link href="/account">{t.manageAccount}</Link>
               </li>
               <li className="mt-6">
                 <Button asChild variant="outline">
-                  <Link href="/logout">Log out</Link>
+                  <Link href="/logout">{t.logout}</Link>
                 </Button>
               </li>
             </ul>
           </div>
         ) : (
           <div>
-            <h2 className="text-xl mb-4">My account</h2>
+            <h2 className="text-xl mb-4">{t.accountTitle}</h2>
             <div className="flex items-center gap-2 mt-4">
               <Button asChild className="w-full" variant="outline">
-                <Link href="/login">Log in</Link>
+                <Link href="/login">{t.login}</Link>
               </Button>
-              <span>or</span>
+              <span>{t.or}</span>
               <Button asChild className="w-full">
-                <Link href="/create-account">Create an account</Link>
+                <Link href="/create-account">{t.createAccount}</Link>
               </Button>
             </div>
           </div>

@@ -40,7 +40,7 @@ export function OpenCartButton({
     >
       <span className="sr-only">Кошик</span>
 
-      <CartBagIcon className="size-6 md:size-5" />
+      <CartBagIcon className="size-[30px]" />
 
       {quantity ? (
         <span

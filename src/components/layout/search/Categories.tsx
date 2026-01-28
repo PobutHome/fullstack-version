@@ -1,16 +1,18 @@
+import { getRequestLocale } from '@/utilities/locale'
 import configPromise from '@payload-config'
-import { getPayload } from 'payload'
 import clsx from 'clsx'
-import React, { Suspense } from 'react'
+import { getPayload } from 'payload'
+import { Suspense } from 'react'
 
-import { FilterList } from './filter'
 import { CategoryItem } from './Categories.client'
 
 async function CategoryList() {
   const payload = await getPayload({ config: configPromise })
+  const locale = await getRequestLocale()
 
   const categories = await payload.find({
     collection: 'categories',
+    locale,
     sort: 'title',
   })
 

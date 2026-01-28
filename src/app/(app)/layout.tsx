@@ -6,6 +6,7 @@ import { Header } from '@/components/Header'
 import { LivePreviewListener } from '@/components/LivePreviewListener'
 import { Providers } from '@/providers'
 import { InitTheme } from '@/providers/Theme/InitTheme'
+import { getRequestLocale, toHtmlLang } from '@/utilities/locale'
 import './globals.css'
 
 // Unbounded font is loaded via CSS @font-face
@@ -40,9 +41,11 @@ const twitterSite = TWITTER_SITE ? ensureStartsWith(TWITTER_SITE, 'https://') : 
 } */
 
 export default async function RootLayout({ children }: { children: ReactNode }) {
+  const locale = await getRequestLocale()
+
   return (
     <html
-      lang="en"
+      lang={toHtmlLang(locale)}
       suppressHydrationWarning
       style={{ fontFamily: 'var(--font-family-base, "Unbounded", system-ui, sans-serif)' }}
     >

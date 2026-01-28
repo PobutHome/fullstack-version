@@ -1,16 +1,22 @@
 'use client'
 
+import { SearchIcon as SearchSvgIcon } from '@/components/icons/SearchIcon'
 import { cn } from '@/utilities/cn'
 import { createUrl } from '@/utilities/createUrl'
-import { SearchIcon as SearchSvgIcon } from '@/components/icons/SearchIcon'
 import { useRouter, useSearchParams } from 'next/navigation'
 import React from 'react'
 
 type Props = {
   className?: string
+  locale?: import('@/utilities/locale').AppLocale
 }
 
-export const Search: React.FC<Props> = ({ className }) => {
+const placeholderByLocale: Record<import('@/utilities/locale').AppLocale, string> = {
+  ua: 'Шукати продукт або бренд',
+  ru: 'Искать товар или бренд',
+}
+
+export const Search: React.FC<Props> = ({ className, locale = 'ua' }) => {
   const router = useRouter()
   const searchParams = useSearchParams()
 
@@ -33,15 +39,15 @@ export const Search: React.FC<Props> = ({ className }) => {
   return (
     <form className={cn('relative w-full', className)} onSubmit={onSubmit}>
       <div className="pointer-events-none absolute left-0 top-0 ml-3 flex h-full items-center">
-        <SearchSvgIcon className="size-4 text-primary" />
+        <SearchSvgIcon className="size-[30px] text-primary" />
       </div>
       <input
         autoComplete="off"
-        className="w-full rounded-lg border bg-white py-2 pr-4 pl-10 text-sm text-black placeholder:text-neutral-500 dark:border-neutral-800 dark:bg-black dark:text-white dark:placeholder:text-neutral-400"
+        className="w-full rounded-radius-full bg-[#F9F9F9] py-3 pr-4 pl-14 pobut-body placeholder:text-neutral-500"
         defaultValue={searchParams?.get('q') || ''}
         key={searchParams?.get('q')}
         name="search"
-        placeholder="Шукати продукт або бренд"
+        placeholder={placeholderByLocale[locale]}
         type="text"
       />
     </form>

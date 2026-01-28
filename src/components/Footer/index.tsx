@@ -4,13 +4,15 @@ import { FooterMenu } from '@/components/Footer/menu'
 import { LogoIcon } from '@/components/icons/logo'
 import { ThemeSelector } from '@/providers/Theme/ThemeSelector'
 import { getCachedGlobal } from '@/utilities/getGlobals'
+import { getRequestLocale } from '@/utilities/locale'
 import Link from 'next/link'
 import { Suspense } from 'react'
 
 const { COMPANY_NAME, SITE_NAME } = process.env
 
 export async function Footer() {
-  const footer: Footer = await getCachedGlobal('footer', 1)()
+  const locale = await getRequestLocale()
+  const footer: Footer = await getCachedGlobal('footer', 1, locale)()
   const menu = footer.navItems || []
   const currentYear = new Date().getFullYear()
   const copyrightDate = 2023 + (currentYear > 2023 ? `-${currentYear}` : '')

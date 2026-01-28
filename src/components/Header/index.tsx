@@ -1,5 +1,9 @@
 import { HeaderClient } from './index.client'
 
+import { getRequestLocale } from '@/utilities/locale'
+
 export async function Header() {
-  return <HeaderClient />
+  const locale = await getRequestLocale()
+
+  return <HeaderClient locale={locale} />
 }
