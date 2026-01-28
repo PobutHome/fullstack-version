@@ -1,5 +1,7 @@
 import { Button } from '@/components/ui/button'
 import { cn } from '@/utilities/cn'
+import type { AppLocale } from '@/utilities/locale'
+import { getClientLocale } from '@/utilities/localeClient'
 import React from 'react'
 
 function CartBagIcon(props: React.ComponentPropsWithoutRef<'svg'>) {
@@ -23,9 +25,12 @@ function CartBagIcon(props: React.ComponentPropsWithoutRef<'svg'>) {
 
 export function OpenCartButton({
   className,
+  locale,
   quantity,
   ...rest
-}: React.ComponentPropsWithoutRef<typeof Button> & { quantity?: number }) {
+}: React.ComponentPropsWithoutRef<typeof Button> & { locale?: AppLocale; quantity?: number }) {
+  const resolvedLocale = locale ?? getClientLocale()
+
   return (
     <Button
       variant="nav"
@@ -38,7 +43,7 @@ export function OpenCartButton({
       )}
       {...rest}
     >
-      <span className="sr-only">Кошик</span>
+      <span className="sr-only">{resolvedLocale === 'ru' ? 'Корзина' : 'Кошик'}</span>
 
       <CartBagIcon className="size-[30px]" />
 

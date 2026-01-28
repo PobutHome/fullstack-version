@@ -95,18 +95,21 @@ export function HeaderClient({ locale }: Props) {
 
               <Suspense
                 fallback={
-                  <OpenCartButton className="text-sys-btn-interactive-fg hover:text-sys-btn-interactive-fg-hover active:text-sys-btn-interactive-fg-active" />
+                  <OpenCartButton
+                    locale={locale}
+                    className="text-sys-btn-interactive-fg hover:text-sys-btn-interactive-fg-hover active:text-sys-btn-interactive-fg-active"
+                  />
                 }
               >
-                <Cart />
+                <Cart locale={locale} />
               </Suspense>
 
               <LanguageSwitcher locale={locale} />
             </div>
 
             <div className="md:hidden">
-              <Suspense fallback={<OpenCartButton />}>
-                <Cart />
+              <Suspense fallback={<OpenCartButton locale={locale} />}>
+                <Cart locale={locale} />
               </Suspense>
             </div>
           </div>

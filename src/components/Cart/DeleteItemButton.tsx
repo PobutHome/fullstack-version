@@ -5,16 +5,25 @@ import { useCart } from '@payloadcms/plugin-ecommerce/client/react'
 import clsx from 'clsx'
 import { XIcon } from 'lucide-react'
 import React from 'react'
+import type { AppLocale } from '@/utilities/locale'
+import { getClientLocale } from '@/utilities/localeClient'
+
+const deleteItemCopy: Record<AppLocale, { aria: string }> = {
+  ua: { aria: 'Видалити товар з кошика' },
+  ru: { aria: 'Удалить товар из корзины' },
+}
 
 export function DeleteItemButton({ item }: { item: CartItem }) {
   const { removeItem } = useCart()
   const itemId = item.id
 
+  const t = deleteItemCopy[getClientLocale()]
+
   return (
     <form>
       <button
         aria-disabled={!itemId}
-        aria-label="Remove cart item"
+        aria-label={t.aria}
         className={clsx(
           'ease hover:cursor-pointer flex h-[17px] w-[17px] items-center justify-center rounded-full bg-neutral-500 transition-all duration-200',
           {
