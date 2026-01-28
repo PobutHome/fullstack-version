@@ -1,6 +1,9 @@
 @config "../../../tailwind.config.mjs";
 @import 'tailwindcss';
 
+/* Leaflet (OpenStreetMap) styles - loaded only for (app) routes */
+@import 'leaflet/dist/leaflet.css';
+
 /* palette tokens styling imports */
 @import '../styles/palette-tokens.css';
 

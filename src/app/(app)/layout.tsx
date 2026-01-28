@@ -51,7 +51,11 @@ export default async function RootLayout({ children }: { children: ReactNode }) 
         <link href="/favicon.ico" rel="icon" sizes="32x32" />
         <link href="/favicon.svg" rel="icon" type="image/svg+xml" />
       </head>
-      <body data-app="frontend" suppressHydrationWarning>
+      <body
+        data-app="frontend"
+        suppressHydrationWarning
+        className="bg-[url('/images/background.svg')] bg-cover bg-center bg-no-repeat md:bg-fixed"
+      >
         <div suppressHydrationWarning>
           <Providers>
             <AdminBar />

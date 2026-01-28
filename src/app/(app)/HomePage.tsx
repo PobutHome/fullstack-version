@@ -4,6 +4,7 @@ import { FeaturedProducts } from '@/sections/home/FeaturedProducts'
 import { HomeBanner } from '@/sections/home/HomeBanner'
 import { HomeCatalog, type HomeCatalogCategory } from '@/sections/home/HomeCatalog'
 import { HomeSales } from '@/sections/home/HomeSales'
+import { HomeAboutMap } from '@/sections/home/HomeAboutMap'
 import { Testimonials } from '@/sections/home/Testimonials'
 
 type Props = {
@@ -16,7 +17,6 @@ export function HomePage({ categories }: Props) {
   return (
     <Page
       data-app="frontend"
-      background
       sectionsMargin
       className="pt-space-20 pb-space-50"
     >
@@ -29,6 +29,7 @@ export function HomePage({ categories }: Props) {
 
       <HomeSales />
       <Testimonials />
+      <HomeAboutMap />
     </Page>
   )
 }
