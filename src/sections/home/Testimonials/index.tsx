@@ -21,7 +21,7 @@ const testimonials: Testimonial[] = [
     id: 't-1',
     text: 'Відправили через 3 години після замовлення!!! Зранку вже забрав замовлення!!. Дякую за швидкість',
     author: 'Karen M.',
-    rating: 4,
+    rating: 4.5,
   },
   {
     id: 't-2',
@@ -56,17 +56,22 @@ const testimonials: Testimonial[] = [
 ]
 
 function RatingStars({ rating }: { rating: number }) {
-  const fullStars = Math.max(0, Math.min(5, Math.floor(rating)))
+  const safeRating = Math.max(0, Math.min(5, rating))
 
   return (
-    <div className="flex items-center gap-1 text-[#72CB1A]" aria-label={`Рейтинг ${rating} з 5`}>
-      {Array.from({ length: 5 }).map((_, idx) => (
-        <StarIcon
-          key={idx}
-          filled={idx < fullStars}
-          className="w-[18px] h-[18px] md:w-[20px] md:h-[20px]"
-        />
-      ))}
+    <div className="flex items-center gap-1 text-[#72CB1A]" aria-label={`Рейтинг ${safeRating} з 5`}>
+      {Array.from({ length: 5 }).map((_, idx) => {
+        const raw = safeRating - idx
+        const stepped = Math.max(0, Math.min(1, Math.round(raw * 2) / 2)) // 0, 0.5, 1
+
+        return (
+          <StarIcon
+            key={idx}
+            fillRatio={stepped}
+            className="w-[18px] h-[18px] md:w-[20px] md:h-[20px]"
+          />
+        )
+      })}
     </div>
   )
 }
@@ -89,7 +94,6 @@ function CommentCard({ text, author, rating }: Omit<Testimonial, 'id'>) {
               'text-[13px] leading-[1.35]',
               'sm:text-[14px]',
               'md:text-[15px] md:leading-[1.45]',
-              'overflow-hidden [display:-webkit-box] [-webkit-line-clamp:4] [-webkit-box-orient:vertical]',
             ].join(' ')}
           >
             {text}
