@@ -1,8 +1,5 @@
 'use client'
 
-import type { Header } from '@/payload-types'
-
-import { CMSLink } from '@/components/Link'
 import { Button } from '@/components/ui/button'
 import {
   Sheet,
@@ -16,13 +13,13 @@ import { useAuth } from '@/providers/Auth'
 import { MenuIcon } from 'lucide-react'
 import Link from 'next/link'
 import { usePathname, useSearchParams } from 'next/navigation'
-import React, { useEffect, useState } from 'react'
+import { useEffect, useState } from 'react'
 
 interface Props {
-  menu: Header['navItems']
+  // no props (static menu)
 }
 
-export function MobileMenu({ menu }: Props) {
+export function MobileMenu({}: Props) {
   const { user } = useAuth()
 
   const pathname = usePathname()
@@ -47,8 +44,8 @@ export function MobileMenu({ menu }: Props) {
 
   return (
     <Sheet onOpenChange={setIsOpen} open={isOpen}>
-      <SheetTrigger className="relative flex h-11 w-11 items-center justify-center rounded-md border border-neutral-200 text-black transition-colors dark:border-neutral-700 dark:bg-black dark:text-white">
-        <MenuIcon className="h-4" />
+      <SheetTrigger className="relative flex items-center justify-center rounded-md text-sys-accent transition-colors">
+        <MenuIcon className="size-6" />
       </SheetTrigger>
 
       <SheetContent side="left" className="px-4">
@@ -59,15 +56,17 @@ export function MobileMenu({ menu }: Props) {
         </SheetHeader>
 
         <div className="py-4">
-          {menu?.length ? (
-            <ul className="flex w-full flex-col">
-              {menu.map((item) => (
-                <li className="py-2" key={item.id}>
-                  <CMSLink {...item.link} appearance="link" />
-                </li>
-              ))}
-            </ul>
-          ) : null}
+          <ul className="flex w-full flex-col">
+            <li className="py-2">
+              <Link href="/catalog">Каталог</Link>
+            </li>
+            <li className="py-2">
+              <Link href="/">Про нас</Link>
+            </li>
+            <li className="py-2">
+              <Link href="/">Контакти</Link>
+            </li>
+          </ul>
         </div>
 
         {user ? (

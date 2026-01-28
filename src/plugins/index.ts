@@ -10,8 +10,10 @@ import { liqpayAdapter } from '@/payments/liqpay'
 import { adminOnly } from '@/access/adminOnly'
 import { adminOnlyFieldAccess } from '@/access/adminOnlyFieldAccess'
 import { adminOrCustomerOwner } from '@/access/adminOrCustomerOwner'
+import { adminOrCustomerOwnerOrGuestCart } from '@/access/adminOrCustomerOwnerOrGuestCart'
 import { adminOrPublishedStatus } from '@/access/adminOrPublishedStatus'
 import { customerOnlyFieldAccess } from '@/access/customerOnlyFieldAccess'
+import { publicAccess } from '@/access/publicAccess'
 import { ProductsCollection } from '@/collections/Products'
 import { Product } from '@/payload-types'
 import { getServerSideURL } from '@/utilities/getURL'
@@ -72,6 +74,7 @@ export const plugins: Plugin[] = [
       adminOrCustomerOwner,
       adminOrPublishedStatus,
       customerOnlyFieldAccess,
+      publicAccess,
     },
     currencies: {
       defaultCurrency: 'UAH',
@@ -101,6 +104,19 @@ export const plugins: Plugin[] = [
     },
     products: {
       productsCollectionOverride: ProductsCollection,
+    },
+    carts: {
+      cartsCollectionOverride: ({ defaultCollection }) => {
+        return {
+          ...defaultCollection,
+          access: {
+            ...defaultCollection.access,
+            read: adminOrCustomerOwnerOrGuestCart,
+            update: adminOrCustomerOwnerOrGuestCart,
+            delete: adminOrCustomerOwnerOrGuestCart,
+          },
+        }
+      },
     },
   }),
 ]

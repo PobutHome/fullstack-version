@@ -17,17 +17,17 @@ export const Search: React.FC<Props> = ({ className }) => {
   function onSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault()
 
-    const val = e.target as HTMLFormElement
-    const search = val.search as HTMLInputElement
+    const formData = new FormData(e.currentTarget)
+    const search = String(formData.get('search') ?? '').trim()
     const newParams = new URLSearchParams(searchParams.toString())
 
-    if (search.value) {
-      newParams.set('q', search.value)
+    if (search) {
+      newParams.set('q', search)
     } else {
       newParams.delete('q')
     }
 
-    router.push(createUrl('/shop', newParams))
+    router.push(createUrl('/catalog', newParams))
   }
 
   return (
@@ -38,7 +38,7 @@ export const Search: React.FC<Props> = ({ className }) => {
         defaultValue={searchParams?.get('q') || ''}
         key={searchParams?.get('q')}
         name="search"
-        placeholder="Search for products..."
+        placeholder="Шукати продукт або бренд"
         type="text"
       />
       <div className="absolute right-0 top-0 mr-3 flex h-full items-center">
