@@ -5,8 +5,8 @@ import { SalesCarouselWrapper } from '@/components/SalesCarousel/Wrapper.client'
 import { Section } from '@/components/Section'
 import { DiscountIcon } from '@/components/icons/offers/DiscountIcon'
 import { PaymentIcon } from '@/components/icons/offers/PaymentIcon'
-import { WarehouseIcon } from '@/components/icons/offers/WarehouseIcon'
 import { PeopleIcon } from '@/components/icons/offers/PeopleIcon'
+import { WarehouseIcon } from '@/components/icons/offers/WarehouseIcon'
 import React from 'react'
 
 type Offer = {
@@ -38,19 +38,19 @@ const defaultSlides: SaleSlide[] = [
 const offers: Offer[] = [
   {
     title: 'Лояльні ціни та гнучка система знижок для постійних клієнтів',
-    icon: <DiscountIcon className="w-full h-full" />,
+    icon: <DiscountIcon  />,
   },
   {
     title: 'Відстрочка платежу для партнерів',
-    icon: <PaymentIcon className="w-full h-full" />,
+    icon: <PaymentIcon  />,
   },
   {
     title: 'Широкий асортимент продукції на складі',
-    icon: <WarehouseIcon className="w-full h-full" />,
+    icon: <WarehouseIcon  />,
   },
   {
     title: 'Індивідуальний підхід до кожного замовлення',
-    icon: <PeopleIcon className="w-full h-full" />,
+    icon: <PeopleIcon />,
   },
 ]
 
@@ -70,43 +70,40 @@ export function HomeSales() {
           </div>
         </InnerSection>
       </Container>
-      <div className="p-layout-gap-3 bg-sys-accent">
+      <InnerSection className="py-layout-gap-3 bg-sys-accent w-full">
         <Container>
-              <ul className="list-none m-0 p-0 grid gap-layout-gap-2 md:grid-cols-2  lg:grid-cols-4">
+              <ul className="list-none m-0 p-0 grid gap-space-10 tabet:gap-space-20 tablet:grid-cols-2 wide:grid-cols-4 ">
                 {offers.map((offer) => (
                   <li key={offer.title} className="min-w-0">
-                    <article className="relative box-border min-w-0 bg-sys-surface rounded-xl p-space-20 md:p-space-30 min-h-fit h-full">
-                      <h2
-                        className={[
-                          'm-0 text-sys-accent',
-                          // Allow the title to fully wrap (no clamping), even in flex row layout.
-                          'box-border min-w-0 max-w-full',
-                          'whitespace-normal wrap-break-word',
-                          // Reserve space so text "responds" to the bottom-right icon.
-                          'pr-[88px] md:pr-[96px]',
-                          'pb-[36px] md:pb-[44px]',
-                        ].join(' ')}
-                      >
-                        {offer.title}
-                      </h2>
+                    <article className="box-border min-w-0 bg-sys-surface rounded-xl p-space-20 tablet:p-space-30 min-h-fit h-full">
+                      <div className="grid grid-cols-[minmax(0,1fr)_auto] h-full relative ">
+                        <h2
+                          className={[
+                            'm-0 text-sys-accent box-border overflow-hidden break-all',
+                            'box-border min-w-0 max-w-full',
+                            'whitespace-normal wrap-anywhere',
+                          ].join(' ')}
+                        >
+                          {offer.title}
+                        </h2>
 
-                      <div
-                        aria-hidden="true"
-                        className={[
-                          // Always bottom-right and consistent visual size.
-                          'absolute right-[20px] bottom-[20px] md:right-[30px] md:bottom-[30px]',
-                          'w-[52px] h-[52px]',
-                          'text-sys-accent',
-                        ].join(' ')}
-                      >
-                        {offer.icon}
+                        <div
+                          aria-hidden="true"
+                          className={[
+                            'flex items-end self-end shrink-0',
+                            'w-[52px] h-[52px]',
+                            'text-sys-accent',
+                          ].join(' ')}
+                        >
+                          {offer.icon}
+                        </div>
                       </div>
                     </article>
                   </li>
                 ))}
               </ul>
               </Container>
-            </div>
+            </InnerSection>
     </Section>
   )
 }
