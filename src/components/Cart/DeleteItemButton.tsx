@@ -1,12 +1,12 @@
 'use client'
 
 import type { CartItem } from '@/components/Cart'
+import type { AppLocale } from '@/utilities/locale'
+import { getClientLocale } from '@/utilities/localeClient'
 import { useCart } from '@payloadcms/plugin-ecommerce/client/react'
 import clsx from 'clsx'
 import { XIcon } from 'lucide-react'
 import React from 'react'
-import type { AppLocale } from '@/utilities/locale'
-import { getClientLocale } from '@/utilities/localeClient'
 
 const deleteItemCopy: Record<AppLocale, { aria: string }> = {
   ua: { aria: 'Видалити товар з кошика' },

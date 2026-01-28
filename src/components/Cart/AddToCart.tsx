@@ -3,13 +3,13 @@
 import { Button } from '@/components/ui/button'
 import type { Product, Variant } from '@/payload-types'
 
+import type { AppLocale } from '@/utilities/locale'
+import { getClientLocale } from '@/utilities/localeClient'
 import { useCart } from '@payloadcms/plugin-ecommerce/client/react'
 import clsx from 'clsx'
 import { useSearchParams } from 'next/navigation'
 import React, { useCallback, useMemo } from 'react'
 import { toast } from 'sonner'
-import type { AppLocale } from '@/utilities/locale'
-import { getClientLocale } from '@/utilities/localeClient'
 type Props = {
   product: Product
 }
