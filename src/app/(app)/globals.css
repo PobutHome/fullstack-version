@@ -23,11 +23,7 @@
 /* inputs styling imports */
 @import '../styles/input-tokens.css';
 
-
 /* non-component utility/demo class groups (global) - Now using Tailwind @apply */
-
-
-
 
 @plugin "@tailwindcss/typography";
 @plugin "tailwindcss-animate";
@@ -48,10 +44,10 @@
   --container-padding: var(--layout-container-padding, 20px);
 
   /* Custom Breakpoints - Required for responsive utilities */
-  --breakpoint-tablet: 48rem;   /* 768px */
-  --breakpoint-desktop: 64rem;  /* 1024px */
-  --breakpoint-wide: 72rem;     /* 1152px */
-  --breakpoint-large: 90rem;    /* 1440px */
+  --breakpoint-tablet: 48rem; /* 768px */
+  --breakpoint-desktop: 64rem; /* 1024px */
+  --breakpoint-wide: 72rem; /* 1152px */
+  --breakpoint-large: 90rem; /* 1440px */
 }
 
 @utility container {
@@ -68,56 +64,56 @@
 
 :root {
   /* Background & Foreground */
-  --background: var(--color-background);
-  --foreground: var(--color-foreground);
+  --background: 0 0% 100%;
+  --foreground: 240 100% 15%;
 
   /* Primary Colors (Blue) */
-  --primary: var(--color-primary);
-  --primary-hover: var(--color-primary-hover);
-  --primary-active: var(--color-primary-active);
-  --primary-foreground: var(--color-primary-foreground);
+  --primary: 240 100% 15%;
+  --primary-hover: 240 94% 60%;
+  --primary-active: 240 100% 6%;
+  --primary-foreground: 0 0% 100%;
 
   /* Accent Colors (Green) */
-  --accent: var(--color-accent);
-  --accent-hover: var(--color-accent-hover);
-  --accent-active: var(--color-accent-active);
-  --accent-foreground: var(--color-accent-foreground);
+  --accent: 90 77% 45%;
+  --accent-hover: 90 100% 75%;
+  --accent-active: 90 100% 25%;
+  --accent-foreground: 240 100% 15%;
 
   /* Secondary (maps to accent for consistency) */
   --secondary: var(--color-accent);
   --secondary-foreground: var(--color-accent-foreground);
 
   /* UI Colors */
-  --card: var(--color-background);
-  --card-foreground: var(--color-foreground);
+  --card: 0 0% 100%;
+  --card-foreground: 240 100% 15%;
 
-  --popover: var(--color-background);
-  --popover-foreground: var(--color-foreground);
+  --popover: 0 0% 100%;
+  --popover-foreground: 240 100% 15%;
 
-  --muted: var(--color-border);
-  --muted-foreground: var(--color-foreground);
+  --muted: 220 13% 91%;
+  --muted-foreground: 240 100% 15%;
 
-  --border: var(--color-border);
-  --input: var(--color-border);
-  --ring: var(--color-primary);
+  --border: 220 13% 91%;
+  --input: 220 13% 91%;
+  --ring: 240 100% 15%;
 
   /* Border Radius */
   --radius: var(--radius-md, 8px);
 
   /* Status Colors */
-  --success: var(--color-success);
-  --warning: var(--color-warning);
-  --error: var(--color-error);
-  --destructive: var(--color-error);
-  --destructive-foreground: var(--color-primary-foreground);
+  --success: 142 76% 36%;
+  --warning: 38 92% 50%;
+  --error: 0 84% 60%;
+  --destructive: 0 84% 60%;
+  --destructive-foreground: 0 0% 100%;
 }
 
 /* Dark Mode Support (if needed in future) */
 [data-theme='dark'] {
-  --background: #111827;
-  --foreground: #ffffff;
-  --border: rgba(255, 255, 255, 0.1);
-  --primary: var(--color-primary-hover);
+  --background: 222 47% 11%;
+  --foreground: 0 0% 100%;
+  --border: 0 0% 100% / 0.1;
+  --primary: 240 94% 60%;
   /* Add more dark mode overrides as needed */
 }
 
@@ -476,7 +472,6 @@
   }
 
   /* Focus Visible Utilities */
- 
 
   /* Transition Utilities */
   .transition-base {
