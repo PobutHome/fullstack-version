@@ -4,6 +4,7 @@ import { FeaturedProducts } from '@/sections/home/FeaturedProducts'
 import { HomeBanner } from '@/sections/home/HomeBanner'
 import { HomeCatalog, type HomeCatalogCategory } from '@/sections/home/HomeCatalog'
 import { HomeSales } from '@/sections/home/HomeSales'
+import { Testimonials } from '@/sections/home/Testimonials'
 
 type Props = {
   categories: HomeCatalogCategory[]
@@ -27,6 +28,7 @@ export function HomePage({ categories }: Props) {
       <HomeCatalog categories={categories} />
 
       <HomeSales />
+      <Testimonials />
     </Page>
   )
 }
