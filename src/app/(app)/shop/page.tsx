@@ -1,11 +1,12 @@
 import { Grid } from '@/components/Grid'
 import { ProductGridItem } from '@/components/ProductGridItem'
 import configPromise from '@payload-config'
+import type { Metadata } from 'next'
 import { getPayload } from 'payload'
 
-export const metadata = {
+export const metadata: Metadata = {
   description: 'Search for products in the store.',
-  title: 'Shop',
+  title: 'Каталог',
 }
 
 type SearchParams = { [key: string]: string | string[] | undefined }
