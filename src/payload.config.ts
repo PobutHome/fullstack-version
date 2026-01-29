@@ -5,15 +5,15 @@ import { ru } from '@payloadcms/translations/languages/ru'
 import { uk } from '@payloadcms/translations/languages/uk'
 
 import {
-  BoldFeature,
-  EXPERIMENTAL_TableFeature,
-  IndentFeature,
-  ItalicFeature,
-  LinkFeature,
-  OrderedListFeature,
-  UnderlineFeature,
-  UnorderedListFeature,
-  lexicalEditor,
+    BoldFeature,
+    EXPERIMENTAL_TableFeature,
+    IndentFeature,
+    ItalicFeature,
+    LinkFeature,
+    OrderedListFeature,
+    UnderlineFeature,
+    UnorderedListFeature,
+    lexicalEditor,
 } from '@payloadcms/richtext-lexical'
 import path from 'path'
 import { buildConfig } from 'payload'
@@ -21,6 +21,7 @@ import { fileURLToPath } from 'url'
 
 import { Categories } from '@/collections/Categories'
 import { DeliveryMethods } from '@/collections/DeliveryMethods/index'
+import { HomeBanners } from '@/collections/HomeBanners'
 import { Media } from '@/collections/Media'
 import { Users } from '@/collections/Users'
 import { Footer } from '@/globals/Footer'
@@ -342,7 +343,7 @@ export default buildConfig({
     },
     user: Users.slug,
   },
-  collections: [Users, Categories, DeliveryMethods, Media],
+  collections: [Users, Categories, DeliveryMethods, Media, HomeBanners],
   db: mongooseAdapter({
     url: process.env.DATABASE_URI || '',
   }),
@@ -369,7 +370,7 @@ export default buildConfig({
         OrderedListFeature(),
         UnorderedListFeature(),
         LinkFeature({
-          enabledCollections: [],
+          enabledCollections: ['products'],
           fields: ({ defaultFields }) => {
             const defaultFieldsWithoutUrl = defaultFields.filter((field) => {
               if ('name' in field && field.name === 'url') return false

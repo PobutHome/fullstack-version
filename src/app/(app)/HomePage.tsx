@@ -1,26 +1,27 @@
 import { Page } from '@/components/Page'
 import { Benefits } from '@/sections/home/Benefits'
 import { FeaturedProducts } from '@/sections/home/FeaturedProducts'
-import { HomeBanner } from '@/sections/home/HomeBanner'
+import { HomeAboutMap } from '@/sections/home/HomeAboutMap'
+import { HomeBanner, type HomeBannerSlide } from '@/sections/home/HomeBanner'
 import { HomeCatalog, type HomeCatalogCategory } from '@/sections/home/HomeCatalog'
 import { HomeSales } from '@/sections/home/HomeSales'
-import { HomeAboutMap } from '@/sections/home/HomeAboutMap'
 import { Testimonials } from '@/sections/home/Testimonials'
 
 type Props = {
   categories: HomeCatalogCategory[]
+  banners: HomeBannerSlide[]
 }
 
 // Hardcoded home page layout that reads dynamic data (categories, etc.)
 // Uses the same layout + tokens as the design system page.
-export function HomePage({ categories }: Props) {
+export function HomePage({ categories, banners }: Props) {
   return (
     <Page
       data-app="frontend"
       sectionsMargin
       className="pt-space-20 pb-space-50"
     >
-      <HomeBanner />{/*implement homebanner fetching banners from cms, and enable creation of those banners */}
+      <HomeBanner slides={banners} />
       <Benefits />
       <FeaturedProducts />
 

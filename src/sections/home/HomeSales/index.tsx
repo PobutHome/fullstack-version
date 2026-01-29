@@ -72,7 +72,7 @@ export function HomeSales() {
       </Container>
       <InnerSection className="py-layout-gap-3 bg-sys-accent w-full">
         <Container>
-              <ul className="list-none m-0 p-0 grid gap-space-10 tabet:gap-space-20 tablet:grid-cols-2 wide:grid-cols-4 ">
+              <ul className="list-none m-0 p-0 grid gap-space-10 tabet:gap-space-20 tablet:grid-cols-2 large:grid-cols-4 ">
                 {offers.map((offer) => (
                   <li key={offer.title} className="min-w-0">
                     <article className="box-border min-w-0 bg-sys-surface rounded-xl p-space-20 tablet:p-space-30 min-h-fit h-full">

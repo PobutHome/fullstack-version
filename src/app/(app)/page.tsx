@@ -1,11 +1,12 @@
 import type { Metadata } from 'next'
 
+import type { Category, Product } from '@/payload-types'
+import type { HomeBannerSlide } from '@/sections/home/HomeBanner'
+import { extractCategoryImageFromProduct, type HomeCatalogCategory } from '@/sections/home/HomeCatalog'
 import configPromise from '@payload-config'
 import { draftMode } from 'next/headers'
 import { getPayload } from 'payload'
 import { HomePage } from './HomePage'
-import { extractCategoryImageFromProduct, type HomeCatalogCategory } from '@/sections/home/HomeCatalog'
-import type { Category, Product } from '@/payload-types'
 
 export default async function RootPage() {
   const payload = await getPayload({ config: configPromise })
@@ -79,7 +80,54 @@ export default async function RootPage() {
     }
   })
 
-  return <HomePage categories={categories} />
+  type HomeBannerDoc = {
+    id: string
+    title?: unknown
+    image?: string | { url?: string; alt?: string } | null
+    link?: { url?: string | null; openInNewTab?: boolean | null } | null
+  }
+
+  const bannersResult = await payload.find({
+    collection: 'home-banners',
+    depth: 2,
+    draft,
+    overrideAccess: draft,
+    pagination: false,
+    sort: 'sortOrder',
+    ...(draft
+      ? {}
+      : {
+          where: {
+            isActive: {
+              equals: true,
+            },
+          },
+        }),
+  })
+
+  const banners: HomeBannerSlide[] = (bannersResult.docs as HomeBannerDoc[])
+    .map((doc) => {
+      const image = typeof doc.image === 'string' ? null : doc.image
+      const imageUrl = image?.url
+      if (!imageUrl) return null
+
+      const title = typeof doc.title === 'string' ? doc.title : undefined
+      const imageAlt = image?.alt || title || 'Banner'
+
+      const href = doc.link?.url || undefined
+      const openInNewTab = doc.link?.openInNewTab || undefined
+
+      return {
+        id: doc.id,
+        imageUrl,
+        imageAlt,
+        href,
+        openInNewTab,
+      }
+    })
+    .filter(Boolean) as HomeBannerSlide[]
+
+  return <HomePage categories={categories} banners={banners} />
 }
 
 export async function generateMetadata(): Promise<Metadata> {

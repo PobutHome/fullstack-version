@@ -76,9 +76,7 @@ export const link: LinkType = ({ appearances, disableLabel = false, overrides = 
       },
       label: 'Document to link to',
       maxDepth: 1,
-      // NOTE: internal page links disabled (no `pages` collection).
-      // You can swap this to ['products'] later if you want product references.
-      relationTo: [],
+      relationTo: ['products'],
       required: false,
     },
     {

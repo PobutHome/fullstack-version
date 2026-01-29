@@ -3,32 +3,44 @@
 import { Section } from '@/components/Section'
 import { ArrowLeftIcon } from '@/components/icons/ArrowLeftIcon'
 import { ArrowRightIcon } from '@/components/icons/ArrowRightIcon'
+import Link from 'next/link'
 import React, { useCallback, useEffect, useRef, useState } from 'react'
 
+export type HomeBannerSlide = {
+  id: string
+  imageUrl: string
+  imageAlt: string
+  href?: string | null
+  openInNewTab?: boolean | null
+}
+
 type HomeBannerProps = {
-  images?: string[]
+  slides?: HomeBannerSlide[]
   autoScrollInterval?: number
 }
 
-const DEFAULT_IMAGES: string[] = [
-  'https://picsum.photos/id/1011/1600/500',
-  'https://picsum.photos/id/1015/1600/500',
-  'https://picsum.photos/id/1016/1600/500',
-  'https://picsum.photos/id/1020/1600/500',
-]
-
 const DEFAULT_AUTO_SCROLL_INTERVAL = 5000 // 5s
 
+function isExternalHref(href: string): boolean {
+  return /^https?:\/\//i.test(href)
+}
+
 export const HomeBanner: React.FC<HomeBannerProps> = ({
-  images = DEFAULT_IMAGES,
+  slides = [],
   autoScrollInterval = DEFAULT_AUTO_SCROLL_INTERVAL,
 }) => {
   const [rawIndex, setRawIndex] = useState<number>(0)
 
+  const slidesLength = slides?.length ?? 0
+
+  if (!slides || slidesLength === 0) {
+    return null
+  }
+
   const displayIndex =
-    rawIndex < images.length
+    rawIndex < slidesLength
       ? rawIndex
-      : rawIndex % images.length
+      : rawIndex % slidesLength
 
   const startX = useRef<number>(0)
   const currentX = useRef<number>(0)
@@ -47,7 +59,7 @@ export const HomeBanner: React.FC<HomeBannerProps> = ({
   }, [])
 
   useEffect(() => {
-    if (images.length <= 1) return
+    if (slidesLength <= 1) return
 
     intervalRef.current = setInterval(goToNext, autoScrollInterval)
 
@@ -56,7 +68,7 @@ export const HomeBanner: React.FC<HomeBannerProps> = ({
         clearInterval(intervalRef.current)
       }
     }
-  }, [goToNext, autoScrollInterval, images.length])
+  }, [goToNext, autoScrollInterval, slidesLength])
 
   const onTouchStart = (e: React.TouchEvent<HTMLDivElement>): void => {
     startX.current = e.touches[0].clientX
@@ -80,7 +92,7 @@ export const HomeBanner: React.FC<HomeBannerProps> = ({
       goToPrevious()
     }
 
-    if (images.length > 1) {
+    if (slidesLength > 1) {
       intervalRef.current = setInterval(goToNext, autoScrollInterval)
     }
   }
@@ -92,13 +104,9 @@ export const HomeBanner: React.FC<HomeBannerProps> = ({
   }
 
   const handleMouseLeave = (): void => {
-    if (images.length > 1) {
+    if (slidesLength > 1) {
       intervalRef.current = setInterval(goToNext, autoScrollInterval)
     }
-  }
-
-  if (!images || images.length === 0) {
-    return null
   }
 
   return (
@@ -120,23 +128,59 @@ export const HomeBanner: React.FC<HomeBannerProps> = ({
               transform: `translateX(-${displayIndex * 100}%)`,
             }}
           >
-            {images.map((src, i) => (
+            {slides.map((slide, i) => (
               <div
                 className="min-w-full w-full h-[236px] md:h-[380px] lg:h-[500px] relative shrink-0"
-                key={i}
+                key={slide.id}
               >
-                <img
-                  src={src}
-                  alt={`Slide ${i + 1}`}
-                  className="w-full h-full object-cover block"
-                />
+                {slide.href ? (
+                  isExternalHref(slide.href) || slide.openInNewTab ? (
+                    <a
+                      href={slide.href}
+                      target={slide.openInNewTab ? '_blank' : undefined}
+                      rel={slide.openInNewTab ? 'noreferrer' : undefined}
+                      className="block h-full w-full"
+                      aria-label={slide.imageAlt}
+                    >
+                      <img
+                        src={slide.imageUrl}
+                        alt={slide.imageAlt}
+                        className="w-full h-full object-cover block"
+                        loading={i === 0 ? 'eager' : 'lazy'}
+                        decoding="async"
+                      />
+                    </a>
+                  ) : (
+                    <Link
+                      href={slide.href}
+                      className="block h-full w-full"
+                      aria-label={slide.imageAlt}
+                    >
+                      <img
+                        src={slide.imageUrl}
+                        alt={slide.imageAlt}
+                        className="w-full h-full object-cover block"
+                        loading={i === 0 ? 'eager' : 'lazy'}
+                        decoding="async"
+                      />
+                    </Link>
+                  )
+                ) : (
+                  <img
+                    src={slide.imageUrl}
+                    alt={slide.imageAlt}
+                    className="w-full h-full object-cover block"
+                    loading={i === 0 ? 'eager' : 'lazy'}
+                    decoding="async"
+                  />
+                )}
               </div>
             ))}
           </div>
         </div>
 
         {/* Desktop-only navigation arrows */}
-        {images.length > 1 && (
+        {slidesLength > 1 && (
           <div className="pointer-events-none hidden desktop:flex items-center justify-between absolute inset-y-0 left-0 right-0 px-space-20">
             <button
               type="button"
@@ -158,7 +202,7 @@ export const HomeBanner: React.FC<HomeBannerProps> = ({
         )}
 
         <div className="flex justify-center gap-1 mt-3.5 p-0 w-full box-border">
-          {images.map((_, i) => (
+          {slides.map((_, i) => (
             <button
               key={i}
               className={`w-2.5 h-2.5 md:w-4 md:h-4 lg:w-[25px] lg:h-[25px] rounded-full border border-sys-accent bg-color-default-background cursor-pointer ${i === displayIndex ? 'bg-sys-accent' : ''}`}

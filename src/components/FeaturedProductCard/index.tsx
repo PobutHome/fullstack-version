@@ -82,7 +82,7 @@ export function FeaturedProductCard({
 
         {/* Wholesale Price Section */}
         <div className="flex items-start justify-between min-w-0 shrink-0 flex-col tablet:flex-row tablet:flex-wrap gap-layout-gap-1">
-          <div className="grid gap-1 flex-1 min-w-0 w-full sm:w-auto sm:flex-[1_1_auto]">
+          <div className="grid gap-1 flex-1 min-w-0 w-full tablet:w-auto tablet:flex-[1_1_auto]">
             <h1 className="min-w-0  text-sys-surface-accent">
               {wholesalePrice} <span className="pobut-body">грн</span>
             </h1>
