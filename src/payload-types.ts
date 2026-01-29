@@ -77,6 +77,7 @@ export interface Config {
     'delivery-methods': DeliveryMethod;
     media: Media;
     'home-banners': HomeBanner;
+    'home-sales-banners': HomeSalesBanner;
     forms: Form;
     'form-submissions': FormSubmission;
     addresses: Address;
@@ -111,6 +112,7 @@ export interface Config {
     'delivery-methods': DeliveryMethodsSelect<false> | DeliveryMethodsSelect<true>;
     media: MediaSelect<false> | MediaSelect<true>;
     'home-banners': HomeBannersSelect<false> | HomeBannersSelect<true>;
+    'home-sales-banners': HomeSalesBannersSelect<false> | HomeSalesBannersSelect<true>;
     forms: FormsSelect<false> | FormsSelect<true>;
     'form-submissions': FormSubmissionsSelect<false> | FormSubmissionsSelect<true>;
     addresses: AddressesSelect<false> | AddressesSelect<true>;
@@ -700,6 +702,29 @@ export interface HomeBanner {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "home-sales-banners".
+ */
+export interface HomeSalesBanner {
+  id: string;
+  title: string;
+  image: string | Media;
+  link?: {
+    /**
+     * Optional. Use /path for internal links or https://... for external links.
+     */
+    url?: string | null;
+    openInNewTab?: boolean | null;
+  };
+  isActive?: boolean | null;
+  /**
+   * Lower numbers show first.
+   */
+  sortOrder?: number | null;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "forms".
  */
 export interface Form {
@@ -934,6 +959,10 @@ export interface PayloadLockedDocument {
         value: string | HomeBanner;
       } | null)
     | ({
+        relationTo: 'home-sales-banners';
+        value: string | HomeSalesBanner;
+      } | null)
+    | ({
         relationTo: 'forms';
         value: string | Form;
       } | null)
@@ -1089,6 +1118,24 @@ export interface MediaSelect<T extends boolean = true> {
  * via the `definition` "home-banners_select".
  */
 export interface HomeBannersSelect<T extends boolean = true> {
+  title?: T;
+  image?: T;
+  link?:
+    | T
+    | {
+        url?: T;
+        openInNewTab?: T;
+      };
+  isActive?: T;
+  sortOrder?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "home-sales-banners_select".
+ */
+export interface HomeSalesBannersSelect<T extends boolean = true> {
   title?: T;
   image?: T;
   link?:

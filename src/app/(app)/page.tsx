@@ -4,6 +4,7 @@ import type { Category, Product } from '@/payload-types'
 import type { FeaturedProduct } from '@/sections/home/FeaturedProducts'
 import type { HomeBannerSlide } from '@/sections/home/HomeBanner'
 import { extractCategoryImageFromProduct, type HomeCatalogCategory } from '@/sections/home/HomeCatalog'
+import type { HomeSalesSlide } from '@/sections/home/HomeSales'
 import configPromise from '@payload-config'
 import { draftMode } from 'next/headers'
 import { getPayload } from 'payload'
@@ -128,6 +129,48 @@ export default async function RootPage() {
     })
     .filter(Boolean) as HomeBannerSlide[]
 
+  type HomeSalesBannerDoc = HomeBannerDoc
+
+  const salesBannersResult = await payload.find({
+    collection: 'home-sales-banners',
+    depth: 2,
+    draft,
+    overrideAccess: draft,
+    pagination: false,
+    sort: 'sortOrder',
+    ...(draft
+      ? {}
+      : {
+          where: {
+            isActive: {
+              equals: true,
+            },
+          },
+        }),
+  })
+
+  const salesBanners: HomeSalesSlide[] = (salesBannersResult.docs as HomeSalesBannerDoc[])
+    .map((doc) => {
+      const image = typeof doc.image === 'string' ? null : doc.image
+      const imageUrl = image?.url
+      if (!imageUrl) return null
+
+      const title = typeof doc.title === 'string' ? doc.title : undefined
+      const imageAlt = image?.alt || title || 'Sale banner'
+
+      const href = doc.link?.url || undefined
+      const openInNewTab = doc.link?.openInNewTab || undefined
+
+      return {
+        id: doc.id,
+        imageUrl,
+        imageAlt,
+        href,
+        openInNewTab,
+      }
+    })
+    .filter(Boolean) as HomeSalesSlide[]
+
   const featuredResult = await payload.find({
     collection: 'products',
     depth: 3,
@@ -235,7 +278,12 @@ export default async function RootPage() {
     .filter(Boolean) as FeaturedProduct[]
 
   return (
-    <HomePage categories={categories} banners={banners} featuredProducts={featuredProducts} />
+    <HomePage
+      categories={categories}
+      banners={banners}
+      salesBanners={salesBanners}
+      featuredProducts={featuredProducts}
+    />
   )
 }
 

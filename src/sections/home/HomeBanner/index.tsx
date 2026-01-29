@@ -33,14 +33,7 @@ export const HomeBanner: React.FC<HomeBannerProps> = ({
 
   const slidesLength = slides?.length ?? 0
 
-  if (!slides || slidesLength === 0) {
-    return null
-  }
-
-  const displayIndex =
-    rawIndex < slidesLength
-      ? rawIndex
-      : rawIndex % slidesLength
+  const displayIndex = slidesLength > 0 ? rawIndex % slidesLength : 0
 
   const startX = useRef<number>(0)
   const currentX = useRef<number>(0)
@@ -107,6 +100,10 @@ export const HomeBanner: React.FC<HomeBannerProps> = ({
     if (slidesLength > 1) {
       intervalRef.current = setInterval(goToNext, autoScrollInterval)
     }
+  }
+
+  if (!slides || slidesLength === 0) {
+    return null
   }
 
   return (

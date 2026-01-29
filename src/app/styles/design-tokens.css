@@ -219,6 +219,7 @@
   --sys-radius-md: 0.5rem; /* 8px */
   --sys-radius-lg: 0.75rem; /* 12px */
   --sys-radius-xl: 1rem; /* 16px */
+  --sys-radius-2xl: 1.375rem; /* 22px */
   --sys-radius-full: 9999px; /* Keep as px for circular shapes */
 
   /* Default Border */

@@ -1,14 +1,20 @@
-import type { Product, ArchiveBlock as ArchiveBlockProps } from '@/payload-types'
+import type { Product } from '@/payload-types'
 
+import { RichText } from '@/components/RichText'
 import configPromise from '@payload-config'
+import type { SerializedEditorState } from '@payloadcms/richtext-lexical/lexical'
 import { DefaultDocumentIDType, getPayload } from 'payload'
 import React from 'react'
-import { RichText } from '@/components/RichText'
 
 import { CollectionArchive } from '@/components/CollectionArchive'
 
 export const ArchiveBlock: React.FC<
-  ArchiveBlockProps & {
+  {
+    categories?: (string | { id: string })[] | null
+    introContent?: SerializedEditorState | null
+    limit?: number | null
+    populateBy?: 'collection' | 'selection' | null
+    selectedDocs?: { value?: string | Product | null }[] | null
     id?: DefaultDocumentIDType
     className?: string
   }
@@ -55,11 +61,11 @@ export const ArchiveBlock: React.FC<
 
   return (
     <div className="my-16" id={`block-${id}`}>
-      {introContent && (
+      {introContent ? (
         <div className="container mb-16">
           <RichText className="ml-0 max-w-[48rem]" data={introContent} enableGutter={false} />
         </div>
-      )}
+      ) : null}
       <CollectionArchive posts={posts} />
     </div>
   )

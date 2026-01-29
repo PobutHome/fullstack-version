@@ -22,6 +22,7 @@ import { fileURLToPath } from 'url'
 import { Categories } from '@/collections/Categories'
 import { DeliveryMethods } from '@/collections/DeliveryMethods/index'
 import { HomeBanners } from '@/collections/HomeBanners'
+import { HomeSalesBanners } from '@/collections/HomeSalesBanners'
 import { Media } from '@/collections/Media'
 import { Users } from '@/collections/Users'
 import { Footer } from '@/globals/Footer'
@@ -343,7 +344,7 @@ export default buildConfig({
     },
     user: Users.slug,
   },
-  collections: [Users, Categories, DeliveryMethods, Media, HomeBanners],
+  collections: [Users, Categories, DeliveryMethods, Media, HomeBanners, HomeSalesBanners],
   db: mongooseAdapter({
     url: process.env.DATABASE_URI || '',
   }),

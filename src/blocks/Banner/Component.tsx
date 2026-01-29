@@ -1,7 +1,12 @@
-import type { BannerBlock as BannerBlockProps } from '@/payload-types'
-import { cn } from '@/utilities/cn'
-import React from 'react'
 import { RichText } from '@/components/RichText'
+import { cn } from '@/utilities/cn'
+import type { SerializedEditorState } from '@payloadcms/richtext-lexical/lexical'
+import React from 'react'
+
+type BannerBlockProps = {
+  content: SerializedEditorState
+  style?: 'info' | 'error' | 'success' | 'warning' | null
+}
 
 export const BannerBlock: React.FC<
   BannerBlockProps & {

@@ -11,6 +11,7 @@ export type SaleSlide = {
   imageUrl: string
   imageAlt: string
   href?: string
+  openInNewTab?: boolean
 }
 
 type Props = {
@@ -20,6 +21,10 @@ type Props = {
 }
 
 const DEFAULT_AUTO_SCROLL_INTERVAL = 6500
+
+function isExternalHref(href: string): boolean {
+  return /^https?:\/\//i.test(href)
+}
 
 const getItemsPerView = (): number => {
   if (typeof window === 'undefined') return 1
@@ -122,35 +127,61 @@ export function SalesCarousel({
   return (
     <div className="relative" onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave}>
       <div className="w-full" onTouchStart={onTouchStart} onTouchMove={onTouchMove} onTouchEnd={onTouchEnd}>
-        <div className="grid grid-cols-1 md:grid-cols-2 w-full min-w-0 gap-layout-gap-1">
+        <div className="grid grid-cols-1 md:grid-cols-2 w-full min-w-0 gap-layout-gap-2">
           {displaySlides.map((slide) => {
             return (
               <div key={slide.id} className="min-w-0">
                 {slide.href ? (
-                  <Link
-                    href={slide.href}
-                    className={[
-                      'relative block min-w-0 overflow-hidden rounded-[22px]',
-                      'border border-sys-border-subtle bg-sys-surface',
-                      'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-sys-focus focus-visible:ring-offset-2 focus-visible:ring-offset-sys-bg',
-                    ].join(' ')}
-                  >
-                    <div className="relative w-full aspect-16/7 sm:aspect-16/6">
-                      <Image
-                        src={slide.imageUrl}
-                        alt={slide.imageAlt}
-                        fill
-                        sizes="(max-width: 768px) 100vw, 50vw"
-                        className="object-cover"
-                        priority={false}
-                      />
-                    </div>
-                  </Link>
+                  isExternalHref(slide.href) || slide.openInNewTab ? (
+                    <a
+                      href={slide.href}
+                      target={slide.openInNewTab ? '_blank' : undefined}
+                      rel={slide.openInNewTab ? 'noreferrer' : undefined}
+                      className={[
+                        'relative block min-w-0 overflow-hidden rounded-radius-xl',
+                        'bg-sys-surface',
+                        'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-sys-focus focus-visible:ring-offset-2 focus-visible:ring-offset-sys-bg',
+                      ].join(' ')}
+                      aria-label={slide.imageAlt}
+                    >
+                      <div className="relative w-full aspect-16/7 sm:aspect-16/6">
+                        <Image
+                          src={slide.imageUrl}
+                          alt={slide.imageAlt}
+                          fill
+                          sizes="(max-width: 768px) 100vw, 50vw"
+                          className="object-cover"
+                          priority={false}
+                        />
+                      </div>
+                    </a>
+                  ) : (
+                    <Link
+                      href={slide.href}
+                      className={[
+                        'relative block min-w-0 overflow-hidden rounded-radius-xl',
+                        'bg-sys-surface',
+                        'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-sys-focus focus-visible:ring-offset-2 focus-visible:ring-offset-sys-bg',
+                      ].join(' ')}
+                      aria-label={slide.imageAlt}
+                    >
+                      <div className="relative w-full aspect-16/7 sm:aspect-16/6">
+                        <Image
+                          src={slide.imageUrl}
+                          alt={slide.imageAlt}
+                          fill
+                          sizes="(max-width: 768px) 100vw, 50vw"
+                          className="object-cover"
+                          priority={false}
+                        />
+                      </div>
+                    </Link>
+                  )
                 ) : (
                   <div
                     className={[
-                      'relative block min-w-0 overflow-hidden rounded-[22px]',
-                      'border border-sys-border-subtle bg-sys-surface',
+                      'relative block min-w-0 overflow-hidden rounded-radius-xl',
+                      'bg-sys-surface',
                     ].join(' ')}
                   >
                     <div className="relative w-full aspect-16/7 sm:aspect-16/6">
@@ -172,22 +203,22 @@ export function SalesCarousel({
       </div>
 
       {showArrows && (
-        <div className="flex justify-center items-center gap-layout-gap-1 mt-layout-gap-2">
+        <div className="flex justify-center items-center gap-[clamp(80px,18vw,220px)] mt-layout-gap-2">
           <button
             type="button"
-            className="bg-transparent border-none cursor-pointer p-2 flex items-center justify-center transition-colors duration-200 ease-in-out text-sys-accent hover:text-sys-accent-hover active:text-sys-accent-active rounded-radius-md hover:bg-[color-mix(in_srgb,var(--sys-accent)_10%,transparent)] focus-visible:outline-2 focus-visible:outline-sys-focus focus-visible:outline-offset-2"
+            className="bg-transparent border-none cursor-pointer p-space-10 flex items-center justify-center transition-colors duration-200 ease-in-out text-sys-accent hover:text-sys-accent-hover active:text-sys-accent-active focus-visible:outline-2 focus-visible:outline-sys-focus focus-visible:outline-offset-2"
             onClick={goToPrevious}
             aria-label="Попередній банер"
           >
-            <ArrowLeftIcon />
+            <ArrowLeftIcon className="w-14 h-14" />
           </button>
           <button
             type="button"
-            className="bg-transparent border-none cursor-pointer p-2 flex items-center justify-center transition-colors duration-200 ease-in-out text-sys-accent hover:text-sys-accent-hover active:text-sys-accent-active rounded-radius-md hover:bg-[color-mix(in_srgb,var(--sys-accent)_10%,transparent)] focus-visible:outline-2 focus-visible:outline-sys-focus focus-visible:outline-offset-2"
+            className="bg-transparent border-none cursor-pointer p-space-10 flex items-center justify-center transition-colors duration-200 ease-in-out text-sys-accent hover:text-sys-accent-hover active:text-sys-accent-active focus-visible:outline-2 focus-visible:outline-sys-focus focus-visible:outline-offset-2"
             onClick={goToNext}
             aria-label="Наступний банер"
           >
-            <ArrowRightIcon />
+            <ArrowRightIcon className="w-14 h-14" />
           </button>
         </div>
       )}

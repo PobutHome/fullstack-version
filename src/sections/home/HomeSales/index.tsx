@@ -14,6 +14,8 @@ type Offer = {
   icon: React.ReactNode
 }
 
+export type HomeSalesSlide = SaleSlide
+
 const defaultSlides: SaleSlide[] = [
   {
     id: 'sale-1',
@@ -54,7 +56,7 @@ const offers: Offer[] = [
   },
 ]
 
-export function HomeSales() {
+export function HomeSales({ slides = defaultSlides }: { slides?: HomeSalesSlide[] }) {
   return (
     <Section id="offers" aria-labelledby="home-offers-title">
       <Container>
@@ -64,7 +66,7 @@ export function HomeSales() {
               <h2 id="home-offers-title">Акції і пропозиції</h2>
             </header>
 
-            <SalesCarouselWrapper slides={defaultSlides} />
+            <SalesCarouselWrapper slides={slides} />
 
            
           </div>
