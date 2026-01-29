@@ -31,17 +31,18 @@ export function FeaturedProductCard({
   return (
     <article className="fe-product flex flex-col h-full bg-sys-surface rounded-2xl border border-sys-accent relative box-border overflow-hidden ">
       {/* Product Image */}
-      <div className="w-full aspect-square flex items-center justify-center overflow-hidden">
+      <div className="w-full aspect-square flex items-center justify-center overflow-hidden bg-sys-overlay p-space-20">
         {imageUrl ? (
           <img
             src={imageUrl}
             alt={imageAlt}
-            className="w-full h-full object-cover"
+            className="w-full h-full object-contain"
             loading="lazy"
+            decoding="async"
           />
         ) : (
           <div className="w-full h-full flex items-center justify-center text-sys-text-muted">
-            <span className="text-[inherit]">Product Image</span>
+            <span className="text-inherit">Product Image</span>
           </div>
         )}
       </div>

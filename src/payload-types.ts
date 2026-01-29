@@ -309,6 +309,14 @@ export interface Product {
   };
   categories?: (string | Category)[] | null;
   /**
+   * Show this product in the Featured Products section on the home page.
+   */
+  isFeatured?: boolean | null;
+  /**
+   * Optional. Overrides the image shown in the Featured Products carousel on the home page (e.g. use a PNG).
+   */
+  featuredCardImage?: (string | null) | Media;
+  /**
    * When enabled, the slug will auto-generate from the title field on save and autosave.
    */
   generateSlug?: boolean | null;
@@ -1340,6 +1348,8 @@ export interface ProductsSelect<T extends boolean = true> {
         description?: T;
       };
   categories?: T;
+  isFeatured?: T;
+  featuredCardImage?: T;
   generateSlug?: T;
   slug?: T;
   updatedAt?: T;

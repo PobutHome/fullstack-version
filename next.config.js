@@ -6,6 +6,16 @@ const NEXT_PUBLIC_SERVER_URL = process.env.NEXT_PUBLIC_SERVER_URL || 'http://loc
 
 /** @type {import('next').NextConfig} */
 const nextConfig = {
+  transpilePackages: [
+    'payload',
+    '@payloadcms/next',
+    '@payloadcms/ui',
+    '@payloadcms/plugin-seo',
+    '@payloadcms/plugin-ecommerce',
+    '@payloadcms/plugin-form-builder',
+    '@payloadcms/richtext-lexical',
+    '@payloadcms/storage-s3',
+  ],
   images: {
     remotePatterns: [
       ...[NEXT_PUBLIC_SERVER_URL /* 'https://example.com' */].map((item) => {

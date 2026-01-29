@@ -1,6 +1,6 @@
 import { Page } from '@/components/Page'
 import { Benefits } from '@/sections/home/Benefits'
-import { FeaturedProducts } from '@/sections/home/FeaturedProducts'
+import { FeaturedProducts, type FeaturedProduct } from '@/sections/home/FeaturedProducts'
 import { HomeAboutMap } from '@/sections/home/HomeAboutMap'
 import { HomeBanner, type HomeBannerSlide } from '@/sections/home/HomeBanner'
 import { HomeCatalog, type HomeCatalogCategory } from '@/sections/home/HomeCatalog'
@@ -10,11 +10,12 @@ import { Testimonials } from '@/sections/home/Testimonials'
 type Props = {
   categories: HomeCatalogCategory[]
   banners: HomeBannerSlide[]
+  featuredProducts: FeaturedProduct[]
 }
 
 // Hardcoded home page layout that reads dynamic data (categories, etc.)
 // Uses the same layout + tokens as the design system page.
-export function HomePage({ categories, banners }: Props) {
+export function HomePage({ categories, banners, featuredProducts }: Props) {
   return (
     <Page
       data-app="frontend"
@@ -23,7 +24,7 @@ export function HomePage({ categories, banners }: Props) {
     >
       <HomeBanner slides={banners} />
       <Benefits />
-      <FeaturedProducts />
+      <FeaturedProducts products={featuredProducts} />
 
       {/* Catalog / categories from CMS */}
       <HomeCatalog categories={categories} />

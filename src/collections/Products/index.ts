@@ -4,26 +4,59 @@ import { MediaBlock } from '@/blocks/MediaBlock/config'
 import { generatePreviewPath } from '@/utilities/generatePreviewPath'
 import { CollectionOverride } from '@payloadcms/plugin-ecommerce/types'
 import {
-  MetaDescriptionField,
-  MetaImageField,
-  MetaTitleField,
-  OverviewField,
-  PreviewField,
+    MetaDescriptionField,
+    MetaImageField,
+    MetaTitleField,
+    OverviewField,
+    PreviewField,
 } from '@payloadcms/plugin-seo/fields'
 import {
-  FixedToolbarFeature,
-  HeadingFeature,
-  HorizontalRuleFeature,
-  InlineToolbarFeature,
-  lexicalEditor,
+    FixedToolbarFeature,
+    HeadingFeature,
+    HorizontalRuleFeature,
+    InlineToolbarFeature,
+    lexicalEditor,
 } from '@payloadcms/richtext-lexical'
-import { DefaultDocumentIDType, slugField, Where } from 'payload'
+import { DefaultDocumentIDType, slugField, Where, type Field } from 'payload'
+
+const normalizeFields = (fields: Field[]): Field[] => {
+  return (fields || [])
+    .filter(Boolean)
+    .map((field) => {
+      const f: any = field
+
+      const next: any = {
+        ...f,
+        admin: f?.admin ?? {},
+      }
+
+      if (next?.type === 'tabs' && Array.isArray(next?.tabs)) {
+        next.tabs = next.tabs.map((tab: any) => ({
+          ...tab,
+          fields: normalizeFields(tab?.fields || []),
+        }))
+      }
+
+      if (Array.isArray(next?.fields)) {
+        next.fields = normalizeFields(next.fields)
+      }
+
+      if (Array.isArray(next?.blocks)) {
+        next.blocks = next.blocks.map((block: any) => ({
+          ...block,
+          fields: normalizeFields(block?.fields || []),
+        }))
+      }
+
+      return next as Field
+    })
+}
 
 export const ProductsCollection: CollectionOverride = ({ defaultCollection }) => ({
   ...defaultCollection,
   admin: {
     ...defaultCollection?.admin,
-    defaultColumns: ['title', 'enableVariants', '_status', 'variants.variants'],
+    defaultColumns: ['title', 'isFeatured', 'enableVariants', '_status', 'variants.variants'],
     livePreview: {
       url: ({ data, req }) =>
         generatePreviewPath({
@@ -51,8 +84,9 @@ export const ProductsCollection: CollectionOverride = ({ defaultCollection }) =>
     priceInUAH: true,
     inventory: true,
     meta: true,
+    featuredCardImage: true,
   },
-  fields: [
+  fields: normalizeFields([
     { name: 'title', type: 'text', required: true, localized: true },
     {
       type: 'tabs',
@@ -142,7 +176,7 @@ export const ProductsCollection: CollectionOverride = ({ defaultCollection }) =>
         },
         {
           fields: [
-            ...defaultCollection.fields,
+            ...normalizeFields(((defaultCollection as any)?.fields || []) as Field[]),
             {
               name: 'relatedProducts',
               type: 'relationship',
@@ -207,6 +241,27 @@ export const ProductsCollection: CollectionOverride = ({ defaultCollection }) =>
       hasMany: true,
       relationTo: 'categories',
     },
+    {
+      name: 'isFeatured',
+      type: 'checkbox',
+      defaultValue: false,
+      index: true,
+      admin: {
+        position: 'sidebar',
+        description: 'Show this product in the Featured Products section on the home page.',
+      },
+    },
+    {
+      name: 'featuredCardImage',
+      type: 'upload',
+      relationTo: 'media',
+      required: false,
+      admin: {
+        position: 'sidebar',
+        description:
+          'Optional. Overrides the image shown in the Featured Products carousel on the home page (e.g. use a PNG).',
+      },
+    },
     slugField(),
-  ],
+  ]),
 })

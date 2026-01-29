@@ -1,6 +1,7 @@
 import type { Metadata } from 'next'
 
 import type { Category, Product } from '@/payload-types'
+import type { FeaturedProduct } from '@/sections/home/FeaturedProducts'
 import type { HomeBannerSlide } from '@/sections/home/HomeBanner'
 import { extractCategoryImageFromProduct, type HomeCatalogCategory } from '@/sections/home/HomeCatalog'
 import configPromise from '@payload-config'
@@ -127,7 +128,115 @@ export default async function RootPage() {
     })
     .filter(Boolean) as HomeBannerSlide[]
 
-  return <HomePage categories={categories} banners={banners} />
+  const featuredResult = await payload.find({
+    collection: 'products',
+    depth: 3,
+    draft,
+    overrideAccess: draft,
+    limit: 12,
+    pagination: false,
+    sort: '-updatedAt',
+    where: {
+      and: [
+        ...(draft ? [] : [{ _status: { equals: 'published' } }]),
+        {
+          isFeatured: {
+            equals: true,
+          },
+        },
+      ],
+    },
+    populate: {
+      variants: {
+        priceInUAH: true,
+        inventory: true,
+        options: true,
+      },
+    },
+    select: {
+      title: true,
+      slug: true,
+      gallery: true,
+      meta: true,
+      featuredCardImage: true,
+      inventory: true,
+      enableVariants: true,
+      priceInUAH: true,
+      variants: true,
+    },
+  })
+
+  const featuredProducts: FeaturedProduct[] = (featuredResult.docs as Partial<Product>[])
+    .map((product) => {
+      const id = product.id
+      if (!id) return null
+
+      const variants = product.variants?.docs
+
+      const priceFromVariants = variants?.reduce<number | undefined>((acc, variant) => {
+        if (typeof variant !== 'object') return acc
+        if (typeof variant.priceInUAH !== 'number') return acc
+        return typeof acc === 'number' ? Math.max(acc, variant.priceInUAH) : variant.priceInUAH
+      }, undefined)
+
+      const retailPrice =
+        typeof priceFromVariants === 'number'
+          ? priceFromVariants
+          : typeof product.priceInUAH === 'number'
+            ? product.priceInUAH
+            : 0
+
+      const isAvailable = Boolean(
+        product.enableVariants
+          ? variants?.some((variant) => {
+              if (typeof variant !== 'object') return false
+              return typeof variant.inventory === 'number' && variant.inventory > 0
+            })
+          : typeof product.inventory === 'number' && product.inventory > 0,
+      )
+
+      const firstVariantOptions =
+        product.enableVariants && variants?.length && typeof variants[0] === 'object'
+          ? variants[0].options
+          : null
+
+      const specifications =
+        firstVariantOptions && Array.isArray(firstVariantOptions)
+          ? firstVariantOptions
+              .map((opt) => (typeof opt === 'object' ? opt.label : null))
+              .filter(Boolean)
+              .join(', ')
+          : ''
+
+      const featuredCardImage =
+        typeof product.featuredCardImage === 'object' ? product.featuredCardImage : undefined
+
+      const firstGalleryImage =
+        typeof product.gallery?.[0]?.image === 'object' ? product.gallery?.[0]?.image : undefined
+      const metaImage = typeof product.meta?.image === 'object' ? product.meta?.image : undefined
+      const image = featuredCardImage || firstGalleryImage || metaImage
+
+      const title = typeof product.title === 'string' ? product.title : 'Product'
+
+      return {
+        id,
+        imageUrl: image?.url || undefined,
+        imageAlt: image?.alt || title,
+        isAvailable,
+        productName: title,
+        specifications,
+        retailPrice,
+        // NOTE: wholesale fields are not modeled in CMS yet.
+        // We keep the UI consistent for now.
+        wholesalePrice: retailPrice,
+        wholesaleMinQuantity: 1,
+      }
+    })
+    .filter(Boolean) as FeaturedProduct[]
+
+  return (
+    <HomePage categories={categories} banners={banners} featuredProducts={featuredProducts} />
+  )
 }
 
 export async function generateMetadata(): Promise<Metadata> {
