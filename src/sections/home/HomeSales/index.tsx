@@ -60,16 +60,13 @@ export function HomeSales({ slides = defaultSlides }: { slides?: HomeSalesSlide[
   return (
     <Section id="offers" aria-labelledby="home-offers-title">
       <Container>
-        <InnerSection>
-          <div className="grid gap-layout-gap-2">
-            <header>
-              <h2 id="home-offers-title">Акції і пропозиції</h2>
-            </header>
-
-            <SalesCarouselWrapper slides={slides} />
-
-           
+        <InnerSection className="grid gap-layout-gap-2">
+          <div>
+            <h2 id="home-offers-title">Акції і пропозиції</h2>
           </div>
+
+          <SalesCarouselWrapper slides={slides} />
+
         </InnerSection>
       </Container>
       <InnerSection className="py-layout-gap-3 bg-sys-accent w-full">

@@ -126,68 +126,67 @@ export function Testimonials() {
   return (
     <Section id="testimonials" aria-labelledby="home-testimonials-title">
       <Container>
-        <InnerSection>
-          <div className="grid gap-layout-gap-2">
-            <div className="min-w-0 relative">
-              <div className="flex flex-col sm:flex-row items-start gap-layout-gap-2">
-                <QuotesIcon className="text-[#B9E58C] absolute left-0 top-0 h-auto w-[120px] tablet:relative tablet:w-[290px] desktop:w-[400px] z-0" />
+        <InnerSection className="grid gap-layout-gap-2">
+          <div className="min-w-0 relative">
+            <div className="flex flex-col sm:flex-row items-start gap-layout-gap-2">
+              <QuotesIcon className="text-[#B9E58C] absolute left-0 top-0 h-auto w-[120px] tablet:relative tablet:w-[290px] desktop:w-[400px] z-0" />
 
-                <div className="min-w-0 pt-[70px] pl-[20px] tablet:pl-0 tablet:pt-[10px] z-1 tablet:self-end">
-                  <h2 id="home-testimonials-title" className="m-0 max-w-[34ch] text-sys-text">
-                    <span className="block pobut-H1">Читай відгуки,</span>
-                    <span className="block pobut-H1">будь впевненим в тому</span>
-                    <span className="block pobut-H1">де замовляєш</span>
-                  </h2>
+              <div className="min-w-0 pt-[70px] pl-[20px] tablet:pl-0 tablet:pt-[10px] z-1 tablet:self-end">
+                <h2 id="home-testimonials-title" className="m-0 max-w-[34ch] text-sys-text">
+                  <span className="block pobut-H1">Читай відгуки,</span>
+                  <span className="block pobut-H1">будь впевненим в тому</span>
+                  <span className="block pobut-H1">де замовляєш</span>
+                </h2>
 
-                  <div className="mt-space-10 flex items-center gap-2">
-                    <StarIcon className="text-[#72CB1A] w-[20px] h-[20px] md:w-[26px] md:h-[26px]" />
-                    <span className="font-semibold text-sys-text text-[18px] leading-none md:text-[22px]">
-                      4,2 / 5
-                    </span>
-                  </div>
+                <div className="mt-space-10 flex items-center gap-2">
+                  <StarIcon className="text-[#72CB1A] w-[20px] h-[20px] md:w-[26px] md:h-[26px]" />
+                  <span className="font-semibold text-sys-text text-[18px] leading-none md:text-[22px]">
+                    4,2 / 5
+                  </span>
                 </div>
               </div>
             </div>
-
-            <ul className="list-none m-0 p-0 grid gap-layout-gap-2 md:grid-cols-2 lg:grid-cols-3">
-              {testimonials.map((t, idx) => {
-                const hiddenWhenCollapsed =
-                  idx >= 3 ? 'hidden' : idx === 2 ? 'hidden lg:block' : ''
-
-                return (
-                  <li
-                    key={t.id}
-                    className={['min-w-0', expanded ? '' : hiddenWhenCollapsed].join(' ')}
-                  >
-                  <CommentCard text={t.text} author={t.author} rating={t.rating} />
-                  </li>
-                )
-              })}
-            </ul>
-
-            {canToggle ? (
-              <div className="flex justify-center">
-                <Button
-                  variant="outline"
-                  size="md"
-                  iconPosition="right"
-                  icon={
-                    <ChevronDownIcon
-                      className={[
-                        'w-4 h-4 transition-transform duration-200',
-                        expanded ? 'rotate-180' : 'rotate-0',
-                      ].join(' ')}
-                    />
-                  }
-                  className="w-full max-w-[260px] justify-center"
-                  type="button"
-                  onClick={() => setExpanded((v) => !v)}
-                >
-                  {expanded ? 'Менше' : 'Більше'}
-                </Button>
-              </div>
-            ) : null}
           </div>
+
+          <ul className="list-none m-0 p-0 grid gap-layout-gap-2 md:grid-cols-2 lg:grid-cols-3">
+            {testimonials.map((t, idx) => {
+              const hiddenWhenCollapsed =
+                idx >= 3 ? 'hidden' : idx === 2 ? 'hidden lg:block' : ''
+
+              return (
+                <li
+                  key={t.id}
+                  className={['min-w-0', expanded ? '' : hiddenWhenCollapsed].join(' ')}
+                >
+                  <CommentCard text={t.text} author={t.author} rating={t.rating} />
+                </li>
+              )
+            })}
+          </ul>
+
+          {canToggle ? (
+            <div className="flex justify-center">
+              <Button
+                variant="outline"
+                size="md"
+                iconPosition="right"
+                icon={
+                  <ChevronDownIcon
+                    className={[
+                      'w-4 h-4 transition-transform duration-200',
+                      expanded ? 'rotate-180' : 'rotate-0',
+                    ].join(' ')}
+                  />
+                }
+                className="w-full max-w-[260px] justify-center"
+                type="button"
+                onClick={() => setExpanded((v) => !v)}
+              >
+                {expanded ? 'Менше' : 'Більше'}
+              </Button>
+            </div>
+          ) : null}
+
         </InnerSection>
       </Container>
     </Section>

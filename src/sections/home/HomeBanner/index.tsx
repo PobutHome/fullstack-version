@@ -1,5 +1,6 @@
 'use client'
 
+import { InnerSection } from '@/components/InnerSection'
 import { Section } from '@/components/Section'
 import { ArrowLeftIcon } from '@/components/icons/ArrowLeftIcon'
 import { ArrowRightIcon } from '@/components/icons/ArrowRightIcon'
@@ -108,7 +109,7 @@ export const HomeBanner: React.FC<HomeBannerProps> = ({
 
   return (
     <Section id="home-banner">
-      <div
+      <InnerSection
         className="relative w-full max-w-full m-0 p-0 select-none overflow-hidden box-border"
         onMouseEnter={handleMouseEnter}
         onMouseLeave={handleMouseLeave}
@@ -209,7 +210,7 @@ export const HomeBanner: React.FC<HomeBannerProps> = ({
             />
           ))}
         </div>
-      </div>
+      </InnerSection>
     </Section>
   )
 }

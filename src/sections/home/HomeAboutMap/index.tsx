@@ -27,7 +27,7 @@ export function HomeAboutMap() {
             'border border-sys-accent',
             'bg-sys-surface',
             'p-ds-inner-section-pad-sm',
-            'grid gap-layout-gap-2 desktop:grid-cols-[minmax(0,1fr)_800px] desktop:items-start'
+            'grid gap-layout-gap-2 wide:grid-cols-[minmax(0,1fr)_800px] wide:items-start'
           ].join(' ')}>
               <div className="min-w-0 grid gap-layout-gap-2">
                 <div className="min-w-0 grid gap-space-10">
