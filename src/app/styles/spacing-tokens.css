@@ -22,12 +22,12 @@
   --sys-layout-gap-2: var(--sys-space-20); /* 20 */
   --sys-layout-gap-3: var(--sys-space-30); /* 30 */
   
-  /* Semantic: vertical gap between stacked InnerSections (Y axis)
+  /* Semantic: vertical gap between stacked sections (Y axis)
      Mobile  → 20px
      Tablet  → 30px
      Desktop → 50px
   */
-  --sys-ds-inner-section-gap-y: var(--sys-space-20);
+  --sys-ds-sections-gap: var(--sys-space-20);
 
   /* Semantic: small InnerSection padding
      Mobile  → 5px
@@ -44,7 +44,7 @@
     --sys-layout-gap-1: var(--sys-space-10);
     --sys-layout-gap-2: var(--sys-space-20);
     --sys-layout-gap-3: var(--sys-space-30);
-    --sys-ds-inner-section-gap-y: var(--sys-space-30);
+    --sys-ds-sections-gap: var(--sys-space-30);
     --sys-ds-inner-section-pad-sm: 0.9375rem; /* 15px */
   }
 }
@@ -56,7 +56,7 @@
     --sys-layout-gap-1: var(--sys-space-20); /* 20 */
     --sys-layout-gap-2: var(--sys-space-50); /* 50 */
     --sys-layout-gap-3: var(--sys-space-50); /* 50 */
-    --sys-ds-inner-section-gap-y: var(--sys-space-50);
+    --sys-ds-sections-gap: var(--sys-space-50);
     --sys-ds-inner-section-pad-sm: var(--sys-space-50); /* 50px */
   }
 }

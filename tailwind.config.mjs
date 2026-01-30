@@ -103,7 +103,7 @@ export default {
         'layout-gap-3': 'var(--sys-layout-gap-3)',
         'layout-spacing-small': 'var(--sys-layout-spacing-small)',
         'layout-spacing-medium': 'var(--sys-layout-spacing-medium)',
-        'ds-inner-section-gap-y': 'var(--sys-ds-inner-section-gap-y)',
+        'ds-sections-gap': 'var(--sys-ds-sections-gap)',
         'ds-inner-section-pad-sm': 'var(--sys-ds-inner-section-pad-sm)',
         // Container padding (responsive)
         'container-padding': 'var(--layout-container-padding, 20px)',

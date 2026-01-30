@@ -14,22 +14,17 @@ type Props = {
   featuredProducts: FeaturedProduct[]
 }
 
-// Hardcoded home page layout that reads dynamic data (categories, etc.)
-// Uses the same layout + tokens as the design system page.
 export function HomePage({ categories, banners, salesBanners, featuredProducts }: Props) {
   return (
     <Page
       data-app="frontend"
       sectionsMargin
-      className="pt-space-20 pb-space-50"
+      className="pt-layout-gap-2 pb-layout-gap-3"
     >
       <HomeBanner slides={banners} />
       <Benefits />
       <FeaturedProducts products={featuredProducts} />
-
-      {/* Catalog / categories from CMS */}
       <HomeCatalog categories={categories} />
-
       <HomeSales slides={salesBanners} />
       <Testimonials />
       <HomeAboutMap />
