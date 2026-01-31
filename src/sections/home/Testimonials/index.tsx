@@ -59,7 +59,10 @@ function RatingStars({ rating }: { rating: number }) {
   const safeRating = Math.max(0, Math.min(5, rating))
 
   return (
-    <div className="flex items-center gap-1 text-[#72CB1A]" aria-label={`Рейтинг ${safeRating} з 5`}>
+    <div
+      className="flex items-center gap-1 text-[#72CB1A]"
+      aria-label={`Рейтинг ${safeRating} з 5`}
+    >
       {Array.from({ length: 5 }).map((_, idx) => {
         const raw = safeRating - idx
         const stepped = Math.max(0, Math.min(1, Math.round(raw * 2) / 2)) // 0, 0.5, 1
@@ -108,7 +111,7 @@ function CommentCard({ text, author, rating }: Omit<Testimonial, 'id'>) {
       <p
         className={[
           'm-0 mt-space-10',
-          'pl-[20px]',
+          'pl-space-20',
           'text-[#72CB1A] font-semibold',
           'text-[12px] md:text-[13px]',
         ].join(' ')}
@@ -131,7 +134,7 @@ export function Testimonials() {
             <div className="flex flex-col sm:flex-row items-start gap-layout-gap-2">
               <QuotesIcon className="text-[#B9E58C] absolute left-0 top-0 h-auto w-[120px] tablet:relative tablet:w-[290px] desktop:w-[400px] z-0" />
 
-              <div className="min-w-0 pt-[70px] pl-[20px] tablet:pl-0 tablet:pt-[10px] z-1 tablet:self-end">
+              <div className="min-w-0 pt-[70px] pl-space-20 tablet:pl-0 tablet:pt-space-10 z-1 tablet:self-end">
                 <h2 id="home-testimonials-title" className="m-0 max-w-[34ch] text-sys-text">
                   <span className="block pobut-H1">Читай відгуки,</span>
                   <span className="block pobut-H1">будь впевненим в тому</span>
@@ -150,8 +153,7 @@ export function Testimonials() {
 
           <ul className="list-none m-0 p-0 grid gap-layout-gap-2 md:grid-cols-2 lg:grid-cols-3">
             {testimonials.map((t, idx) => {
-              const hiddenWhenCollapsed =
-                idx >= 3 ? 'hidden' : idx === 2 ? 'hidden lg:block' : ''
+              const hiddenWhenCollapsed = idx >= 3 ? 'hidden' : idx === 2 ? 'hidden lg:block' : ''
 
               return (
                 <li
@@ -186,10 +188,8 @@ export function Testimonials() {
               </Button>
             </div>
           ) : null}
-
         </InnerSection>
       </Container>
     </Section>
   )
 }
-

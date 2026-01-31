@@ -1,11 +1,11 @@
-"use server"
+'use server'
 
-import { Container } from "@/components/Container"
-import { InnerSection } from "@/components/InnerSection"
-import { Page } from "@/components/Page"
-import { Section } from "@/components/Section"
-import { ButtonsShowcase } from "./ButtonsShowcase"
-import { ColorVariablesTable } from "./ColorVariablesTable"
+import { Container } from '@/components/Container'
+import { InnerSection } from '@/components/InnerSection'
+import { Page } from '@/components/Page'
+import { Section } from '@/components/Section'
+import { ButtonsShowcase } from './ButtonsShowcase'
+import { ColorVariablesTable } from './ColorVariablesTable'
 
 export default async function SystemPage() {
   return (
@@ -28,7 +28,10 @@ export default async function SystemPage() {
             <div>
               <h2>Layout Components</h2>
               <p className="text-sys-text-muted">
-                Use these in order: <code className="bg-sys-surface-2 px-1 py-0.5 rounded-radius-sm">Section → Container → InnerSection</code>
+                Use these in order:{' '}
+                <code className="bg-sys-surface-2 px-1 py-0.5 rounded-radius-sm">
+                  Section → Container → InnerSection
+                </code>
               </p>
             </div>
 
@@ -36,7 +39,10 @@ export default async function SystemPage() {
               <div className="border border-sys-border rounded-radius-lg p-space-20 bg-sys-surface">
                 <h3 className="mb-space-10">Section</h3>
                 <p className="text-sys-text-muted mb-space-10">
-                  Semantic wrapper: <code className="bg-sys-surface-2 px-1 py-0.5 rounded-radius-sm">&lt;Section&gt;</code>
+                  Semantic wrapper:{' '}
+                  <code className="bg-sys-surface-2 px-1 py-0.5 rounded-radius-sm">
+                    &lt;Section&gt;
+                  </code>
                 </p>
                 <div className="bg-sys-surface-2 p-space-10 rounded-radius-md">
                   <small className="font-mono text-sys-text-muted">
@@ -48,7 +54,10 @@ export default async function SystemPage() {
               <div className="border border-sys-border rounded-radius-lg p-space-20 bg-sys-surface">
                 <h3 className="mb-space-10">Container</h3>
                 <p className="text-sys-text-muted mb-space-10">
-                  Max-width container with responsive padding: <code className="bg-sys-surface-2 px-1 py-0.5 rounded-radius-sm">&lt;Container&gt;</code>
+                  Max-width container with responsive padding:{' '}
+                  <code className="bg-sys-surface-2 px-1 py-0.5 rounded-radius-sm">
+                    &lt;Container&gt;
+                  </code>
                 </p>
                 <div className="bg-sys-surface-2 p-space-10 rounded-radius-md">
                   <small className="font-mono text-sys-text-muted">
@@ -60,7 +69,10 @@ export default async function SystemPage() {
               <div className="border border-sys-border rounded-radius-lg p-space-20 bg-sys-surface">
                 <h3 className="mb-space-10">InnerSection</h3>
                 <p className="text-sys-text-muted mb-space-10">
-                  Content wrapper: <code className="bg-sys-surface-2 px-1 py-0.5 rounded-radius-sm">&lt;InnerSection&gt;</code>
+                  Content wrapper:{' '}
+                  <code className="bg-sys-surface-2 px-1 py-0.5 rounded-radius-sm">
+                    &lt;InnerSection&gt;
+                  </code>
                 </p>
                 <div className="bg-sys-surface-2 p-space-10 rounded-radius-md">
                   <small className="font-mono text-sys-text-muted">
@@ -79,9 +91,7 @@ export default async function SystemPage() {
           <InnerSection className="grid gap-layout-gap-2">
             <div>
               <h2>Typography</h2>
-              <p className="text-sys-text-muted">
-                HTML elements and Tailwind utility classes.
-              </p>
+              <p className="text-sys-text-muted">HTML elements and Tailwind utility classes.</p>
             </div>
 
             <div className="grid gap-layout-gap-2">
@@ -195,7 +205,9 @@ export default async function SystemPage() {
                 <div className="grid gap-space-10">
                   <div>
                     <h3 className="text-sys-text">Surface 2</h3>
-                    <small className="text-sys-text-muted">Secondary surface (subtle backgrounds)</small>
+                    <small className="text-sys-text-muted">
+                      Secondary surface (subtle backgrounds)
+                    </small>
                   </div>
                   <div className="bg-sys-surface p-space-10 rounded-radius-md">
                     <small className="font-mono text-sys-text-muted">
@@ -210,7 +222,9 @@ export default async function SystemPage() {
                 <div className="grid gap-space-10">
                   <div>
                     <h3 className="text-sys-text-on-accent">Accent</h3>
-                    <small className="text-sys-text-on-accent opacity-80">Primary actions, buttons, highlights</small>
+                    <small className="text-sys-text-on-accent opacity-80">
+                      Primary actions, buttons, highlights
+                    </small>
                   </div>
                   <div className="bg-sys-surface p-space-10 rounded-radius-md">
                     <small className="font-mono text-sys-text-muted">
@@ -225,7 +239,9 @@ export default async function SystemPage() {
                 <div className="grid gap-space-10">
                   <div>
                     <h3 className="text-sys-text-on-interactive">Interactive</h3>
-                    <small className="text-sys-text-on-interactive opacity-80">Links, clickable elements</small>
+                    <small className="text-sys-text-on-interactive opacity-80">
+                      Links, clickable elements
+                    </small>
                   </div>
                   <div className="bg-sys-surface p-space-10 rounded-radius-md">
                     <small className="font-mono text-sys-text-muted">
@@ -319,58 +335,46 @@ export default async function SystemPage() {
 
               {/* Layout Gaps */}
               <div className="border border-sys-border rounded-radius-lg p-space-20 bg-sys-surface">
-                <h3 className="mb-space-10">gap- pd- mg- layout-gap-1 (Responsive) Mobile 10px → Desktop 20px </h3>
+                <h3 className="mb-space-10">
+                  gap- layout-gap-1 (Responsive) Mobile 10px → Desktop 20px{' '}
+                </h3>
+                <p>use layout-gap-1 for responsive gaps in grid layouts.</p>
                 <div className="grid gap-layout-gap-1">
                   <div className="bg-sys-surface-2 rounded-radius-md">
-                    <small className="font-mono text-sys-text-muted">
-                      item 1
-                    </small>
+                    <small className="font-mono text-sys-text-muted">item 1</small>
                   </div>
                   <div className="bg-sys-surface-2 rounded-radius-md">
-                    <small className="font-mono text-sys-text-muted">
-                     item 2
-                    </small>
+                    <small className="font-mono text-sys-text-muted">item 2</small>
                   </div>
                 </div>
               </div>
               <div className="border border-sys-border rounded-radius-lg p-space-20 bg-sys-surface">
-                <h3 className="mb-space-10">gap- pd- mg- layout-gap-2 (Responsive) Mobile 20px → Desktop 50px </h3>
+                <h3 className="mb-space-10">
+                  gap- layout-gap-2 (Responsive) Mobile 20px → Desktop 50px{' '}
+                </h3>
+                <p>use layout-gap-2 for responsive gaps in grid layouts.</p>
                 <div className="grid gap-layout-gap-2">
                   <div className="bg-sys-surface-2 rounded-radius-md">
-                    <small className="font-mono text-sys-text-muted">
-                      item 1
-                    </small>
+                    <small className="font-mono text-sys-text-muted">item 1</small>
                   </div>
                   <div className="bg-sys-surface-2 rounded-radius-md">
-                    <small className="font-mono text-sys-text-muted">
-                     item 2
-                    </small>
+                    <small className="font-mono text-sys-text-muted">item 2</small>
                   </div>
                 </div>
               </div>
 
               <div className="border border-sys-border rounded-radius-lg p-space-20 bg-sys-surface">
-                <h3 className="mb-space-10">gap- pd- mg- layout-gap-3 (Responsive) Mobile 20px → Tablet 30px → Desktop 50px </h3>
+                <h3 className="mb-space-10">
+                  gap- layout-gap-3 (Responsive) Mobile 20px → Tablet 30px → Desktop 50px{' '}
+                </h3>
+                <p>use layout-gap-3 for responsive gaps in grid layouts.</p>
                 <div className="grid gap-layout-gap-3">
                   <div className="bg-sys-surface-2 rounded-radius-md">
-                    <small className="font-mono text-sys-text-muted">
-                      item 1
-                    </small>
+                    <small className="font-mono text-sys-text-muted">item 1</small>
                   </div>
                   <div className="bg-sys-surface-2 rounded-radius-md">
-                    <small className="font-mono text-sys-text-muted">
-                     item 2
-                    </small>
+                    <small className="font-mono text-sys-text-muted">item 2</small>
                   </div>
-                </div>
-              </div>
-              {/* Layout Margin */}
-              <div className="border border-sys-border rounded-radius-lg p-space-20 bg-sys-surface">
-                <h3 className="mb-space-10">Layout Margin (Responsive)</h3>
-                <div className="bg-sys-surface-2 spacing-layout-margin rounded-radius-md">
-                  <small className="font-mono text-sys-text-muted">
-                    --sys-layout-margin: tw: spacing-layout-margin: Mobile 10px → Tablet 50px → Desktop 150px
-                  </small>
                 </div>
               </div>
 
@@ -417,4 +421,3 @@ export default async function SystemPage() {
     </Page>
   )
 }
-

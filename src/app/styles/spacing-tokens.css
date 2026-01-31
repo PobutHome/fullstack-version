@@ -17,7 +17,6 @@
   --sys-space-50: 3.125rem;  /* 50px */
 
   /* Layout tokens (MOBILE default) */
-  --sys-layout-margin: 0.625rem;  /* 10px */
   --sys-layout-gap-1: var(--sys-space-10); /* 10 */
   --sys-layout-gap-2: var(--sys-space-20); /* 20 */
   --sys-layout-gap-3: var(--sys-space-30); /* 30 */
@@ -40,7 +39,6 @@
 /* Tablet ≥ 48rem (768px): Margin 50, Spacing 10/20/30 */
 @media (min-width: 48rem) {
   [data-app="frontend"]{
-    --sys-layout-margin: 3.125rem; /* 50px */
     --sys-layout-gap-1: var(--sys-space-10);
     --sys-layout-gap-2: var(--sys-space-20);
     --sys-layout-gap-3: var(--sys-space-30);
@@ -52,7 +50,6 @@
 /* Desktop ≥ 64rem (1024px): Margin 150, Spacing 20/50 */
 @media (min-width: 64rem) {
   [data-app="frontend"]{
-    --sys-layout-margin: 9.375rem; /* 150px */
     --sys-layout-gap-1: var(--sys-space-20); /* 20 */
     --sys-layout-gap-2: var(--sys-space-50); /* 50 */
     --sys-layout-gap-3: var(--sys-space-50); /* 50 */

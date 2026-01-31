@@ -141,12 +141,10 @@
 
   /* Layout Spacing (From Figma - Exact Values) */
   /* Mobile: Margin 10, Spacing 10/20 */
-  --sys-layout-margin-mobile: 0.625rem; /* 10px */
   --sys-layout-spacing-small-mobile: 0.625rem; /* 10px */
   --sys-layout-spacing-medium-mobile: 1.25rem; /* 20px */
 
   /* Default (Mobile) */
-  --sys-layout-margin: var(--sys-layout-margin-mobile);
   --sys-layout-spacing-small: var(--sys-layout-spacing-small-mobile);
   --sys-layout-spacing-medium: var(--sys-layout-spacing-medium-mobile);
 }
@@ -160,7 +158,6 @@
     --sys-layout-spacing-large-tablet: 1.875rem; /* 30px */
 
     /* Override mobile values */
-    --sys-layout-margin: var(--sys-layout-margin-tablet);
     --sys-layout-spacing-small: var(--sys-layout-spacing-small-tablet);
     --sys-layout-spacing-medium: var(--sys-layout-spacing-medium-tablet);
   }
@@ -169,12 +166,10 @@
 /* Desktop Layout Spacing ≥ 64rem (1024px) - From Figma: Margin 150, Spacing 20/50 */
 @media (min-width: 64rem) {
   :root {
-    --sys-layout-margin-desktop: 9.375rem; /* 150px */
     --sys-layout-spacing-small-desktop: 1.25rem; /* 20px */
     --sys-layout-spacing-medium-desktop: 3.125rem; /* 50px */
 
     /* Override tablet values */
-    --sys-layout-margin: var(--sys-layout-margin-desktop);
     --sys-layout-spacing-small: var(--sys-layout-spacing-small-desktop);
     --sys-layout-spacing-medium: var(--sys-layout-spacing-medium-desktop);
   }

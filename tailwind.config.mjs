@@ -97,7 +97,6 @@ export default {
         'spacing-5xl': 'var(--spacing-5xl)',
         'spacing-6xl': 'var(--spacing-6xl)',
         // Layout spacing (RESPONSIVE - automatically adapts at breakpoints!)
-        'layout-margin': 'var(--sys-layout-margin)',
         'layout-gap-1': 'var(--sys-layout-gap-1)',
         'layout-gap-2': 'var(--sys-layout-gap-2)',
         'layout-gap-3': 'var(--sys-layout-gap-3)',
