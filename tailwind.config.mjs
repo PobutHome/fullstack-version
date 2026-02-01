@@ -63,12 +63,12 @@ export default {
         md: 'calc(var(--radius) - 2px)',
         sm: 'calc(var(--radius) - 4px)',
         // Design token radius values
-        'radius-sm': 'var(--sys-radius-sm)',
-        'radius-md': 'var(--sys-radius-md)',
-        'radius-lg': 'var(--sys-radius-lg)',
-        'radius-xl': 'var(--sys-radius-xl)',
-        'radius-2xl': 'var(--sys-radius-2xl)',
-        'radius-full': 'var(--sys-radius-full)',
+        'radius-sm': 'var(--sys-radius-sm)', // 4px
+        'radius-md': 'var(--sys-radius-md)' ,// 8px
+        'radius-lg': 'var(--sys-radius-lg)', // 12px
+        'radius-xl': 'var(--sys-radius-xl)',  // 16px
+        'radius-2xl': 'var(--sys-radius-2xl)',  // 24px
+        'radius-full': 'var(--sys-radius-full)',  // 9999px
       },
       // Spacing tokens (for padding, margin, gap)
       // Note: layout-gap-* tokens are RESPONSIVE - they automatically change at breakpoints!

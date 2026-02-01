@@ -272,19 +272,244 @@ export default async function SystemPage() {
                 </div>
               </div>
 
-              {/* Borders */}
+              {/* Borders & Radius */}
               <div className="border border-sys-border rounded-radius-lg p-space-20 bg-sys-surface">
                 <div className="grid gap-space-10">
                   <h3 className="text-sys-text">Borders</h3>
                   <div className="grid gap-space-10">
-                    <div className="border border-sys-border p-space-10 rounded-radius-md">
-                      <p className="text-sys-text">border-sys-border</p>
+                    <p className="text-sys-text-muted">
+                      You can use any colors for borders but prefer using those variables:
+                      sys-accent, sys-surface-interactive, sys-overlay...
+                    </p>
+                  </div>
+
+                  <h3 className="text-sys-text">Border Radius (Design Tokens)</h3>
+                  <p className="text-sys-text-muted text-sm">
+                    Each radius token is optimized for specific UI components and contexts. Choose
+                    based on visual hierarchy and component size.
+                  </p>
+                  <div className="grid gap-space-20">
+                    {/* radius-none */}
+                    <div className="border border-sys-border rounded-radius-lg p-space-20 bg-sys-surface-2">
+                      <div className="grid gap-space-10">
+                        <div className="flex items-center gap-space-10">
+                          <div
+                            className="w-16 h-16 bg-sys-accent flex-shrink-0"
+                            style={{ borderRadius: 'var(--sys-radius-none)' }}
+                          />
+                          <div>
+                            <div className="font-mono font-bold text-sys-text">
+                              --sys-radius-none
+                            </div>
+                            <small className="text-sys-text-muted">0 (No radius)</small>
+                          </div>
+                        </div>
+                        <div className="grid gap-space-10">
+                          <div className="bg-sys-surface p-space-10 rounded-radius-sm">
+                            <span className="font-mono text-sys-text font-semibold text-base">
+                              Tailwind CSS: rounded-none
+                            </span>
+                          </div>
+                          <div>
+                            <p className="font-semibold text-sys-text mb-space-10">Use for:</p>
+                            <ul className="list-disc list-inside text-sys-text-muted text-sm space-y-1">
+                              <li>Sharp-cornered elements (rare)</li>
+                              <li>Square badges or icons</li>
+                              <li>Grid layouts with no softening</li>
+                            </ul>
+                          </div>
+                        </div>
+                      </div>
                     </div>
-                    <div className="border border-sys-accent p-space-10 rounded-radius-md">
-                      <p className="text-sys-text">border-sys-border-strong</p>
+
+                    {/* radius-sm */}
+                    <div className="border border-sys-border rounded-radius-lg p-space-20 bg-sys-surface-2">
+                      <div className="grid gap-space-10">
+                        <div className="flex items-center gap-space-10">
+                          <div
+                            className="w-16 h-16 bg-sys-accent flex-shrink-0"
+                            style={{ borderRadius: 'var(--sys-radius-sm)' }}
+                          />
+                          <div>
+                            <div className="font-mono font-bold text-sys-text">--sys-radius-sm</div>
+                            <small className="text-sys-text-muted">0.25rem (4px)</small>
+                          </div>
+                        </div>
+                        <div className="grid gap-space-10">
+                          <div className="bg-sys-surface p-space-10 rounded-radius-sm">
+                            <span className="font-mono text-sys-text font-semibold text-base">
+                              Tailwind CSS: rounded-radius-sm
+                            </span>
+                          </div>
+                          <div>
+                            <p className="font-semibold text-sys-text mb-space-10">Use for:</p>
+                            <ul className="list-disc list-inside text-sys-text-muted text-sm space-y-1">
+                              <li>Small inputs and form elements</li>
+                              <li>Code blocks and inline code</li>
+                              <li>Minor UI accents and separators</li>
+                            </ul>
+                          </div>
+                        </div>
+                      </div>
                     </div>
-                    <div className="border border-sys-border-subtle p-space-10 rounded-radius-md">
-                      <p className="text-sys-text">border-sys-border-subtle</p>
+
+                    {/* radius-md */}
+                    <div className="border border-sys-border rounded-radius-lg p-space-20 bg-sys-surface-2">
+                      <div className="grid gap-space-10">
+                        <div className="flex items-center gap-space-10">
+                          <div
+                            className="w-16 h-16 bg-sys-accent flex-shrink-0"
+                            style={{ borderRadius: 'var(--sys-radius-md)' }}
+                          />
+                          <div>
+                            <div className="font-mono font-bold text-sys-text">--sys-radius-md</div>
+                            <small className="text-sys-text-muted">0.5rem (8px)</small>
+                          </div>
+                        </div>
+                        <div className="grid gap-space-10">
+                          <div className="bg-sys-surface p-space-10 rounded-radius-sm">
+                            <span className="font-mono text-sys-text font-semibold text-base">
+                              Tailwind CSS: rounded-radius-md
+                            </span>
+                          </div>
+                          <div>
+                            <p className="font-semibold text-sys-text mb-space-10">Use for:</p>
+                            <ul className="list-disc list-inside text-sys-text-muted text-sm space-y-1">
+                              <li>Standard buttons and form inputs</li>
+                              <li>Cards and containers</li>
+                              <li>Default component styling</li>
+                            </ul>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+
+                    {/* radius-lg */}
+                    <div className="border border-sys-border rounded-radius-lg p-space-20 bg-sys-surface-2">
+                      <div className="grid gap-space-10">
+                        <div className="flex items-center gap-space-10">
+                          <div
+                            className="w-16 h-16 bg-sys-accent flex-shrink-0"
+                            style={{ borderRadius: 'var(--sys-radius-lg)' }}
+                          />
+                          <div>
+                            <div className="font-mono font-bold text-sys-text">--sys-radius-lg</div>
+                            <small className="text-sys-text-muted">0.75rem (12px)</small>
+                          </div>
+                        </div>
+                        <div className="grid gap-space-10">
+                          <div className="bg-sys-surface p-space-10 rounded-radius-sm">
+                            <span className="font-mono text-sys-text font-semibold text-base">
+                              Tailwind CSS: rounded-radius-lg
+                            </span>
+                          </div>
+                          <div>
+                            <p className="font-semibold text-sys-text mb-space-10">Use for:</p>
+                            <ul className="list-disc list-inside text-sys-text-muted text-sm space-y-1">
+                              <li>Large cards and modals</li>
+                              <li>Featured sections and panels</li>
+                              <li>Primary container elements</li>
+                            </ul>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+
+                    {/* radius-xl */}
+                    <div className="border border-sys-border rounded-radius-lg p-space-20 bg-sys-surface-2">
+                      <div className="grid gap-space-10">
+                        <div className="flex items-center gap-space-10">
+                          <div
+                            className="w-16 h-16 bg-sys-accent flex-shrink-0"
+                            style={{ borderRadius: 'var(--sys-radius-xl)' }}
+                          />
+                          <div>
+                            <div className="font-mono font-bold text-sys-text">--sys-radius-xl</div>
+                            <small className="text-sys-text-muted">1rem (16px)</small>
+                          </div>
+                        </div>
+                        <div className="grid gap-space-10">
+                          <div className="bg-sys-surface p-space-10 rounded-radius-sm">
+                            <span className="font-mono text-sys-text font-semibold text-base">
+                              Tailwind CSS: rounded-radius-xl
+                            </span>
+                          </div>
+                          <div>
+                            <p className="font-semibold text-sys-text mb-space-10">Use for:</p>
+                            <ul className="list-disc list-inside text-sys-text-muted text-sm space-y-1">
+                              <li>Large modal dialogs</li>
+                              <li>Call-to-action sections</li>
+                              <li>Hero banners and featured content</li>
+                            </ul>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+
+                    {/* radius-2xl */}
+                    <div className="border border-sys-border rounded-radius-lg p-space-20 bg-sys-surface-2">
+                      <div className="grid gap-space-10">
+                        <div className="flex items-center gap-space-10">
+                          <div
+                            className="w-16 h-16 bg-sys-accent flex-shrink-0"
+                            style={{ borderRadius: 'var(--sys-radius-2xl)' }}
+                          />
+                          <div>
+                            <div className="font-mono font-bold text-sys-text">
+                              --sys-radius-2xl
+                            </div>
+                            <small className="text-sys-text-muted">1.375rem (22px)</small>
+                          </div>
+                        </div>
+                        <div className="grid gap-space-10">
+                          <div className="bg-sys-surface p-space-10 rounded-radius-sm">
+                            <span className="font-mono text-sys-text font-semibold text-base">
+                              Tailwind CSS: rounded-radius-2xl
+                            </span>
+                          </div>
+                          <div>
+                            <p className="font-semibold text-sys-text mb-space-10">Use for:</p>
+                            <ul className="list-disc list-inside text-sys-text-muted text-sm space-y-1">
+                              <li>Extra-large decorative elements</li>
+                              <li>Maximum visual softness for emphasis</li>
+                              <li>Standout section containers (rare)</li>
+                            </ul>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+
+                    {/* radius-full */}
+                    <div className="border border-sys-border rounded-radius-lg p-space-20 bg-sys-surface-2">
+                      <div className="grid gap-space-10">
+                        <div className="flex items-center gap-space-10">
+                          <div
+                            className="w-16 h-16 bg-sys-accent flex-shrink-0"
+                            style={{ borderRadius: 'var(--sys-radius-full)' }}
+                          />
+                          <div>
+                            <div className="font-mono font-bold text-sys-text">
+                              --sys-radius-full
+                            </div>
+                            <small className="text-sys-text-muted">9999px (Circular)</small>
+                          </div>
+                        </div>
+                        <div className="grid gap-space-10">
+                          <div className="bg-sys-surface p-space-10 rounded-radius-sm">
+                            <span className="font-mono text-sys-text font-semibold text-base">
+                              Tailwind CSS: rounded-radius-full
+                            </span>
+                          </div>
+                          <div>
+                            <p className="font-semibold text-sys-text mb-space-10">Use for:</p>
+                            <ul className="list-disc list-inside text-sys-text-muted text-sm space-y-1">
+                              <li>Avatar circles and profile pictures</li>
+                              <li>Badge backgrounds</li>
+                              <li>Pill-shaped buttons and tags</li>
+                            </ul>
+                          </div>
+                        </div>
+                      </div>
                     </div>
                   </div>
                 </div>
