@@ -331,8 +331,12 @@ export default async function SystemPage() {
                             style={{ borderRadius: 'var(--sys-radius-primary)' }}
                           />
                           <div>
-                            <div className="font-mono font-bold text-sys-text">--sys-radius-primary</div>
-                            <small className="text-sys-text-muted">0.625rem (10px) mobile — 1.25rem (20px) tablet+</small>
+                            <div className="font-mono font-bold text-sys-text">
+                              --sys-radius-primary
+                            </div>
+                            <small className="text-sys-text-muted">
+                              0.625rem (10px) mobile — 1.25rem (20px) tablet+
+                            </small>
                           </div>
                         </div>
                         <div className="grid gap-space-10">
@@ -349,7 +353,9 @@ export default async function SystemPage() {
                               <li>InnerSections with their own background</li>
                             </ul>
                             <p className="text-sys-text-muted text-sm mt-space-10">
-                              Use `rounded-radius-primary` on card components and responsive containers. It will render as 10px on mobile and 20px on tablet and above.
+                              Use `rounded-radius-primary` on card components and responsive
+                              containers. It will render as 10px on mobile and 20px on tablet and
+                              above.
                             </p>
                           </div>
                         </div>
