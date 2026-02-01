@@ -128,7 +128,7 @@ export const HomeBanner: React.FC<HomeBannerProps> = ({
           >
             {slides.map((slide, i) => (
               <div
-                className="min-w-full w-full h-[236px] md:h-[380px] lg:h-[500px] relative shrink-0"
+                className="min-w-full w-full h-[236px] tablet:h-[380px] lg:h-[500px] relative shrink-0"
                 key={slide.id}
               >
                 {slide.href ? (
@@ -203,7 +203,7 @@ export const HomeBanner: React.FC<HomeBannerProps> = ({
           {slides.map((_, i) => (
             <button
               key={i}
-              className={`w-2.5 h-2.5 md:w-4 md:h-4 lg:w-[25px] lg:h-[25px] rounded-full border border-sys-accent bg-color-default-background cursor-pointer ${i === displayIndex ? 'bg-sys-accent' : ''}`}
+              className={`w-2.5 h-2.5 tablet:w-4 tablet:h-4 lg:w-[25px] lg:h-[25px] rounded-full border border-sys-accent bg-color-default-background cursor-pointer ${i === displayIndex ? 'bg-sys-accent' : ''}`}
               onClick={() => goTo(i)}
               aria-label={`Go to slide ${i + 1}`}
               type="button"

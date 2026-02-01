@@ -66,7 +66,7 @@ export function HomeCatalog({ categories }: Props) {
                       // Card
                       'rounded-xl border border-sys-accent bg-sys-surface',
                       // Sizing: visually matches the mockups across breakpoints
-                      'h-[104px] sm:h-[120px] md:h-[136px] lg:h-[152px]',
+                      'h-[104px] sm:h-[120px] tablet:h-[136px] lg:h-[152px]',
                       // Hover / focus polish
                       'transition-colors',
                       'hover:bg-sys-surface-2 hover:border-sys-border-strong-hover',
@@ -97,7 +97,7 @@ export function HomeCatalog({ categories }: Props) {
                           'absolute inset-0',
                           // Keep the product-like render on the right, like mockups, but span the whole card.
                           'object-contain object-right',
-                          'px-[10px] sm:px-[12px] md:px-[14px]',
+                          'px-[10px] sm:px-[12px] tablet:px-[14px]',
                           // Subtle pop on hover
                           'transition-transform duration-200 group-hover:scale-[1.03]',
                           // Slight soft shadow like product renders
@@ -115,13 +115,13 @@ export function HomeCatalog({ categories }: Props) {
                       />
 
                       {/* Title (on top of image) */}
-                      <div className="absolute z-10 left-[14px] bottom-[12px] right-[56px] sm:left-[16px] sm:bottom-[14px] sm:right-[68px] md:left-[18px] md:bottom-[16px] md:right-[78px]">
+                      <div className="absolute z-10 left-[14px] bottom-[12px] right-[56px] sm:left-[16px] sm:bottom-[14px] sm:right-[68px] tablet:left-[18px] tablet:bottom-[16px] tablet:right-[78px]">
                         <span
                           className={[
                             'block font-semibold text-sys-accent',
                             'text-[12px] leading-[1.1]',
                             'sm:text-[13px]',
-                            'md:text-[14px]',
+                            'tablet:text-[14px]',
                             'lg:text-[15px]',
                             // Keep it tidy like the mockups
                             'overflow-hidden [display:-webkit-box] [-webkit-line-clamp:2] [-webkit-box-orient:vertical]',

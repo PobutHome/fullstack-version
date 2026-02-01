@@ -64,6 +64,7 @@ export default {
         sm: 'calc(var(--radius) - 4px)',
         // Design token radius values
         'radius-sm': 'var(--sys-radius-sm)', // 4px
+        'radius-primary': 'var(--sys-radius-primary)', // responsive primary radius (10px mobile → 20px tablet+)
         'radius-md': 'var(--sys-radius-md)' ,// 8px
         'radius-lg': 'var(--sys-radius-lg)', // 12px
         'radius-xl': 'var(--sys-radius-xl)',  // 16px

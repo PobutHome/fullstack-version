@@ -322,6 +322,40 @@ export default async function SystemPage() {
                       </div>
                     </div>
 
+                    {/* radius-primary (responsive) */}
+                    <div className="border border-sys-border rounded-radius-lg p-space-20 bg-sys-surface-2">
+                      <div className="grid gap-space-10">
+                        <div className="flex items-center gap-space-10">
+                          <div
+                            className="w-16 h-16 bg-sys-accent flex-shrink-0"
+                            style={{ borderRadius: 'var(--sys-radius-primary)' }}
+                          />
+                          <div>
+                            <div className="font-mono font-bold text-sys-text">--sys-radius-primary</div>
+                            <small className="text-sys-text-muted">0.625rem (10px) mobile — 1.25rem (20px) tablet+</small>
+                          </div>
+                        </div>
+                        <div className="grid gap-space-10">
+                          <div className="bg-sys-surface p-space-10 rounded-radius-sm">
+                            <span className="font-mono text-sys-text font-semibold text-base">
+                              Tailwind CSS: rounded-radius-primary
+                            </span>
+                          </div>
+                          <div>
+                            <p className="font-semibold text-sys-text mb-space-10">Use for:</p>
+                            <ul className="list-disc list-inside text-sys-text-muted text-sm space-y-1">
+                              <li>Card container corners (default card radius)</li>
+                              <li>Smaller featured items, image corners</li>
+                              <li>InnerSections with their own background</li>
+                            </ul>
+                            <p className="text-sys-text-muted text-sm mt-space-10">
+                              Use `rounded-radius-primary` on card components and responsive containers. It will render as 10px on mobile and 20px on tablet and above.
+                            </p>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+
                     {/* radius-sm */}
                     <div className="border border-sys-border rounded-radius-lg p-space-20 bg-sys-surface-2">
                       <div className="grid gap-space-10">

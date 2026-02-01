@@ -71,7 +71,7 @@ function RatingStars({ rating }: { rating: number }) {
           <StarIcon
             key={idx}
             fillRatio={stepped}
-            className="w-[18px] h-[18px] md:w-[20px] md:h-[20px]"
+            className="w-[18px] h-[18px] tablet:w-[20px] tablet:h-[20px]"
           />
         )
       })}
@@ -87,16 +87,16 @@ function CommentCard({ text, author, rating }: Omit<Testimonial, 'id'>) {
           'h-full',
           'rounded-xl border border-sys-accent bg-sys-surface',
           'shadow-[0_14px_28px_rgba(31,59,115,0.14)]',
-          'p-space-20 md:p-space-30',
+          'p-space-20 tablet:p-space-30',
         ].join(' ')}
       >
-        <div className="h-full flex flex-col gap-space-20 md:gap-space-30">
+        <div className="h-full flex flex-col gap-space-20 tablet:gap-space-30">
           <p
             className={[
               'm-0 text-sys-text',
               'text-[13px] leading-[1.35]',
               'sm:text-[14px]',
-              'md:text-[15px] md:leading-[1.45]',
+              'tablet:text-[15px] tablet:leading-[1.45]',
             ].join(' ')}
           >
             {text}
@@ -113,7 +113,7 @@ function CommentCard({ text, author, rating }: Omit<Testimonial, 'id'>) {
           'm-0 mt-space-10',
           'pl-space-20',
           'text-[#72CB1A] font-semibold',
-          'text-[12px] md:text-[13px]',
+          'text-[12px] tablet:text-[13px]',
         ].join(' ')}
       >
         {author}
@@ -142,8 +142,8 @@ export function Testimonials() {
                 </h2>
 
                 <div className="mt-space-10 flex items-center gap-2">
-                  <StarIcon className="text-[#72CB1A] w-[20px] h-[20px] md:w-[26px] md:h-[26px]" />
-                  <span className="font-semibold text-sys-text text-[18px] leading-none md:text-[22px]">
+                  <StarIcon className="text-[#72CB1A] w-[20px] h-[20px] tablet:w-[26px] tablet:h-[26px]" />
+                  <span className="font-semibold text-sys-text text-[18px] leading-none tablet:text-[22px]">
                     4,2 / 5
                   </span>
                 </div>
@@ -151,7 +151,7 @@ export function Testimonials() {
             </div>
           </div>
 
-          <ul className="list-none m-0 p-0 grid gap-layout-gap-2 md:grid-cols-2 lg:grid-cols-3">
+          <ul className="list-none m-0 p-0 grid gap-layout-gap-2 tablet:grid-cols-2 lg:grid-cols-3">
             {testimonials.map((t, idx) => {
               const hiddenWhenCollapsed = idx >= 3 ? 'hidden' : idx === 2 ? 'hidden lg:block' : ''
 
