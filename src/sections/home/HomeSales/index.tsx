@@ -40,15 +40,15 @@ const defaultSlides: SaleSlide[] = [
 const offers: Offer[] = [
   {
     title: 'Лояльні ціни та гнучка система знижок для постійних клієнтів',
-    icon: <DiscountIcon  />,
+    icon: <DiscountIcon />,
   },
   {
     title: 'Відстрочка платежу для партнерів',
-    icon: <PaymentIcon  />,
+    icon: <PaymentIcon />,
   },
   {
     title: 'Широкий асортимент продукції на складі',
-    icon: <WarehouseIcon  />,
+    icon: <WarehouseIcon />,
   },
   {
     title: 'Індивідуальний підхід до кожного замовлення',
@@ -66,44 +66,42 @@ export function HomeSales({ slides = defaultSlides }: { slides?: HomeSalesSlide[
           </div>
 
           <SalesCarouselWrapper slides={slides} />
-
         </InnerSection>
       </Container>
       <InnerSection className="py-layout-gap-3 bg-sys-accent w-full">
         <Container>
-              <ul className="list-none m-0 p-0 grid gap-space-10 tabet:gap-space-20 tablet:grid-cols-2 large:grid-cols-4 ">
-                {offers.map((offer) => (
-                  <li key={offer.title} className="min-w-0">
-                    <article className="box-border min-w-0 bg-sys-surface rounded- p-space-20 tablet:p-space-30 min-h-fit h-full">
-                      <div className="grid grid-cols-[minmax(0,1fr)_auto] h-full relative ">
-                        <h2
-                          className={[
-                            'm-0 text-sys-accent box-border overflow-hidden break-all',
-                            'box-border min-w-0 max-w-full',
-                            'whitespace-normal wrap-anywhere',
-                          ].join(' ')}
-                        >
-                          {offer.title}
-                        </h2>
+          <ul className="list-none m-0 p-0 grid gap-space-10 tabet:gap-space-20 tablet:grid-cols-2 large:grid-cols-4 ">
+            {offers.map((offer) => (
+              <li key={offer.title} className="min-w-0">
+                <article className="box-border min-w-0 bg-sys-surface rounded-radius-primary p-space-20 tablet:p-space-30 min-h-fit h-full">
+                  <div className="grid grid-cols-[minmax(0,1fr)_auto] h-full relative ">
+                    <h2
+                      className={[
+                        'm-0 text-sys-accent box-border overflow-hidden break-all',
+                        'box-border min-w-0 max-w-full',
+                        'whitespace-normal wrap-anywhere',
+                      ].join(' ')}
+                    >
+                      {offer.title}
+                    </h2>
 
-                        <div
-                          aria-hidden="true"
-                          className={[
-                            'flex items-end self-end shrink-0',
-                            'w-[52px] h-[52px]',
-                            'text-sys-accent',
-                          ].join(' ')}
-                        >
-                          {offer.icon}
-                        </div>
-                      </div>
-                    </article>
-                  </li>
-                ))}
-              </ul>
-              </Container>
-            </InnerSection>
+                    <div
+                      aria-hidden="true"
+                      className={[
+                        'flex items-end self-end shrink-0',
+                        'w-[52px] h-[52px]',
+                        'text-sys-accent',
+                      ].join(' ')}
+                    >
+                      {offer.icon}
+                    </div>
+                  </div>
+                </article>
+              </li>
+            ))}
+          </ul>
+        </Container>
+      </InnerSection>
     </Section>
   )
 }
-
