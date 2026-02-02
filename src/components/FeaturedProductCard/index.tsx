@@ -27,9 +27,8 @@ export function FeaturedProductCard({
   onRetailAddToCart,
   onWholesaleAddToCart,
 }: FeaturedProductCardProps) {
-
   return (
-    <article className="fe-product flex flex-col h-full bg-sys-surface rounded-2xl border border-sys-accent relative box-border overflow-hidden ">
+    <article className="fe-product flex flex-col h-full bg-sys-surface rounded-radius-primary border border-sys-accent relative box-border overflow-hidden ">
       {/* Product Image */}
       <div className="w-full aspect-square flex items-center justify-center overflow-hidden bg-sys-overlay p-space-20">
         {imageUrl ? (
@@ -87,9 +86,7 @@ export function FeaturedProductCard({
             <h1 className="min-w-0  text-sys-surface-accent">
               {wholesalePrice} <span className="pobut-body">грн</span>
             </h1>
-            <small className=" text-sys-accent">
-              опт від {wholesaleMinQuantity} шт
-            </small>
+            <small className=" text-sys-accent">опт від {wholesaleMinQuantity} шт</small>
           </div>
           <Button
             variant="outline"
@@ -104,4 +101,3 @@ export function FeaturedProductCard({
     </article>
   )
 }
-

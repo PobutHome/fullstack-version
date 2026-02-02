@@ -74,7 +74,7 @@ export function HomeSales({ slides = defaultSlides }: { slides?: HomeSalesSlide[
               <ul className="list-none m-0 p-0 grid gap-space-10 tabet:gap-space-20 tablet:grid-cols-2 large:grid-cols-4 ">
                 {offers.map((offer) => (
                   <li key={offer.title} className="min-w-0">
-                    <article className="box-border min-w-0 bg-sys-surface rounded-xl p-space-20 tablet:p-space-30 min-h-fit h-full">
+                    <article className="box-border min-w-0 bg-sys-surface rounded- p-space-20 tablet:p-space-30 min-h-fit h-full">
                       <div className="grid grid-cols-[minmax(0,1fr)_auto] h-full relative ">
                         <h2
                           className={[

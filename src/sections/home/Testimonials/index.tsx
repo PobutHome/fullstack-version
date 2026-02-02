@@ -85,7 +85,7 @@ function CommentCard({ text, author, rating }: Omit<Testimonial, 'id'>) {
       <div
         className={[
           'h-full',
-          'rounded-xl border border-sys-accent bg-sys-surface',
+          'rounded-radius-primary border border-sys-accent bg-sys-surface',
           'shadow-[0_14px_28px_rgba(31,59,115,0.14)]',
           'p-space-20 tablet:p-space-30',
         ].join(' ')}

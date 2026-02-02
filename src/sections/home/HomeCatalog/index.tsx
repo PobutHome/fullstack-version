@@ -38,7 +38,6 @@ export function HomeCatalog({ categories }: Props) {
     <Section id="catalog" aria-labelledby="home-catalog-title">
       <Container>
         <InnerSection className="grid gap-layout-gap-2">
-
           <div>
             <h2 id="home-catalog-title">Каталог</h2>
           </div>
@@ -64,7 +63,7 @@ export function HomeCatalog({ categories }: Props) {
                     className={[
                       'group relative block min-w-0 no-underline',
                       // Card
-                      'rounded-xl border border-sys-accent bg-sys-surface',
+                      'rounded-radius-primary border border-sys-accent bg-sys-surface',
                       // Sizing: visually matches the mockups across breakpoints
                       'h-[104px] sm:h-[120px] tablet:h-[136px] lg:h-[152px]',
                       // Hover / focus polish
@@ -136,7 +135,6 @@ export function HomeCatalog({ categories }: Props) {
               )
             })}
           </ul>
-
         </InnerSection>
       </Container>
     </Section>
@@ -159,4 +157,3 @@ export function extractCategoryImageFromProduct(product: {
 
   return null
 }
-
