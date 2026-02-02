@@ -48,55 +48,73 @@ export const LoginForm: React.FC = () => {
 
   return (
     <form className="" onSubmit={handleSubmit(onSubmit)}>
-      <Message className="classes.message" error={error} />
-      <div className="flex flex-col gap-8">
-        <Button asChild size="lg" variant="outline">
-          <Link href={googleHref}>Continue with Google</Link>
-        </Button>
-
-        <div className="flex items-center gap-4">
-          <div className="h-px bg-border flex-1" />
-          <span className="text-sm text-muted-foreground">or</span>
-          <div className="h-px bg-border flex-1" />
-        </div>
-
+      <Message className="my-0" error={error} />
+      <div className="flex flex-col gap-space-20">
         <FormItem>
-          <Label htmlFor="email">Email</Label>
+          <Label htmlFor="email" className="font-semibold">
+            E-mail<span className="text-sys-danger">*</span>
+          </Label>
           <Input
             id="email"
             type="email"
+            className="h-12 rounded-radius-full border-sys-input-border bg-sys-input-bg text-sys-input-fg px-6 focus-visible:border-sys-input-border-focus focus-visible:ring-sys-focus-ring"
             {...register('email', { required: 'Email is required.' })}
           />
           {errors.email && <FormError message={errors.email.message} />}
         </FormItem>
 
         <FormItem>
-          <Label htmlFor="password">Password</Label>
+          <Label htmlFor="password" className="font-semibold">
+            Пароль<span className="text-sys-danger">*</span>
+          </Label>
           <Input
             id="password"
             type="password"
+            className="h-12 rounded-radius-full border-sys-input-border bg-sys-input-bg text-sys-input-fg px-6 focus-visible:border-sys-input-border-focus focus-visible:ring-sys-focus-ring"
             {...register('password', { required: 'Please provide a password.' })}
           />
           {errors.password && <FormError message={errors.password.message} />}
         </FormItem>
 
-        <div className="text-primary/70 mb-6 prose prose-a:hover:text-primary dark:prose-invert">
-          <p>
-            Forgot your password?{' '}
-            <Link href={`/recover-password${allParams}`}>Click here to reset it</Link>
-          </p>
+        <div className="text-sm text-sys-text-muted">
+          <Link className="hover:underline" href={`/recover-password${allParams}`}>
+            Забули пароль?
+          </Link>
         </div>
       </div>
 
-      <div className="flex gap-4 justify-between">
-        <Button asChild variant="outline" size="lg">
-          <Link href={`/create-account${allParams}`} className="grow max-w-[50%]">
-            Create an account
-          </Link>
+      <Button
+        className="mt-space-20 w-full rounded-radius-full bg-sys-btn-primary-bg text-sys-btn-primary-fg hover:bg-sys-btn-primary-bg-hover active:bg-sys-btn-primary-bg-active"
+        disabled={isLoading}
+        size="lg"
+        type="submit"
+        variant="default"
+      >
+        {isLoading ? 'Processing' : 'Увійти'}
+      </Button>
+
+      <div className="flex items-center gap-4 my-space-20">
+        <div className="h-px bg-border flex-1" />
+        <span className="text-xs text-sys-text-muted">або увійдіть за допомогою</span>
+        <div className="h-px bg-border flex-1" />
+      </div>
+
+      <div className="grid gap-space-10">
+        <Button
+          asChild
+          size="lg"
+          variant="outline"
+          className="w-full rounded-radius-full border-sys-border-interactive text-sys-text hover:bg-sys-surface-2"
+        >
+          <Link href={googleHref}>Увійти за допомого Google</Link>
         </Button>
-        <Button className="grow" disabled={isLoading} size="lg" type="submit" variant="default">
-          {isLoading ? 'Processing' : 'Continue'}
-        </Button>
+      </div>
+
+      <div className="mt-space-20 text-center">
+        <span className="text-sys-text">Не маєш акаунту? </span>
+        <Link className="text-sys-accent hover:underline" href={`/create-account${allParams}`}>
+          Зареєструйся
+        </Link>
       </div>
     </form>
   )

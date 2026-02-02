@@ -14,13 +14,22 @@ import { toast } from 'sonner'
 
 type FormData = {
   email: string
-  name: User['name']
+  firstName: User['firstName']
+  lastName: User['lastName']
+  patronymic: User['patronymic']
+  phone: User['phone']
   password: string
   passwordConfirm: string
 }
 
-export const AccountForm: React.FC = () => {
-  const { setUser, user } = useAuth()
+type Props = {
+  /** Server-provided user so the form is prefilled on first paint */
+  initialUser?: User
+}
+
+export const AccountForm: React.FC<Props> = ({ initialUser }) => {
+  const { setUser, user: contextUser } = useAuth()
+  const user = contextUser ?? initialUser
   const [changePassword, setChangePassword] = useState(false)
 
   const {
@@ -39,9 +48,10 @@ export const AccountForm: React.FC = () => {
   const onSubmit = useCallback(
     async (data: FormData) => {
       if (user) {
+        const name = [data.firstName, data.lastName].filter(Boolean).join(' ').trim()
         const response = await fetch(`/api/users/${user.id}`, {
           // Make sure to include cookies with fetch
-          body: JSON.stringify(data),
+          body: JSON.stringify({ ...data, name }),
           credentials: 'include',
           headers: {
             'Content-Type': 'application/json',
@@ -55,7 +65,10 @@ export const AccountForm: React.FC = () => {
           toast.success('Successfully updated account.')
           setChangePassword(false)
           reset({
-            name: json.doc.name,
+            firstName: json.doc.firstName,
+            lastName: json.doc.lastName,
+            patronymic: json.doc.patronymic,
+            phone: json.doc.phone,
             email: json.doc.email,
             password: '',
             passwordConfirm: '',
@@ -69,7 +82,12 @@ export const AccountForm: React.FC = () => {
   )
 
   useEffect(() => {
-    if (user === null) {
+    // If server already told us who the user is, keep context in sync (avoids blank state until /me resolves).
+    if (contextUser === undefined && initialUser) {
+      setUser(initialUser)
+    }
+
+    if (contextUser === null && !initialUser) {
       router.push(
         `/login?error=${encodeURIComponent(
           'You must be logged in to view this page.',
@@ -80,13 +98,16 @@ export const AccountForm: React.FC = () => {
     // Once user is loaded, reset form to have default values
     if (user) {
       reset({
-        name: user.name,
+        firstName: user.firstName,
+        lastName: user.lastName,
+        patronymic: user.patronymic,
+        phone: user.phone,
         email: user.email,
         password: '',
         passwordConfirm: '',
       })
     }
-  }, [user, router, reset, changePassword])
+  }, [contextUser, initialUser, setUser, user, router, reset, changePassword])
 
   return (
     <form className="max-w-xl" onSubmit={handleSubmit(onSubmit)}>
@@ -116,20 +137,61 @@ export const AccountForm: React.FC = () => {
                 id="email"
                 {...register('email', { required: 'Please provide an email.' })}
                 type="email"
+                className="h-12 rounded-radius-full border-sys-input-border bg-sys-input-bg text-sys-input-fg px-6 focus-visible:border-sys-input-border-focus focus-visible:ring-sys-focus-ring"
               />
               {errors.email && <FormError message={errors.email.message} />}
             </FormItem>
 
             <FormItem>
-              <Label htmlFor="name" className="mb-2">
-                Name
+              <Label htmlFor="firstName" className="mb-2">
+                Ім&apos;я
               </Label>
               <Input
-                id="name"
-                {...register('name', { required: 'Please provide a name.' })}
+                id="firstName"
+                {...register('firstName', { required: "Будь ласка, вкажіть ім'я." })}
                 type="text"
+                className="h-12 rounded-radius-full border-sys-input-border bg-sys-input-bg text-sys-input-fg px-6 focus-visible:border-sys-input-border-focus focus-visible:ring-sys-focus-ring"
               />
-              {errors.name && <FormError message={errors.name.message} />}
+              {errors.firstName && <FormError message={errors.firstName.message} />}
+            </FormItem>
+
+            <FormItem>
+              <Label htmlFor="lastName" className="mb-2">
+                Прізвище
+              </Label>
+              <Input
+                id="lastName"
+                {...register('lastName', { required: 'Будь ласка, вкажіть прізвище.' })}
+                type="text"
+                className="h-12 rounded-radius-full border-sys-input-border bg-sys-input-bg text-sys-input-fg px-6 focus-visible:border-sys-input-border-focus focus-visible:ring-sys-focus-ring"
+              />
+              {errors.lastName && <FormError message={errors.lastName.message} />}
+            </FormItem>
+
+            <FormItem>
+              <Label htmlFor="patronymic" className="mb-2">
+                По батькові
+              </Label>
+              <Input
+                id="patronymic"
+                {...register('patronymic', { required: 'Будь ласка, вкажіть по батькові.' })}
+                type="text"
+                className="h-12 rounded-radius-full border-sys-input-border bg-sys-input-bg text-sys-input-fg px-6 focus-visible:border-sys-input-border-focus focus-visible:ring-sys-focus-ring"
+              />
+              {errors.patronymic && <FormError message={errors.patronymic.message} />}
+            </FormItem>
+
+            <FormItem>
+              <Label htmlFor="phone" className="mb-2">
+                Телефон
+              </Label>
+              <Input
+                id="phone"
+                {...register('phone', { required: 'Будь ласка, вкажіть телефон.' })}
+                type="tel"
+                className="h-12 rounded-radius-full border-sys-input-border bg-sys-input-bg text-sys-input-fg px-6 focus-visible:border-sys-input-border-focus focus-visible:ring-sys-focus-ring"
+              />
+              {errors.phone && <FormError message={errors.phone.message} />}
             </FormItem>
           </div>
         </Fragment>
@@ -159,6 +221,7 @@ export const AccountForm: React.FC = () => {
                 id="password"
                 {...register('password', { required: 'Please provide a new password.' })}
                 type="password"
+                className="h-12 rounded-radius-full border-sys-input-border bg-sys-input-bg text-sys-input-fg px-6 focus-visible:border-sys-input-border-focus focus-visible:ring-sys-focus-ring"
               />
               {errors.password && <FormError message={errors.password.message} />}
             </FormItem>
@@ -174,13 +237,19 @@ export const AccountForm: React.FC = () => {
                   validate: (value) => value === password.current || 'The passwords do not match',
                 })}
                 type="password"
+                className="h-12 rounded-radius-full border-sys-input-border bg-sys-input-bg text-sys-input-fg px-6 focus-visible:border-sys-input-border-focus focus-visible:ring-sys-focus-ring"
               />
               {errors.passwordConfirm && <FormError message={errors.passwordConfirm.message} />}
             </FormItem>
           </div>
         </Fragment>
       )}
-      <Button disabled={isLoading || isSubmitting || !isDirty} type="submit" variant="default">
+      <Button
+        disabled={isLoading || isSubmitting || !isDirty}
+        type="submit"
+        variant="default"
+        className="rounded-radius-full bg-sys-btn-primary-bg text-sys-btn-primary-fg hover:bg-sys-btn-primary-bg-hover active:bg-sys-btn-primary-bg-active"
+      >
         {isLoading || isSubmitting
           ? 'Processing'
           : changePassword

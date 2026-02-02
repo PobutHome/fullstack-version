@@ -189,6 +189,12 @@ export interface UserAuthOperations {
 export interface User {
   id: string;
   name?: string | null;
+  firstName?: string | null;
+  lastName?: string | null;
+  patronymic?: string | null;
+  phone?: string | null;
+  marketingOptIn?: boolean | null;
+  personalDataConsent?: boolean | null;
   googleId?: string | null;
   roles?: ('admin' | 'customer')[] | null;
   orders?: {
@@ -1050,6 +1056,12 @@ export interface PayloadMigration {
  */
 export interface UsersSelect<T extends boolean = true> {
   name?: T;
+  firstName?: T;
+  lastName?: T;
+  patronymic?: T;
+  phone?: T;
+  marketingOptIn?: T;
+  personalDataConsent?: T;
   googleId?: T;
   roles?: T;
   orders?: T;

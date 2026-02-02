@@ -31,6 +31,38 @@ export const Users: CollectionConfig = {
       type: 'text',
     },
     {
+      name: 'firstName',
+      type: 'text',
+      label: "Ім'я",
+    },
+    {
+      name: 'lastName',
+      type: 'text',
+      label: 'Прізвище',
+    },
+    {
+      name: 'patronymic',
+      type: 'text',
+      label: 'По батькові',
+    },
+    {
+      name: 'phone',
+      type: 'text',
+      label: 'Телефон',
+    },
+    {
+      name: 'marketingOptIn',
+      type: 'checkbox',
+      label: 'Отримувати повідомлення про новинки, знижки, акції',
+      defaultValue: false,
+    },
+    {
+      name: 'personalDataConsent',
+      type: 'checkbox',
+      label: 'Я згоден на обробку персональних даних',
+      defaultValue: false,
+    },
+    {
       name: 'googleId',
       type: 'text',
       access: {
