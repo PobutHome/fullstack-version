@@ -56,7 +56,7 @@ export function LanguageSwitcher({ locale }: Props) {
         className="inline-flex items-center gap-2"
       >
         {labelByLocale[locale]}
-        <ChevronDownIcon className="size-[30px]" />
+        <ChevronDownIcon className="size-[17px]" />
       </Button>
 
       {open ? (

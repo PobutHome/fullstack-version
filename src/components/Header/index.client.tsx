@@ -17,6 +17,16 @@ import { UserRoundIcon } from '@/components/icons/UserRoundIcon'
 
 type Props = {
   locale: AppLocale
+  mobileMenuCategories: Array<{
+    id: string
+    title: string
+    slug?: string | null
+    products: Array<{
+      id: string
+      title: string
+      slug: string
+    }>
+  }>
 }
 
 const headerCopy: Record<
@@ -39,20 +49,34 @@ const headerCopy: Record<
   },
 }
 
-export function HeaderClient({ locale }: Props) {
+export function HeaderClient({ locale, mobileMenuCategories }: Props) {
   const t = headerCopy[locale]
 
   return (
     <div className="relative z-20">
       <Container>
-        <nav className="grid grid-cols-[auto_1fr_auto] items-center gap-layout-gap-1 py-layout-gap-2">
-          <div className="flex items-center gap-layout-gap-1">
-            <div className="md:hidden">
-              <Suspense fallback={null}>
-                <MobileMenu locale={locale} />
-              </Suspense>
+        <div className="md:hidden">
+          <nav className="flex items-center gap-2 py-layout-gap-2">
+            <Suspense fallback={null}>
+              <MobileMenu locale={locale} categories={mobileMenuCategories} />
+            </Suspense>
+
+            <Link className="flex items-center" href="/">
+              <LogoIcon className="h-10 w-auto" />
+            </Link>
+
+            <div className="flex-1 min-w-0">
+              <Search className="min-w-0" locale={locale} />
             </div>
 
+            <Suspense fallback={<OpenCartButton locale={locale} />}>
+              <Cart locale={locale} />
+            </Suspense>
+          </nav>
+        </div>
+
+        <nav className="hidden md:grid grid-cols-[auto_1fr_auto] items-center gap-layout-gap-1 py-layout-gap-2">
+          <div className="flex items-center gap-layout-gap-1">
             <Link className="hidden md:flex items-center" href="/">
               <LogoIcon className="h-10 w-auto" />
             </Link>
@@ -68,10 +92,7 @@ export function HeaderClient({ locale }: Props) {
           </div>
 
           <div className="col-start-2 justify-self-center w-full">
-            <Link className="md:hidden flex items-center justify-center" href="/">
-              <LogoIcon className="h-10 w-auto" />
-            </Link>
-            <div className="hidden md:block w-full mx-auto">
+            <div className="w-full mx-auto">
               <Search locale={locale} />
             </div>
           </div>
@@ -105,12 +126,6 @@ export function HeaderClient({ locale }: Props) {
               </Suspense>
 
               <LanguageSwitcher locale={locale} />
-            </div>
-
-            <div className="md:hidden">
-              <Suspense fallback={<OpenCartButton locale={locale} />}>
-                <Cart locale={locale} />
-              </Suspense>
             </div>
           </div>
         </nav>
