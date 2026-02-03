@@ -5,6 +5,7 @@ import { GridTileImage } from '@/components/Grid/tile'
 import { Gallery } from '@/components/product/Gallery'
 import { ProductDescription } from '@/components/product/ProductDescription'
 import { Button } from '@/components/ui/button'
+import { getRequestLocale } from '@/utilities/locale'
 import configPromise from '@payload-config'
 import { ChevronLeftIcon } from 'lucide-react'
 import { Metadata } from 'next'
@@ -184,6 +185,7 @@ function RelatedProducts({ products }: { products: Product[] }) {
 
 const queryProductBySlug = async ({ slug }: { slug: string }) => {
   const { isEnabled: draft } = await draftMode()
+  const locale = await getRequestLocale()
 
   const payload = await getPayload({ config: configPromise })
 
@@ -191,6 +193,7 @@ const queryProductBySlug = async ({ slug }: { slug: string }) => {
     collection: 'products',
     depth: 3,
     draft,
+    locale,
     limit: 1,
     overrideAccess: draft,
     pagination: false,

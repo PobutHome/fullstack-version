@@ -12,7 +12,14 @@ const redirects = async () => {
     source: '/:path((?!ie-incompatible.html$).*)', // all pages except the incompatibility page
   }
 
-  const redirects = [internetExplorerRedirect]
+  const redirects = [
+    {
+      source: '/shop',
+      destination: '/catalog',
+      permanent: true,
+    },
+    internetExplorerRedirect,
+  ]
 
   return redirects
 }

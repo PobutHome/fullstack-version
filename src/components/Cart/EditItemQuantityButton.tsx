@@ -1,13 +1,22 @@
 'use client'
 
 import { CartItem } from '@/components/Cart'
+import type { AppLocale } from '@/utilities/locale'
+import { getClientLocale } from '@/utilities/localeClient'
 import { useCart } from '@payloadcms/plugin-ecommerce/client/react'
 import clsx from 'clsx'
 import { MinusIcon, PlusIcon } from 'lucide-react'
 import React, { useMemo } from 'react'
 
+const qtyCopy: Record<AppLocale, { inc: string; dec: string }> = {
+  ua: { inc: 'Збільшити кількість', dec: 'Зменшити кількість' },
+  ru: { inc: 'Увеличить количество', dec: 'Уменьшить количество' },
+}
+
 export function EditItemQuantityButton({ type, item }: { item: CartItem; type: 'minus' | 'plus' }) {
   const { decrementItem, incrementItem } = useCart()
+
+  const t = qtyCopy[getClientLocale()]
 
   const disabled = useMemo(() => {
     if (!item.id) return true
@@ -38,7 +47,7 @@ export function EditItemQuantityButton({ type, item }: { item: CartItem; type: '
       <button
         aria-disabled={disabled}
         disabled={disabled}
-        aria-label={type === 'plus' ? 'Increase item quantity' : 'Reduce item quantity'}
+        aria-label={type === 'plus' ? t.inc : t.dec}
         className={clsx(
           'ease hover:cursor-pointer flex h-full min-w-[36px] max-w-[36px] flex-none items-center justify-center rounded-full px-2 transition-all duration-200 hover:border-neutral-800 hover:opacity-80',
           {

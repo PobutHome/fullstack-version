@@ -3,6 +3,8 @@
 import { Button } from '@/components/ui/button'
 import type { Product, Variant } from '@/payload-types'
 
+import type { AppLocale } from '@/utilities/locale'
+import { getClientLocale } from '@/utilities/localeClient'
 import { useCart } from '@payloadcms/plugin-ecommerce/client/react'
 import clsx from 'clsx'
 import { useSearchParams } from 'next/navigation'
@@ -12,9 +14,32 @@ type Props = {
   product: Product
 }
 
+const addToCartCopy: Record<
+  AppLocale,
+  {
+    aria: string
+    label: string
+    toast: string
+  }
+> = {
+  ua: {
+    aria: 'Додати до кошика',
+    label: 'Додати в кошик',
+    toast: 'Товар додано до кошика.',
+  },
+  ru: {
+    aria: 'Добавить в корзину',
+    label: 'Добавить в корзину',
+    toast: 'Товар добавлен в корзину.',
+  },
+}
+
 export function AddToCart({ product }: Props) {
   const { addItem, cart } = useCart()
   const searchParams = useSearchParams()
+
+  const locale = getClientLocale()
+  const t = addToCartCopy[locale]
 
   const variants = product.variants?.docs || []
 
@@ -45,10 +70,10 @@ export function AddToCart({ product }: Props) {
         product: product.id,
         variant: selectedVariant?.id ?? undefined,
       }).then(() => {
-        toast.success('Item added to cart.')
+        toast.success(t.toast)
       })
     },
-    [addItem, product, selectedVariant],
+    [addItem, product, selectedVariant, t.toast],
   )
 
   const disabled = useMemo<boolean>(() => {
@@ -96,7 +121,7 @@ export function AddToCart({ product }: Props) {
 
   return (
     <Button
-      aria-label="Add to cart"
+      aria-label={t.aria}
       variant={'outline'}
       className={clsx({
         'hover:opacity-90': true,
@@ -105,7 +130,7 @@ export function AddToCart({ product }: Props) {
       onClick={addToCart}
       type="submit"
     >
-      Add To Cart
+      {t.label}
     </Button>
   )
 }

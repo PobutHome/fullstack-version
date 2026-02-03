@@ -5,6 +5,7 @@ import type { FeaturedProduct } from '@/sections/home/FeaturedProducts'
 import type { HomeBannerSlide } from '@/sections/home/HomeBanner'
 import { extractCategoryImageFromProduct, type HomeCatalogCategory } from '@/sections/home/HomeCatalog'
 import type { HomeSalesSlide } from '@/sections/home/HomeSales'
+import { getRequestLocale } from '@/utilities/locale'
 import configPromise from '@payload-config'
 import { draftMode } from 'next/headers'
 import { getPayload } from 'payload'
@@ -13,12 +14,14 @@ import { HomePage } from './HomePage'
 export default async function RootPage() {
   const payload = await getPayload({ config: configPromise })
   const { isEnabled: draft } = await draftMode()
+  const locale = await getRequestLocale()
 
   // Load all categories for the home page (server-side)
   const categoriesResult = await payload.find({
     collection: 'categories',
     draft,
     overrideAccess: draft,
+    locale,
     pagination: false,
     sort: 'title',
   })

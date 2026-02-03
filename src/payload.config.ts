@@ -15,9 +15,9 @@ import {
     UnorderedListFeature,
     lexicalEditor,
 } from '@payloadcms/richtext-lexical'
+import { fileURLToPath } from 'node:url'
 import path from 'path'
 import { buildConfig } from 'payload'
-import { fileURLToPath } from 'url'
 
 import { Categories } from '@/collections/Categories'
 import { DeliveryMethods } from '@/collections/DeliveryMethods/index'
@@ -26,7 +26,6 @@ import { HomeSalesBanners } from '@/collections/HomeSalesBanners'
 import { Media } from '@/collections/Media'
 import { Users } from '@/collections/Users'
 import { Footer } from '@/globals/Footer'
-import { Header } from '@/globals/Header'
 import { plugins } from './plugins'
 
 const filename = fileURLToPath(import.meta.url)
@@ -399,7 +398,7 @@ export default buildConfig({
   }),
   //email: nodemailerAdapter(),
   endpoints: [],
-  globals: [Header, Footer],
+  globals: [Footer],
   plugins: [
     ...plugins,
     // storage-adapter-placeholder

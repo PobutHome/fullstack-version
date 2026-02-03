@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 import { redirect } from 'next/navigation'
 
 export const metadata = {
@@ -9,3 +10,6 @@ export default function CatalogIndexPage() {
   redirect('/shop')
 }
 
+=======
+export { default, metadata } from '../shop/page'
+>>>>>>> style/header
