@@ -9,6 +9,7 @@ import { getPayload } from 'payload'
 
 import { CreateAccountForm } from '@/components/forms/CreateAccountForm'
 import { redirect } from 'next/navigation'
+import { AuthShell } from '@/components/auth/AuthShell'
 
 export default async function CreateAccount() {
   const headers = await getHeaders()
@@ -20,11 +21,10 @@ export default async function CreateAccount() {
   }
 
   return (
-    <div className="container py-16">
-      <h1 className="text-xl mb-4">Create Account</h1>
+    <AuthShell title="Реєстрація нового користувача" crumb="Реєстрація">
       <RenderParams />
       <CreateAccountForm />
-    </div>
+    </AuthShell>
   )
 }
 

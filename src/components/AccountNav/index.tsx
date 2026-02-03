@@ -1,70 +1,32 @@
 'use client'
 
-import { Button } from '@/components/ui/button'
-import clsx from 'clsx'
+import { PillNavLink } from '@/components/PillNavLink'
+import { cn } from '@/utilities/cn'
 import Link from 'next/link'
-import { usePathname } from 'next/navigation'
 
 type Props = {
   className?: string
 }
 
 export const AccountNav: React.FC<Props> = ({ className }) => {
-  const pathname = usePathname()
-
   return (
-    <div className={clsx(className)}>
-      <ul className="flex flex-col gap-2">
-        <li>
-          <Button asChild variant="link">
-            <Link
-              href="/account"
-              className={clsx('text-primary/50 hover:text-primary/100 hover:no-underline', {
-                'text-primary/100': pathname === '/account',
-              })}
-            >
-              Account settings
-            </Link>
-          </Button>
-        </li>
+    <div className={cn('grid gap-space-20', className)}>
+      <nav className="flex flex-wrap gap-space-10 md:flex-col">
+        <PillNavLink href="/account"><h3>Контактна інформація</h3></PillNavLink>
+        <PillNavLink href="/account/addresses"><h3>Адресна книга</h3></PillNavLink>
+        <PillNavLink
+          href="/orders"
+          isActive={(pathname) => pathname === '/orders' || pathname.startsWith('/orders/')}
+        >
+          <h3>Історія замовлень</h3>
+        </PillNavLink>
+      </nav>
 
-        <li>
-          <Button asChild variant="link">
-            <Link
-              href="/account/addresses"
-              className={clsx('text-primary/50 hover:text-primary/100 hover:no-underline', {
-                'text-primary/100': pathname === '/account/addresses',
-              })}
-            >
-              Addresses
-            </Link>
-          </Button>
-        </li>
-
-        <li>
-          <Button
-            asChild
-            variant="link"
-            className={clsx('text-primary/50 hover:text-primary/100 hover:no-underline', {
-              'text-primary/100': pathname === '/orders' || pathname.includes('/orders'),
-            })}
-          >
-            <Link href="/orders">Orders</Link>
-          </Button>
-        </li>
-      </ul>
-
-      <hr className="w-full border-white/5" />
-
-      <Button
-        asChild
-        variant="link"
-        className={clsx('text-primary/50 hover:text-primary/100 hover:no-underline', {
-          'text-primary/100': pathname === '/logout',
-        })}
-      >
-        <Link href="/logout">Log out</Link>
-      </Button>
+      <div className="grid gap-space-10">
+        <Link className="text-sys-danger hover:underline w-fit" href="/logout">
+          Вийти
+        </Link>
+      </div>
     </div>
   )
 }

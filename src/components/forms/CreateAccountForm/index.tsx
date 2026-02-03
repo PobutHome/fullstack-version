@@ -4,16 +4,23 @@ import { FormError } from '@/components/forms/FormError'
 import { FormItem } from '@/components/forms/FormItem'
 import { Message } from '@/components/Message'
 import { Button } from '@/components/ui/button'
+import { Checkbox } from '@/components/ui/checkbox'
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
 import { useAuth } from '@/providers/Auth'
 import Link from 'next/link'
 import { useRouter, useSearchParams } from 'next/navigation'
 import React, { useCallback, useRef, useState } from 'react'
-import { useForm } from 'react-hook-form'
+import { Controller, useForm } from 'react-hook-form'
 
 type FormData = {
+  firstName: string
+  lastName: string
+  patronymic: string
+  phone: string
   email: string
+  marketingOptIn: boolean
+  personalDataConsent: boolean
   password: string
   passwordConfirm: string
 }
@@ -30,6 +37,7 @@ export const CreateAccountForm: React.FC = () => {
 
   const {
     formState: { errors },
+    control,
     handleSubmit,
     register,
     watch,
@@ -40,8 +48,9 @@ export const CreateAccountForm: React.FC = () => {
 
   const onSubmit = useCallback(
     async (data: FormData) => {
+      const name = [data.firstName, data.lastName].filter(Boolean).join(' ').trim()
       const response = await fetch('/api/users', {
-        body: JSON.stringify(data),
+        body: JSON.stringify({ ...data, name }),
         headers: {
           'Content-Type': 'application/json',
         },
@@ -74,54 +83,116 @@ export const CreateAccountForm: React.FC = () => {
   )
 
   return (
-    <form className="max-w-lg py-4" onSubmit={handleSubmit(onSubmit)}>
-      <div className="prose dark:prose-invert mb-6">
-        <p>
-          {`This is where new customers can signup and create a new account. To manage all users, `}
-          <Link href="/admin/collections/users">login to the admin dashboard</Link>.
-        </p>
-      </div>
+    <form className="" onSubmit={handleSubmit(onSubmit)}>
+      <Message className="my-0" error={error} />
 
-      <Message error={error} />
-
-      <div className="flex flex-col gap-8 mb-8">
-        <Button asChild size="lg" variant="outline">
-          <Link href={googleHref}>Continue with Google</Link>
-        </Button>
-
-        <div className="flex items-center gap-4">
-          <div className="h-px bg-border flex-1" />
-          <span className="text-sm text-muted-foreground">or</span>
-          <div className="h-px bg-border flex-1" />
-        </div>
+      <div className="flex flex-col gap-space-20">
+        <FormItem>
+          <Label htmlFor="firstName" className="font-semibold">
+            Ім&apos;я<span className="text-sys-danger">*</span>
+          </Label>
+          <Input
+            id="firstName"
+            type="text"
+            variant="primaryFrontend"
+            className="h-12 rounded-radius-full px-6"
+            {...register('firstName', { required: "Ім'я обов'язкове." })}
+          />
+          {errors.firstName && <FormError message={errors.firstName.message} />}
+        </FormItem>
 
         <FormItem>
-          <Label htmlFor="email" className="mb-2">
-            Email Address
+          <Label htmlFor="lastName" className="font-semibold">
+            Прізвище<span className="text-sys-danger">*</span>
+          </Label>
+          <Input
+            id="lastName"
+            type="text"
+            variant="primaryFrontend"
+            className="h-12 rounded-radius-full px-6"
+            {...register('lastName', { required: 'Прізвище обов\'язкове.' })}
+          />
+          {errors.lastName && <FormError message={errors.lastName.message} />}
+        </FormItem>
+
+        <FormItem>
+          <Label htmlFor="patronymic" className="font-semibold">
+            По батькові<span className="text-sys-danger">*</span>
+          </Label>
+          <Input
+            id="patronymic"
+            type="text"
+            variant="primaryFrontend"
+            className="h-12 rounded-radius-full px-6"
+            {...register('patronymic', { required: "По батькові обов'язкове." })}
+          />
+          {errors.patronymic && <FormError message={errors.patronymic.message} />}
+        </FormItem>
+
+        <FormItem>
+          <Label htmlFor="phone" className="font-semibold">
+            Телефон<span className="text-sys-danger">*</span>
+          </Label>
+          <Input
+            id="phone"
+            type="tel"
+            variant="primaryFrontend"
+            className="h-12 rounded-radius-full px-6"
+            {...register('phone', { required: 'Телефон обов\'язковий.' })}
+          />
+          {errors.phone && <FormError message={errors.phone.message} />}
+        </FormItem>
+
+        <FormItem>
+          <Label htmlFor="email" className="font-semibold">
+            E-mail<span className="text-sys-danger">*</span>
           </Label>
           <Input
             id="email"
             {...register('email', { required: 'Email is required.' })}
             type="email"
+            variant="primaryFrontend"
+            className="h-12 rounded-radius-full px-6"
           />
           {errors.email && <FormError message={errors.email.message} />}
         </FormItem>
 
+        <div className="flex items-start gap-3">
+          <Controller
+            control={control}
+            name="marketingOptIn"
+            defaultValue={false}
+            render={({ field }) => (
+              <Checkbox
+                id="marketingOptIn"
+                className="mt-1 data-[state=checked]:bg-sys-accent data-[state=checked]:border-sys-accent"
+                checked={Boolean(field.value)}
+                onCheckedChange={(v) => field.onChange(Boolean(v))}
+              />
+            )}
+          />
+          <Label htmlFor="marketingOptIn" className="text-sm leading-snug">
+            Отримувати повідомлення про новинки, знижки, акції
+          </Label>
+        </div>
+
         <FormItem>
-          <Label htmlFor="password" className="mb-2">
-            New password
+          <Label htmlFor="password" className="font-semibold">
+            Пароль<span className="text-sys-danger">*</span>
           </Label>
           <Input
             id="password"
             {...register('password', { required: 'Password is required.' })}
             type="password"
+            variant="primaryFrontend"
+            className="h-12 rounded-radius-full px-6"
           />
           {errors.password && <FormError message={errors.password.message} />}
         </FormItem>
 
         <FormItem>
-          <Label htmlFor="passwordConfirm" className="mb-2">
-            Confirm Password
+          <Label htmlFor="passwordConfirm" className="font-semibold">
+            Повторіть пароль<span className="text-sys-danger">*</span>
           </Label>
           <Input
             id="passwordConfirm"
@@ -130,19 +201,67 @@ export const CreateAccountForm: React.FC = () => {
               validate: (value) => value === password.current || 'The passwords do not match',
             })}
             type="password"
+            variant="primaryFrontend"
+            className="h-12 rounded-radius-full px-6"
           />
           {errors.passwordConfirm && <FormError message={errors.passwordConfirm.message} />}
         </FormItem>
+
+        <div className="flex items-start gap-3">
+          <Controller
+            control={control}
+            name="personalDataConsent"
+            defaultValue={false}
+            rules={{
+              validate: (v) => Boolean(v) || 'Потрібна згода на обробку персональних даних.',
+            }}
+            render={({ field }) => (
+              <Checkbox
+                id="personalDataConsent"
+                className="mt-1 data-[state=checked]:bg-sys-accent data-[state=checked]:border-sys-accent"
+                checked={Boolean(field.value)}
+                onCheckedChange={(v) => field.onChange(Boolean(v))}
+              />
+            )}
+          />
+          <Label htmlFor="personalDataConsent" className="text-sm leading-snug">
+            Я згоден на обробку персональних даних
+          </Label>
+        </div>
+        {errors.personalDataConsent?.message && <FormError message={errors.personalDataConsent.message} />}
       </div>
-      <Button disabled={loading} type="submit" variant="default">
-        {loading ? 'Processing' : 'Create Account'}
+
+      <Button
+        disabled={loading}
+        type="submit"
+        variant="default"
+        className="mt-space-20 w-full rounded-radius-full bg-sys-btn-primary-bg text-sys-btn-primary-fg hover:bg-sys-btn-primary-bg-hover active:bg-sys-btn-primary-bg-active"
+      >
+        {loading ? 'Processing' : 'Зареєструватись'}
       </Button>
 
-      <div className="prose dark:prose-invert mt-8">
-        <p>
-          {'Already have an account? '}
-          <Link href={`/login${allParams}`}>Login</Link>
-        </p>
+      <div className="flex items-center gap-4 my-space-20">
+        <div className="h-px bg-border flex-1" />
+        <span className="text-xs text-sys-text-muted">або увійдіть за допомогою</span>
+        <div className="h-px bg-border flex-1" />
+      </div>
+
+      <div className="grid gap-space-10">
+        <Button
+          asChild
+          size="lg"
+          variant="outline"
+          className="w-full rounded-radius-full border-sys-border-interactive text-sys-text hover:bg-sys-surface-2"
+        >
+          <Link href={googleHref}>Увійти за допомого Google</Link>
+        </Button>
+      </div>
+
+      <div className="mt-space-20 text-center">
+        <span className="text-sys-text">Вже маєш акаунт? </span>
+        <Link className="text-sys-accent hover:underline" href={`/login${allParams}`}>
+          Увійти
+        </Link>
       </div>
     </form>
   )

@@ -76,6 +76,10 @@ export const plugins: Plugin[] = [
       customerOnlyFieldAccess,
       publicAccess,
     },
+    addresses: {
+      // Delivery only within Ukraine for now
+      supportedCountries: [{ label: 'Україна', value: 'UA' }],
+    },
     currencies: {
       defaultCurrency: 'UAH',
       supportedCurrencies: [

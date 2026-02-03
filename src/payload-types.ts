@@ -187,6 +187,12 @@ export interface UserAuthOperations {
 export interface User {
   id: string;
   name?: string | null;
+  firstName?: string | null;
+  lastName?: string | null;
+  patronymic?: string | null;
+  phone?: string | null;
+  marketingOptIn?: boolean | null;
+  personalDataConsent?: boolean | null;
   googleId?: string | null;
   roles?: ('admin' | 'customer')[] | null;
   orders?: {
@@ -615,47 +621,7 @@ export interface Address {
   city?: string | null;
   state?: string | null;
   postalCode?: string | null;
-  country:
-    | 'US'
-    | 'GB'
-    | 'CA'
-    | 'AU'
-    | 'AT'
-    | 'BE'
-    | 'BR'
-    | 'BG'
-    | 'CY'
-    | 'CZ'
-    | 'DK'
-    | 'EE'
-    | 'FI'
-    | 'FR'
-    | 'DE'
-    | 'GR'
-    | 'HK'
-    | 'HU'
-    | 'IN'
-    | 'IE'
-    | 'IT'
-    | 'JP'
-    | 'LV'
-    | 'LT'
-    | 'LU'
-    | 'MY'
-    | 'MT'
-    | 'MX'
-    | 'NL'
-    | 'NZ'
-    | 'NO'
-    | 'PL'
-    | 'PT'
-    | 'RO'
-    | 'SG'
-    | 'SK'
-    | 'SI'
-    | 'ES'
-    | 'SE'
-    | 'CH';
+  country: 'UA';
   phone?: string | null;
   updatedAt: string;
   createdAt: string;
@@ -1048,6 +1014,12 @@ export interface PayloadMigration {
  */
 export interface UsersSelect<T extends boolean = true> {
   name?: T;
+  firstName?: T;
+  lastName?: T;
+  patronymic?: T;
+  phone?: T;
+  marketingOptIn?: T;
+  personalDataConsent?: T;
   googleId?: T;
   roles?: T;
   orders?: T;
