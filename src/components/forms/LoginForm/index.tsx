@@ -57,7 +57,8 @@ export const LoginForm: React.FC = () => {
           <Input
             id="email"
             type="email"
-            className="h-12 rounded-radius-full border-sys-input-border bg-sys-input-bg text-sys-input-fg px-6 focus-visible:border-sys-input-border-focus focus-visible:ring-sys-focus-ring"
+            variant="primaryFrontend"
+            className="h-12 rounded-radius-full px-6"
             {...register('email', { required: 'Email is required.' })}
           />
           {errors.email && <FormError message={errors.email.message} />}
@@ -70,7 +71,8 @@ export const LoginForm: React.FC = () => {
           <Input
             id="password"
             type="password"
-            className="h-12 rounded-radius-full border-sys-input-border bg-sys-input-bg text-sys-input-fg px-6 focus-visible:border-sys-input-border-focus focus-visible:ring-sys-focus-ring"
+            variant="primaryFrontend"
+            className="h-12 rounded-radius-full px-6"
             {...register('password', { required: 'Please provide a password.' })}
           />
           {errors.password && <FormError message={errors.password.message} />}

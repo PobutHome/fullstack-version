@@ -126,13 +126,14 @@ export const AddressForm: React.FC<Props> = ({
                 >
                   <SelectTrigger
                     id="title"
-                    className="mb-0 h-12 w-full rounded-radius-full border-sys-input-border bg-sys-input-bg px-6 text-sys-input-fg focus-visible:border-sys-input-border-focus focus-visible:ring-sys-focus-ring"
+                    variant="primaryFrontend"
+                    className="mb-0 h-12 w-full rounded-radius-full px-6"
                   >
                     <SelectValue placeholder="Стать" />
                   </SelectTrigger>
-                  <SelectContent>
+                  <SelectContent variant="primaryFrontend">
                     {titles.map((title) => (
-                      <SelectItem key={title} value={title}>
+                      <SelectItem key={title} value={title} variant="primaryFrontend">
                         {title}
                       </SelectItem>
                     ))}
@@ -151,7 +152,8 @@ export const AddressForm: React.FC<Props> = ({
               id="firstName"
               autoComplete="given-name"
               {...register('firstName', { required: "Ім'я обов'язкове." })}
-              className="h-12 rounded-radius-full border-sys-input-border bg-sys-input-bg px-6 text-sys-input-fg focus-visible:border-sys-input-border-focus focus-visible:ring-sys-focus-ring"
+              variant="primaryFrontend"
+              className="h-12 rounded-radius-full px-6"
             />
             {errors.firstName && <FormError message={errors.firstName.message} />}
           </FormItem>
@@ -164,7 +166,8 @@ export const AddressForm: React.FC<Props> = ({
               autoComplete="family-name"
               id="lastName"
               {...register('lastName', { required: "Прізвище обов'язкове." })}
-              className="h-12 rounded-radius-full border-sys-input-border bg-sys-input-bg px-6 text-sys-input-fg focus-visible:border-sys-input-border-focus focus-visible:ring-sys-focus-ring"
+              variant="primaryFrontend"
+              className="h-12 rounded-radius-full px-6"
             />
             {errors.lastName && <FormError message={errors.lastName.message} />}
           </FormItem>
@@ -179,7 +182,8 @@ export const AddressForm: React.FC<Props> = ({
             id="phone"
             autoComplete="mobile tel"
             {...register('phone')}
-            className="h-12 rounded-radius-full border-sys-input-border bg-sys-input-bg px-6 text-sys-input-fg focus-visible:border-sys-input-border-focus focus-visible:ring-sys-focus-ring"
+            variant="primaryFrontend"
+            className="h-12 rounded-radius-full px-6"
           />
           {errors.phone && <FormError message={errors.phone.message} />}
         </FormItem>
@@ -192,7 +196,8 @@ export const AddressForm: React.FC<Props> = ({
             id="company"
             autoComplete="organization"
             {...register('company')}
-            className="h-12 rounded-radius-full border-sys-input-border bg-sys-input-bg px-6 text-sys-input-fg focus-visible:border-sys-input-border-focus focus-visible:ring-sys-focus-ring"
+            variant="primaryFrontend"
+            className="h-12 rounded-radius-full px-6"
           />
           {errors.company && <FormError message={errors.company.message} />}
         </FormItem>
@@ -205,7 +210,8 @@ export const AddressForm: React.FC<Props> = ({
             id="addressLine1"
             autoComplete="address-line1"
             {...register('addressLine1', { required: "Вулиця обов'язкова." })}
-            className="h-12 rounded-radius-full border-sys-input-border bg-sys-input-bg px-6 text-sys-input-fg focus-visible:border-sys-input-border-focus focus-visible:ring-sys-focus-ring"
+            variant="primaryFrontend"
+            className="h-12 rounded-radius-full px-6"
           />
           {errors.addressLine1 && <FormError message={errors.addressLine1.message} />}
         </FormItem>
@@ -218,7 +224,8 @@ export const AddressForm: React.FC<Props> = ({
             id="city"
             autoComplete="address-level2"
             {...register('city', { required: "Місто обов'язкове." })}
-            className="h-12 rounded-radius-full border-sys-input-border bg-sys-input-bg px-6 text-sys-input-fg focus-visible:border-sys-input-border-focus focus-visible:ring-sys-focus-ring"
+            variant="primaryFrontend"
+            className="h-12 rounded-radius-full px-6"
           />
           {errors.city && <FormError message={errors.city.message} />}
         </FormItem>
@@ -232,7 +239,8 @@ export const AddressForm: React.FC<Props> = ({
               id="addressLine2"
               autoComplete="address-line2"
               {...register('addressLine2')}
-              className="h-12 rounded-radius-full border-sys-input-border bg-sys-input-bg px-6 text-sys-input-fg focus-visible:border-sys-input-border-focus focus-visible:ring-sys-focus-ring"
+              variant="primaryFrontend"
+              className="h-12 rounded-radius-full px-6"
             />
             {errors.addressLine2 && <FormError message={errors.addressLine2.message} />}
           </FormItem>
@@ -244,7 +252,8 @@ export const AddressForm: React.FC<Props> = ({
             <Input
               id="postalCode"
               {...register('postalCode', { required: "Індекс обов'язковий." })}
-              className="h-12 rounded-radius-full border-sys-input-border bg-sys-input-bg px-6 text-sys-input-fg focus-visible:border-sys-input-border-focus focus-visible:ring-sys-focus-ring"
+              variant="primaryFrontend"
+              className="h-12 rounded-radius-full px-6"
             />
             {errors.postalCode && <FormError message={errors.postalCode.message} />}
           </FormItem>

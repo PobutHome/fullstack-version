@@ -94,7 +94,8 @@ export const CreateAccountForm: React.FC = () => {
           <Input
             id="firstName"
             type="text"
-            className="h-12 rounded-radius-full border-sys-input-border bg-sys-input-bg text-sys-input-fg px-6 focus-visible:border-sys-input-border-focus focus-visible:ring-sys-focus-ring"
+            variant="primaryFrontend"
+            className="h-12 rounded-radius-full px-6"
             {...register('firstName', { required: "Ім'я обов'язкове." })}
           />
           {errors.firstName && <FormError message={errors.firstName.message} />}
@@ -107,7 +108,8 @@ export const CreateAccountForm: React.FC = () => {
           <Input
             id="lastName"
             type="text"
-            className="h-12 rounded-radius-full border-sys-input-border bg-sys-input-bg text-sys-input-fg px-6 focus-visible:border-sys-input-border-focus focus-visible:ring-sys-focus-ring"
+            variant="primaryFrontend"
+            className="h-12 rounded-radius-full px-6"
             {...register('lastName', { required: 'Прізвище обов\'язкове.' })}
           />
           {errors.lastName && <FormError message={errors.lastName.message} />}
@@ -120,7 +122,8 @@ export const CreateAccountForm: React.FC = () => {
           <Input
             id="patronymic"
             type="text"
-            className="h-12 rounded-radius-full border-sys-input-border bg-sys-input-bg text-sys-input-fg px-6 focus-visible:border-sys-input-border-focus focus-visible:ring-sys-focus-ring"
+            variant="primaryFrontend"
+            className="h-12 rounded-radius-full px-6"
             {...register('patronymic', { required: "По батькові обов'язкове." })}
           />
           {errors.patronymic && <FormError message={errors.patronymic.message} />}
@@ -133,7 +136,8 @@ export const CreateAccountForm: React.FC = () => {
           <Input
             id="phone"
             type="tel"
-            className="h-12 rounded-radius-full border-sys-input-border bg-sys-input-bg text-sys-input-fg px-6 focus-visible:border-sys-input-border-focus focus-visible:ring-sys-focus-ring"
+            variant="primaryFrontend"
+            className="h-12 rounded-radius-full px-6"
             {...register('phone', { required: 'Телефон обов\'язковий.' })}
           />
           {errors.phone && <FormError message={errors.phone.message} />}
@@ -147,7 +151,8 @@ export const CreateAccountForm: React.FC = () => {
             id="email"
             {...register('email', { required: 'Email is required.' })}
             type="email"
-            className="h-12 rounded-radius-full border-sys-input-border bg-sys-input-bg text-sys-input-fg px-6 focus-visible:border-sys-input-border-focus focus-visible:ring-sys-focus-ring"
+            variant="primaryFrontend"
+            className="h-12 rounded-radius-full px-6"
           />
           {errors.email && <FormError message={errors.email.message} />}
         </FormItem>
@@ -179,7 +184,8 @@ export const CreateAccountForm: React.FC = () => {
             id="password"
             {...register('password', { required: 'Password is required.' })}
             type="password"
-            className="h-12 rounded-radius-full border-sys-input-border bg-sys-input-bg text-sys-input-fg px-6 focus-visible:border-sys-input-border-focus focus-visible:ring-sys-focus-ring"
+            variant="primaryFrontend"
+            className="h-12 rounded-radius-full px-6"
           />
           {errors.password && <FormError message={errors.password.message} />}
         </FormItem>
@@ -195,7 +201,8 @@ export const CreateAccountForm: React.FC = () => {
               validate: (value) => value === password.current || 'The passwords do not match',
             })}
             type="password"
-            className="h-12 rounded-radius-full border-sys-input-border bg-sys-input-bg text-sys-input-fg px-6 focus-visible:border-sys-input-border-focus focus-visible:ring-sys-focus-ring"
+            variant="primaryFrontend"
+            className="h-12 rounded-radius-full px-6"
           />
           {errors.passwordConfirm && <FormError message={errors.passwordConfirm.message} />}
         </FormItem>

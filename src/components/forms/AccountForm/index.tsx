@@ -137,7 +137,8 @@ export const AccountForm: React.FC<Props> = ({ initialUser }) => {
                 id="email"
                 {...register('email', { required: 'Please provide an email.' })}
                 type="email"
-                className="h-12 rounded-radius-full border-sys-input-border bg-sys-input-bg text-sys-input-fg px-6 focus-visible:border-sys-input-border-focus focus-visible:ring-sys-focus-ring"
+                variant="primaryFrontend"
+                className="h-12 rounded-radius-full px-6"
               />
               {errors.email && <FormError message={errors.email.message} />}
             </FormItem>
@@ -150,7 +151,8 @@ export const AccountForm: React.FC<Props> = ({ initialUser }) => {
                 id="firstName"
                 {...register('firstName', { required: "Будь ласка, вкажіть ім'я." })}
                 type="text"
-                className="h-12 rounded-radius-full border-sys-input-border bg-sys-input-bg text-sys-input-fg px-6 focus-visible:border-sys-input-border-focus focus-visible:ring-sys-focus-ring"
+                variant="primaryFrontend"
+                className="h-12 rounded-radius-full px-6"
               />
               {errors.firstName && <FormError message={errors.firstName.message} />}
             </FormItem>
@@ -163,7 +165,8 @@ export const AccountForm: React.FC<Props> = ({ initialUser }) => {
                 id="lastName"
                 {...register('lastName', { required: 'Будь ласка, вкажіть прізвище.' })}
                 type="text"
-                className="h-12 rounded-radius-full border-sys-input-border bg-sys-input-bg text-sys-input-fg px-6 focus-visible:border-sys-input-border-focus focus-visible:ring-sys-focus-ring"
+                variant="primaryFrontend"
+                className="h-12 rounded-radius-full px-6"
               />
               {errors.lastName && <FormError message={errors.lastName.message} />}
             </FormItem>
@@ -176,7 +179,8 @@ export const AccountForm: React.FC<Props> = ({ initialUser }) => {
                 id="patronymic"
                 {...register('patronymic', { required: 'Будь ласка, вкажіть по батькові.' })}
                 type="text"
-                className="h-12 rounded-radius-full border-sys-input-border bg-sys-input-bg text-sys-input-fg px-6 focus-visible:border-sys-input-border-focus focus-visible:ring-sys-focus-ring"
+                variant="primaryFrontend"
+                className="h-12 rounded-radius-full px-6"
               />
               {errors.patronymic && <FormError message={errors.patronymic.message} />}
             </FormItem>
@@ -189,7 +193,8 @@ export const AccountForm: React.FC<Props> = ({ initialUser }) => {
                 id="phone"
                 {...register('phone', { required: 'Будь ласка, вкажіть телефон.' })}
                 type="tel"
-                className="h-12 rounded-radius-full border-sys-input-border bg-sys-input-bg text-sys-input-fg px-6 focus-visible:border-sys-input-border-focus focus-visible:ring-sys-focus-ring"
+                variant="primaryFrontend"
+                className="h-12 rounded-radius-full px-6"
               />
               {errors.phone && <FormError message={errors.phone.message} />}
             </FormItem>
@@ -221,7 +226,8 @@ export const AccountForm: React.FC<Props> = ({ initialUser }) => {
                 id="password"
                 {...register('password', { required: 'Please provide a new password.' })}
                 type="password"
-                className="h-12 rounded-radius-full border-sys-input-border bg-sys-input-bg text-sys-input-fg px-6 focus-visible:border-sys-input-border-focus focus-visible:ring-sys-focus-ring"
+                variant="primaryFrontend"
+                className="h-12 rounded-radius-full px-6"
               />
               {errors.password && <FormError message={errors.password.message} />}
             </FormItem>
@@ -237,7 +243,8 @@ export const AccountForm: React.FC<Props> = ({ initialUser }) => {
                   validate: (value) => value === password.current || 'The passwords do not match',
                 })}
                 type="password"
-                className="h-12 rounded-radius-full border-sys-input-border bg-sys-input-bg text-sys-input-fg px-6 focus-visible:border-sys-input-border-focus focus-visible:ring-sys-focus-ring"
+                variant="primaryFrontend"
+                className="h-12 rounded-radius-full px-6"
               />
               {errors.passwordConfirm && <FormError message={errors.passwordConfirm.message} />}
             </FormItem>

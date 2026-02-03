@@ -3,8 +3,65 @@
 import * as React from 'react'
 import * as SelectPrimitive from '@radix-ui/react-select'
 import { CheckIcon, ChevronDownIcon, ChevronUpIcon } from 'lucide-react'
+import { cva, type VariantProps } from 'class-variance-authority'
 
 import { cn } from '@/utilities/cn'
+
+type SelectVariant = 'default' | 'primaryFrontend'
+
+const selectTriggerVariants = cva(
+  "border-input mb-2 data-placeholder:text-muted-foreground [&_svg:not([class*='text-'])]:text-muted-foreground focus-visible:border-ring focus-visible:ring-ring/50 aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive flex h-9 w-fit items-center justify-between gap-2 rounded-md border bg-transparent px-3 py-2 text-sm whitespace-nowrap shadow-xs transition-[color,box-shadow] outline-none focus-visible:ring-[3px] disabled:cursor-not-allowed disabled:opacity-50 *:data-[slot=select-value]:line-clamp-1 *:data-[slot=select-value]:flex *:data-[slot=select-value]:items-center *:data-[slot=select-value]:gap-2 [&_svg]:pointer-events-none [&_svg]:shrink-0 [&_svg:not([class*='size-'])]:size-4",
+  {
+    variants: {
+      variant: {
+        default: '',
+        primaryFrontend: [
+          'bg-sys-input-bg text-sys-input-fg border-sys-accent hover:border-sys-accent-hover',
+          'data-placeholder:text-sys-text-muted',
+          '[&_svg:not([class*="text-"])]:text-sys-text-muted',
+          // Add focus styles on mouse focus too (avoid browser default glow)
+          'focus:border-sys-accent-hover focus:ring-[3px] focus:ring-[color:color-mix(in_srgb,var(--sys-accent)_25%,transparent)] focus:outline-none',
+          'focus-visible:border-sys-accent-hover focus-visible:ring-[3px] focus-visible:ring-[color:color-mix(in_srgb,var(--sys-accent)_25%,transparent)] focus-visible:outline-none',
+        ].join(' '),
+      },
+    },
+    defaultVariants: {
+      variant: 'default',
+    },
+  },
+)
+
+const selectContentVariants = cva(
+  'bg-popover text-popover-foreground data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0 data-[state=closed]:zoom-out-95 data-[state=open]:zoom-in-95 data-[side=bottom]:slide-in-from-top-2 data-[side=left]:slide-in-from-right-2 data-[side=right]:slide-in-from-left-2 data-[side=top]:slide-in-from-bottom-2 relative z-50 max-h-(--radix-select-content-available-height) overflow-x-hidden overflow-y-auto rounded-md border shadow-md',
+  {
+    variants: {
+      variant: {
+        default: '',
+        primaryFrontend:
+          'bg-sys-surface text-sys-text border-sys-border-strong shadow-shadow-md rounded-radius-primary',
+      },
+    },
+    defaultVariants: {
+      variant: 'default',
+    },
+  },
+)
+
+const selectItemVariants = cva(
+  "focus:bg-accent focus:text-accent-foreground [&_svg:not([class*='text-'])]:text-muted-foreground relative flex w-full cursor-default items-center gap-2 rounded-sm py-1.5 pr-8 pl-2 text-sm outline-hidden select-none data-disabled:pointer-events-none data-disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:shrink-0 [&_svg:not([class*='size-'])]:size-4 *:[span]:last:flex *:[span]:last:items-center *:[span]:last:gap-2",
+  {
+    variants: {
+      variant: {
+        default: '',
+        primaryFrontend:
+          'rounded-md py-2 pr-8 pl-3 focus:bg-sys-surface-2 focus:text-sys-text [&_svg:not([class*="text-"])]:text-sys-text-muted',
+      },
+    },
+    defaultVariants: {
+      variant: 'default',
+    },
+  },
+)
 
 function Select({ ...props }: React.ComponentProps<typeof SelectPrimitive.Root>) {
   return <SelectPrimitive.Root data-slot="select" {...props} />
@@ -21,25 +78,15 @@ function SelectValue({ ...props }: React.ComponentProps<typeof SelectPrimitive.V
 function SelectTrigger({
   className,
   children,
+  variant,
   ...props
-}: React.ComponentProps<typeof SelectPrimitive.Trigger>) {
+}: React.ComponentProps<typeof SelectPrimitive.Trigger> &
+  VariantProps<typeof selectTriggerVariants>) {
   return (
     <SelectPrimitive.Trigger
       data-slot="select-trigger"
       className={cn(
-        [
-          // System-colored default trigger (can be overridden via className)
-          'mb-2 flex h-9 w-fit items-center justify-between gap-2 whitespace-nowrap',
-          'rounded-md border px-3 py-2 text-sm shadow-xs outline-none',
-          'bg-sys-input-bg text-sys-input-fg border-sys-input-border',
-          'data-placeholder:text-sys-text-muted',
-          'focus-visible:border-sys-input-border-focus focus-visible:ring-sys-focus-ring focus-visible:ring-[3px]',
-          'aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive',
-          'transition-[color,box-shadow] disabled:cursor-not-allowed disabled:opacity-50',
-          '*:data-[slot=select-value]:line-clamp-1 *:data-[slot=select-value]:flex *:data-[slot=select-value]:items-center *:data-[slot=select-value]:gap-2',
-          '[&_svg]:pointer-events-none [&_svg]:shrink-0 [&_svg:not([class*="size-"])]:size-4',
-          '[&_svg:not([class*="text-"])]:text-sys-text-muted',
-        ].join(' '),
+        selectTriggerVariants({ variant: variant as SelectVariant }),
         className,
       )}
       {...props}
@@ -56,21 +103,16 @@ function SelectContent({
   className,
   children,
   position = 'popper',
+  variant,
   ...props
-}: React.ComponentProps<typeof SelectPrimitive.Content>) {
+}: React.ComponentProps<typeof SelectPrimitive.Content> &
+  VariantProps<typeof selectContentVariants>) {
   return (
     <SelectPrimitive.Portal>
       <SelectPrimitive.Content
         data-slot="select-content"
         className={cn(
-          [
-            // System-colored dropdown surface
-            'bg-sys-surface text-sys-text border-sys-border-strong shadow-shadow-md',
-            'data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0',
-            'data-[state=closed]:zoom-out-95 data-[state=open]:zoom-in-95',
-            'data-[side=bottom]:slide-in-from-top-2 data-[side=left]:slide-in-from-right-2 data-[side=right]:slide-in-from-left-2 data-[side=top]:slide-in-from-bottom-2',
-            'relative z-50 max-h-(--radix-select-content-available-height) overflow-x-hidden overflow-y-auto rounded-radius-primary border',
-          ].join(' '),
+          selectContentVariants({ variant: variant as SelectVariant }),
           position === 'popper' &&
             'data-[side=bottom]:translate-y-1 data-[side=left]:-translate-x-1 data-[side=right]:translate-x-1 data-[side=top]:-translate-y-1',
           className,
@@ -97,7 +139,7 @@ function SelectLabel({ className, ...props }: React.ComponentProps<typeof Select
   return (
     <SelectPrimitive.Label
       data-slot="select-label"
-      className={cn('px-2 py-1.5 text-sm font-semibold text-sys-text', className)}
+      className={cn('px-2 py-1.5 text-sm font-medium', className)}
       {...props}
     />
   )
@@ -106,20 +148,15 @@ function SelectLabel({ className, ...props }: React.ComponentProps<typeof Select
 function SelectItem({
   className,
   children,
+  variant,
   ...props
-}: React.ComponentProps<typeof SelectPrimitive.Item>) {
+}: React.ComponentProps<typeof SelectPrimitive.Item> &
+  VariantProps<typeof selectItemVariants>) {
   return (
     <SelectPrimitive.Item
       data-slot="select-item"
       className={cn(
-        [
-          'relative flex w-full cursor-default select-none items-center gap-2 rounded-md py-2 pr-8 pl-3 text-sm outline-hidden',
-          'focus:bg-sys-surface-2 focus:text-sys-text',
-          'data-disabled:pointer-events-none data-disabled:opacity-50',
-          '[&_svg]:pointer-events-none [&_svg]:shrink-0 [&_svg:not([class*="size-"])]:size-4',
-          '[&_svg:not([class*="text-"])]:text-sys-text-muted',
-          '*:[span]:last:flex *:[span]:last:items-center *:[span]:last:gap-2',
-        ].join(' '),
+        selectItemVariants({ variant: variant as SelectVariant }),
         className,
       )}
       {...props}
@@ -141,7 +178,7 @@ function SelectSeparator({
   return (
     <SelectPrimitive.Separator
       data-slot="select-separator"
-      className={cn('bg-sys-border-subtle pointer-events-none -mx-1 my-1 h-px', className)}
+      className={cn('bg-border pointer-events-none -mx-1 my-1 h-px', className)}
       {...props}
     />
   )
@@ -188,4 +225,7 @@ export {
   SelectSeparator,
   SelectTrigger,
   SelectValue,
+  selectTriggerVariants,
+  selectContentVariants,
+  selectItemVariants,
 }
