@@ -1,12 +1,13 @@
 import type { Metadata } from 'next'
 
+import { AccountForm } from '@/components/forms/AccountForm'
+import { Section } from '@/components/Section'
 import type { User } from '@/payload-types'
 import { mergeOpenGraph } from '@/utilities/mergeOpenGraph'
-import { headers as getHeaders } from 'next/headers.js'
 import configPromise from '@payload-config'
-import { AccountForm } from '@/components/forms/AccountForm'
-import { getPayload } from 'payload'
+import { headers as getHeaders } from 'next/headers.js'
 import { redirect } from 'next/navigation'
+import { getPayload } from 'payload'
 
 export default async function AccountPage() {
   const headers = await getHeaders()
@@ -21,11 +22,11 @@ export default async function AccountPage() {
 
   return (
     <>
-      <div className="w-full">
+        <Section>
         <h1 className="pobut-H1 mb-space-20">Контактна інформація</h1>
         <AccountForm initialUser={user as unknown as User} />
-      </div>
-    </>
+        </Section>
+        </>
   )
 }
 
@@ -37,3 +38,4 @@ export const metadata: Metadata = {
   }),
   title: 'Account',
 }
+  

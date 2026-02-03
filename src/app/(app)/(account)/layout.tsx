@@ -7,6 +7,7 @@ import { RenderParams } from '@/components/RenderParams'
 import { AccountNav } from '@/components/AccountNav'
 import { Container } from '@/components/Container'
 import { InnerSection } from '@/components/InnerSection'
+import { Page } from '@/components/Page'
 import { Section } from '@/components/Section'
 
 export default async function RootLayout({ children }: { children: ReactNode }) {
@@ -15,26 +16,28 @@ export default async function RootLayout({ children }: { children: ReactNode }) 
   const { user } = await payload.auth({ headers })
 
   return (
-    <Section className="pt-layout-gap-3 pb-layout-gap-3">
-      <Container>
-        <InnerSection className="grid gap-layout-gap-2">
-          <RenderParams />
+    <Page className="pb-layout-gap-3">
+      <Section>
+        <Container>
+          <InnerSection className="grid gap-layout-gap-2">
+            <RenderParams />
 
-          <div className="grid gap-space-20 items-start tablet:grid-cols-[18rem_1fr] tablet:gap-[100px] desktop:gap-[150px]">
-            {user && (
-              <aside className="min-w-0">
-                <AccountNav />
-              </aside>
-            )}
+            <div className="grid gap-space-20 items-start tablet:grid-cols-[18rem_1fr] tablet:gap-[100px] desktop:gap-[150px]">
+              {user && (
+                <aside className="min-w-0">
+                  <AccountNav />
+                </aside>
+              )}
 
-            <div className="min-w-0">
-              <div className="bg-sys-surface border border-sys-border-strong rounded-radius-primary p-space-20 tablet:p-space-30">
-                {children}
+              <div className="min-w-0">
+                <div className="bg-sys-surface border border-sys-border-strong rounded-radius-primary p-space-20 tablet:p-space-30">
+                  {children}
+                </div>
               </div>
             </div>
-          </div>
-        </InnerSection>
-      </Container>
-    </Section>
+          </InnerSection>
+        </Container>
+      </Section>
+    </Page>
   )
 }
