@@ -30,7 +30,7 @@ export default async function RootLayout({ children }: { children: ReactNode }) 
               )}
 
               <div className="min-w-0">
-                <div className="bg-sys-surface border border-sys-border-strong rounded-radius-primary p-space-20 tablet:p-space-30">
+                <div className="bg-sys-surface border border-sys-accent rounded-radius-primary p-space-20 tablet:p-space-30">
                   {children}
                 </div>
               </div>

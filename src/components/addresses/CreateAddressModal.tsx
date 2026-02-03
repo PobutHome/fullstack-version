@@ -59,7 +59,7 @@ export const CreateAddressModal: React.FC<Props> = ({
           {buttonText}
         </Button>
       </DialogTrigger>
-      <DialogContent className="bg-sys-surface border-sys-border-strong rounded-radius-primary shadow-shadow-md p-space-20 tablet:p-space-30 sm:max-w-208">
+      <DialogContent className="bg-sys-surface border-sys-accent rounded-radius-primary shadow-shadow-md p-space-20 tablet:p-space-30 sm:max-w-208">
         <DialogHeader className="text-center sm:text-center">
           <DialogTitle className="pobut-H3 text-sys-text">{modalTitle}</DialogTitle>
           <DialogDescription className="text-sys-text-muted">

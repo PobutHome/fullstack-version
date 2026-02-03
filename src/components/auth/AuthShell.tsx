@@ -32,8 +32,8 @@ export function AuthShell({ title, crumb, children }: Props) {
 
           <div
             className={[
-              'w-full max-w-[52rem] mx-auto',
-              'bg-sys-surface border border-sys-border-strong rounded-radius-primary',
+              'w-full max-w-208 mx-auto',
+              'bg-sys-surface border border-sys-accent rounded-radius-primary',
               'shadow-shadow-sm',
               'p-space-20 tablet:p-space-30',
             ].join(' ')}
