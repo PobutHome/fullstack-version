@@ -157,7 +157,9 @@ export async function Footer() {
             </nav>
           </div>
         </div>
-          <p className="m-0 pobut-body text-center pt-layout-gap-3">{currentYear} {brand}©</p>
+        <p className="m-0 pobut-body text-center pt-layout-gap-3">
+          {currentYear} {brand}©
+        </p>
       </Container>
     </footer>
   )
