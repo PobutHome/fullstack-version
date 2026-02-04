@@ -107,7 +107,7 @@ export function CatalogProductCard({ product }: Props) {
         }
       }}
       className={clsx(
-        'group cursor-pointer select-none',
+        'group cursor-pointer select-none h-full flex flex-col',
         'rounded-radius-primary border border-sys-accent bg-sys-surface overflow-hidden',
         'transition-colors hover:bg-sys-surface-2 hover:border-sys-border-strong-hover',
         'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-sys-focus focus-visible:ring-offset-2 focus-visible:ring-offset-sys-bg',
@@ -131,7 +131,7 @@ export function CatalogProductCard({ product }: Props) {
         </div>
       </div>
 
-      <div className="p-space-10 grid gap-2">
+      <div className="p-space-10 flex flex-col gap-2 flex-1 min-h-0">
         <div className="flex items-center gap-2">
           <span
             aria-hidden="true"
@@ -148,7 +148,7 @@ export function CatalogProductCard({ product }: Props) {
           </p>
         </div>
 
-        <div className="flex items-end justify-between gap-3">
+        <div className="mt-auto flex items-end justify-between gap-3">
           <div className="min-w-0">
             {typeof price === 'number' ? (
               <div className="text-sys-surface-accent">

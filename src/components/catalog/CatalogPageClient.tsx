@@ -1,9 +1,12 @@
 'use client'
 
 import type { Category, Product } from '@/payload-types'
+import { Breadcrumbs } from '@/components/Breadcrumbs'
 import { Container } from '@/components/Container'
 import { Grid } from '@/components/Grid'
-import Link from 'next/link'
+import { ChevronDownIcon } from '@/components/icons/ChevronDownIcon'
+import { Section } from '@/components/Section'
+import clsx from 'clsx'
 import React, { useEffect, useMemo, useState } from 'react'
 
 import { CatalogProductCard } from '@/components/CatalogProductCard'
@@ -23,6 +26,11 @@ function normalizeHashToSlug(hash: string): string | null {
 
 export function CatalogPageClient({ categories, products }: Props) {
   const [activeCategorySlug, setActiveCategorySlug] = useState<string | null>(null)
+
+  const setCategorySlug = (slug: string | null) => {
+    const next = slug ? encodeURIComponent(slug) : ''
+    window.location.hash = next
+  }
 
   useEffect(() => {
     const syncFromHash = () => setActiveCategorySlug(normalizeHashToSlug(window.location.hash))
@@ -48,82 +56,79 @@ export function CatalogPageClient({ categories, products }: Props) {
     })
   }, [activeCategorySlug, products])
 
-  const breadcrumbLabel = activeCategory?.title || 'Каталог'
-
   return (
-    <div className="py-space-20">
-      <Container>
-        {/* Breadcrumb */}
-        <nav aria-label="Breadcrumb" className="mb-space-20">
-          <ol className="flex flex-wrap items-center gap-2 list-none m-0 p-0 text-sys-text-muted">
-            <li>
-              <Link href="/" className="no-underline hover:underline text-sys-text-muted">
-                Головна
-              </Link>
-            </li>
-            <li aria-hidden="true" className="opacity-60">
-              →
-            </li>
-            <li>
-              <Link
-                href="/catalog"
-                className="no-underline hover:underline text-sys-text-muted"
-                onClick={() => {
-                  // clear hash while staying on catalog
-                  if (typeof window !== 'undefined') window.location.hash = ''
-                }}
-              >
-                Каталог
-              </Link>
-            </li>
-            {activeCategory ? (
-              <>
-                <li aria-hidden="true" className="opacity-60">
-                  →
-                </li>
-                <li className="text-sys-accent font-medium">{breadcrumbLabel}</li>
-              </>
-            ) : null}
-          </ol>
-        </nav>
+    <Section className="pt-space-20 pb-space-20">
+      <Breadcrumbs
+        className="mb-space-20"
+        variant="accent"
+        items={[
+          { label: 'Головна', href: '/' },
+          {
+            label: 'Каталог',
+            href: '/catalog',
+            onClick: () => setCategorySlug(null),
+          },
+          ...(activeCategory ? [{ label: activeCategory.title }] : []),
+        ]}
+      />
 
-        <div className="grid gap-layout-gap-2 desktop:grid-cols-[280px_1fr] items-start">
+      <Container>
+        <div className="grid gap-layout-gap-2 desktop:grid-cols-[320px_minmax(0,1fr)] items-start">
           {/* Desktop aside */}
           <aside className="hidden desktop:block sticky top-[88px]">
-            <div className="rounded-radius-primary border border-sys-accent bg-sys-surface overflow-hidden">
-              <div className="px-space-20 py-space-10 border-b border-sys-accent">
-                <p className="m-0 font-semibold text-sys-accent">Категорії</p>
-              </div>
-              <nav aria-label="Категорії" className="p-space-10">
-                <ul className="list-none m-0 p-0 grid gap-1">
-                  <li>
-                    <a
-                      href="#"
-                      className={[
-                        'block rounded-radius-primary px-space-10 py-space-10 no-underline',
-                        !activeCategorySlug
-                          ? 'bg-sys-overlay text-sys-accent'
-                          : 'text-sys-text hover:bg-sys-overlay',
-                      ].join(' ')}
-                    >
-                      Всі товари
-                    </a>
-                  </li>
-                  {categories.map((c) => {
-                    const isActive = c.slug === activeCategorySlug
+            <div
+              className={clsx(
+                'rounded-radius-primary border border-sys-border bg-sys-surface shadow-shadow-sm',
+                'p-space-20',
+              )}
+            >
+              <h2 className="pobut-H2 m-0 mb-space-20 text-sys-text">Каталог</h2>
+
+              <nav aria-label="Категорії" className="min-w-0">
+                <ul
+                  className={clsx(
+                    'list-none m-0 p-0 grid',
+                    'max-h-[calc(100vh-180px)] overflow-auto pr-2',
+                  )}
+                >
+                  {[
+                    { id: '__all__', slug: null as string | null, title: 'Всі товари' },
+                    ...categories.map((c) => ({ id: c.id, slug: c.slug, title: c.title })),
+                  ].map((item) => {
+                    const isActive = item.slug ? item.slug === activeCategorySlug : !activeCategorySlug
                     return (
-                      <li key={c.id}>
-                        <a
-                          href={`#${encodeURIComponent(c.slug)}`}
-                          className={[
-                            'block rounded-radius-primary px-space-10 py-space-10 no-underline',
+                      <li key={item.id} className="min-w-0">
+                        <button
+                          type="button"
+                          onClick={() => setCategorySlug(item.slug)}
+                          className={clsx(
+                            'w-full min-w-0',
+                            'flex items-start justify-between gap-3 text-left',
+                            'rounded-radius-primary',
+                            'px-space-20 py-space-10',
+                            'pobut-H3',
+                            'transition-colors',
                             isActive
-                              ? 'bg-sys-overlay text-sys-accent'
-                              : 'text-sys-text hover:bg-sys-overlay',
-                          ].join(' ')}
+                              ? 'bg-sys-chip-bg text-color-green-click'
+                              : 'text-sys-text hover:bg-sys-surface-2',
+                          )}
                         >
-                          {c.title}
-                        </a>
+                          <span
+                            className={clsx(
+                              'min-w-0 whitespace-normal wrap-break-word leading-snug',
+                              isActive && 'font-semibold',
+                            )}
+                          >
+                            {item.title}
+                          </span>
+                          <ChevronDownIcon
+                            size={12}
+                            className={clsx(
+                              'shrink-0 mt-[0.15em]',
+                              isActive ? 'text-color-green-click' : 'text-sys-text',
+                            )}
+                          />
+                        </button>
                       </li>
                     )
                   })}
@@ -160,8 +165,7 @@ export function CatalogPageClient({ categories, products }: Props) {
                   ].join(' ')}
                   value={activeCategorySlug ?? ''}
                   onChange={(e) => {
-                    const next = e.target.value
-                    window.location.hash = next ? encodeURIComponent(next) : ''
+                    setCategorySlug(e.target.value || null)
                   }}
                 >
                   <option value="">Всі товари</option>
@@ -179,7 +183,7 @@ export function CatalogPageClient({ categories, products }: Props) {
                 <p className="m-0 text-sys-text-muted">Нічого не знайдено в цій категорії.</p>
               </div>
             ) : (
-              <Grid className="grid-cols-2 tablet:grid-cols-3 desktop:grid-cols-3 gap-layout-gap-1">
+              <Grid className="auto-rows-fr grid-cols-2 wide:grid-cols-3 gap-layout-gap-1">
                 {filteredProducts.map((product) => (
                   <CatalogProductCard key={product.id} product={product} />
                 ))}
@@ -188,7 +192,7 @@ export function CatalogPageClient({ categories, products }: Props) {
           </main>
         </div>
       </Container>
-    </div>
+    </Section>
   )
 }
 
