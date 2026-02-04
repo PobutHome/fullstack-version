@@ -1,4 +1,4 @@
-import type { CollectionSlug, File, GlobalSlug, Payload, PayloadRequest } from 'payload'
+import type { CollectionSlug, File, Payload, PayloadRequest } from 'payload'
 
 import { Address, Transaction, VariantOption } from '@/payload-types'
 import { contactFormData } from './contact-form'
@@ -37,8 +37,6 @@ const colorVariantOptions = [
   { label: 'Black', value: 'black' },
   { label: 'White', value: 'white' },
 ]
-
-const globals: GlobalSlug[] = ['header', 'footer']
 
 const baseAddressUSData: Transaction['billingAddress'] = {
   title: 'Dr.',
@@ -83,22 +81,6 @@ export const seed = async ({
   // this is because while `yarn seed` drops the database
   // the custom `/api/seed` endpoint does not
   payload.logger.info(`— Clearing collections and globals...`)
-
-  // clear the database
-  await Promise.all(
-    globals.map((global) =>
-      payload.updateGlobal({
-        slug: global,
-        data: {
-          navItems: [],
-        },
-        depth: 0,
-        context: {
-          disableRevalidate: true,
-        },
-      }),
-    ),
-  )
 
   for (const collection of collections) {
     await payload.db.deleteMany({ collection, req, where: {} })
@@ -477,60 +459,6 @@ export const seed = async ({
       transactions: [succeededTransaction.id],
     },
   })
-
-  payload.logger.info(`— Seeding globals...`)
-
-  await Promise.all([
-    payload.updateGlobal({
-      slug: 'header',
-      data: {
-        navItems: [
-          {
-            link: {
-              type: 'custom',
-              label: 'Home',
-              url: '/',
-            },
-          },
-          {
-            link: {
-              type: 'custom',
-              label: 'Магазин',
-              url: '/shop',
-            },
-          },
-          {
-            link: {
-              type: 'custom',
-              label: 'Акаунт',
-              url: '/account',
-            },
-          },
-        ],
-      },
-    }),
-    payload.updateGlobal({
-      slug: 'footer',
-      data: {
-        navItems: [
-          {
-            link: {
-              type: 'custom',
-              label: 'Адмінка',
-              url: '/admin',
-            },
-          },
-          {
-            link: {
-              type: 'custom',
-              label: 'Знайти замовлення',
-              url: '/find-order',
-            },
-          },
-        ],
-      },
-    }),
-  ])
 
   payload.logger.info('Seeded database successfully!')
 }
