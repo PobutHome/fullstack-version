@@ -1,22 +1,3 @@
-import type { GlobalConfig } from 'payload'
-
-import { link } from '@/fields/link'
-
-export const Footer: GlobalConfig = {
-  slug: 'footer',
-  access: {
-    read: () => true,
-  },
-  fields: [
-    {
-      name: 'navItems',
-      type: 'array',
-      fields: [
-        link({
-          appearances: false,
-        }),
-      ],
-      maxRows: 6,
-    },
-  ],
-}
+// Legacy CMS global removed: footer is now rendered from system styles
+// and dynamic category fetch in the frontend.
+export {}
