@@ -1,0 +1,17 @@
+[data-app="frontend"]{
+ /* Brand Colors (From Figma - Exact Names) */
+  --color-blue: #00004c;
+  --color-blue-hover: #3b3bf9;
+  --color-blue-click: #00001f;
+
+  --color-green: #72cb1a;
+  --color-green-hover: #beff7e;
+  --color-green-click: #408000;
+
+  --color-white: #ffffff;
+  --color-neutral-border: #e5e7eb;
+  --color-default-background: #ffffff;
+
+  --color-error: #ff0000;
+  --color-black: #000;
+}

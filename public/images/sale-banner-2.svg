@@ -1,0 +1,39 @@
+<svg width="1200" height="600" viewBox="0 0 1200 600" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="g2" x1="0" y1="0" x2="0" y2="1">
+      <stop stop-color="#FFFFFF"/>
+      <stop offset="1" stop-color="#E9F9E6"/>
+    </linearGradient>
+    <radialGradient id="spot" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(880 160) rotate(130) scale(520 420)">
+      <stop stop-color="#39B54A" stop-opacity="0.22"/>
+      <stop offset="1" stop-color="#39B54A" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+
+  <rect width="1200" height="600" rx="44" fill="url(#g2)"/>
+  <rect width="1200" height="600" rx="44" fill="url(#spot)"/>
+
+  <text x="70" y="160" font-family="system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif" font-size="52" font-weight="800" fill="#1F3B73">
+    ?B>2V C<>28
+  </text>
+  <text x="70" y="222" font-family="system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif" font-size="30" fill="#1F3B73" opacity="0.75">
+    5@A>=0;L=V 7=86:8 4;O ?0@B=5@V2
+  </text>
+
+  <g>
+    <rect x="70" y="280" width="420" height="76" rx="24" fill="#39B54A"/>
+    <text x="112" y="332" font-family="system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif" font-size="34" font-weight="700" fill="#FFFFFF">
+      V7=0B8AO 1V;LH5
+    </text>
+  </g>
+
+  <g opacity="0.95">
+    <rect x="710" y="110" width="430" height="380" rx="40" fill="#FFFFFF" stroke="#1F3B73" stroke-opacity="0.18" stroke-width="6"/>
+    <path d="M780 260c0-26 21-47 47-47h200c26 0 47 21 47 47v80c0 26-21 47-47 47H827c-26 0-47-21-47-47v-80z" fill="#1F3B73" fill-opacity="0.06"/>
+    <path d="M820 280h120" stroke="#39B54A" stroke-width="10" stroke-linecap="round"/>
+    <path d="M820 320h200" stroke="#1F3B73" stroke-opacity="0.35" stroke-width="10" stroke-linecap="round"/>
+    <circle cx="1025" cy="280" r="30" fill="#39B54A" fill-opacity="0.14" stroke="#39B54A" stroke-width="6"/>
+  </g>
+
+  <path d="M0 520C220 430 360 450 520 520C720 610 860 610 1200 420" stroke="#39B54A" stroke-opacity="0.18" stroke-width="16"/>
+</svg>

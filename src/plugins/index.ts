@@ -1,26 +1,28 @@
+import { ecommercePlugin } from '@payloadcms/plugin-ecommerce'
 import { formBuilderPlugin } from '@payloadcms/plugin-form-builder'
 import { seoPlugin } from '@payloadcms/plugin-seo'
-import { Plugin } from 'payload'
 import { GenerateTitle, GenerateURL } from '@payloadcms/plugin-seo/types'
 import { FixedToolbarFeature, HeadingFeature, lexicalEditor } from '@payloadcms/richtext-lexical'
-import { ecommercePlugin } from '@payloadcms/plugin-ecommerce'
+import { Plugin } from 'payload'
 
-import { stripeAdapter } from '@payloadcms/plugin-ecommerce/payments/stripe'
+import { liqpayAdapter } from '@/payments/liqpay'
 
-import { Page, Product } from '@/payload-types'
-import { getServerSideURL } from '@/utilities/getURL'
-import { ProductsCollection } from '@/collections/Products'
-import { adminOrCustomerOwner } from '@/access/adminOrCustomerOwner'
-import { adminOrPublishedStatus } from '@/access/adminOrPublishedStatus'
 import { adminOnly } from '@/access/adminOnly'
 import { adminOnlyFieldAccess } from '@/access/adminOnlyFieldAccess'
+import { adminOrCustomerOwner } from '@/access/adminOrCustomerOwner'
+import { adminOrCustomerOwnerOrGuestCart } from '@/access/adminOrCustomerOwnerOrGuestCart'
+import { adminOrPublishedStatus } from '@/access/adminOrPublishedStatus'
 import { customerOnlyFieldAccess } from '@/access/customerOnlyFieldAccess'
+import { publicAccess } from '@/access/publicAccess'
+import { ProductsCollection } from '@/collections/Products'
+import { Product } from '@/payload-types'
+import { getServerSideURL } from '@/utilities/getURL'
 
-const generateTitle: GenerateTitle<Product | Page> = ({ doc }) => {
-  return doc?.title ? `${doc.title} | Payload Ecommerce Template` : 'Payload Ecommerce Template'
+const generateTitle: GenerateTitle<Product> = ({ doc }) => {
+  return doc?.title ? `${doc.title} | Магазин` : 'Магазин'
 }
 
-const generateURL: GenerateURL<Product | Page> = ({ doc }) => {
+const generateURL: GenerateURL<Product> = ({ doc }) => {
   const url = getServerSideURL()
 
   return doc?.slug ? `${url}/${doc.slug}` : url
@@ -37,12 +39,12 @@ export const plugins: Plugin[] = [
     },
     formSubmissionOverrides: {
       admin: {
-        group: 'Content',
+        group: 'Контент',
       },
     },
     formOverrides: {
       admin: {
-        group: 'Content',
+        group: 'Контент',
       },
       fields: ({ defaultFields }) => {
         return defaultFields.map((field) => {
@@ -72,21 +74,53 @@ export const plugins: Plugin[] = [
       adminOrCustomerOwner,
       adminOrPublishedStatus,
       customerOnlyFieldAccess,
+      publicAccess,
+    },
+    addresses: {
+      // Delivery only within Ukraine for now
+      supportedCountries: [{ label: 'Україна', value: 'UA' }],
+    },
+    currencies: {
+      defaultCurrency: 'UAH',
+      supportedCurrencies: [
+        {
+          code: 'UAH',
+          decimals: 2,
+          label: 'Українська гривня',
+          symbol: '₴',
+        },
+      ],
     },
     customers: {
       slug: 'users',
     },
     payments: {
       paymentMethods: [
-        stripeAdapter({
-          secretKey: process.env.STRIPE_SECRET_KEY!,
-          publishableKey: process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY!,
-          webhookSecret: process.env.STRIPE_WEBHOOKS_SIGNING_SECRET!,
+        liqpayAdapter({
+          publicKey: process.env.LIQPAY_PUBLIC_KEY!,
+          privateKey: process.env.LIQPAY_PRIVATE_KEY!,
+          serverURL: getServerSideURL(),
+          // Все основные методы оплаты для UA-магазина
+          paytypes: 'card,privat24,apay,gpay,moment_part,paypart,qr,invoice',
+          language: 'uk',
         }),
       ],
     },
     products: {
       productsCollectionOverride: ProductsCollection,
+    },
+    carts: {
+      cartsCollectionOverride: ({ defaultCollection }) => {
+        return {
+          ...defaultCollection,
+          access: {
+            ...defaultCollection.access,
+            read: adminOrCustomerOwnerOrGuestCart,
+            update: adminOrCustomerOwnerOrGuestCart,
+            delete: adminOrCustomerOwnerOrGuestCart,
+          },
+        }
+      },
     },
   }),
 ]

@@ -1,0 +1,6 @@
+:root{
+  --field-bg: var(--sys-surface);
+  --field-fg: var(--sys-text);
+  --field-bd: 1px solid var(--sys-border-strong);
+  --field-bd-focus: 1px solid var(--sys-focus);
+}

@@ -16,15 +16,46 @@ import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 import React, { useEffect, useMemo, useState } from 'react'
 
+import { Button } from '@/components/ui/button'
+import { Product } from '@/payload-types'
+import type { AppLocale } from '@/utilities/locale'
+import { getClientLocale } from '@/utilities/localeClient'
 import { DeleteItemButton } from './DeleteItemButton'
 import { EditItemQuantityButton } from './EditItemQuantityButton'
 import { OpenCartButton } from './OpenCart'
-import { Button } from '@/components/ui/button'
-import { Product } from '@/payload-types'
 
-export function CartModal() {
+const cartCopy: Record<
+  AppLocale,
+  {
+    title: string
+    description: string
+    empty: string
+    total: string
+    checkout: string
+  }
+> = {
+  ua: {
+    title: 'Кошик',
+    description: 'Керуйте кошиком тут — додавайте товари, щоб побачити суму.',
+    empty: 'Кошик порожній.',
+    total: 'Разом',
+    checkout: 'Оформити замовлення',
+  },
+  ru: {
+    title: 'Корзина',
+    description: 'Управляйте корзиной здесь — добавляйте товары, чтобы увидеть сумму.',
+    empty: 'Корзина пуста.',
+    total: 'Итого',
+    checkout: 'Оформить заказ',
+  },
+}
+
+export function CartModal({ locale }: { locale?: AppLocale }) {
   const { cart } = useCart()
   const [isOpen, setIsOpen] = useState(false)
+
+  const resolvedLocale = locale ?? getClientLocale()
+  const t = cartCopy[resolvedLocale]
 
   const pathname = usePathname()
 
@@ -41,20 +72,20 @@ export function CartModal() {
   return (
     <Sheet onOpenChange={setIsOpen} open={isOpen}>
       <SheetTrigger asChild>
-        <OpenCartButton quantity={totalQuantity} />
+        <OpenCartButton locale={resolvedLocale} quantity={totalQuantity} />
       </SheetTrigger>
 
       <SheetContent className="flex flex-col">
         <SheetHeader>
-          <SheetTitle>My Cart</SheetTitle>
+          <SheetTitle>{t.title}</SheetTitle>
 
-          <SheetDescription>Manage your cart here, add items to view the total.</SheetDescription>
+          <SheetDescription>{t.description}</SheetDescription>
         </SheetHeader>
 
         {!cart || cart?.items?.length === 0 ? (
           <div className="text-center flex flex-col items-center gap-2">
             <ShoppingCart className="h-16" />
-            <p className="text-center text-2xl font-bold">Your cart is empty.</p>
+            <p className="text-center text-2xl font-bold">{t.empty}</p>
           </div>
         ) : (
           <div className="grow flex px-4">
@@ -78,12 +109,12 @@ export function CartModal() {
                       : undefined
 
                   let image = firstGalleryImage || metaImage
-                  let price = product.priceInUSD
+                  let price = product.priceInUAH
 
                   const isVariant = Boolean(variant) && typeof variant === 'object'
 
                   if (isVariant) {
-                    price = variant?.priceInUSD
+                    price = variant?.priceInUAH
 
                     const imageVariant = product.gallery?.find((item) => {
                       if (!item.variantOption) return false
@@ -166,7 +197,7 @@ export function CartModal() {
                 <div className="py-4 text-sm text-neutral-500 dark:text-neutral-400">
                   {typeof cart?.subtotal === 'number' && (
                     <div className="mb-3 flex items-center justify-between border-b border-neutral-200 pb-1 pt-1 dark:border-neutral-700">
-                      <p>Total</p>
+                      <p>{t.total}</p>
                       <Price
                         amount={cart?.subtotal}
                         className="text-right text-base text-black dark:text-white"
@@ -176,7 +207,7 @@ export function CartModal() {
 
                   <Button asChild>
                     <Link className="w-full" href="/checkout">
-                      Proceed to Checkout
+                      {t.checkout}
                     </Link>
                   </Button>
                 </div>

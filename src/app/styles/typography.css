@@ -1,0 +1,64 @@
+[data-app="frontend"] {
+  font-family: var(--sys-font-family-base, 'Unbounded', system-ui, -apple-system, sans-serif);
+  /* Default text color - can be overridden by Tailwind utility classes */
+  color: var(--sys-text, var(--color-foreground));
+}
+
+[data-app="frontend"] h1 {
+  font-family: var(--sys-font-family-heading, 'Unbounded', system-ui, -apple-system, sans-serif);
+  font-size: var(--sys-pobut_H1-size);
+  font-weight: var(--sys-pobut_H1-weight);
+  line-height: var(--sys-pobut_H1-line-height);
+  letter-spacing: var(--sys-pobut_H1-letter-spacing);
+  /* color removed - use Tailwind text color utilities instead (e.g., text-sys-text) */
+  margin: 0;
+}
+
+[data-app="frontend"] h2 {
+  font-family: var(--sys-font-family-heading, 'Unbounded', system-ui, -apple-system, sans-serif);
+  font-size: var(--sys-pobut_H2-size);
+  font-weight: var(--sys-pobut_H2-weight);
+  line-height: var(--sys-pobut_H2-line-height);
+  letter-spacing: var(--sys-pobut_H2-letter-spacing);
+  /* color removed - use Tailwind text color utilities instead (e.g., text-sys-text) */
+  margin: 0;
+}
+
+[data-app="frontend"] h3 {
+  font-family: var(--sys-font-family-heading, 'Unbounded', system-ui, -apple-system, sans-serif);
+  font-size: var(--sys-pobut_H3-size);
+  font-weight: var(--sys-pobut_H3-weight);
+  line-height: var(--sys-pobut_H3-line-height);
+  letter-spacing: var(--sys-pobut_H3-letter-spacing);
+  /* color removed - use Tailwind text color utilities instead (e.g., text-sys-text) */
+  margin: 0;
+}
+
+[data-app="frontend"] body,
+[data-app="frontend"] p {
+  font-family: var(--sys-font-family-body, 'Unbounded', system-ui, -apple-system, sans-serif);
+  font-size: var(--sys-pobut_body-size);
+  font-weight: var(--sys-pobut_body-weight);
+  line-height: var(--sys-pobut_body-line-height);
+  letter-spacing: var(--sys-pobut_body-letter-spacing);
+  /* color removed - use Tailwind text color utilities instead (e.g., text-sys-text) */
+  margin: 0;
+}
+
+[data-app="frontend"] small,
+[data-app="frontend"] .caption {
+  font-family: var(--sys-font-family-body, 'Unbounded', system-ui, -apple-system, sans-serif);
+  font-size: var(--sys-pobut_caption-size);
+  font-weight: var(--sys-pobut_caption-weight);
+  line-height: var(--sys-pobut_caption-line-height);
+  letter-spacing: var(--sys-pobut_caption-letter-spacing);
+  /* color removed - use Tailwind text color utilities instead (e.g., text-sys-text) */
+}
+
+[data-app="frontend"] .font-regular {
+  font-weight: var(--sys-font-weight-regular);
+}
+
+[data-app="frontend"] .font-bold {
+  font-weight: var(--sys-font-weight-bold);
+}

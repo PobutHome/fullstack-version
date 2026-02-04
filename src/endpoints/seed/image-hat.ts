@@ -1,7 +1,7 @@
 import { RequiredDataFromCollectionSlug } from 'payload'
 
 export const imageHatData: RequiredDataFromCollectionSlug<'media'> = {
-  alt: 'Black hat with the Payload logo on the front',
+  alt: 'Чорна кепка з логотипом спереду',
   caption: {
     root: {
       type: 'root',

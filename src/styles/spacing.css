@@ -1,0 +1,240 @@
+/**
+ * SPACING SYSTEM
+ * 
+ * Responsive spacing tokens based on Figma design specifications.
+ * All values use rem units for accessibility and scalability.
+ * 
+ * Spacing Scale:
+ * - Mobile: Compact spacing for small screens
+ * - Tablet: Medium spacing for medium screens  
+ * - Desktop: Generous spacing for large screens
+ */
+
+:root {
+  /* ============================================
+     MOBILE SPACING (< 768px)
+     ============================================ */
+  
+  --spacing-margin: 0.625rem;     /* 10px */
+  --spacing-gap: 0.625rem;        /* 10px */
+  --spacing-section: 1.25rem;     /* 20px */
+  
+  /* ============================================
+     SEMANTIC SPACING SCALE
+     ============================================ */
+  
+  --spacing-3xs: 0.125rem;   /* 2px */
+  --spacing-2xs: 0.25rem;    /* 4px */
+  --spacing-xs: 0.5rem;      /* 8px */
+  --spacing-sm: 0.75rem;     /* 12px */
+  --spacing-md: 1rem;        /* 16px */
+  --spacing-lg: 1.5rem;      /* 24px */
+  --spacing-xl: 2rem;        /* 32px */
+  --spacing-2xl: 2.5rem;     /* 40px */
+  --spacing-3xl: 3rem;       /* 48px */
+  --spacing-4xl: 4rem;       /* 64px */
+  --spacing-5xl: 5rem;       /* 80px */
+  --spacing-6xl: 6rem;       /* 96px */
+}
+
+/* ============================================
+   TABLET SPACING (≥ 768px)
+   ============================================ */
+
+@media (min-width: 48rem) {
+  :root {
+    --spacing-margin: 3.125rem;     /* 50px */
+    --spacing-gap: 0.625rem;        /* 10px */
+    --spacing-section: 1.25rem;     /* 20px */
+    --spacing-section-alt: 1.875rem; /* 30px */
+  }
+}
+
+/* ============================================
+   DESKTOP SPACING (>= 1024px)
+   ============================================ */
+
+@media (min-width: 64rem) {
+  :root {
+    --spacing-margin: 9.375rem;     /* 150px */
+    --spacing-gap: 1.25rem;         /* 20px */
+    --spacing-section: 3.125rem;    /* 50px */
+  }
+}
+
+/* ============================================
+   CARD SPACING
+   ============================================ */
+
+:root {
+  --card-padding-sm: 0.75rem;   /* 12px */
+  --card-padding-md: 1.25rem;   /* 20px */
+  --card-padding-lg: 1.5rem;    /* 24px */
+  --card-padding-xl: 2rem;      /* 32px */
+  
+  --card-gap-sm: 0.5rem;        /* 8px */
+  --card-gap-md: 1rem;          /* 16px */
+  --card-gap-lg: 1.5rem;        /* 24px */
+}
+
+/* ============================================
+   UTILITY CLASSES
+   ============================================ */
+
+/* Margin Utilities */
+.spacing-margin {
+  margin: var(--spacing-margin);
+}
+
+.spacing-margin-x {
+  margin-left: var(--spacing-margin);
+  margin-right: var(--spacing-margin);
+}
+
+.spacing-margin-y {
+  margin-top: var(--spacing-margin);
+  margin-bottom: var(--spacing-margin);
+}
+
+.spacing-margin-top {
+  margin-top: var(--spacing-margin);
+}
+
+.spacing-margin-bottom {
+  margin-bottom: var(--spacing-margin);
+}
+
+.spacing-margin-left {
+  margin-left: var(--spacing-margin);
+}
+
+.spacing-margin-right {
+  margin-right: var(--spacing-margin);
+}
+
+/* Gap Utilities */
+.spacing-gap {
+  gap: var(--spacing-gap);
+}
+
+.spacing-gap-x {
+  column-gap: var(--spacing-gap);
+}
+
+.spacing-gap-y {
+  row-gap: var(--spacing-gap);
+}
+
+/* Section Spacing */
+.spacing-section {
+  padding: var(--spacing-section);
+}
+
+.spacing-section-x {
+  padding-left: var(--spacing-section);
+  padding-right: var(--spacing-section);
+}
+
+.spacing-section-y {
+  padding-top: var(--spacing-section);
+  padding-bottom: var(--spacing-section);
+}
+
+.spacing-section-top {
+  padding-top: var(--spacing-section);
+}
+
+.spacing-section-bottom {
+  padding-bottom: var(--spacing-section);
+}
+
+/* Fixed Size Spacing (Not Responsive) */
+/* Desktop */
+.spacing-desktop-margin {
+  margin: 9.375rem; /* 150px */
+}
+
+.spacing-desktop-gap {
+  gap: 1.25rem; /* 20px */
+}
+
+.spacing-desktop-section {
+  padding: 3.125rem; /* 50px */
+}
+
+/* Tablet */
+.spacing-tablet-margin {
+  margin: 3.125rem; /* 50px */
+}
+
+.spacing-tablet-gap {
+  gap: 0.625rem; /* 10px */
+}
+
+.spacing-tablet-section {
+  padding: 1.25rem; /* 20px */
+}
+
+.spacing-tablet-section-alt {
+  padding: 1.875rem; /* 30px */
+}
+
+/* Mobile */
+.spacing-mobile-margin {
+  margin: 0.625rem; /* 10px */
+}
+
+.spacing-mobile-gap {
+  gap: 0.625rem; /* 10px */
+}
+
+.spacing-mobile-section {
+  padding: 1.25rem; /* 20px */
+}
+
+/* ============================================
+   SEMANTIC SPACING UTILITIES
+   Scale from 3xs to 6xl
+   ============================================ */
+
+/* Padding */
+.p-3xs { padding: var(--spacing-3xs); }
+.p-2xs { padding: var(--spacing-2xs); }
+.p-xs { padding: var(--spacing-xs); }
+.p-sm { padding: var(--spacing-sm); }
+.p-md { padding: var(--spacing-md); }
+.p-lg { padding: var(--spacing-lg); }
+.p-xl { padding: var(--spacing-xl); }
+.p-2xl { padding: var(--spacing-2xl); }
+.p-3xl { padding: var(--spacing-3xl); }
+.p-4xl { padding: var(--spacing-4xl); }
+.p-5xl { padding: var(--spacing-5xl); }
+.p-6xl { padding: var(--spacing-6xl); }
+
+/* Margin */
+.m-3xs { margin: var(--spacing-3xs); }
+.m-2xs { margin: var(--spacing-2xs); }
+.m-xs { margin: var(--spacing-xs); }
+.m-sm { margin: var(--spacing-sm); }
+.m-md { margin: var(--spacing-md); }
+.m-lg { margin: var(--spacing-lg); }
+.m-xl { margin: var(--spacing-xl); }
+.m-2xl { margin: var(--spacing-2xl); }
+.m-3xl { margin: var(--spacing-3xl); }
+.m-4xl { margin: var(--spacing-4xl); }
+.m-5xl { margin: var(--spacing-5xl); }
+.m-6xl { margin: var(--spacing-6xl); }
+
+/* Gap */
+.gap-3xs { gap: var(--spacing-3xs); }
+.gap-2xs { gap: var(--spacing-2xs); }
+.gap-xs { gap: var(--spacing-xs); }
+.gap-sm { gap: var(--spacing-sm); }
+.gap-md { gap: var(--spacing-md); }
+.gap-lg { gap: var(--spacing-lg); }
+.gap-xl { gap: var(--spacing-xl); }
+.gap-2xl { gap: var(--spacing-2xl); }
+.gap-3xl { gap: var(--spacing-3xl); }
+.gap-4xl { gap: var(--spacing-4xl); }
+.gap-5xl { gap: var(--spacing-5xl); }
+.gap-6xl { gap: var(--spacing-6xl); }

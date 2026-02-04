@@ -25,7 +25,7 @@ export const productTshirtData: (
     variantTypes: variantTypes,
     inventory: 0,
     meta: {
-      title: 'Tshirt | Payload Ecommerce Template',
+      title: 'Tshirt | Магазин',
       image: metaImage,
       description:
         'Top off your look with our classic Tshirt, crafted for style and comfort. Made with breathable, high-quality materials and an adjustable strap for the perfect fit.',
@@ -1169,8 +1169,8 @@ export const productTshirtData: (
     gallery: galleryImages,
     title: 'Tshirt',
     slug: 'tshirt',
-    priceInUSDEnabled: true,
-    priceInUSD: 4999,
+    priceInUAHEnabled: true,
+    priceInUAH: 4999,
     relatedProducts: relatedProducts,
   }
 }
@@ -1179,7 +1179,7 @@ type ProductVariantArgs = {
   product: Product
   variantOptions: VariantOption[]
   inventory?: number
-  priceInUSD?: number
+  priceInUAH?: number
 }
 
 export const productTshirtVariant: (
@@ -1188,14 +1188,14 @@ export const productTshirtVariant: (
   product,
   variantOptions,
   inventory = 492,
-  priceInUSD = 4999,
+  priceInUAH = 4999,
 }) => {
   return {
     product: product,
     options: variantOptions,
     inventory,
-    priceInUSDEnabled: true,
-    priceInUSD,
+    priceInUAHEnabled: true,
+    priceInUAH,
     _status: 'published',
   }
 }

@@ -1,20 +1,17 @@
-import type { CollectionSlug, GlobalSlug, Payload, PayloadRequest, File } from 'payload'
+import type { CollectionSlug, File, Payload, PayloadRequest } from 'payload'
 
+import { Address, Transaction, VariantOption } from '@/payload-types'
 import { contactFormData } from './contact-form'
-import { contactPageData } from './contact-page'
-import { productHatData } from './product-hat'
-import { productTshirtData, productTshirtVariant } from './product-tshirt'
-import { homePageData } from './home'
 import { imageHatData } from './image-hat'
+import { imageHero1Data } from './image-hero-1'
 import { imageTshirtBlackData } from './image-tshirt-black'
 import { imageTshirtWhiteData } from './image-tshirt-white'
-import { imageHero1Data } from './image-hero-1'
-import { Address, Transaction, VariantOption } from '@/payload-types'
+import { productHatData } from './product-hat'
+import { productTshirtData, productTshirtVariant } from './product-tshirt'
 
 const collections: CollectionSlug[] = [
   'categories',
   'media',
-  'pages',
   'products',
   'forms',
   'form-submissions',
@@ -40,8 +37,6 @@ const colorVariantOptions = [
   { label: 'Black', value: 'black' },
   { label: 'White', value: 'white' },
 ]
-
-const globals: GlobalSlug[] = ['header', 'footer']
 
 const baseAddressUSData: Transaction['billingAddress'] = {
   title: 'Dr.',
@@ -86,22 +81,6 @@ export const seed = async ({
   // this is because while `yarn seed` drops the database
   // the custom `/api/seed` endpoint does not
   payload.logger.info(`— Clearing collections and globals...`)
-
-  // clear the database
-  await Promise.all(
-    globals.map((global) =>
-      payload.updateGlobal({
-        slug: global,
-        data: {
-          navItems: [],
-        },
-        depth: 0,
-        context: {
-          disableRevalidate: true,
-        },
-      }),
-    ),
-  )
 
   for (const collection of collections) {
     await payload.db.deleteMany({ collection, req, where: {} })
@@ -311,26 +290,6 @@ export const seed = async ({
     data: contactFormData(),
   })
 
-  payload.logger.info(`— Seeding pages...`)
-
-  const [_, contactPage] = await Promise.all([
-    payload.create({
-      collection: 'pages',
-      depth: 0,
-      data: homePageData({
-        contentImage: imageHero,
-        metaImage: imageHat,
-      }),
-    }),
-    payload.create({
-      collection: 'pages',
-      depth: 0,
-      data: contactPageData({
-        contactForm: contactForm,
-      }),
-    }),
-  ])
-
   payload.logger.info(`— Seeding addresses...`)
 
   const customerUSAddress = await payload.create({
@@ -356,12 +315,11 @@ export const seed = async ({
   const pendingTransaction = await payload.create({
     collection: 'transactions',
     data: {
-      currency: 'USD',
+      currency: 'UAH',
       customer: customer.id,
-      paymentMethod: 'stripe',
-      stripe: {
-        customerID: 'cus_123',
-        paymentIntentID: 'pi_123',
+      paymentMethod: 'liqpay',
+      liqpay: {
+        orderID: 'txn_seed_pending',
       },
       status: 'pending',
       billingAddress: baseAddressUSData,
@@ -371,12 +329,11 @@ export const seed = async ({
   const succeededTransaction = await payload.create({
     collection: 'transactions',
     data: {
-      currency: 'USD',
+      currency: 'UAH',
       customer: customer.id,
-      paymentMethod: 'stripe',
-      stripe: {
-        customerID: 'cus_123',
-        paymentIntentID: 'pi_123',
+      paymentMethod: 'liqpay',
+      liqpay: {
+        orderID: 'txn_seed_succeeded',
       },
       status: 'succeeded',
       billingAddress: baseAddressUSData,
@@ -396,7 +353,7 @@ export const seed = async ({
     collection: 'carts',
     data: {
       customer: customer.id,
-      currency: 'USD',
+      currency: 'UAH',
       items: [
         {
           product: productTshirt.id,
@@ -413,7 +370,7 @@ export const seed = async ({
   const abandonedCart = await payload.create({
     collection: 'carts',
     data: {
-      currency: 'USD',
+      currency: 'UAH',
       createdAt: oldTimestamp,
       items: [
         {
@@ -429,7 +386,7 @@ export const seed = async ({
     collection: 'carts',
     data: {
       customer: customer.id,
-      currency: 'USD',
+      currency: 'UAH',
       purchasedAt: new Date().toISOString(),
       subtotal: 7499,
       items: [
@@ -459,7 +416,7 @@ export const seed = async ({
     collection: 'orders',
     data: {
       amount: 7499,
-      currency: 'USD',
+      currency: 'UAH',
       customer: customer.id,
       shippingAddress: baseAddressUSData,
       items: [
@@ -483,7 +440,7 @@ export const seed = async ({
     collection: 'orders',
     data: {
       amount: 7499,
-      currency: 'USD',
+      currency: 'UAH',
       customer: customer.id,
       shippingAddress: baseAddressUSData,
       items: [
@@ -502,76 +459,6 @@ export const seed = async ({
       transactions: [succeededTransaction.id],
     },
   })
-
-  payload.logger.info(`— Seeding globals...`)
-
-  await Promise.all([
-    payload.updateGlobal({
-      slug: 'header',
-      data: {
-        navItems: [
-          {
-            link: {
-              type: 'custom',
-              label: 'Home',
-              url: '/',
-            },
-          },
-          {
-            link: {
-              type: 'custom',
-              label: 'Shop',
-              url: '/shop',
-            },
-          },
-          {
-            link: {
-              type: 'custom',
-              label: 'Account',
-              url: '/account',
-            },
-          },
-        ],
-      },
-    }),
-    payload.updateGlobal({
-      slug: 'footer',
-      data: {
-        navItems: [
-          {
-            link: {
-              type: 'custom',
-              label: 'Admin',
-              url: '/admin',
-            },
-          },
-          {
-            link: {
-              type: 'custom',
-              label: 'Find my order',
-              url: '/find-order',
-            },
-          },
-          {
-            link: {
-              type: 'custom',
-              label: 'Source Code',
-              newTab: true,
-              url: 'https://github.com/payloadcms/payload/tree/main/templates/website',
-            },
-          },
-          {
-            link: {
-              type: 'custom',
-              label: 'Payload',
-              newTab: true,
-              url: 'https://payloadcms.com/',
-            },
-          },
-        ],
-      },
-    }),
-  ])
 
   payload.logger.info('Seeded database successfully!')
 }

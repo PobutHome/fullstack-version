@@ -1,11 +1,16 @@
 'use client'
 
-import type { Header } from '@/payload-types'
-
-import { CMSLink } from '@/components/Link'
-import { Button } from '@/components/ui/button'
+import { Button } from '@/components/Button'
+import { UserRoundIcon } from '@/components/icons/UserRoundIcon'
+import {
+  Accordion,
+  AccordionContent,
+  AccordionItem,
+  AccordionTrigger,
+} from '@/components/ui/accordion'
 import {
   Sheet,
+  SheetClose,
   SheetContent,
   SheetDescription,
   SheetHeader,
@@ -13,23 +18,63 @@ import {
   SheetTrigger,
 } from '@/components/ui/sheet'
 import { useAuth } from '@/providers/Auth'
+import type { AppLocale } from '@/utilities/locale'
 import { MenuIcon } from 'lucide-react'
 import Link from 'next/link'
 import { usePathname, useSearchParams } from 'next/navigation'
-import React, { useEffect, useState } from 'react'
+import { useEffect, useState } from 'react'
+import { LanguageSwitcher } from './LanguageSwitcher'
 
 interface Props {
-  menu: Header['navItems']
+  locale: AppLocale
+  categories: Array<{
+    id: string
+    title: string
+    slug?: string | null
+    products: Array<{
+      id: string
+      title: string
+      slug: string
+    }>
+  }>
 }
 
-export function MobileMenu({ menu }: Props) {
+const menuCopy: Record<
+  AppLocale,
+  {
+    catalog: string
+    account: string
+    emptyCategory: string
+    viewCategory: string
+    login: string
+    logout: string
+  }
+> = {
+  ua: {
+    catalog: 'Каталог',
+    account: 'Кабінет',
+    emptyCategory: 'Поки немає товарів',
+    viewCategory: 'Перейти до категорії',
+    login: 'Увійти',
+    logout: 'Вийти',
+  },
+  ru: {
+    catalog: 'Каталог',
+    account: 'Кабинет',
+    emptyCategory: 'Пока нет товаров',
+    viewCategory: 'Перейти к категории',
+    login: 'Войти',
+    logout: 'Выйти',
+  },
+}
+
+export function MobileMenu({ locale, categories }: Props) {
   const { user } = useAuth()
+  const t = menuCopy[locale]
 
   const pathname = usePathname()
   const searchParams = useSearchParams()
   const [isOpen, setIsOpen] = useState(false)
-
-  const closeMobileMenu = () => setIsOpen(false)
 
   useEffect(() => {
     const handleResize = () => {
@@ -47,62 +92,92 @@ export function MobileMenu({ menu }: Props) {
 
   return (
     <Sheet onOpenChange={setIsOpen} open={isOpen}>
-      <SheetTrigger className="relative flex h-11 w-11 items-center justify-center rounded-md border border-neutral-200 text-black transition-colors dark:border-neutral-700 dark:bg-black dark:text-white">
-        <MenuIcon className="h-4" />
+      <SheetTrigger className="relative flex items-center justify-center rounded-md text-sys-accent transition-colors pobut-body-mobile">
+        <MenuIcon className="size-[30px]" />
       </SheetTrigger>
 
-      <SheetContent side="left" className="px-4">
-        <SheetHeader className="px-0 pt-4 pb-0">
-          <SheetTitle>My Store</SheetTitle>
-
-          <SheetDescription />
+      <SheetContent
+        side="left"
+        className="p-space-20 bg-sys-bg text-sys-text overflow-y-auto overscroll-contain"
+      >
+        <SheetHeader className="">
+          <div className="flex items-center justify-between ">
+            <LanguageSwitcher locale={locale} />
+          </div>
+          <SheetTitle className="sr-only">{t.catalog}</SheetTitle>
+          <SheetDescription className="sr-only" />
         </SheetHeader>
 
-        <div className="py-4">
-          {menu?.length ? (
-            <ul className="flex w-full flex-col">
-              {menu.map((item) => (
-                <li className="py-2" key={item.id}>
-                  <CMSLink {...item.link} appearance="link" />
-                </li>
-              ))}
-            </ul>
-          ) : null}
+        <div className=" flex flex-col gap-space-10 py-space-20">
+          <SheetClose asChild>
+            <Link className="flex items-center text-sys-text" href={user ? '/account' : '/login'}>
+              <UserRoundIcon className="size-[25px]" />
+              <span className="pl-2">{t.account}</span>
+            </Link>
+          </SheetClose>
+          <Link href={'tel:+380987307280'}>
+            {' '}
+            <span>+38 (098) 730 72 80</span>
+          </Link>
         </div>
 
+          <Accordion type="multiple" className="w-full flex flex-col gap-space-10">  
+            {categories.map((category) => (
+              <AccordionItem
+                key={category.id}
+                value={category.id}
+                className="border-b-0"
+              >
+                <AccordionTrigger className=" hover:no-underline text-sys-text data-[state=open]:text-sys-accent [&>svg]:text-sys-text-muted data-[state=open]:[&>svg]:text-sys-accent">
+                  <SheetClose asChild>
+                    <Link
+                      className="pobut-H2"
+                      href={`/catalog?category=${category.id}`}
+                      onClick={(event) => event.stopPropagation()}
+                    >
+                      {category.title}
+                    </Link>
+                  </SheetClose>
+                </AccordionTrigger>
+                <AccordionContent className="pb-0">
+                  {category.products.length ? (
+                    <ul className="flex flex-col gap-2 pl-4">
+                      {category.products.map((product) => (
+                        <li key={product.id}>
+                          <SheetClose asChild>
+                            <Link
+                              className="pobut-body-mobile text-sys-text hover:text-sys-accent"
+                              href={`/products/${product.slug}`}
+                            >
+                              {product.title}
+                            </Link>
+                          </SheetClose>
+                        </li>
+                      ))}
+                    </ul>
+                  ) : (
+                    <p className="text-sys-text-muted pl-4">{t.emptyCategory}</p>
+                  )}
+                </AccordionContent>
+              </AccordionItem>
+            ))}
+          </Accordion>
+
         {user ? (
-          <div className="mt-4">
-            <h2 className="text-xl mb-4">My account</h2>
-            <hr className="my-2" />
-            <ul className="flex flex-col gap-2">
-              <li>
-                <Link href="/orders">Orders</Link>
-              </li>
-              <li>
-                <Link href="/account/addresses">Addresses</Link>
-              </li>
-              <li>
-                <Link href="/account">Manage account</Link>
-              </li>
-              <li className="mt-6">
-                <Button asChild variant="outline">
-                  <Link href="/logout">Log out</Link>
-                </Button>
-              </li>
-            </ul>
+          <div className="">
+            <Button asChild variant="outline" size="sm">
+              <SheetClose asChild>
+                <Link href="/logout">{t.logout}</Link>
+              </SheetClose>
+            </Button>
           </div>
         ) : (
-          <div>
-            <h2 className="text-xl mb-4">My account</h2>
-            <div className="flex items-center gap-2 mt-4">
-              <Button asChild className="w-full" variant="outline">
-                <Link href="/login">Log in</Link>
-              </Button>
-              <span>or</span>
-              <Button asChild className="w-full">
-                <Link href="/create-account">Create an account</Link>
-              </Button>
-            </div>
+          <div className="">
+            <Button asChild variant="outline" size="sm">
+              <SheetClose asChild>
+                <Link href="/login">{t.login}</Link>
+              </SheetClose>
+            </Button>
           </div>
         )}
       </SheetContent>

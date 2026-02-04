@@ -1,34 +1,22 @@
 import type { Metadata } from 'next'
 
 import { mergeOpenGraph } from '@/utilities/mergeOpenGraph'
-import React, { Fragment } from 'react'
 
 import { CheckoutPage } from '@/components/checkout/CheckoutPage'
+
+export const dynamic = 'force-dynamic'
+export const revalidate = 0
 
 export default function Checkout() {
   return (
     <div className="container min-h-[90vh] flex">
-      {!process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY && (
+      {(!process.env.LIQPAY_PUBLIC_KEY || !process.env.LIQPAY_PRIVATE_KEY) && (
         <div>
-          <Fragment>
-            {'To enable checkout, you must '}
-            <a
-              href="https://dashboard.stripe.com/test/apikeys"
-              rel="noopener noreferrer"
-              target="_blank"
-            >
-              obtain your Stripe API Keys
-            </a>
-            {' then set them as environment variables. See the '}
-            <a
-              href="https://github.com/payloadcms/payload/blob/main/templates/ecommerce/README.md#stripe"
-              rel="noopener noreferrer"
-              target="_blank"
-            >
-              README
-            </a>
-            {' for more details.'}
-          </Fragment>
+          {'Щоб увімкнути оплату через LiqPay, додайте у env змінні '}
+          <code>LIQPAY_PUBLIC_KEY</code>
+          {' та '}
+          <code>LIQPAY_PRIVATE_KEY</code>
+          {'.'}
         </div>
       )}
 

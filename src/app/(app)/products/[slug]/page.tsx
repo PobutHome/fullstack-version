@@ -4,15 +4,16 @@ import { RenderBlocks } from '@/blocks/RenderBlocks'
 import { GridTileImage } from '@/components/Grid/tile'
 import { Gallery } from '@/components/product/Gallery'
 import { ProductDescription } from '@/components/product/ProductDescription'
+import { Button } from '@/components/ui/button'
+import { getRequestLocale } from '@/utilities/locale'
 import configPromise from '@payload-config'
-import { getPayload } from 'payload'
+import { ChevronLeftIcon } from 'lucide-react'
+import { Metadata } from 'next'
 import { draftMode } from 'next/headers'
 import Link from 'next/link'
 import { notFound } from 'next/navigation'
+import { getPayload } from 'payload'
 import React, { Suspense } from 'react'
-import { Button } from '@/components/ui/button'
-import { ChevronLeftIcon } from 'lucide-react'
-import { Metadata } from 'next'
 
 type Args = {
   params: Promise<{
@@ -81,12 +82,12 @@ export default async function ProductPage({ params }: Args) {
       })
     : product.inventory! > 0
 
-  let price = product.priceInUSD
+  let price = product.priceInUAH
 
   if (product.enableVariants && product?.variants?.docs?.length) {
     price = product?.variants?.docs?.reduce((acc, variant) => {
-      if (typeof variant === 'object' && variant?.priceInUSD && acc && variant?.priceInUSD > acc) {
-        return variant.priceInUSD
+      if (typeof variant === 'object' && variant?.priceInUAH && acc && variant?.priceInUAH > acc) {
+        return variant.priceInUAH
       }
       return acc
     }, price)
@@ -102,7 +103,7 @@ export default async function ProductPage({ params }: Args) {
       '@type': 'AggregateOffer',
       availability: hasStock ? 'https://schema.org/InStock' : 'https://schema.org/OutOfStock',
       price: price,
-      priceCurrency: 'usd',
+      priceCurrency: 'UAH',
     },
   }
 
@@ -169,7 +170,7 @@ function RelatedProducts({ products }: { products: Product[] }) {
             <Link className="relative h-full w-full" href={`/products/${product.slug}`}>
               <GridTileImage
                 label={{
-                  amount: product.priceInUSD!,
+                  amount: product.priceInUAH!,
                   title: product.title,
                 }}
                 media={product.meta?.image as Media}
@@ -184,6 +185,7 @@ function RelatedProducts({ products }: { products: Product[] }) {
 
 const queryProductBySlug = async ({ slug }: { slug: string }) => {
   const { isEnabled: draft } = await draftMode()
+  const locale = await getRequestLocale()
 
   const payload = await getPayload({ config: configPromise })
 
@@ -191,6 +193,7 @@ const queryProductBySlug = async ({ slug }: { slug: string }) => {
     collection: 'products',
     depth: 3,
     draft,
+    locale,
     limit: 1,
     overrideAccess: draft,
     pagination: false,
@@ -207,7 +210,7 @@ const queryProductBySlug = async ({ slug }: { slug: string }) => {
     populate: {
       variants: {
         title: true,
-        priceInUSD: true,
+        priceInUAH: true,
         inventory: true,
         options: true,
       },

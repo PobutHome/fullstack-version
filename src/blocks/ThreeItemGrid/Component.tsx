@@ -1,20 +1,20 @@
-import type { Media, Product, ThreeItemGridBlock as ThreeItemGridBlockProps } from '@/payload-types'
+import type { Media, Product } from '@/payload-types'
 
 import { GridTileImage } from '@/components/Grid/tile'
 import Link from 'next/link'
-import React from 'react'
 import type { DefaultDocumentIDType } from 'payload'
+import React from 'react'
 
 type Props = { item: Product; priority?: boolean; size: 'full' | 'half' }
 
 export const ThreeItemGridItem: React.FC<Props> = ({ item, size }) => {
-  let price = item.priceInUSD
+  let price = item.priceInUAH
 
   if (item.enableVariants && item.variants?.docs?.length) {
     const variant = item.variants.docs[0]
 
-    if (variant && typeof variant === 'object' && variant.priceInUSD) {
-      price = variant.priceInUSD
+    if (variant && typeof variant === 'object' && variant.priceInUAH) {
+      price = variant.priceInUAH
     }
   }
 
@@ -37,7 +37,8 @@ export const ThreeItemGridItem: React.FC<Props> = ({ item, size }) => {
 }
 
 export const ThreeItemGridBlock: React.FC<
-  ThreeItemGridBlockProps & {
+  {
+    products?: (string | Product | null)[] | null
     id?: DefaultDocumentIDType
     className?: string
   }

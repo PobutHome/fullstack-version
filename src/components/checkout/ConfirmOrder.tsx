@@ -19,28 +19,57 @@ export const ConfirmOrder: React.FC = () => {
       return
     }
 
-    const paymentIntentID = searchParams.get('payment_intent')
+    const liqpayOrderID = searchParams.get('order_id')
     const email = searchParams.get('email')
 
-    if (paymentIntentID) {
+    if (liqpayOrderID) {
       if (!isConfirming.current) {
         isConfirming.current = true
 
-        confirmOrder('stripe', {
-          additionalData: {
-            paymentIntentID,
-          },
-        }).then((result) => {
+        const startedAt = Date.now()
+        const maxMs = 60_000
+
+        const tick = async () => {
+          let result: unknown = null
+
+          try {
+            result = await confirmOrder('liqpay', {
+              additionalData: {
+                orderID: liqpayOrderID,
+              },
+            })
+          } catch {
+            // Пока LiqPay callback не обновил transaction → confirmOrder бросает ошибку.
+            // Просто продолжаем polling.
+          }
+
           if (result && typeof result === 'object' && 'orderID' in result && result.orderID) {
             router.push(`/shop/order/${result.orderID}?email=${email}`)
+            return true
           }
-        })
+
+          if (Date.now() - startedAt > maxMs) {
+            router.push(`/shop?warning=${encodeURIComponent('Payment is still processing. Please check your email or try again later.')}`)
+            return true
+          }
+
+          return false
+        }
+
+        // poll until webhook confirms payment and order is created
+        const interval = setInterval(() => {
+          void tick().then((done) => {
+            if (done) clearInterval(interval)
+          })
+        }, 1500)
+
+        void tick()
       }
     } else {
       // If no payment intent ID is found, redirect to the home
       router.push('/')
     }
-  }, [cart, searchParams])
+  }, [cart, confirmOrder, router, searchParams])
 
   return (
     <div className="text-center w-full flex flex-col items-center justify-start gap-4">

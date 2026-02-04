@@ -26,8 +26,8 @@ type Props = {
 export const CreateAddressModal: React.FC<Props> = ({
   addressID,
   initialData,
-  buttonText = 'Add a new address',
-  modalTitle = 'Add a new address',
+  buttonText = 'Додати нову адресу',
+  modalTitle = 'Додавання нової адреси',
   callback,
   skipSubmission,
   disabled,
@@ -52,12 +52,19 @@ export const CreateAddressModal: React.FC<Props> = ({
   return (
     <Dialog open={open} onOpenChange={handleOpenChange}>
       <DialogTrigger asChild disabled={disabled}>
-        <Button variant={'outline'}>{buttonText}</Button>
+        <Button
+          variant="outline"
+          className="rounded-radius-full border-sys-btn-outline-border text-sys-btn-outline-fg hover:border-sys-btn-outline-border-hover hover:text-sys-btn-outline-fg-hover"
+        >
+          {buttonText}
+        </Button>
       </DialogTrigger>
-      <DialogContent>
-        <DialogHeader>
-          <DialogTitle>{modalTitle}</DialogTitle>
-          <DialogDescription>This address will be connected to your account.</DialogDescription>
+      <DialogContent className="bg-sys-surface border-sys-accent rounded-radius-primary shadow-shadow-md p-space-20 tablet:p-space-30 sm:max-w-208">
+        <DialogHeader className="text-center sm:text-center">
+          <DialogTitle className="pobut-H3 text-sys-text">{modalTitle}</DialogTitle>
+          <DialogDescription className="text-sys-text-muted">
+            Ця адреса буде прив&apos;язана до вашого акаунту.
+          </DialogDescription>
         </DialogHeader>
 
         <AddressForm

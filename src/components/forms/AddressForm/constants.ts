@@ -1,1 +1,2 @@
-export const titles = ['Mr.', 'Mrs.', 'Ms.', 'Dr.', 'Prof.', 'Mx.', 'Other']
+// Ukrainian options for "Sex" field (stored in Address.title)
+export const titles = ['Чоловіча', 'Жіноча', 'Інше']
