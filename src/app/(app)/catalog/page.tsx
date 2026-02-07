@@ -13,6 +13,8 @@ export const metadata: Metadata = {
   description: 'Каталог товарів з фільтрацією по категоріях та швидким додаванням у кошик.',
 }
 
+export const runtime = 'nodejs'
+
 export default async function CatalogPage() {
   const payload = await getPayload({ config: configPromise })
   const locale = await getRequestLocale()
