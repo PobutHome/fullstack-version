@@ -103,6 +103,15 @@ export function CatalogProductCard({ product }: Props) {
     router.push(href)
   }, [href, router])
 
+  const onOpenFromButton = useCallback(
+    (e: React.MouseEvent<HTMLButtonElement>) => {
+      e.preventDefault()
+      e.stopPropagation()
+      router.push(href)
+    },
+    [href, router],
+  )
+
   return (
     <article
       role="link"
@@ -152,7 +161,7 @@ export function CatalogProductCard({ product }: Props) {
         </div>
 
         <div className="min-w-0">
-          <p className="m-0 text-color-black overflow-hidden [display:-webkit-box] [-webkit-line-clamp:2] [-webkit-box-orient:vertical]">
+          <p className="m-0 text-color-black truncate">
             {product.title}
           </p>
         </div>
@@ -161,7 +170,7 @@ export function CatalogProductCard({ product }: Props) {
           <div className="grid gap-space-10 tablet:grid-cols-2">
             <div className="grid gap-1 min-w-0">
               {typeof price === 'number' ? (
-                <p className="m-0 text-sys-surface-accent pobut-H3">
+                <p className="m-0 text-sys-surface-accent font-semibold text-sm tablet:text-base desktop:text-lg leading-tight wrap-break-word">
                   {formatPriceUAH(price)}
                 </p>
               ) : (
@@ -171,7 +180,7 @@ export function CatalogProductCard({ product }: Props) {
             </div>
             <div className="grid gap-1 min-w-0">
               {typeof wholesalePrice === 'number' ? (
-                <p className="m-0 text-sys-surface-accent pobut-H3">
+                <p className="m-0 text-sys-surface-accent font-semibold text-sm tablet:text-base desktop:text-lg leading-tight wrap-break-word">
                   {formatPriceUAH(wholesalePrice)}
                 </p>
               ) : (
@@ -181,17 +190,45 @@ export function CatalogProductCard({ product }: Props) {
             </div>
           </div>
 
-          <Button
-            type="button"
-            variant="outline"
-            size="md"
-            className="w-full whitespace-nowrap text-sm"
-            onClick={onAddToCart}
-            disabled={disabled}
-            aria-label="Додати до кошика"
-          >
-            {isAlreadyInCart ? 'В кошику' : 'Додати в кошик'}
-          </Button>
+          <div className="grid grid-cols-[minmax(0,1fr)_auto] gap-space-10 items-center">
+            <Button
+              type="button"
+              variant="outline"
+              size="md"
+              className="w-full whitespace-nowrap text-sm"
+              onClick={onAddToCart}
+              disabled={disabled}
+              aria-label="Додати до кошика"
+            >
+              {isAlreadyInCart ? 'В кошику' : 'Додати в кошик'}
+            </Button>
+            <Button
+              type="button"
+              variant="productCardIcon"
+              size="sm"
+              className="w-10 h-10 p-0"
+              onClick={onOpenFromButton}
+              aria-label="Відкрити сторінку товару"
+              title="Відкрити сторінку товару"
+            >
+              <svg
+                width="18"
+                height="18"
+                viewBox="0 0 24 24"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
+                aria-hidden="true"
+              >
+                <path
+                  d="M7 17L17 7M17 7H9M17 7V15"
+                  stroke="currentColor"
+                  strokeWidth="1.8"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                />
+              </svg>
+            </Button>
+          </div>
         </div>
       </div>
     </article>

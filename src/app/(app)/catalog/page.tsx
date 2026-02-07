@@ -6,7 +6,7 @@ import { getPayload } from 'payload'
 import type { Category, Product } from '@/payload-types'
 import { getRequestLocale } from '@/utilities/locale'
 
-import { CatalogPageClient } from '@/components/catalog/CatalogPageClient'
+import { CatalogPageClient } from '@/sections/catalog/CatalogPageClient'
 
 export const metadata: Metadata = {
   title: 'Каталог',
