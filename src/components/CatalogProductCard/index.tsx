@@ -1,7 +1,6 @@
 'use client'
 
 import { Media } from '@/components/Media'
-import { Price } from '@/components/Price'
 import { Button } from '@/components/Button'
 import type { Product, Variant } from '@/payload-types'
 import { useCart } from '@payloadcms/plugin-ecommerce/client/react'
@@ -29,6 +28,10 @@ function pickDefaultVariant(product: Product): Variant | null {
   return inStock || variants[0] || null
 }
 
+function formatPriceUAH(amount: number): string {
+  return `${amount.toLocaleString('uk-UA')} грн`
+}
+
 export function CatalogProductCard({ product }: Props) {
   const router = useRouter()
   const { addItem, cart } = useCart()
@@ -49,6 +52,12 @@ export function CatalogProductCard({ product }: Props) {
     if (defaultVariant?.priceInUAH && typeof defaultVariant.priceInUAH === 'number') return defaultVariant.priceInUAH
     return product.priceInUAH
   }, [defaultVariant?.priceInUAH, product.priceInUAH])
+
+  const wholesalePrice = useMemo(() => {
+    if (typeof price === 'number') return price
+    return null
+  }, [price])
+  const wholesaleMinQuantity = 1
 
   const inStock = useMemo(() => {
     if (product.enableVariants) return (defaultVariant?.inventory || 0) > 0
@@ -148,22 +157,35 @@ export function CatalogProductCard({ product }: Props) {
           </p>
         </div>
 
-        <div className="mt-auto flex items-end justify-between gap-3">
-          <div className="min-w-0">
-            {typeof price === 'number' ? (
-              <div className="text-sys-surface-accent">
-                <Price amount={price} />
-              </div>
-            ) : (
-              <div className="text-sys-text-muted">—</div>
-            )}
+        <div className="mt-auto grid gap-space-10">
+          <div className="grid gap-space-10 tablet:grid-cols-2">
+            <div className="grid gap-1 min-w-0">
+              {typeof price === 'number' ? (
+                <p className="m-0 text-sys-surface-accent pobut-H3">
+                  {formatPriceUAH(price)}
+                </p>
+              ) : (
+                <div className="text-sys-text-muted">—</div>
+              )}
+              <small className="text-sys-accent">роздріб</small>
+            </div>
+            <div className="grid gap-1 min-w-0">
+              {typeof wholesalePrice === 'number' ? (
+                <p className="m-0 text-sys-surface-accent pobut-H3">
+                  {formatPriceUAH(wholesalePrice)}
+                </p>
+              ) : (
+                <div className="text-sys-text-muted">—</div>
+              )}
+              <small className="text-sys-accent">опт від {wholesaleMinQuantity} шт</small>
+            </div>
           </div>
 
           <Button
             type="button"
             variant="outline"
             size="md"
-            className="shrink-0 whitespace-nowrap text-sm"
+            className="w-full whitespace-nowrap text-sm"
             onClick={onAddToCart}
             disabled={disabled}
             aria-label="Додати до кошика"

@@ -266,7 +266,7 @@ export function CatalogPageClient({ categories, products }: Props) {
               </div>
             ) : (
               <>
-                <Grid className="auto-rows-fr grid-cols-2 wide:grid-cols-3 gap-layout-gap-1">
+              <Grid className="auto-rows-fr grid-cols-1 tablet:grid-cols-2 wide:grid-cols-3 gap-layout-gap-1">
                   {pagedProducts.map((product) => (
                     <CatalogProductCard key={product.id} product={product} />
                   ))}

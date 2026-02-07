@@ -1,7 +1,15 @@
 import { Slot } from '@radix-ui/react-slot'
 import type { ButtonHTMLAttributes, ReactNode } from 'react'
 
-type Variant = 'primary' | 'secondary' | 'outline' | 'danger' | 'more' | 'catalog' | 'qty'
+type Variant =
+  | 'primary'
+  | 'secondary'
+  | 'outline'
+  | 'danger'
+  | 'more'
+  | 'catalog'
+  | 'qty'
+  | 'productCardButton'
 
 type Size = 'sm' | 'md' | 'lg'
 
@@ -63,6 +71,9 @@ export function Button({
       'bg-black text-sys-accent border border-sys-accent shadow-[0_0_0_0_var(--sys-accent)] hover:text-sys-accent-hover hover:border-sys-accent-hover hover:shadow-[0_0_0_1px_var(--sys-accent-hover)] active:bg-sys-accent active:text-sys-text-inverse active:border-sys-accent active:shadow-[0_0_0_0_var(--sys-accent)]',
     // Quantity selector button
     qty: 'bg-transparent text-sys-btn-interactive border border-sys-btn-interactive hover:text-sys-btn-interactive-hover hover:border-sys-btn-interactive-hover active:text-sys-btn-interactive-active active:border-sys-btn-interactive-active',
+    // Product card CTA button
+    productCardButton:
+      'bg-transparent text-sys-accent border border-sys-accent hover:bg-sys-accent hover:text-sys-text-on-accent active:bg-sys-accent-active active:text-sys-text-on-accent',
   }
 
   const widthClass = fullWidth ? 'w-full' : ''
