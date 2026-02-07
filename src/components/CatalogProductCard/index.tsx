@@ -166,8 +166,8 @@ export function CatalogProductCard({ product }: Props) {
           </p>
         </div>
 
-        <div className="mt-auto grid gap-space-10 tablet:gap-layout-gap-1">
-          <div className="grid gap-space-10 tablet:grid-cols-2">
+        <div className="mt-auto grid gap-2 tablet:gap-layout-gap-1">
+          <div className="grid gap-2 tablet:gap-space-10 tablet:grid-cols-2">
             <div className="flex items-baseline justify-between gap-2 min-w-0 tablet:block">
               {typeof price === 'number' ? (
                 <p className="m-0 text-sys-surface-accent font-semibold text-sm tablet:text-base desktop:text-lg leading-tight wrap-break-word">
@@ -190,12 +190,12 @@ export function CatalogProductCard({ product }: Props) {
             </div>
           </div>
 
-          <div className="flex flex-col gap-space-10 desktop:flex-col desktop:items-stretch wide:flex-row wide:flex-wrap wide:items-center wide:gap-2">
+          <div className="flex flex-col gap-2 tablet:gap-space-10 desktop:flex-col desktop:items-stretch wide:flex-row wide:flex-wrap wide:items-center wide:gap-2">
             <Button
               type="button"
               variant="productCardButton"
               size="md"
-              className="w-full wide:flex-1 wide:w-auto text-sm text-center min-h-[44px] px-3 py-2 tablet:px-4 tablet:py-2 wide:px-5 whitespace-normal break-words leading-snug"
+              className="w-full wide:flex-1 wide:w-auto text-sm text-center min-h-[40px] px-3 py-1.5 tablet:px-4 tablet:py-2 wide:px-5 whitespace-normal wrap-break-word leading-snug"
               onClick={onAddToCart}
               disabled={disabled}
               aria-label="Додати до кошика"
@@ -206,7 +206,7 @@ export function CatalogProductCard({ product }: Props) {
               type="button"
               variant="productCardIcon"
               size="sm"
-              className="w-full wide:w-9 wide:h-9 h-10 p-0 shrink-0"
+              className="w-full wide:w-9 wide:h-9 h-9 tablet:h-10 p-0 shrink-0"
               onClick={onOpenFromButton}
               aria-label="Відкрити сторінку товару"
               title="Відкрити сторінку товару"
@@ -218,6 +218,7 @@ export function CatalogProductCard({ product }: Props) {
                 fill="none"
                 xmlns="http://www.w3.org/2000/svg"
                 aria-hidden="true"
+                className="text-sys-text-on-accent"
               >
                 <path
                   d="M7 17L17 7M17 7H9M17 7V15"

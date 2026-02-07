@@ -48,7 +48,7 @@ export function Button({
   // Base classes - using Tailwind directly
   const baseClasses = [
     textClassName || 'pobut-body',
-    'min-w-0 inline-flex items-center justify-center gap-2 outline-none cursor-pointer no-underline select-none whitespace-nowrap overflow-hidden text-ellipsis transition-all duration-200 rounded-radius-full focus-visible:outline-2 focus-visible:outline-sys-focus focus-visible:outline-offset-2 disabled:opacity-50 disabled:cursor-not-allowed disabled:pointer-events-none',
+    'min-w-0 inline-flex items-center justify-center gap-2 outline-none cursor-pointer no-underline select-none whitespace-normal wrap-break-word transition-all duration-200 rounded-radius-full focus-visible:outline-2 focus-visible:outline-sys-focus focus-visible:outline-offset-2 disabled:opacity-50 disabled:cursor-not-allowed disabled:pointer-events-none',
   ].join(' ')
 
   // Size classes with responsive padding
