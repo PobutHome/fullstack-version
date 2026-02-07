@@ -16,7 +16,7 @@ type Props = {
 export function CategoryAccordion({ title, items, activeSlug, isOpen, onToggle, onSelect }: Props) {
   return (
     <div className="w-full desktop:hidden">
-      <div className="rounded-radius-primary border border-sys-border bg-sys-surface shadow-shadow-sm overflow-hidden">
+      <div className="rounded-radius-primary bg-sys-surface shadow-shadow-sm overflow-hidden">
         <Button
           type="button"
           variant="accordionToggle"
@@ -24,7 +24,10 @@ export function CategoryAccordion({ title, items, activeSlug, isOpen, onToggle, 
           textClassName="pobut-H3"
           onClick={onToggle}
           aria-expanded={isOpen}
-          className="w-full flex items-center justify-between gap-3 px-space-20 py-space-10 rounded-none"
+          className={clsx(
+            'w-full flex items-center justify-between gap-3 px-space-20 py-space-10',
+            isOpen ? 'rounded-b-none' : 'rounded-radius-primary',
+          )}
         >
           <span className="pobut-H3 text-sys-text-on-accent">{title}</span>
           <ChevronDownIcon
@@ -37,7 +40,7 @@ export function CategoryAccordion({ title, items, activeSlug, isOpen, onToggle, 
         </Button>
 
         {isOpen && (
-          <nav aria-label="Категорії" className="p-space-20">
+          <nav aria-label="Категорії" className="p-space-20 bg-sys-surface-2">
             <CategoryList
               items={items}
               activeSlug={activeSlug}

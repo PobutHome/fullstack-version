@@ -149,7 +149,7 @@ export function CatalogProductCard({ product }: Props) {
         </div>
       </div>
 
-      <div className="p-space-10 flex flex-col gap-2 flex-1 min-h-0">
+      <div className="p-space-10 flex flex-col gap-1 tablet:gap-2 flex-1 min-h-0">
         <div className="flex items-center gap-2">
           <span
             aria-hidden="true"
@@ -166,9 +166,9 @@ export function CatalogProductCard({ product }: Props) {
           </p>
         </div>
 
-        <div className="mt-auto grid gap-space-10">
+        <div className="mt-auto grid gap-space-10 tablet:gap-layout-gap-1">
           <div className="grid gap-space-10 tablet:grid-cols-2">
-            <div className="grid gap-1 min-w-0">
+            <div className="flex items-baseline justify-between gap-2 min-w-0 tablet:block">
               {typeof price === 'number' ? (
                 <p className="m-0 text-sys-surface-accent font-semibold text-sm tablet:text-base desktop:text-lg leading-tight wrap-break-word">
                   {formatPriceUAH(price)}
@@ -178,7 +178,7 @@ export function CatalogProductCard({ product }: Props) {
               )}
               <small className="text-sys-accent">роздріб</small>
             </div>
-            <div className="grid gap-1 min-w-0">
+            <div className="flex items-baseline justify-between gap-2 min-w-0 tablet:block">
               {typeof wholesalePrice === 'number' ? (
                 <p className="m-0 text-sys-surface-accent font-semibold text-sm tablet:text-base desktop:text-lg leading-tight wrap-break-word">
                   {formatPriceUAH(wholesalePrice)}
@@ -190,12 +190,12 @@ export function CatalogProductCard({ product }: Props) {
             </div>
           </div>
 
-          <div className="grid grid-cols-[minmax(0,1fr)_auto] gap-space-10 items-center">
+          <div className="flex flex-col gap-space-10 desktop:flex-col desktop:items-stretch wide:flex-row wide:flex-wrap wide:items-center wide:gap-2">
             <Button
               type="button"
-              variant="outline"
+              variant="productCardButton"
               size="md"
-              className="w-full whitespace-nowrap text-sm"
+              className="w-full wide:flex-1 wide:w-auto text-sm text-center min-h-[44px] px-3 py-2 tablet:px-4 tablet:py-2 wide:px-5 whitespace-normal break-words leading-snug"
               onClick={onAddToCart}
               disabled={disabled}
               aria-label="Додати до кошика"
@@ -206,7 +206,7 @@ export function CatalogProductCard({ product }: Props) {
               type="button"
               variant="productCardIcon"
               size="sm"
-              className="w-10 h-10 p-0"
+              className="w-full wide:w-9 wide:h-9 h-10 p-0 shrink-0"
               onClick={onOpenFromButton}
               aria-label="Відкрити сторінку товару"
               title="Відкрити сторінку товару"

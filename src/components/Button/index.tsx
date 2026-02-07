@@ -48,7 +48,7 @@ export function Button({
   // Base classes - using Tailwind directly
   const baseClasses = [
     textClassName || 'pobut-body',
-    'inline-flex items-center justify-center gap-2 outline-none cursor-pointer no-underline select-none whitespace-nowrap transition-all duration-200 rounded-radius-full focus-visible:outline-2 focus-visible:outline-sys-focus focus-visible:outline-offset-2 disabled:opacity-50 disabled:cursor-not-allowed disabled:pointer-events-none',
+    'min-w-0 inline-flex items-center justify-center gap-2 outline-none cursor-pointer no-underline select-none whitespace-nowrap overflow-hidden text-ellipsis transition-all duration-200 rounded-radius-full focus-visible:outline-2 focus-visible:outline-sys-focus focus-visible:outline-offset-2 disabled:opacity-50 disabled:cursor-not-allowed disabled:pointer-events-none',
   ].join(' ')
 
   // Size classes with responsive padding
@@ -82,7 +82,7 @@ export function Button({
     qty: 'bg-transparent text-sys-btn-interactive border border-sys-btn-interactive hover:text-sys-btn-interactive-hover hover:border-sys-btn-interactive-hover active:text-sys-btn-interactive-active active:border-sys-btn-interactive-active',
     // Product card CTA button
     productCardButton:
-      'bg-transparent text-sys-accent border border-sys-accent hover:bg-sys-accent hover:text-sys-text-on-accent active:bg-sys-accent-active active:text-sys-text-on-accent',
+      'bg-sys-surface-2 text-sys-accent border border-sys-accent hover:bg-sys-accent hover:text-sys-text-on-accent active:bg-sys-accent-active active:text-sys-text-on-accent',
     // Product card icon-only button
     productCardIcon:
       'bg-sys-accent text-sys-text-on-accent border border-sys-accent hover:bg-sys-accent-hover hover:border-sys-accent-hover active:bg-sys-accent-active active:border-sys-accent-active',

@@ -1,6 +1,5 @@
 'use client'
 
-import { Breadcrumbs } from '@/components/Breadcrumbs'
 import { CatalogProductCard } from '@/components/CatalogProductCard'
 import { Container } from '@/components/Container'
 import { Grid } from '@/components/Grid'
@@ -10,6 +9,7 @@ import { useCallback, useEffect, useMemo, useState } from 'react'
 import { CategoryAccordion } from './CategoryAccordion'
 import type { CategoryItem } from './CategoryList'
 import { CategorySidebar } from './CategorySidebar'
+import { CatalogBreadcrumbs } from './CatalogBreadcrumbs'
 import { CatalogPagination } from './CatalogPagination'
 
 type Props = {
@@ -130,9 +130,7 @@ export function CatalogPageClient({ categories, products }: Props) {
 
   return (
     <Section className="pb-space-50">
-      <Breadcrumbs
-        className="mb-space-20"
-        variant="accent"
+      <CatalogBreadcrumbs
         items={[
           { label: 'Головна', href: '/' },
           {
@@ -171,7 +169,7 @@ export function CatalogPageClient({ categories, products }: Props) {
               </div>
             ) : (
               <>
-                <Grid className="auto-rows-fr grid-cols-1 tablet:grid-cols-2 wide:grid-cols-3 gap-layout-gap-1">
+                <Grid className="auto-rows-fr grid-cols-2 tablet:grid-cols-2 wide:grid-cols-3 gap-layout-gap-1">
                   {pagedProducts.map((product) => (
                     <CatalogProductCard key={product.id} product={product} />
                   ))}
