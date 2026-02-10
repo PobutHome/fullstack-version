@@ -17,12 +17,21 @@ import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react'
 import { AddressItem } from '@/components/addresses/AddressItem'
 import { CreateAddressModal } from '@/components/addresses/CreateAddressModal'
 import { CheckoutAddresses } from '@/components/checkout/CheckoutAddresses'
+import { FormError } from '@/components/forms/FormError'
 import { FormItem } from '@/components/forms/FormItem'
 import { LoadingSpinner } from '@/components/LoadingSpinner'
 import { Checkbox } from '@/components/ui/checkbox'
 import { Address } from '@/payload-types'
 import { useAddresses, useCart, usePayments } from '@payloadcms/plugin-ecommerce/client/react'
+import { useForm } from 'react-hook-form'
 import { toast } from 'sonner'
+
+type ReceiverFormData = {
+  email: string
+  receiverFirstName: string
+  receiverLastName: string
+  receiverPhone: string
+}
 
 type LiqPayPaymentData = {
   checkoutURL: string
@@ -38,6 +47,9 @@ export const CheckoutPage: React.FC = () => {
   const [error, setError] = useState<null | string>(null)
   const [email, setEmail] = useState('')
   const [emailEditable, setEmailEditable] = useState(true)
+  const [receiverFirstName, setReceiverFirstName] = useState('')
+  const [receiverLastName, setReceiverLastName] = useState('')
+  const [receiverPhone, setReceiverPhone] = useState('')
   const [paymentData, setPaymentData] = useState<null | LiqPayPaymentData>(null)
   const { initiatePayment } = usePayments()
   const { addresses } = useAddresses()
@@ -72,6 +84,33 @@ export const CheckoutPage: React.FC = () => {
   ]
 
   const [currentStep, setCurrentStep] = useState<CheckoutStepId>('cart')
+
+  const receiverForm = useForm<ReceiverFormData>({
+    defaultValues: {
+      email: '',
+      receiverFirstName: '',
+      receiverLastName: '',
+      receiverPhone: '',
+    },
+    mode: 'onSubmit',
+  })
+
+  const {
+    formState: { errors: receiverErrors, isSubmitting: isReceiverSubmitting },
+    handleSubmit: handleReceiverSubmit,
+    register: registerReceiver,
+  } = receiverForm
+
+  const onGuestContinue = useCallback(
+    (data: ReceiverFormData) => {
+      setEmail(data.email)
+      setReceiverFirstName(data.receiverFirstName)
+      setReceiverLastName(data.receiverLastName)
+      setReceiverPhone(data.receiverPhone)
+      setEmailEditable(false)
+    },
+    [],
+  )
 
   const formRef = useRef<HTMLFormElement | null>(null)
   const canSubmitPayment = useMemo(
@@ -136,6 +175,9 @@ export const CheckoutPage: React.FC = () => {
       setBillingAddressSameAsShipping(true)
       setEmail('')
       setEmailEditable(true)
+      setReceiverFirstName('')
+      setReceiverLastName('')
+      setReceiverPhone('')
     }
   }, [])
 
@@ -145,6 +187,9 @@ export const CheckoutPage: React.FC = () => {
         const paymentData = (await initiatePayment(paymentID, {
           additionalData: {
             ...(email ? { customerEmail: email } : user?.email ? { customerEmail: user.email } : {}),
+            ...(receiverFirstName ? { receiverFirstName } : {}),
+            ...(receiverLastName ? { receiverLastName } : {}),
+            ...(receiverPhone ? { receiverPhone } : {}),
             billingAddress,
             shippingAddress: billingAddressSameAsShipping ? billingAddress : shippingAddress,
           },
@@ -165,7 +210,16 @@ export const CheckoutPage: React.FC = () => {
         toast.error(errorMessage)
       }
     },
-    [billingAddress, billingAddressSameAsShipping, email, initiatePayment, shippingAddress],
+    [
+      billingAddress,
+      billingAddressSameAsShipping,
+      email,
+      initiatePayment,
+      receiverFirstName,
+      receiverLastName,
+      receiverPhone,
+      shippingAddress,
+    ],
   )
 
   const handleCashOnDelivery = useCallback(
@@ -179,6 +233,685 @@ export const CheckoutPage: React.FC = () => {
     },
     [canPreparePayment],
   )
+
+  const CartStep = () => {
+    if (!cart || !cart.items || !cart.items.length) return null
+
+    return (
+      <section className="grid gap-space-20">
+        <header className="grid gap-space-05 max-w-3xl">
+          <h2 className="m-0 pobut-H3 text-sys-text">Товари в замовленні</h2>
+          <p className="m-0 pobut-body text-sys-text-muted">
+            Перевірте склад кошика, кількість та підсумкову суму перед переходом до заповнення даних
+            одержувача.
+          </p>
+        </header>
+
+        <div className="grid gap-space-20">
+          <section className="grid gap-space-15">
+            {cart.items?.map((item, index) => {
+              if (typeof item.product === 'object' && item.product) {
+                const {
+                  product,
+                  product: { meta, title, gallery },
+                  quantity,
+                  variant,
+                } = item
+
+                if (!quantity) return null
+
+                let image = gallery?.[0]?.image || meta?.image
+                let price = product?.priceInUAH
+
+                const isVariant = Boolean(variant) && typeof variant === 'object'
+
+                if (isVariant) {
+                  price = variant?.priceInUAH
+
+                  const imageVariant = product.gallery?.find((galleryItem) => {
+                    if (!galleryItem.variantOption) return false
+                    const variantOptionID =
+                      typeof galleryItem.variantOption === 'object'
+                        ? galleryItem.variantOption.id
+                        : galleryItem.variantOption
+
+                    const hasMatch = variant?.options?.some((option) => {
+                      if (typeof option === 'object') return option.id === variantOptionID
+                      return option === variantOptionID
+                    })
+
+                    return hasMatch
+                  })
+
+                  if (imageVariant && typeof imageVariant.image !== 'string') {
+                    image = imageVariant.image
+                  }
+                }
+
+                return (
+                  <div className="flex items-start gap-space-10" key={index}>
+                    <div className="flex items-stretch justify-stretch h-20 w-20 p-space-10 rounded-radius-lg border border-sys-border bg-sys-surface-2">
+                      <div className="relative w-full h-full">
+                        {image && typeof image !== 'string' && (
+                          <Media
+                            className=""
+                            fill
+                            imgClassName="rounded-radius-lg object-contain"
+                            resource={image}
+                          />
+                        )}
+                      </div>
+                    </div>
+                    <div className="flex grow justify-between items-center gap-space-10">
+                      <div className="flex flex-col gap-[2px] min-w-0">
+                        <p className="m-0 text-sm font-medium text-sys-text line-clamp-2">
+                          {title}
+                        </p>
+                        {variant && typeof variant === 'object' && (
+                          <p className="m-0 text-[11px] font-mono text-sys-text-muted tracking-[0.12em] uppercase">
+                            {variant.options
+                              ?.map((option) => {
+                                if (typeof option === 'object') return option.label
+                                return null
+                              })
+                              .join(', ')}
+                          </p>
+                        )}
+                        <small className="m-0 text-[11px] text-sys-text-muted">
+                          Кількість: {quantity}
+                        </small>
+                      </div>
+
+                      {typeof price === 'number' && (
+                        <Price
+                          amount={price}
+                          className="text-sm font-semibold text-sys-text whitespace-nowrap"
+                        />
+                      )}
+                    </div>
+                  </div>
+                )
+              }
+              return null
+            })}
+          </section>
+
+          <section className="border-t border-sys-border pt-space-15 flex justify-between items-center gap-space-10">
+            <div className="grid gap-[2px]">
+              <small className="m-0 text-[11px] uppercase tracking-[0.18em] text-sys-text-muted">
+                Всього до оплати
+              </small>
+              <p className="m-0 text-xs text-sys-text-muted">
+                За потреби ви можете повернутися до цього кроку та змінити склад кошика.
+              </p>
+            </div>
+            <Price className="text-2xl font-semibold text-sys-text" amount={cart.subtotal || 0} />
+          </section>
+        </div>
+
+        <footer className="pt-space-15 flex justify-end">
+          <Button
+            type="button"
+            size="lg"
+            className="rounded-radius-full px-space-20 bg-sys-btn-primary-bg text-sys-btn-primary-fg hover:bg-sys-btn-primary-bg-hover active:bg-sys-btn-primary-bg-active"
+            onClick={goToNextStep}
+          >
+            До даних одержувача
+          </Button>
+        </footer>
+      </section>
+    )
+  }
+
+  const ReceiverStep = () => {
+    return (
+      <section className="grid gap-space-20 max-w-3xl">
+        <header className="grid gap-space-05">
+          <h2 className="m-0 pobut-H3 text-sys-text">Дані одержувача</h2>
+          <p className="m-0 pobut-body text-sys-text-muted">
+            Оформіть замовлення як зареєстрований користувач або як гість.
+          </p>
+        </header>
+
+        <div className="grid gap-space-20">
+          {!user && (
+            <section className="rounded-radius-primary border border-sys-border-interactive bg-sys-surface-2 px-space-15 py-space-15 grid gap-space-10">
+              <div className="grid gap-space-05">
+                <p className="m-0 pobut-body text-sys-text font-semibold">
+                  Маєте акаунт? Увійдіть для швидшого оформлення.
+                </p>
+                <p className="m-0 pobut-body text-sys-text-muted">
+                  Ваші збережені адреси та дані будуть підставлені автоматично.
+                </p>
+              </div>
+              <div className="flex flex-col gap-space-10 tablet:flex-row tablet:items-center tablet:justify-start">
+                <Button asChild variant="outline" size="sm" className="rounded-radius-full">
+                  <Link href="/login">Увійти</Link>
+                </Button>
+                <Button
+                  asChild
+                  variant="ghost"
+                  size="sm"
+                  className="rounded-radius-full text-sys-accent"
+                >
+                  <Link href="/create-account">Створити акаунт</Link>
+                </Button>
+              </div>
+            </section>
+          )}
+
+          {user ? (
+            <section className="rounded-radius-primary border border-sys-border bg-sys-surface-2 px-space-15 py-space-15 grid gap-space-05">
+              <p className="m-0 pobut-body text-sys-text">
+                Ви оформлюєте замовлення як <span className="font-semibold">{user.email}</span>.
+              </p>
+              <p className="m-0 text-xs text-sys-text-muted">
+                Не ви?{' '}
+                <Link className="underline" href="/logout">
+                  Вийти з акаунту
+                </Link>
+                .
+              </p>
+            </section>
+          ) : (
+            <section className="rounded-radius-primary border border-sys-border bg-sys-surface-2 px-space-15 py-space-20 grid gap-space-15">
+              <p className="m-0 pobut-body text-sys-text">
+                Або продовжуйте як гість – заповніть контактні дані для підтвердження та статусу
+                замовлення.
+              </p>
+
+              <form
+                className="grid gap-space-12 max-w-sm"
+                noValidate
+                onSubmit={handleReceiverSubmit(onGuestContinue)}
+              >
+                <FormItem className="mb-0">
+                  <Label
+                    htmlFor="checkout-email"
+                    className="text-sys-text font-semibold font-unbounded text-sm"
+                  >
+                    Email<span className="text-sys-danger">*</span>
+                  </Label>
+                  <Input
+                    disabled={!emailEditable}
+                    id="checkout-email"
+                    type="email"
+                    autoComplete="email"
+                    placeholder="name@example.com"
+                    variant="primaryFrontend"
+                    className="h-11 rounded-radius-full px-4"
+                    aria-invalid={Boolean(receiverErrors.email)}
+                    {...registerReceiver('email', {
+                      required: 'Вкажіть email.',
+                      pattern: {
+                        value: /^[^\s@]+@[^\s@]+\.[^\s@]+$/,
+                        message: 'Вкажіть коректний email.',
+                      },
+                    })}
+                  />
+                  {receiverErrors.email?.message && (
+                    <FormError
+                      as="span"
+                      className="mt-1 text-[11px] text-sys-danger"
+                      message={receiverErrors.email.message}
+                    />
+                  )}
+                </FormItem>
+
+                <FormItem className="mb-0">
+                  <Label
+                    htmlFor="checkout-receiverFirstName"
+                    className="text-sys-text font-semibold font-unbounded text-sm"
+                  >
+                    Ім&apos;я одержувача<span className="text-sys-danger">*</span>
+                  </Label>
+                  <Input
+                    disabled={!emailEditable}
+                    id="checkout-receiverFirstName"
+                    type="text"
+                    autoComplete="given-name"
+                    placeholder="Ім'я"
+                    variant="primaryFrontend"
+                    className="h-11 rounded-radius-full px-4"
+                    aria-invalid={Boolean(receiverErrors.receiverFirstName)}
+                    {...registerReceiver('receiverFirstName', {
+                      required: "Ім'я одержувача обов'язкове.",
+                    })}
+                  />
+                  {receiverErrors.receiverFirstName?.message && (
+                    <FormError
+                      as="span"
+                      className="mt-1 text-[11px] text-sys-danger"
+                      message={receiverErrors.receiverFirstName.message}
+                    />
+                  )}
+                </FormItem>
+
+                <FormItem className="mb-0">
+                  <Label
+                    htmlFor="checkout-receiverLastName"
+                    className="text-sys-text font-semibold font-unbounded text-sm"
+                  >
+                    Прізвище одержувача<span className="text-sys-danger">*</span>
+                  </Label>
+                  <Input
+                    disabled={!emailEditable}
+                    id="checkout-receiverLastName"
+                    type="text"
+                    autoComplete="family-name"
+                    placeholder="Прізвище"
+                    variant="primaryFrontend"
+                    className="h-11 rounded-radius-full px-4"
+                    aria-invalid={Boolean(receiverErrors.receiverLastName)}
+                    {...registerReceiver('receiverLastName', {
+                      required: "Прізвище одержувача обов'язкове.",
+                    })}
+                  />
+                  {receiverErrors.receiverLastName?.message && (
+                    <FormError
+                      as="span"
+                      className="mt-1 text-[11px] text-sys-danger"
+                      message={receiverErrors.receiverLastName.message}
+                    />
+                  )}
+                </FormItem>
+
+                <FormItem className="mb-0">
+                  <Label
+                    htmlFor="checkout-receiverPhone"
+                    className="text-sys-text font-semibold font-unbounded text-sm"
+                  >
+                    Телефон одержувача<span className="text-sys-danger">*</span>
+                  </Label>
+                  <Input
+                    disabled={!emailEditable}
+                    id="checkout-receiverPhone"
+                    type="tel"
+                    autoComplete="tel"
+                    placeholder="+380 XX XXX XX XX"
+                    variant="primaryFrontend"
+                    className="h-11 rounded-radius-full px-4"
+                    aria-invalid={Boolean(receiverErrors.receiverPhone)}
+                    {...registerReceiver('receiverPhone', {
+                      required: 'Телефон одержувача обов\'язковий.',
+                      pattern: {
+                        value: /^[\d\s+()-]{10,}$/,
+                        message: 'Вкажіть коректний номер телефону.',
+                      },
+                    })}
+                  />
+                  {receiverErrors.receiverPhone?.message && (
+                    <FormError
+                      as="span"
+                      className="mt-1 text-[11px] text-sys-danger"
+                      message={receiverErrors.receiverPhone.message}
+                    />
+                  )}
+                </FormItem>
+
+                <div className="pt-space-05">
+                  <Button
+                    type="submit"
+                    disabled={!emailEditable || isReceiverSubmitting}
+                    className="rounded-radius-full px-space-20 bg-sys-btn-primary-bg text-sys-btn-primary-fg hover:bg-sys-btn-primary-bg-hover active:bg-sys-btn-primary-bg-active"
+                  >
+                    {isReceiverSubmitting ? 'Перевірка…' : 'Продовжити як гість'}
+                  </Button>
+                </div>
+              </form>
+            </section>
+          )}
+        </div>
+
+        <footer className="pt-space-15 flex items-center justify-between gap-space-10">
+          <p className="m-0 text-xs text-sys-text-muted">
+            Ви зможете зберегти адресу доставки на наступних кроках.
+          </p>
+          <Button
+            type="button"
+            size="lg"
+            className="rounded-radius-full px-space-20 bg-sys-btn-primary-bg text-sys-btn-primary-fg hover:bg-sys-btn-primary-bg-hover active:bg-sys-btn-primary-bg-active"
+            disabled={!receiverStepComplete}
+            onClick={goToNextStep}
+          >
+            До доставки
+          </Button>
+        </footer>
+      </section>
+    )
+  }
+
+  const DeliveryStep = () => {
+    return (
+      <section className="grid gap-space-20 max-w-3xl">
+        <header className="grid gap-space-05">
+          <h2 className="m-0 pobut-H3 text-sys-text">Спосіб доставки та адреса</h2>
+          <p className="m-0 pobut-body text-sys-text-muted">
+            Оберіть спосіб доставки та вкажіть адресу одержувача.
+          </p>
+        </header>
+
+        <div className="grid gap-space-20">
+          <section className="grid gap-space-10">
+            <h3 className="m-0 text-sm font-semibold tracking-[0.12em] uppercase text-sys-text">
+              Платіжна адреса
+            </h3>
+
+            {billingAddress ? (
+              <div className="grid gap-space-10">
+                <AddressItem
+                  address={billingAddress}
+                  actions={
+                    <Button
+                      variant="outline"
+                      size="sm"
+                      disabled={Boolean(paymentData)}
+                      onClick={(e) => {
+                        e.preventDefault()
+                        setBillingAddress(undefined)
+                      }}
+                      className="rounded-radius-full"
+                    >
+                      Змінити адресу
+                    </Button>
+                  }
+                />
+              </div>
+            ) : user ? (
+              <CheckoutAddresses
+                heading="Виберіть платіжну адресу"
+                description="Використовуйте одну з раніше збережених адрес або додайте нову."
+                setAddress={setBillingAddress}
+              />
+            ) : (
+              <CreateAddressModal
+                disabled={!email || Boolean(emailEditable)}
+                callback={(address) => {
+                  setBillingAddress(address)
+                }}
+                skipSubmission={true}
+              />
+            )}
+          </section>
+
+          <section className="grid gap-space-05">
+            <div className="flex items-center gap-space-10">
+              <Checkbox
+                id="shippingTheSameAsBilling"
+                checked={billingAddressSameAsShipping}
+                disabled={Boolean(paymentData || (!user && (!email || Boolean(emailEditable))))}
+                onCheckedChange={(state) => {
+                  setBillingAddressSameAsShipping(state as boolean)
+                }}
+              />
+              <Label
+                htmlFor="shippingTheSameAsBilling"
+                className="text-sm font-medium text-sys-text"
+              >
+                Адреса доставки збігається з платіжною
+              </Label>
+            </div>
+            <p className="m-0 text-xs text-sys-text-muted">
+              За потреби ви можете вказати іншу адресу або відділення служби доставки.
+            </p>
+          </section>
+
+          {!billingAddressSameAsShipping && (
+            <section className="grid gap-space-10">
+              <h3 className="m-0 text-sm font-semibold tracking-[0.12em] uppercase text-sys-text">
+                Адреса доставки
+              </h3>
+
+              {shippingAddress ? (
+                <div className="grid gap-space-10">
+                  <AddressItem
+                    address={shippingAddress}
+                    actions={
+                      <Button
+                        variant="outline"
+                        size="sm"
+                        disabled={Boolean(paymentData)}
+                        onClick={(e) => {
+                          e.preventDefault()
+                          setShippingAddress(undefined)
+                        }}
+                        className="rounded-radius-full"
+                      >
+                        Змінити адресу
+                      </Button>
+                    }
+                  />
+                </div>
+              ) : user ? (
+                <CheckoutAddresses
+                  heading="Виберіть адресу доставки"
+                  description="Оберіть адресу або створіть нову для доставки."
+                  setAddress={setShippingAddress}
+                />
+              ) : (
+                <CreateAddressModal
+                  callback={(address) => {
+                    setShippingAddress(address)
+                  }}
+                  disabled={!email || Boolean(emailEditable)}
+                  skipSubmission={true}
+                />
+              )}
+            </section>
+          )}
+
+          <section className="rounded-radius-primary border border-sys-border-interactive bg-sys-surface-2 px-space-15 py-space-15 grid gap-space-05">
+            <p className="m-0 pobut-body text-sys-text font-semibold">
+              Служби доставки: Нова Пошта, Укрпошта, кур&apos;єр.
+            </p>
+            <p className="m-0 text-xs text-sys-text-muted">
+              Підключення карти відділень Нової Пошти та розрахунок вартості доставки можна реалізувати
+              через їх офіційний API. Поточна версія форми вже готова до збереження вибраних адрес.
+            </p>
+          </section>
+        </div>
+
+        <footer className="pt-space-15 flex flex-col tablet:flex-row tablet:items-center tablet:justify-between gap-space-10">
+          <Button
+            type="button"
+            variant="ghost"
+            size="sm"
+            onClick={() => setCurrentStep('receiver')}
+            className="self-start rounded-radius-full px-space-15"
+          >
+            Повернутися до одержувача
+          </Button>
+
+          <div className="flex gap-space-10 tablet:ml-auto">
+            <Button
+              type="button"
+              variant="outline"
+              size="lg"
+              className="rounded-radius-full px-space-20"
+              onClick={() => setCurrentStep('receiver')}
+            >
+              Назад
+            </Button>
+            <Button
+              type="button"
+              size="lg"
+              className="rounded-radius-full px-space-20 bg-sys-btn-primary-bg text-sys-btn-primary-fg hover:bg-sys-btn-primary-bg-hover active:bg-sys-btn-primary-bg-active"
+              disabled={!deliveryStepComplete}
+              onClick={goToNextStep}
+            >
+              До оплати
+            </Button>
+          </div>
+        </footer>
+      </section>
+    )
+  }
+
+  const PaymentStep = () => {
+    return (
+      <section className="grid gap-space-20 mb-space-30 max-w-3xl">
+        <header className="grid gap-space-05">
+          <h2 className="m-0 pobut-H3 text-sys-text">Спосіб оплати</h2>
+          <p className="m-0 pobut-body text-sys-text-muted">
+            Оберіть зручний спосіб оплати. Для оплати карткою використовується LiqPay.
+          </p>
+        </header>
+
+        <div className="grid gap-space-20">
+          <section className="grid gap-space-10 tablet:grid-cols-2">
+            <Button
+              type="button"
+              onClick={() => setPaymentMethod('card')}
+              variant={paymentMethod === 'card' ? 'outline' : 'ghost'}
+              className={[
+                'flex flex-col items-start gap-[2px] rounded-radius-primary border px-space-15 py-space-15 text-left transition-colors',
+                paymentMethod === 'card'
+                  ? 'border-sys-accent bg-sys-surface-2'
+                  : 'border-sys-border bg-sys-surface hover:bg-sys-surface-2',
+              ].join(' ')}
+            >
+              <p className="m-0 text-sm font-semibold text-sys-text">Оплата карткою (LiqPay)</p>
+              <small className="m-0 text-[11px] text-sys-text-muted">
+                Миттєва онлайн-оплата банківською карткою через захищений платіжний шлюз LiqPay.
+              </small>
+            </Button>
+
+            <Button
+              type="button"
+              onClick={() => setPaymentMethod('cod')}
+              variant={paymentMethod === 'cod' ? 'outline' : 'ghost'}
+              className={[
+                'flex flex-col items-start gap-[2px] rounded-radius-primary border px-space-15 py-space-15 text-left transition-colors',
+                paymentMethod === 'cod'
+                  ? 'border-sys-accent bg-sys-surface-2'
+                  : 'border-sys-border bg-sys-surface hover:bg-sys-surface-2',
+              ].join(' ')}
+            >
+              <p className="m-0 text-sm font-semibold text-sys-text">Накладений платіж</p>
+              <small className="m-0 text-[11px] text-sys-text-muted">
+                Оплата при отриманні на відділенні поштового оператора (Нова Пошта, Укрпошта) або
+                кур&apos;єру.
+              </small>
+            </Button>
+          </section>
+
+          {paymentMethod === 'card' && !paymentData && (
+            <section className="grid gap-space-10">
+              <p className="m-0 pobut-body text-sys-text-muted">
+                Натисніть кнопку нижче, щоб сформувати платіж через LiqPay. Після цього ви перейдете на
+                сторінку банку для завершення оплати.
+              </p>
+              <div>
+                <Button
+                  className="rounded-radius-full px-space-20 bg-sys-btn-primary-bg text-sys-btn-primary-fg hover:bg-sys-btn-primary-bg-hover active:bg-sys-btn-primary-bg-active"
+                  disabled={!canPreparePayment}
+                  onClick={(e) => {
+                    e.preventDefault()
+                    void initiatePaymentIntent('liqpay')
+                  }}
+                >
+                  Перейти до оплати карткою
+                </Button>
+              </div>
+              {!canPreparePayment && (
+                <p className="m-0 text-xs text-sys-text-muted">
+                  Заповніть дані одержувача та адресу доставки, щоб продовжити.
+                </p>
+              )}
+            </section>
+          )}
+
+          {paymentMethod === 'cod' && (
+            <section className="grid gap-space-10">
+              <p className="m-0 pobut-body text-sys-text-muted">
+                Замовлення з накладеним платежем буде підтверджено менеджером. Оплату ви здійсните при
+                отриманні.
+              </p>
+              <div>
+                <Button
+                  className="rounded-radius-full px-space-20 bg-sys-btn-primary-bg text-sys-btn-primary-fg hover:bg-sys-btn-primary-bg-hover active:bg-sys-btn-primary-bg-active"
+                  disabled={!canPreparePayment}
+                  onClick={handleCashOnDelivery}
+                >
+                  Підтвердити замовлення з післяплатою
+                </Button>
+              </div>
+              {!canPreparePayment && (
+                <p className="m-0 text-xs text-sys-text-muted">
+                  Спочатку вкажіть коректні контактні дані та адресу доставки.
+                </p>
+              )}
+            </section>
+          )}
+
+          {error && (
+            <section className="grid gap-space-10">
+              <Message error={error} />
+
+              <Button
+                onClick={(e) => {
+                  e.preventDefault()
+                  router.refresh()
+                }}
+                className="rounded-radius-full px-space-20 bg-sys-btn-primary-bg text-sys-btn-primary-fg hover:bg-sys-btn-primary-bg-hover active:bg-sys-btn-primary-bg-active"
+              >
+                Спробувати ще раз
+              </Button>
+            </section>
+          )}
+
+          {paymentData && (
+            <section className="grid gap-space-10">
+              <h3 className="m-0 text-sm font-semibold tracking-[0.12em] uppercase text-sys-text">
+                Підтвердження оплати
+              </h3>
+
+              <form
+                ref={formRef}
+                method="POST"
+                action={paymentData.checkoutURL}
+                acceptCharset="utf-8"
+                className="flex flex-col gap-space-10"
+              >
+                <input type="hidden" name="data" value={paymentData.data} />
+                <input type="hidden" name="signature" value={paymentData.signature} />
+
+                <Button
+                  type="submit"
+                  className="rounded-radius-full px-space-20 bg-sys-btn-primary-bg text-sys-btn-primary-fg hover:bg-sys-btn-primary-bg-hover active:bg-sys-btn-primary-bg-active"
+                  disabled={!canSubmitPayment}
+                  onClick={() => setProcessingPayment(true)}
+                >
+                  Перейти до LiqPay
+                </Button>
+
+                <Button
+                  type="button"
+                  variant="ghost"
+                  className="self-start text-xs px-0"
+                  onClick={() => setPaymentData(null)}
+                >
+                  Скасувати оплату
+                </Button>
+              </form>
+            </section>
+          )}
+        </div>
+
+        <footer className="pt-space-15 flex flex-col tablet:flex-row tablet:items-center tablet:justify-between gap-space-10">
+          <Button
+            type="button"
+            variant="ghost"
+            size="sm"
+            onClick={() => setCurrentStep('delivery')}
+            className="self-start rounded-radius-full px-space-15"
+          >
+            Повернутися до доставки
+          </Button>
+        </footer>
+      </section>
+    )
+  }
 
   if (cartIsEmpty && isProcessingPayment) {
     return (
@@ -218,7 +951,10 @@ export const CheckoutPage: React.FC = () => {
               </p>
             </div>
 
-            <Button asChild className="rounded-radius-full px-6">
+            <Button
+              asChild
+              className="rounded-radius-full px-6 bg-sys-btn-primary-bg text-sys-btn-primary-fg hover:bg-sys-btn-primary-bg-hover active:bg-sys-btn-primary-bg-active"
+            >
               <Link href="/catalog">Перейти до каталогу</Link>
             </Button>
           </InnerSection>
@@ -237,7 +973,7 @@ export const CheckoutPage: React.FC = () => {
   return (
     <Section aria-labelledby="checkout-title" className="pb-space-50">
       <Container>
-        <InnerSection className="grid gap-layout-gap-2">
+        <InnerSection className="grid gap-layout-gap-2 max-w-5xl mx-auto">
           <header className="grid gap-space-10">
             <h1 id="checkout-title" className="m-0 pobut-H2 text-sys-text">
               Оформлення замовлення
@@ -250,7 +986,7 @@ export const CheckoutPage: React.FC = () => {
 
           <div className="mt-space-20 grid gap-layout-gap-2">
             {/* Unified checkout container: steps on top, forms inside */}
-            <div className="rounded-radius-primary border border-sys-accent bg-sys-surface shadow-shadow-sm">
+            <div className="rounded-radius-primary border border-sys-border bg-sys-surface shadow-shadow-sm">
               {/* Steps navigation (top, only bottom border) */}
               <header
                 aria-label="Кроки оформлення"
@@ -278,8 +1014,9 @@ export const CheckoutPage: React.FC = () => {
 
                       return (
                         <li key={step.id} className="flex-1 min-w-0">
-                          <button
+                          <Button
                             type="button"
+                            variant="ghost"
                             disabled={isDisabled}
                             aria-current={isActive ? 'step' : undefined}
                             onClick={() => {
@@ -287,6 +1024,7 @@ export const CheckoutPage: React.FC = () => {
                             }}
                             className={[
                               'group w-full flex flex-col items-center gap-space-05 text-center transition-colors',
+                              'bg-transparent hover:bg-transparent px-0 py-0 h-auto',
                               isDisabled ? 'opacity-60 cursor-not-allowed' : 'cursor-pointer',
                             ].join(' ')}
                           >
@@ -306,7 +1044,7 @@ export const CheckoutPage: React.FC = () => {
                             <p className="m-0 text-xs font-semibold text-sys-text truncate">
                               {step.title}
                             </p>
-                          </button>
+                          </Button>
                         </li>
                       )
                     })}
@@ -316,580 +1054,18 @@ export const CheckoutPage: React.FC = () => {
 
               {/* Main content: steps */}
               <section className="px-space-20 py-space-20 flex flex-col gap-layout-gap-1">
-              {/* Step 1: Cart review */}
-              {currentStep === 'cart' && !cartIsEmpty && (
-                <section className="grid gap-space-20">
-                  <header className="grid gap-space-05">
-                    <h2 className="m-0 pobut-H3 text-sys-text">Товари в замовленні</h2>
-                    <p className="m-0 pobut-body text-sys-text-muted">
-                      Перевірте склад кошика, кількість та підсумкову суму перед переходом до
-                      заповнення даних одержувача.
-                    </p>
-                  </header>
+                {/* Step 1: Cart review */}
+                {currentStep === 'cart' && !cartIsEmpty && CartStep()}
 
-                  <div className="grid gap-space-20">
-                    <section className="grid gap-space-15">
-                      {cart.items?.map((item, index) => {
-                        if (typeof item.product === 'object' && item.product) {
-                          const {
-                            product,
-                            product: { meta, title, gallery },
-                            quantity,
-                            variant,
-                          } = item
+                {/* Step 2: Receiver */}
+                {currentStep === 'receiver' && ReceiverStep()}
 
-                          if (!quantity) return null
+                {/* Step 3: Delivery & addresses */}
+                {currentStep === 'delivery' && DeliveryStep()}
 
-                          let image = gallery?.[0]?.image || meta?.image
-                          let price = product?.priceInUAH
-
-                          const isVariant = Boolean(variant) && typeof variant === 'object'
-
-                          if (isVariant) {
-                            price = variant?.priceInUAH
-
-                            const imageVariant = product.gallery?.find((galleryItem) => {
-                              if (!galleryItem.variantOption) return false
-                              const variantOptionID =
-                                typeof galleryItem.variantOption === 'object'
-                                  ? galleryItem.variantOption.id
-                                  : galleryItem.variantOption
-
-                              const hasMatch = variant?.options?.some((option) => {
-                                if (typeof option === 'object') return option.id === variantOptionID
-                                return option === variantOptionID
-                              })
-
-                              return hasMatch
-                            })
-
-                            if (imageVariant && typeof imageVariant.image !== 'string') {
-                              image = imageVariant.image
-                            }
-                          }
-
-                          return (
-                            <div className="flex items-start gap-space-10" key={index}>
-                              <div className="flex items-stretch justify-stretch h-20 w-20 p-space-10 rounded-radius-lg border border-sys-border bg-sys-surface-2">
-                                <div className="relative w-full h-full">
-                                  {image && typeof image !== 'string' && (
-                                    <Media
-                                      className=""
-                                      fill
-                                      imgClassName="rounded-radius-lg object-contain"
-                                      resource={image}
-                                    />
-                                  )}
-                                </div>
-                              </div>
-                              <div className="flex grow justify-between items-center gap-space-10">
-                                <div className="flex flex-col gap-[2px] min-w-0">
-                                  <p className="m-0 text-sm font-medium text-sys-text line-clamp-2">
-                                    {title}
-                                  </p>
-                                  {variant && typeof variant === 'object' && (
-                                    <p className="m-0 text-[11px] font-mono text-sys-text-muted tracking-[0.12em] uppercase">
-                                      {variant.options
-                                        ?.map((option) => {
-                                          if (typeof option === 'object') return option.label
-                                          return null
-                                        })
-                                        .join(', ')}
-                                    </p>
-                                  )}
-                                  <small className="m-0 text-[11px] text-sys-text-muted">
-                                    Кількість: {quantity}
-                                  </small>
-                                </div>
-
-                                {typeof price === 'number' && (
-                                  <Price
-                                    amount={price}
-                                    className="text-sm font-semibold text-sys-text whitespace-nowrap"
-                                  />
-                                )}
-                              </div>
-                            </div>
-                          )
-                        }
-                        return null
-                      })}
-                    </section>
-
-                    <section className="border-t border-sys-border pt-space-15 flex justify-between items-center gap-space-10">
-                      <div className="grid gap-[2px]">
-                        <small className="m-0 text-[11px] uppercase tracking-[0.18em] text-sys-text-muted">
-                          Всього до оплати
-                        </small>
-                        <p className="m-0 text-xs text-sys-text-muted">
-                          За потреби ви можете повернутися до цього кроку та змінити склад кошика.
-                        </p>
-                      </div>
-                      <Price
-                        className="text-2xl font-semibold text-sys-text"
-                        amount={cart.subtotal || 0}
-                      />
-                    </section>
-                  </div>
-
-                  <footer className="pt-space-15 flex justify-end">
-                    <Button
-                      type="button"
-                      size="lg"
-                      className="rounded-radius-full px-space-20"
-                      onClick={goToNextStep}
-                    >
-                      До даних одержувача
-                    </Button>
-                  </footer>
-                </section>
-              )}
-
-              {/* Step 2: Receiver */}
-              {currentStep === 'receiver' && (
-                <section className="grid gap-space-20">
-                  <header className="grid gap-space-05">
-                    <h2 className="m-0 pobut-H3 text-sys-text">Дані одержувача</h2>
-                    <p className="m-0 pobut-body text-sys-text-muted">
-                      Оформіть замовлення як зареєстрований користувач або як гість.
-                    </p>
-                  </header>
-
-                  <div className="grid gap-space-20">
-                    {!user && (
-                      <section className="rounded-radius-primary border border-dashed border-sys-accent bg-sys-surface-2 px-space-15 py-space-15 grid gap-space-10">
-                        <div className="grid gap-space-05">
-                          <p className="m-0 pobut-body text-sys-text font-semibold">
-                            Маєте акаунт? Увійдіть для швидшого оформлення.
-                          </p>
-                          <p className="m-0 pobut-body text-sys-text-muted">
-                            Ваші збережені адреси та дані будуть підставлені автоматично.
-                          </p>
-                        </div>
-                        <div className="flex flex-col gap-space-10 tablet:flex-row tablet:items-center tablet:justify-start">
-                          <Button asChild variant="outline" size="sm" className="rounded-radius-full">
-                            <Link href="/login">Увійти</Link>
-                          </Button>
-                          <Button
-                            asChild
-                            variant="ghost"
-                            size="sm"
-                            className="rounded-radius-full text-sys-accent"
-                          >
-                            <Link href="/create-account">Створити акаунт</Link>
-                          </Button>
-                        </div>
-                      </section>
-                    )}
-
-                    {user ? (
-                      <section className="rounded-radius-primary border border-sys-accent bg-sys-surface-2 px-space-15 py-space-15 grid gap-space-05">
-                        <p className="m-0 pobut-body text-sys-text">
-                          Ви оформлюєте замовлення як{' '}
-                          <span className="font-semibold">{user.email}</span>.
-                        </p>
-                        <p className="m-0 text-xs text-sys-text-muted">
-                          Не ви?{' '}
-                          <Link className="underline" href="/logout">
-                            Вийти з акаунту
-                          </Link>
-                          .
-                        </p>
-                      </section>
-                    ) : (
-                      <section className="rounded-radius-primary border border-sys-accent bg-sys-surface-2 px-space-15 py-space-20 grid gap-space-15">
-                        <p className="m-0 pobut-body text-sys-text">
-                          Або продовжуйте як гість – вкажіть email для отримання підтвердження та
-                          статусу замовлення.
-                        </p>
-
-                        <FormItem className="mb-0">
-                          <Label
-                            htmlFor="email"
-                            className="text-sys-text font-semibold font-unbounded text-sm"
-                          >
-                            Email
-                          </Label>
-                          <Input
-                            disabled={!emailEditable}
-                            id="email"
-                            name="email"
-                            onChange={(e) => setEmail(e.target.value)}
-                            required
-                            type="email"
-                            placeholder="name@example.com"
-                            variant="primaryFrontend"
-                            className="h-12 rounded-radius-full px-6"
-                          />
-                        </FormItem>
-
-                        <div>
-                          <Button
-                            disabled={!email || !emailEditable}
-                            onClick={(e) => {
-                              e.preventDefault()
-                              setEmailEditable(false)
-                            }}
-                            className="rounded-radius-full px-space-20"
-                          >
-                            Продовжити як гість
-                          </Button>
-                        </div>
-                      </section>
-                    )}
-                  </div>
-
-                  <footer className="pt-space-15 flex items-center justify-between gap-space-10">
-                    <p className="m-0 text-xs text-sys-text-muted">
-                      Ви зможете зберегти адресу доставки на наступних кроках.
-                    </p>
-                    <Button
-                      type="button"
-                      size="lg"
-                      className="rounded-radius-full px-space-20"
-                      disabled={!receiverStepComplete}
-                      onClick={goToNextStep}
-                    >
-                      До доставки
-                    </Button>
-                  </footer>
-                </section>
-              )}
-
-              {/* Step 3: Delivery & addresses */}
-              {currentStep === 'delivery' && (
-                <section className="grid gap-space-20">
-                  <header className="grid gap-space-05">
-                    <h2 className="m-0 pobut-H3 text-sys-text">Спосіб доставки та адреса</h2>
-                    <p className="m-0 pobut-body text-sys-text-muted">
-                      Оберіть спосіб доставки та вкажіть адресу одержувача.
-                    </p>
-                  </header>
-
-                  <div className="grid gap-space-20">
-                    <section className="grid gap-space-10">
-                      <h3 className="m-0 text-sm font-semibold tracking-[0.12em] uppercase text-sys-text">
-                        Платіжна адреса
-                      </h3>
-
-                      {billingAddress ? (
-                        <div className="grid gap-space-10">
-                          <AddressItem
-                            address={billingAddress}
-                            actions={
-                              <Button
-                                variant="outline"
-                                size="sm"
-                                disabled={Boolean(paymentData)}
-                                onClick={(e) => {
-                                  e.preventDefault()
-                                  setBillingAddress(undefined)
-                                }}
-                                className="rounded-radius-full"
-                              >
-                                Змінити адресу
-                              </Button>
-                            }
-                          />
-                        </div>
-                      ) : user ? (
-                        <CheckoutAddresses
-                          heading="Виберіть платіжну адресу"
-                          description="Використовуйте одну з раніше збережених адрес або додайте нову."
-                          setAddress={setBillingAddress}
-                        />
-                      ) : (
-                        <CreateAddressModal
-                          disabled={!email || Boolean(emailEditable)}
-                          callback={(address) => {
-                            setBillingAddress(address)
-                          }}
-                          skipSubmission={true}
-                        />
-                      )}
-                    </section>
-
-                    <section className="grid gap-space-05">
-                      <div className="flex items-center gap-space-10">
-                        <Checkbox
-                          id="shippingTheSameAsBilling"
-                          checked={billingAddressSameAsShipping}
-                          disabled={Boolean(
-                            paymentData || (!user && (!email || Boolean(emailEditable))),
-                          )}
-                          onCheckedChange={(state) => {
-                            setBillingAddressSameAsShipping(state as boolean)
-                          }}
-                        />
-                        <Label
-                          htmlFor="shippingTheSameAsBilling"
-                          className="text-sm font-medium text-sys-text"
-                        >
-                          Адреса доставки збігається з платіжною
-                        </Label>
-                      </div>
-                      <p className="m-0 text-xs text-sys-text-muted">
-                        За потреби ви можете вказати іншу адресу або відділення служби доставки.
-                      </p>
-                    </section>
-
-                    {!billingAddressSameAsShipping && (
-                      <section className="grid gap-space-10">
-                        <h3 className="m-0 text-sm font-semibold tracking-[0.12em] uppercase text-sys-text">
-                          Адреса доставки
-                        </h3>
-
-                        {shippingAddress ? (
-                          <div className="grid gap-space-10">
-                            <AddressItem
-                              address={shippingAddress}
-                              actions={
-                                <Button
-                                  variant="outline"
-                                  size="sm"
-                                  disabled={Boolean(paymentData)}
-                                  onClick={(e) => {
-                                    e.preventDefault()
-                                    setShippingAddress(undefined)
-                                  }}
-                                  className="rounded-radius-full"
-                                >
-                                  Змінити адресу
-                                </Button>
-                              }
-                            />
-                          </div>
-                        ) : user ? (
-                          <CheckoutAddresses
-                            heading="Виберіть адресу доставки"
-                            description="Оберіть адресу або створіть нову для доставки."
-                            setAddress={setShippingAddress}
-                          />
-                        ) : (
-                          <CreateAddressModal
-                            callback={(address) => {
-                              setShippingAddress(address)
-                            }}
-                            disabled={!email || Boolean(emailEditable)}
-                            skipSubmission={true}
-                          />
-                        )}
-                      </section>
-                    )}
-
-                    <section className="rounded-radius-primary border border-dashed border-sys-accent bg-sys-surface-2 px-space-15 py-space-15 grid gap-space-05">
-                      <p className="m-0 pobut-body text-sys-text font-semibold">
-                        Служби доставки: Нова Пошта, Укрпошта, кур&apos;єр.
-                      </p>
-                      <p className="m-0 text-xs text-sys-text-muted">
-                        Підключення карти відділень Нової Пошти та розрахунок вартості доставки
-                        можна реалізувати через їх офіційний API. Поточна версія форми вже готова до
-                        збереження вибраних адрес.
-                      </p>
-                    </section>
-                  </div>
-
-                  <footer className="pt-space-15 flex flex-col tablet:flex-row tablet:items-center tablet:justify-between gap-space-10">
-                    <Button
-                      type="button"
-                      variant="ghost"
-                      size="sm"
-                      onClick={() => setCurrentStep('receiver')}
-                      className="self-start rounded-radius-full px-space-15"
-                    >
-                      Повернутися до одержувача
-                    </Button>
-
-                    <div className="flex gap-space-10 tablet:ml-auto">
-                      <Button
-                        type="button"
-                        variant="outline"
-                        size="lg"
-                        className="rounded-radius-full px-space-20"
-                        onClick={() => setCurrentStep('receiver')}
-                      >
-                        Назад
-                      </Button>
-                      <Button
-                        type="button"
-                        size="lg"
-                        className="rounded-radius-full px-space-20"
-                        disabled={!deliveryStepComplete}
-                        onClick={goToNextStep}
-                      >
-                        До оплати
-                      </Button>
-                    </div>
-                  </footer>
-                </section>
-              )}
-
-              {/* Step 4: Payment */}
-              {currentStep === 'payment' && (
-                <section className="grid gap-space-20 mb-space-30">
-                  <header className="grid gap-space-05">
-                    <h2 className="m-0 pobut-H3 text-sys-text">Спосіб оплати</h2>
-                    <p className="m-0 pobut-body text-sys-text-muted">
-                      Оберіть зручний спосіб оплати. Для оплати карткою використовується LiqPay.
-                    </p>
-                  </header>
-
-                  <div className="grid gap-space-20">
-                    <section className="grid gap-space-10 tablet:grid-cols-2">
-                      <button
-                        type="button"
-                        onClick={() => setPaymentMethod('card')}
-                        className={[
-                          'flex flex-col items-start gap-[2px] rounded-radius-primary border px-space-15 py-space-15 text-left transition-colors',
-                          paymentMethod === 'card'
-                            ? 'border-sys-accent bg-sys-surface-2'
-                            : 'border-sys-border bg-sys-surface hover:bg-sys-surface-2',
-                        ].join(' ')}
-                      >
-                        <p className="m-0 text-sm font-semibold text-sys-text">
-                          Оплата карткою (LiqPay)
-                        </p>
-                        <small className="m-0 text-[11px] text-sys-text-muted">
-                          Миттєва онлайн-оплата банківською карткою через захищений платіжний шлюз
-                          LiqPay.
-                        </small>
-                      </button>
-
-                      <button
-                        type="button"
-                        onClick={() => setPaymentMethod('cod')}
-                        className={[
-                          'flex flex-col items-start gap-[2px] rounded-radius-primary border px-space-15 py-space-15 text-left transition-colors',
-                          paymentMethod === 'cod'
-                            ? 'border-sys-accent bg-sys-surface-2'
-                            : 'border-sys-border bg-sys-surface hover:bg-sys-surface-2',
-                        ].join(' ')}
-                      >
-                        <p className="m-0 text-sm font-semibold text-sys-text">Накладений платіж</p>
-                        <small className="m-0 text-[11px] text-sys-text-muted">
-                          Оплата при отриманні на відділенні поштового оператора (Нова Пошта,
-                          Укрпошта) або кур&apos;єру.
-                        </small>
-                      </button>
-                    </section>
-
-                    {paymentMethod === 'card' && !paymentData && (
-                      <section className="grid gap-space-10">
-                        <p className="m-0 pobut-body text-sys-text-muted">
-                          Натисніть кнопку нижче, щоб сформувати платіж через LiqPay. Після цього ви
-                          перейдете на сторінку банку для завершення оплати.
-                        </p>
-                        <div>
-                          <Button
-                            className="rounded-radius-full px-space-20"
-                            disabled={!canPreparePayment}
-                            onClick={(e) => {
-                              e.preventDefault()
-                              void initiatePaymentIntent('liqpay')
-                            }}
-                          >
-                            Перейти до оплати карткою
-                          </Button>
-                        </div>
-                        {!canPreparePayment && (
-                          <p className="m-0 text-xs text-sys-text-muted">
-                            Заповніть дані одержувача та адресу доставки, щоб продовжити.
-                          </p>
-                        )}
-                      </section>
-                    )}
-
-                    {paymentMethod === 'cod' && (
-                      <section className="grid gap-space-10">
-                        <p className="m-0 pobut-body text-sys-text-muted">
-                          Замовлення з накладеним платежем буде підтверджено менеджером. Оплату ви
-                          здійсните при отриманні.
-                        </p>
-                        <div>
-                          <Button
-                            className="rounded-radius-full px-space-20"
-                            variant="outline"
-                            disabled={!canPreparePayment}
-                            onClick={handleCashOnDelivery}
-                          >
-                            Підтвердити замовлення з післяплатою
-                          </Button>
-                        </div>
-                        {!canPreparePayment && (
-                          <p className="m-0 text-xs text-sys-text-muted">
-                            Спочатку вкажіть коректні контактні дані та адресу доставки.
-                          </p>
-                        )}
-                      </section>
-                    )}
-
-                    {error && (
-                      <section className="grid gap-space-10">
-                        <Message error={error} />
-
-                        <Button
-                          onClick={(e) => {
-                            e.preventDefault()
-                            router.refresh()
-                          }}
-                          className="rounded-radius-full px-space-20"
-                        >
-                          Спробувати ще раз
-                        </Button>
-                      </section>
-                    )}
-
-                    {paymentData && (
-                      <section className="grid gap-space-10">
-                        <h3 className="m-0 text-sm font-semibold tracking-[0.12em] uppercase text-sys-text">
-                          Підтвердження оплати
-                        </h3>
-
-                        <form
-                          ref={formRef}
-                          method="POST"
-                          action={paymentData.checkoutURL}
-                          acceptCharset="utf-8"
-                          className="flex flex-col gap-space-10"
-                        >
-                          <input type="hidden" name="data" value={paymentData.data} />
-                          <input type="hidden" name="signature" value={paymentData.signature} />
-
-                          <Button
-                            type="submit"
-                            className="rounded-radius-full px-space-20"
-                            disabled={!canSubmitPayment}
-                            onClick={() => setProcessingPayment(true)}
-                          >
-                            Перейти до LiqPay
-                          </Button>
-
-                          <Button
-                            type="button"
-                            variant="ghost"
-                            className="self-start text-xs px-0"
-                            onClick={() => setPaymentData(null)}
-                          >
-                            Скасувати оплату
-                          </Button>
-                        </form>
-                      </section>
-                    )}
-                  </div>
-
-                  <footer className="pt-space-15 flex flex-col tablet:flex-row tablet:items-center tablet:justify-between gap-space-10">
-                    <Button
-                      type="button"
-                      variant="ghost"
-                      size="sm"
-                      onClick={() => setCurrentStep('delivery')}
-                      className="self-start rounded-radius-full px-space-15"
-                    >
-                      Повернутися до доставки
-                    </Button>
-                  </footer>
-                </section>
-              )}
+                {/* Step 4: Payment */}
+                {currentStep === 'payment' && PaymentStep()}
+              </section>
 
               {/* Compact order summary shown at the bottom on steps 2–4 */}
               {currentStep !== 'cart' && !cartIsEmpty && (
@@ -990,9 +1166,8 @@ export const CheckoutPage: React.FC = () => {
                   </footer>
                 </section>
               )}
-            </section>
+            </div>
           </div>
-        </div>
         </InnerSection>
       </Container>
     </Section>
