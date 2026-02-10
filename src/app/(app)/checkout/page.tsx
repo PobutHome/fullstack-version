@@ -9,9 +9,9 @@ export const revalidate = 0
 
 export default function Checkout() {
   return (
-    <div className="container min-h-[90vh] flex">
+    <>
       {(!process.env.LIQPAY_PUBLIC_KEY || !process.env.LIQPAY_PRIVATE_KEY) && (
-        <div>
+        <div className="px-4 py-3 text-sm">
           {'Щоб увімкнути оплату через LiqPay, додайте у env змінні '}
           <code>LIQPAY_PUBLIC_KEY</code>
           {' та '}
@@ -23,7 +23,7 @@ export default function Checkout() {
       <h1 className="sr-only">Checkout</h1>
 
       <CheckoutPage />
-    </div>
+    </>
   )
 }
 
