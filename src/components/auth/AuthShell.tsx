@@ -1,8 +1,7 @@
 import type { ReactNode } from 'react'
 
-import Link from 'next/link'
-
 import { Container } from '@/components/Container'
+import { Breadcrumbs } from '@/components/Breadcrumbs'
 import { InnerSection } from '@/components/InnerSection'
 import { Section } from '@/components/Section'
 
@@ -22,12 +21,7 @@ export function AuthShell({ title, crumb, children }: Props) {
       <Container>
         <InnerSection className="grid gap-space-20">
           {crumb ? (
-            <div className="text-sys-text-muted text-sm">
-              <Link className="hover:underline" href="/">
-                Головна
-              </Link>{' '}
-              → <span className="text-sys-text">{crumb}</span>
-            </div>
+            <Breadcrumbs items={[{ label: 'Головна', href: '/' }, { label: crumb }]} />
           ) : null}
 
           <div

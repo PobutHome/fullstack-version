@@ -1,7 +1,20 @@
 import { Slot } from '@radix-ui/react-slot'
 import type { ButtonHTMLAttributes, ReactNode } from 'react'
 
-type Variant = 'primary' | 'secondary' | 'outline' | 'danger' | 'more' | 'catalog' | 'qty'
+type Variant =
+  | 'primary'
+  | 'secondary'
+  | 'outline'
+  | 'danger'
+  | 'more'
+  | 'catalog'
+  | 'qty'
+  | 'productCardButton'
+  | 'productCardIcon'
+  | 'categoryItem'
+  | 'accordionToggle'
+  | 'pagination'
+  | 'paginationActive'
 
 type Size = 'sm' | 'md' | 'lg'
 
@@ -13,6 +26,7 @@ type Props = ButtonHTMLAttributes<HTMLButtonElement> & {
   width?: string | number
   icon?: ReactNode
   iconPosition?: 'left' | 'right'
+  textClassName?: string
 }
 
 export function Button({
@@ -23,6 +37,7 @@ export function Button({
   width,
   icon,
   iconPosition = 'left',
+  textClassName,
   className = '',
   children,
   style,
@@ -31,8 +46,10 @@ export function Button({
   const Comp = asChild ? Slot : 'button'
 
   // Base classes - using Tailwind directly
-  const baseClasses =
-    'pobut-body inline-flex items-center justify-center gap-2 outline-none cursor-pointer no-underline select-none whitespace-nowrap transition-all duration-200 rounded-radius-full focus-visible:outline-2 focus-visible:outline-sys-focus focus-visible:outline-offset-2 disabled:opacity-50 disabled:cursor-not-allowed disabled:pointer-events-none'
+  const baseClasses = [
+    textClassName || 'pobut-body',
+    'min-w-0 inline-flex items-center justify-center gap-2 outline-none cursor-pointer no-underline select-none whitespace-normal wrap-break-word transition-all duration-200 rounded-radius-full focus-visible:outline-2 focus-visible:outline-sys-focus focus-visible:outline-offset-2 disabled:opacity-50 disabled:cursor-not-allowed disabled:pointer-events-none',
+  ].join(' ')
 
   // Size classes with responsive padding
   // Note: btn-px is responsive (changes at 48rem breakpoint automatically)
@@ -63,6 +80,23 @@ export function Button({
       'bg-black text-sys-accent border border-sys-accent shadow-[0_0_0_0_var(--sys-accent)] hover:text-sys-accent-hover hover:border-sys-accent-hover hover:shadow-[0_0_0_1px_var(--sys-accent-hover)] active:bg-sys-accent active:text-sys-text-inverse active:border-sys-accent active:shadow-[0_0_0_0_var(--sys-accent)]',
     // Quantity selector button
     qty: 'bg-transparent text-sys-btn-interactive border border-sys-btn-interactive hover:text-sys-btn-interactive-hover hover:border-sys-btn-interactive-hover active:text-sys-btn-interactive-active active:border-sys-btn-interactive-active',
+    // Product card CTA button
+    productCardButton:
+      'bg-sys-surface-2 text-sys-accent border border-sys-accent hover:bg-sys-accent hover:text-sys-text-on-accent active:bg-sys-accent-active active:text-sys-text-on-accent',
+    // Product card icon-only button
+    productCardIcon:
+      'bg-sys-accent text-sys-text-on-accent border border-sys-accent hover:bg-sys-accent-hover hover:border-sys-accent-hover active:bg-sys-accent-active active:border-sys-accent-active',
+    // Category list item
+    categoryItem:
+      'bg-transparent text-sys-text border border-transparent hover:bg-sys-surface-2 active:bg-sys-surface-2',
+    // Accordion toggle
+    accordionToggle:
+      'bg-sys-accent text-sys-text-on-accent border border-sys-accent hover:bg-sys-accent-hover active:bg-sys-accent-active',
+    // Pagination buttons
+    pagination:
+      'bg-sys-surface text-sys-text border border-sys-border hover:bg-sys-surface-2 active:bg-sys-surface-2',
+    paginationActive:
+      'bg-sys-accent text-sys-text-on-accent border border-sys-accent hover:bg-sys-accent-hover active:bg-sys-accent-active',
   }
 
   const widthClass = fullWidth ? 'w-full' : ''

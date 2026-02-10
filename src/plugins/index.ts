@@ -79,6 +79,18 @@ export const plugins: Plugin[] = [
     addresses: {
       // Delivery only within Ukraine for now
       supportedCountries: [{ label: 'Україна', value: 'UA' }],
+      addressesCollectionOverride: ({ defaultCollection }) => {
+        return {
+          ...defaultCollection,
+          access: {
+            ...defaultCollection.access,
+            read: adminOrCustomerOwner,
+            create: adminOrCustomerOwner,
+            update: adminOrCustomerOwner,
+            delete: adminOrCustomerOwner,
+          },
+        }
+      },
     },
     currencies: {
       defaultCurrency: 'UAH',
