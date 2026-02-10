@@ -147,11 +147,6 @@ export function FeaturedProductsCarousel({
     console.log('Add to cart (retail):', productId)
   }
 
-  const handleWholesaleAddToCart = (productId: string) => {
-    // TODO: Implement add to cart functionality
-    console.log('Add to cart (wholesale):', productId)
-  }
-
   if (!products || products.length === 0) {
     return null
   }
@@ -191,7 +186,6 @@ export function FeaturedProductsCarousel({
                   wholesalePrice={product.wholesalePrice}
                   wholesaleMinQuantity={product.wholesaleMinQuantity}
                   onRetailAddToCart={() => handleRetailAddToCart(product.id)}
-                  onWholesaleAddToCart={() => handleWholesaleAddToCart(product.id)}
                 />
               </div>
             )

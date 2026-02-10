@@ -206,28 +206,31 @@ export function CatalogProductCard({ product }: Props) {
               type="button"
               variant="productCardIcon"
               size="sm"
-              className="w-full wide:w-9 wide:h-9 h-9 tablet:h-10 p-0 shrink-0"
+              className="w-full wide:w-10 wide:h-10 h-10 tablet:h-10 p-0 shrink-0 rounded-radius-full"
               onClick={onOpenFromButton}
               aria-label="Відкрити сторінку товару"
               title="Відкрити сторінку товару"
+              icon={
+                <svg
+                  width="18"
+                  height="18"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  xmlns="http://www.w3.org/2000/svg"
+                  aria-hidden="true"
+                  className="text-sys-text-on-accent"
+                >
+                  <path
+                    d="M7 17L17 7M17 7H9M17 7V15"
+                    stroke="currentColor"
+                    strokeWidth="1.8"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                  />
+                </svg>
+              }
             >
-              <svg
-                width="18"
-                height="18"
-                viewBox="0 0 24 24"
-                fill="none"
-                xmlns="http://www.w3.org/2000/svg"
-                aria-hidden="true"
-                className="text-sys-text-on-accent"
-              >
-                <path
-                  d="M7 17L17 7M17 7H9M17 7V15"
-                  stroke="currentColor"
-                  strokeWidth="1.8"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                />
-              </svg>
+              <span className="sr-only">Відкрити сторінку товару</span>
             </Button>
           </div>
         </div>
