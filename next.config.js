@@ -4,6 +4,10 @@ import path from 'node:path'
 import redirects from './redirects.js'
 
 const NEXT_PUBLIC_SERVER_URL = process.env.NEXT_PUBLIC_SERVER_URL || 'http://localhost:3000'
+const MEDIA_PUBLIC_URLS = [
+  process.env.R2_PUBLIC_URL,
+  process.env.PAYLOAD_PUBLIC_SERVER_URL,
+].filter(Boolean)
 
 /** @type {import('next').NextConfig} */
 const nextConfig = {
@@ -26,6 +30,15 @@ const nextConfig = {
         return {
           hostname: url.hostname,
           protocol: url.protocol.replace(':', ''),
+        }
+      }),
+      ...MEDIA_PUBLIC_URLS.map((item) => {
+        const url = new URL(item)
+
+        return {
+          hostname: url.hostname,
+          protocol: url.protocol.replace(':', ''),
+          pathname: '/**',
         }
       }),
     ],
