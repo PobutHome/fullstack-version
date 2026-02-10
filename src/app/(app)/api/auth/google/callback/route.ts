@@ -52,6 +52,17 @@ function safeRedirectPath(value: string | null) {
   return '/account'
 }
 
+function getRequestOrigin(req: NextRequest) {
+  const forwardedProto = req.headers.get('x-forwarded-proto')
+  const forwardedHost = req.headers.get('x-forwarded-host')
+
+  if (forwardedProto && forwardedHost) {
+    return `${forwardedProto}://${forwardedHost}`
+  }
+
+  return req.nextUrl.origin
+}
+
 function removeExpiredSessions<T extends { expiresAt?: unknown }>(sessions?: T[] | null) {
   const now = new Date()
   return (sessions || []).filter((s) => {
@@ -139,7 +150,11 @@ export async function GET(req: NextRequest) {
     return NextResponse.redirect(new URL('/login?error=google_oauth_env', req.url))
   }
 
-  const redirectURI = `${req.nextUrl.origin}/api/auth/google/callback`
+  const baseURL =
+    process.env.NEXT_PUBLIC_SERVER_URL ||
+    process.env.PAYLOAD_PUBLIC_SERVER_URL ||
+    getRequestOrigin(req)
+  const redirectURI = `${baseURL}/api/auth/google/callback`
 
   try {
     const tokens = await exchangeCodeForTokens({
@@ -302,9 +317,11 @@ export async function GET(req: NextRequest) {
       domain: usersCollection.config.auth?.cookies?.domain || undefined,
     })
 
+    const domain = usersCollection.config.auth?.cookies?.domain || undefined
+
     // Cleanup temporary OAuth cookies
-    res.cookies.set('google_oauth_state', '', { path: '/', maxAge: 0 })
-    res.cookies.set('google_oauth_redirect', '', { path: '/', maxAge: 0 })
+    res.cookies.set('google_oauth_state', '', { path: '/', maxAge: 0, domain })
+    res.cookies.set('google_oauth_redirect', '', { path: '/', maxAge: 0, domain })
 
     return res
   } catch (_err) {

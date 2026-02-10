@@ -3,6 +3,7 @@
 import { FeaturedProductCard } from '@/components/FeaturedProductCard'
 import { ArrowLeftIcon } from '@/components/icons/ArrowLeftIcon'
 import { ArrowRightIcon } from '@/components/icons/ArrowRightIcon'
+import { useCart } from '@payloadcms/plugin-ecommerce/client/react'
 import {
   type TouchEvent,
   useCallback,
@@ -10,6 +11,7 @@ import {
   useRef,
   useState,
 } from 'react'
+import { toast } from 'sonner'
 
 type FeaturedProduct = {
   id: string
@@ -44,6 +46,7 @@ export function FeaturedProductsCarousel({
   autoScrollInterval = DEFAULT_AUTO_SCROLL_INTERVAL,
 }: FeaturedProductsCarouselProps) {
   const [currentIndex, setCurrentIndex] = useState<number>(0) // index of the left-most visible item
+  const { addItem } = useCart()
 
   // Clamp initial items per view so we never request more visible slots
   // than we actually have products. This keeps the left-most item layout stable
@@ -142,9 +145,15 @@ export function FeaturedProductsCarousel({
     }
   }
 
-  const handleRetailAddToCart = (productId: string) => {
-    // TODO: Implement add to cart functionality
-    console.log('Add to cart (retail):', productId)
+  const handleRetailAddToCart = async (productId: string) => {
+    try {
+      await addItem({
+        product: productId,
+      })
+      toast.success('Товар додано до кошика.')
+    } catch {
+      toast.error('Не вдалося додати товар до кошика.')
+    }
   }
 
   if (!products || products.length === 0) {

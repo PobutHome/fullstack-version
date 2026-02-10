@@ -10,6 +10,17 @@ function safeRedirectPath(value: string | null) {
   return '/account'
 }
 
+function getRequestOrigin(req: NextRequest) {
+  const forwardedProto = req.headers.get('x-forwarded-proto')
+  const forwardedHost = req.headers.get('x-forwarded-host')
+
+  if (forwardedProto && forwardedHost) {
+    return `${forwardedProto}://${forwardedHost}`
+  }
+
+  return req.nextUrl.origin
+}
+
 export async function GET(req: NextRequest) {
   const clientId = process.env.GOOGLE_CLIENT_ID
 
@@ -17,11 +28,16 @@ export async function GET(req: NextRequest) {
     return NextResponse.redirect(new URL('/login?error=google_oauth_env', req.url))
   }
 
+  const baseURL =
+    process.env.NEXT_PUBLIC_SERVER_URL ||
+    process.env.PAYLOAD_PUBLIC_SERVER_URL ||
+    getRequestOrigin(req)
+
   const url = new URL(req.url)
   const redirect = safeRedirectPath(url.searchParams.get('redirect'))
 
   const state = crypto.randomUUID()
-  const redirectURI = `${req.nextUrl.origin}/api/auth/google/callback`
+  const redirectURI = `${baseURL}/api/auth/google/callback`
 
   const authURL = new URL('https://accounts.google.com/o/oauth2/v2/auth')
   authURL.searchParams.set('client_id', clientId)
@@ -35,11 +51,13 @@ export async function GET(req: NextRequest) {
   const res = NextResponse.redirect(authURL)
 
   const secure = process.env.NODE_ENV === 'production'
+  const domain = process.env.AUTH_COOKIE_DOMAIN || undefined
 
   res.cookies.set('google_oauth_state', state, {
     httpOnly: true,
     sameSite: 'lax',
     secure,
+    domain,
     path: '/',
     maxAge: 60 * 10,
   })
@@ -48,6 +66,7 @@ export async function GET(req: NextRequest) {
     httpOnly: true,
     sameSite: 'lax',
     secure,
+    domain,
     path: '/',
     maxAge: 60 * 10,
   })
