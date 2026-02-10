@@ -5,15 +5,15 @@ import { ru } from '@payloadcms/translations/languages/ru'
 import { uk } from '@payloadcms/translations/languages/uk'
 
 import {
-    BoldFeature,
-    EXPERIMENTAL_TableFeature,
-    IndentFeature,
-    ItalicFeature,
-    LinkFeature,
-    OrderedListFeature,
-    UnderlineFeature,
-    UnorderedListFeature,
-    lexicalEditor,
+  BoldFeature,
+  EXPERIMENTAL_TableFeature,
+  IndentFeature,
+  ItalicFeature,
+  LinkFeature,
+  OrderedListFeature,
+  UnderlineFeature,
+  UnorderedListFeature,
+  lexicalEditor,
 } from '@payloadcms/richtext-lexical'
 import { fileURLToPath } from 'node:url'
 import path from 'path'
@@ -25,7 +25,6 @@ import { HomeBanners } from '@/collections/HomeBanners'
 import { HomeSalesBanners } from '@/collections/HomeSalesBanners'
 import { Media } from '@/collections/Media'
 import { Users } from '@/collections/Users'
-import { Footer } from '@/globals/Footer'
 import { plugins } from './plugins'
 
 const filename = fileURLToPath(import.meta.url)
@@ -398,7 +397,7 @@ export default buildConfig({
   }),
   //email: nodemailerAdapter(),
   endpoints: [],
-  globals: [Footer],
+  globals: [],
   plugins: [
     ...plugins,
     // storage-adapter-placeholder

@@ -1,54 +1,166 @@
-import type { Footer } from '@/payload-types'
-
-import { FooterMenu } from '@/components/Footer/menu'
-import { LogoIcon } from '@/components/icons/logo'
-import { ThemeSelector } from '@/providers/Theme/ThemeSelector'
-import { getCachedGlobal } from '@/utilities/getGlobals'
+import { Container } from '@/components/Container'
+import type { AppLocale } from '@/utilities/locale'
 import { getRequestLocale } from '@/utilities/locale'
+import configPromise from '@payload-config'
 import Link from 'next/link'
-import { Suspense } from 'react'
+import { getPayload } from 'payload'
 
-const { COMPANY_NAME, SITE_NAME } = process.env
+const footerCopy: Record<
+  AppLocale,
+  {
+    contacts: string
+    address: string
+    information: string
+    categories: string
+    wholesale: string
+    catalog: string
+    offers: string
+    reviews: string
+    about: string
+    contactsLink: string
+    addressLink: string
+  }
+> = {
+  ua: {
+    contacts: 'Контакти',
+    address: 'Адреса',
+    information: 'Інформація',
+    categories: 'Категорії',
+    wholesale: 'Оптовим клієнтам',
+    catalog: 'Каталог',
+    offers: 'Акції і пропозиції',
+    reviews: 'Відгуки',
+    about: 'Про Нас',
+    contactsLink: 'Контакти',
+    addressLink: 'Адреса',
+  },
+  ru: {
+    contacts: 'Контакты',
+    address: 'Адрес',
+    information: 'Информация',
+    categories: 'Категории',
+    wholesale: 'Оптовым клиентам',
+    catalog: 'Каталог',
+    offers: 'Акции и предложения',
+    reviews: 'Отзывы',
+    about: 'О нас',
+    contactsLink: 'Контакты',
+    addressLink: 'Адрес',
+  },
+}
+
+const footerInfoLinks: Record<
+  AppLocale,
+  Array<{ label: keyof (typeof footerCopy)['ua']; href: string }>
+> = {
+  ua: [
+    { label: 'wholesale', href: '/#catalog' },
+    { label: 'catalog', href: '/catalog' },
+    { label: 'offers', href: '/#offers' },
+    { label: 'reviews', href: '/#testimonials' },
+    { label: 'about', href: '/#about' },
+    { label: 'contactsLink', href: '/#about' },
+    { label: 'addressLink', href: '/#about' },
+  ],
+  ru: [
+    { label: 'wholesale', href: '/#catalog' },
+    { label: 'catalog', href: '/catalog' },
+    { label: 'offers', href: '/#offers' },
+    { label: 'reviews', href: '/#testimonials' },
+    { label: 'about', href: '/#about' },
+    { label: 'contactsLink', href: '/#about' },
+    { label: 'addressLink', href: '/#about' },
+  ],
+}
 
 export async function Footer() {
   const locale = await getRequestLocale()
-  const footer: Footer = await getCachedGlobal('footer', 1, locale)()
-  const menu = footer.navItems || []
-  const currentYear = new Date().getFullYear()
-  const copyrightDate = 2023 + (currentYear > 2023 ? `-${currentYear}` : '')
-  const skeleton = 'w-full h-6 animate-pulse rounded bg-neutral-200 dark:bg-neutral-700'
+  const t = footerCopy[locale]
+  const payload = await getPayload({ config: configPromise })
 
-  const copyrightName = COMPANY_NAME || SITE_NAME || ''
+  const categoriesResult = await payload.find({
+    collection: 'categories',
+    locale,
+    pagination: false,
+    sort: 'title',
+    select: {
+      id: true,
+      title: true,
+      slug: true,
+    },
+  })
+
+  const categories = categoriesResult.docs
+    .filter((category) => category && typeof category === 'object')
+    .map((category) => ({
+      id: String(category.id),
+      title: String(category.title),
+    }))
+
+  const currentYear = new Date().getFullYear()
+  const brand = process.env.SITE_NAME || 'PobutHome'
 
   return (
-    <footer className="text-sm text-neutral-500 dark:text-neutral-400">
-      <div className="container">
-        <div className="flex w-full flex-col gap-6 border-t border-neutral-200 py-12 text-sm md:flex-row md:gap-12 dark:border-neutral-700">
-          <div>
-            <Link className="flex items-center gap-2 text-black md:pt-1 dark:text-white" href="/">
-              <LogoIcon className="h-8 w-auto" />
-              <span className="sr-only">{SITE_NAME}</span>
-            </Link>
+    <footer className="bg-sys-accent text-sys-text-on-accent py-layout-gap-3">
+      <Container>
+        <div className="py-space-20 grid grid-cols-2 gap-layout-gap-2 desktop:grid-cols-4 desktop:gap-layout-gap-3">
+          <div className="min-w-0 grid gap-layout-gap-2 col-start-1 row-start-1 md:col-start-auto md:row-start-auto">
+            <div className="min-w-0 grid gap-space-10">
+              <h2 className="m-0 pobut-H1">{t.contacts}</h2>
+              <p className="m-0 pobut-body">
+                <a className="hover:underline" href="tel:+3809807307280">
+                  +38 (098) 730 72 80
+                </a>
+              </p>
+            </div>
+
+            <div className="min-w-0 grid gap-space-10">
+              <h2 className="m-0 pobut-H1">{t.address}</h2>
+              <p className="m-0 pobut-body">
+                ТОВ &quot;Pobut Home&quot;, 29000, Хмельницька обл., м. Хмельницький, вул.
+                Деповська, 19/2
+              </p>
+            </div>
           </div>
-          <Suspense
-            fallback={
-              <div className="flex h-[188px] w-[200px] flex-col gap-2">
-                <div className={skeleton} />
-                <div className={skeleton} />
-                <div className={skeleton} />
-                <div className={skeleton} />
-                <div className={skeleton} />
-                <div className={skeleton} />
-              </div>
-            }
-          >
-            <FooterMenu menu={menu} />
-          </Suspense>
-          <div className="md:ml-auto flex flex-col gap-4 items-end">
-            <ThemeSelector />
+
+          <div className="min-w-0 grid gap-layout-gap-1 col-start-1 row-start-2 desktop:col-start-auto desktop:row-start-auto">
+            <h2 className="m-0 pobut-H1">{t.information}</h2>
+            <nav aria-label={t.information}>
+              <ul className="m-0 p-0 list-none grid gap-layout-gap-1">
+                {footerInfoLinks[locale].map((item) => (
+                  <li key={item.label}>
+                    <Link className="pobut-body hover:underline" href={item.href}>
+                      {t[item.label]}
+                    </Link>
+                  </li>
+                ))}
+              </ul>
+            </nav>
+          </div>
+
+          <div className="min-w-0 grid gap-layout-gap-1 col-start-2 row-start-1 row-span-2 desktop:col-start-auto desktop:row-start-auto desktop:col-span-2 desktop:row-span-1">
+            <h2 className="m-0 pobut-H1 tablet:text-center desktop:text-left">{t.categories}</h2>
+            <nav aria-label={t.categories}>
+              <ul className="m-0 p-0 list-none grid grid-cols-1 tablet:grid-cols-2 gap-x-layout-gap-3 gap-y-space-10">
+                {categories.map((category) => (
+                  <li key={category.id} className="min-w-0">
+                    <Link
+                      className="pobut-body hover:underline block truncate"
+                      href={`/catalog?category=${category.id}`}
+                      title={category.title}
+                    >
+                      {category.title}
+                    </Link>
+                  </li>
+                ))}
+              </ul>
+            </nav>
           </div>
         </div>
-      </div>
+        <p className="m-0 pobut-body text-center pt-layout-gap-3">
+          {currentYear} {brand}©
+        </p>
+      </Container>
     </footer>
   )
 }
