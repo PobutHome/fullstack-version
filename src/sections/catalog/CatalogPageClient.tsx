@@ -9,7 +9,6 @@ import { useCallback, useEffect, useMemo, useState } from 'react'
 import { CategoryAccordion } from './CategoryAccordion'
 import type { CategoryItem } from './CategoryList'
 import { CategorySidebar } from './CategorySidebar'
-import { CatalogBreadcrumbs } from './CatalogBreadcrumbs'
 import { CatalogPagination } from './CatalogPagination'
 
 type Props = {
@@ -130,18 +129,6 @@ export function CatalogPageClient({ categories, products }: Props) {
 
   return (
     <Section className="pb-space-50">
-      <CatalogBreadcrumbs
-        items={[
-          { label: 'Головна', href: '/' },
-          {
-            label: 'Каталог',
-            href: '/catalog',
-            onClick: () => setCategorySlug(null),
-          },
-          ...(activeCategory ? [{ label: activeCategory.title }] : []),
-        ]}
-      />
-
       <Container>
         <div className="mt-space-20 grid gap-layout-gap-2 desktop:grid-cols-[320px_minmax(0,1fr)] items-start">
           <CategorySidebar

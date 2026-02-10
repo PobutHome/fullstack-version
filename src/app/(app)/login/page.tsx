@@ -20,7 +20,7 @@ export default async function Login() {
   }
 
   return (
-    <AuthShell title="Вхід до особистого кабінету" crumb="Вхід">
+    <AuthShell title="Вхід до особистого кабінету">
       <RenderParams />
       <LoginForm />
     </AuthShell>

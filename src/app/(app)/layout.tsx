@@ -4,6 +4,7 @@ import { AdminBar } from '@/components/AdminBar'
 import { Footer } from '@/components/Footer'
 import { Header } from '@/components/Header'
 import { LivePreviewListener } from '@/components/LivePreviewListener'
+import { AppBreadcrumbs } from '@/components/Breadcrumbs/AppBreadcrumbs'
 import { Providers } from '@/providers'
 import { InitTheme } from '@/providers/Theme/InitTheme'
 import { getRequestLocale, toHtmlLang } from '@/utilities/locale'
@@ -64,6 +65,7 @@ export default async function RootLayout({ children }: { children: ReactNode }) 
             <AdminBar />
             <LivePreviewListener />
             <Header />
+            <AppBreadcrumbs />
             <main>{children}</main>
             <Footer />
           </Providers>
