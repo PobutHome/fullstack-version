@@ -164,7 +164,7 @@ export function MobileMenu({ locale, categories }: Props) {
           </Accordion>
 
         {user ? (
-          <div className="">
+          <div className="py-space-20">
             <Button asChild variant="outline" size="sm">
               <SheetClose asChild>
                 <Link href="/logout">{t.logout}</Link>
