@@ -52,7 +52,7 @@ export function OpenCartButton({
           className={cn(
             'absolute -top-1 -right-1 flex items-center justify-center rounded-full',
             'min-w-4 h-4 px-1 text-[10px] leading-none',
-            'bg-primary text-primary-foreground',
+            'bg-sys-btn-primary-bg text-sys-btn-primary-fg',
           )}
         >
           {quantity > 99 ? '99+' : quantity}

@@ -1,10 +1,8 @@
 'use client'
-
 import { CartItem } from '@/components/Cart'
 import type { AppLocale } from '@/utilities/locale'
 import { getClientLocale } from '@/utilities/localeClient'
 import { useCart } from '@payloadcms/plugin-ecommerce/client/react'
-import clsx from 'clsx'
 import { MinusIcon, PlusIcon } from 'lucide-react'
 import React, { useMemo } from 'react'
 
@@ -48,13 +46,11 @@ export function EditItemQuantityButton({ type, item }: { item: CartItem; type: '
         aria-disabled={disabled}
         disabled={disabled}
         aria-label={type === 'plus' ? t.inc : t.dec}
-        className={clsx(
-          'ease hover:cursor-pointer flex h-full min-w-[36px] max-w-[36px] flex-none items-center justify-center rounded-full px-2 transition-all duration-200 hover:border-neutral-800 hover:opacity-80',
-          {
-            'cursor-not-allowed': disabled,
-            'ml-auto': type === 'minus',
-          },
-        )}
+        className={
+          'inline-flex size-9 items-center justify-center rounded-radius-full bg-transparent p-0 border-0 ' +
+          'text-sys-btn-interactive-fg hover:text-sys-btn-interactive-fg-hover active:text-sys-btn-interactive-fg-active ' +
+          'disabled:opacity-40 disabled:cursor-not-allowed'
+        }
         onClick={(e: React.FormEvent<HTMLButtonElement>) => {
           e.preventDefault()
 
@@ -68,11 +64,7 @@ export function EditItemQuantityButton({ type, item }: { item: CartItem; type: '
         }}
         type="button"
       >
-        {type === 'plus' ? (
-          <PlusIcon className="h-4 w-4 dark:text-neutral-500 hover:text-blue-300" />
-        ) : (
-          <MinusIcon className="h-4 w-4 dark:text-neutral-500 hover:text-blue-300" />
-        )}
+        {type === 'plus' ? <PlusIcon className="size-4" /> : <MinusIcon className="size-4" />}
       </button>
     </form>
   )
