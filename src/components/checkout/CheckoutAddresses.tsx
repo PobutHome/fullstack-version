@@ -31,19 +31,21 @@ export const CheckoutAddresses: React.FC<Props> = ({
 
   if (!addresses || addresses.length === 0) {
     return (
-      <div>
-        <p>No addresses found. Please add an address.</p>
-
+      <div className="rounded-radius-primary border border-sys-border bg-sys-surface-2 px-space-15 py-space-15 grid gap-space-10">
+        <div className="grid gap-[2px]">
+          <h3 className="m-0 text-sm font-semibold text-sys-text">{heading}</h3>
+          <p className="m-0 text-xs text-sys-text-muted">{description}</p>
+        </div>
         <CreateAddressModal />
       </div>
     )
   }
 
   return (
-    <div className="flex flex-col gap-8">
-      <div>
-        <h3 className="text-xl font-medium mb-2">{heading}</h3>
-        <p className="text-muted-foreground">{description}</p>
+    <div className="rounded-radius-primary border border-sys-border bg-sys-surface-2 px-space-15 py-space-15 grid gap-space-10">
+      <div className="grid gap-[2px]">
+        <h3 className="m-0 text-sm font-semibold text-sys-text">{heading}</h3>
+        <p className="m-0 text-xs text-sys-text-muted">{description}</p>
       </div>
       <AddressesModal setAddress={setAddress} />
     </div>
@@ -68,7 +70,9 @@ const AddressesModal: React.FC<Props> = ({ setAddress }) => {
   return (
     <Dialog open={open} onOpenChange={handleOpenChange}>
       <DialogTrigger asChild>
-        <Button variant={'outline'}>{'Select an address'}</Button>
+        <Button variant="outline" className="rounded-radius-full px-space-15">
+          Select an address
+        </Button>
       </DialogTrigger>
       <DialogContent>
         <DialogHeader>

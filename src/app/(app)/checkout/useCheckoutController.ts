@@ -5,7 +5,13 @@ import { useCallback, useEffect, useMemo, useState } from 'react'
 import { useForm } from 'react-hook-form'
 import { toast } from 'sonner'
 
-import type { CheckoutStepId, LiqPayPaymentData, ReceiverForm, ReceiverFormData } from './checkoutTypes'
+import type {
+  CheckoutStepId,
+  DeliveryMethod,
+  LiqPayPaymentData,
+  ReceiverForm,
+  ReceiverFormData,
+} from './checkoutTypes'
 
 export const CHECKOUT_STEPS: { id: CheckoutStepId; title: string; description: string }[] = [
   {
@@ -38,11 +44,9 @@ type UseCheckoutControllerResult = {
   paymentData: LiqPayPaymentData | null
   setPaymentData: (data: LiqPayPaymentData | null) => void
   shippingAddress: Partial<Address> | undefined
-  billingAddress: Partial<Address> | undefined
-  billingAddressSameAsShipping: boolean
+  deliveryMethod: DeliveryMethod
   setShippingAddress: React.Dispatch<React.SetStateAction<Partial<Address> | undefined>>
-  setBillingAddress: React.Dispatch<React.SetStateAction<Partial<Address> | undefined>>
-  setBillingAddressSameAsShipping: React.Dispatch<React.SetStateAction<boolean>>
+  setDeliveryMethod: React.Dispatch<React.SetStateAction<DeliveryMethod>>
   isProcessingPayment: boolean
   setProcessingPayment: (value: boolean) => void
   paymentMethod: 'card' | 'cod'
@@ -70,8 +74,7 @@ export function useCheckoutController(): UseCheckoutControllerResult {
   const [error, setError] = useState<string | null>(null)
   const [paymentData, setPaymentData] = useState<null | LiqPayPaymentData>(null)
   const [shippingAddress, setShippingAddress] = useState<Partial<Address>>()
-  const [billingAddress, setBillingAddress] = useState<Partial<Address>>()
-  const [billingAddressSameAsShipping, setBillingAddressSameAsShipping] = useState(true)
+  const [deliveryMethod, setDeliveryMethod] = useState<DeliveryMethod>('nova-poshta')
   const [isProcessingPayment, setProcessingPayment] = useState(false)
   const [paymentMethod, setPaymentMethod] = useState<'card' | 'cod'>('card')
   const [currentStep, setCurrentStep] = useState<CheckoutStepId>('cart')
@@ -103,8 +106,8 @@ export function useCheckoutController(): UseCheckoutControllerResult {
   )
 
   const deliveryStepComplete = useMemo(
-    () => Boolean(billingAddress && (billingAddressSameAsShipping || shippingAddress)),
-    [billingAddress, billingAddressSameAsShipping, shippingAddress],
+    () => Boolean(shippingAddress),
+    [shippingAddress],
   )
 
   const canPreparePayment = useMemo(
@@ -134,12 +137,10 @@ export function useCheckoutController(): UseCheckoutControllerResult {
   }, [currentStep, deliveryStepComplete, receiverStepComplete])
 
   useEffect(() => {
-    if (!shippingAddress) {
-      if (addresses && addresses.length > 0) {
-        const defaultAddress = addresses[0]
-        if (defaultAddress) {
-          setBillingAddress(defaultAddress)
-        }
+    if (!shippingAddress && addresses && addresses.length > 0) {
+      const defaultAddress = addresses[0]
+      if (defaultAddress) {
+        setShippingAddress(defaultAddress)
       }
     }
   }, [addresses, shippingAddress])
@@ -147,8 +148,6 @@ export function useCheckoutController(): UseCheckoutControllerResult {
   useEffect(() => {
     return () => {
       setShippingAddress(undefined)
-      setBillingAddress(undefined)
-      setBillingAddressSameAsShipping(true)
       receiverForm.reset()
     }
   }, [receiverForm])
@@ -159,9 +158,9 @@ export function useCheckoutController(): UseCheckoutControllerResult {
         const {
           receiverFirstName,
           receiverLastName,
-          receiverPhone,
-          email: formEmail,
-        } = receiverForm.getValues()
+            receiverPhone,
+            email: formEmail,
+          } = receiverForm.getValues()
 
         const customerEmail = user?.email || formEmail
 
@@ -171,8 +170,7 @@ export function useCheckoutController(): UseCheckoutControllerResult {
             ...(receiverFirstName ? { receiverFirstName } : {}),
             ...(receiverLastName ? { receiverLastName } : {}),
             ...(receiverPhone ? { receiverPhone } : {}),
-            billingAddress,
-            shippingAddress: billingAddressSameAsShipping ? billingAddress : shippingAddress,
+            shippingAddress,
           },
         })) as unknown as LiqPayPaymentData
 
@@ -191,14 +189,7 @@ export function useCheckoutController(): UseCheckoutControllerResult {
         toast.error(errorMessage)
       }
     },
-    [
-      billingAddress,
-      billingAddressSameAsShipping,
-      initiatePayment,
-      receiverForm,
-      shippingAddress,
-      user?.email,
-    ],
+    [initiatePayment, receiverForm, shippingAddress, user?.email],
   )
 
   const handleCashOnDelivery = useCallback(
@@ -221,11 +212,9 @@ export function useCheckoutController(): UseCheckoutControllerResult {
     paymentData,
     setPaymentData,
     shippingAddress,
-    billingAddress,
-    billingAddressSameAsShipping,
+    deliveryMethod,
     setShippingAddress,
-    setBillingAddress,
-    setBillingAddressSameAsShipping,
+    setDeliveryMethod,
     isProcessingPayment,
     setProcessingPayment,
     paymentMethod,

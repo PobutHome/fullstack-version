@@ -3,7 +3,7 @@ import React from 'react'
 import { Message } from '@/components/Message'
 import { Button } from '@/components/ui/button'
 
-import type { LiqPayPaymentData } from './checkoutTypes'
+import type { DeliveryMethod, LiqPayPaymentData } from './checkoutTypes'
 
 interface PaymentStepProps {
   paymentMethod: 'card' | 'cod'
@@ -11,6 +11,7 @@ interface PaymentStepProps {
   paymentData: LiqPayPaymentData | null
   error: string | null
   canSubmitPayment: boolean
+  deliveryMethod: DeliveryMethod
   onPaymentMethodChange: (method: 'card' | 'cod') => void
   onInitiatePaymentIntent: () => void
   onCashOnDelivery: (event: React.MouseEvent<HTMLButtonElement>) => void
@@ -26,6 +27,7 @@ export const PaymentStep: React.FC<PaymentStepProps> = ({
   paymentData,
   error,
   canSubmitPayment,
+  deliveryMethod,
   onPaymentMethodChange,
   onInitiatePaymentIntent,
   onCashOnDelivery,
@@ -34,8 +36,10 @@ export const PaymentStep: React.FC<PaymentStepProps> = ({
   onBackToDelivery,
   onProcessingPaymentStart,
 }) => {
+  const codDisabled = deliveryMethod === 'ukrposhta'
+
   return (
-    <section className="grid gap-space-20 mb-space-30 max-w-3xl">
+    <section className="grid gap-space-20 max-w-3xl">
       <header className="grid gap-space-05">
         <h2 className="m-0 pobut-H3 text-sys-text">Спосіб оплати</h2>
         <p className="m-0 pobut-body text-sys-text-muted">
@@ -65,6 +69,7 @@ export const PaymentStep: React.FC<PaymentStepProps> = ({
           <Button
             type="button"
             onClick={() => onPaymentMethodChange('cod')}
+            disabled={codDisabled}
             variant={paymentMethod === 'cod' ? 'outline' : 'ghost'}
             className={[
               'flex flex-col items-start gap-[2px] rounded-radius-primary border px-space-15 py-space-15 text-left transition-colors',
@@ -77,6 +82,11 @@ export const PaymentStep: React.FC<PaymentStepProps> = ({
             <small className="m-0 text-[11px] text-sys-text-muted">
               Оплата при отриманні на відділенні поштового оператора (Нова Пошта, Укрпошта) або
               кур&apos;єру.
+              {codDisabled && (
+                <span className="block text-[11px] text-sys-danger">
+                  Для Укрпошти доступна лише оплата карткою.
+                </span>
+              )}
             </small>
           </Button>
         </section>
@@ -173,7 +183,7 @@ export const PaymentStep: React.FC<PaymentStepProps> = ({
               <Button
                 type="button"
                 variant="ghost"
-                className="self-start text-xs px-0"
+                className="self-start text-xs px-0 text-sys-text-muted hover:text-sys-text hover:bg-transparent active:bg-transparent underline-offset-4 hover:underline"
                 onClick={onCancelPayment}
               >
                 Скасувати оплату
@@ -189,7 +199,7 @@ export const PaymentStep: React.FC<PaymentStepProps> = ({
           variant="ghost"
           size="sm"
           onClick={onBackToDelivery}
-          className="self-start rounded-radius-full px-space-15"
+          className="self-start rounded-radius-full px-space-15 text-sys-text-muted hover:text-sys-text hover:bg-transparent active:bg-transparent underline-offset-4 hover:underline"
         >
           Повернутися до доставки
         </Button>

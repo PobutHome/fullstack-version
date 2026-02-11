@@ -28,11 +28,9 @@ export const CheckoutClient: React.FC = () => {
     paymentData,
     setPaymentData,
     shippingAddress,
-    billingAddress,
-    billingAddressSameAsShipping,
+    deliveryMethod,
     setShippingAddress,
-    setBillingAddress,
-    setBillingAddressSameAsShipping,
+    setDeliveryMethod,
     isProcessingPayment,
     setProcessingPayment,
     paymentMethod,
@@ -193,60 +191,64 @@ export const CheckoutClient: React.FC = () => {
               {/* Main content: steps */}
               <section className="px-space-20 py-space-20 flex flex-col gap-layout-gap-1">
                 {/* Step 1: Cart review */}
-                {currentStep === 'cart' &&
-                  !cartIsEmpty &&
-                  CartStep({
-                    cart: cart as any,
-                    onNext: goToNextStep,
-                  })}
+                {currentStep === 'cart' && !cartIsEmpty && (
+                  <CartStep cart={cart as any} onNext={goToNextStep} />
+                )}
 
                 {/* Step 2: Receiver */}
-                {currentStep === 'receiver' &&
-                  ReceiverStep({
-                    user,
-                    receiverForm,
-                    onContinueToDelivery: goToNextStep,
-                    receiverStepComplete,
-                  })}
+                {currentStep === 'receiver' && (
+                  <ReceiverStep
+                    user={user}
+                    receiverForm={receiverForm}
+                    onContinueToDelivery={goToNextStep}
+                    receiverStepComplete={receiverStepComplete}
+                  />
+                )}
 
                 {/* Step 3: Delivery & addresses */}
-                {currentStep === 'delivery' &&
-                  DeliveryStep({
-                    user,
-                    email: '',
-                    emailEditable: false,
-                    billingAddress,
-                    shippingAddress,
-                    billingAddressSameAsShipping,
-                    paymentData,
-                    deliveryStepComplete,
-                    onBillingAddressChange: setBillingAddress,
-                    onShippingAddressChange: setShippingAddress,
-                    onBillingAddressSameAsShippingChange: setBillingAddressSameAsShipping,
-                    onBackToReceiver: () => setCurrentStep('receiver'),
-                    onNextToPayment: goToNextStep,
-                  })}
+                {currentStep === 'delivery' && (
+                  <DeliveryStep
+                    user={user}
+                    email=""
+                    emailEditable={false}
+                    shippingAddress={shippingAddress}
+                    paymentData={paymentData}
+                    deliveryStepComplete={deliveryStepComplete}
+                    deliveryMethod={deliveryMethod}
+                    onDeliveryMethodChange={(method) => {
+                      setDeliveryMethod(method)
+                      if (method === 'ukrposhta' && paymentMethod === 'cod') {
+                        setPaymentMethod('card')
+                      }
+                    }}
+                    onShippingAddressChange={setShippingAddress}
+                    onBackToReceiver={() => setCurrentStep('receiver')}
+                    onNextToPayment={goToNextStep}
+                  />
+                )}
 
                 {/* Step 4: Payment */}
-                {currentStep === 'payment' &&
-                  PaymentStep({
-                    paymentMethod,
-                    canPreparePayment,
-                    paymentData,
-                    error,
-                    canSubmitPayment,
-                    onPaymentMethodChange: setPaymentMethod,
-                    onInitiatePaymentIntent: () => {
+                {currentStep === 'payment' && (
+                  <PaymentStep
+                    paymentMethod={paymentMethod}
+                    canPreparePayment={canPreparePayment}
+                    paymentData={paymentData}
+                    error={error}
+                    canSubmitPayment={canSubmitPayment}
+                    deliveryMethod={deliveryMethod}
+                    onPaymentMethodChange={setPaymentMethod}
+                    onInitiatePaymentIntent={() => {
                       void initiatePaymentIntent('liqpay')
-                    },
-                    onCashOnDelivery: handleCashOnDelivery,
-                    onRetry: () => {
+                    }}
+                    onCashOnDelivery={handleCashOnDelivery}
+                    onRetry={() => {
                       router.refresh()
-                    },
-                    onCancelPayment: () => setPaymentData(null),
-                    onBackToDelivery: () => setCurrentStep('delivery'),
-                    onProcessingPaymentStart: () => setProcessingPayment(true),
-                  })}
+                    }}
+                    onCancelPayment={() => setPaymentData(null)}
+                    onBackToDelivery={() => setCurrentStep('delivery')}
+                    onProcessingPaymentStart={() => setProcessingPayment(true)}
+                  />
+                )}
               </section>
 
               {/* Compact order summary shown at the bottom on steps 2–4 */}

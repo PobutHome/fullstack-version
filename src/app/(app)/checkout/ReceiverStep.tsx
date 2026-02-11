@@ -39,7 +39,7 @@ export const ReceiverStep: React.FC<ReceiverStepProps> = ({
 
       <div className="grid gap-space-20">
         {!user && (
-          <section className="rounded-radius-primary border border-sys-border-interactive bg-sys-surface-2 px-space-15 py-space-15 grid gap-space-10">
+          <section className="rounded-radius-primary bg-sys-surface-2 px-space-15 py-space-15 grid gap-space-10">
             <div className="grid gap-space-05">
               <p className="m-0 pobut-body text-sys-text font-semibold">
                 Маєте акаунт? Увійдіть для швидшого оформлення.
@@ -65,7 +65,7 @@ export const ReceiverStep: React.FC<ReceiverStepProps> = ({
         )}
 
         {user ? (
-          <section className="rounded-radius-primary border border-sys-border bg-sys-surface-2 px-space-15 py-space-15 grid gap-space-05">
+          <section className="px-space-15 py-space-15 grid gap-space-05">
             <p className="m-0 pobut-body text-sys-text">
               Ви оформлюєте замовлення як <span className="font-semibold">{user.email}</span>.
             </p>
@@ -78,149 +78,153 @@ export const ReceiverStep: React.FC<ReceiverStepProps> = ({
             </p>
           </section>
         ) : (
-          <section className="rounded-radius-primary border border-sys-border bg-sys-surface-2 px-space-15 py-space-20 grid gap-space-15">
+          <section className="grid gap-space-20">
             <p className="m-0 pobut-body text-sys-text">
               Або продовжуйте як гість – заповніть контактні дані для підтвердження та статусу
               замовлення.
             </p>
 
             <form
-              className="grid gap-space-12 max-w-sm"
+              className="grid gap-space-20"
               noValidate
               onSubmit={handleSubmit(() => undefined)}
             >
-              <FormItem className="mb-0">
-                <Label
-                  htmlFor="checkout-email"
-                  className="text-sys-text font-semibold font-unbounded text-sm"
-                >
-                  Email<span className="text-sys-danger">*</span>
-                </Label>
-                <Input
-                  disabled={isSubmitting}
-                  id="checkout-email"
-                  type="email"
-                  autoComplete="email"
-                  placeholder="name@example.com"
-                  variant="primaryFrontend"
-                  className="h-11 rounded-radius-full px-4"
-                  aria-invalid={Boolean(errors.email)}
-                  {...register('email', {
-                    required: 'Вкажіть email.',
-                    pattern: {
-                      value: /^[^\s@]+@[^\s@]+\.[^\s@]+$/,
-                      message: 'Вкажіть коректний email.',
-                    },
-                  })}
-                />
-                {errors.email?.message && (
-                  <FormError
-                    as="span"
-                    className="mt-1 text-[11px] text-sys-danger"
-                    message={errors.email.message}
+              <div className="grid gap-space-20 tablet:grid-cols-2">
+                <FormItem className="mb-0 tablet:col-span-2">
+                  <Label
+                    htmlFor="checkout-email"
+                    className="text-sys-text font-semibold font-unbounded text-sm"
+                  >
+                    Email<span className="text-sys-danger">*</span>
+                  </Label>
+                  <Input
+                    disabled={isSubmitting}
+                    id="checkout-email"
+                    type="email"
+                    autoComplete="email"
+                    placeholder="name@example.com"
+                    variant="primaryFrontend"
+                    className="h-11 rounded-radius-full px-4"
+                    aria-invalid={Boolean(errors.email)}
+                    {...register('email', {
+                      required: 'Вкажіть email.',
+                      pattern: {
+                        value: /^[^\s@]+@[^\s@]+\.[^\s@]+$/,
+                        message: 'Вкажіть коректний email.',
+                      },
+                    })}
                   />
-                )}
-              </FormItem>
+                  {errors.email?.message && (
+                    <FormError
+                      as="span"
+                      className="mt-1 text-[11px] text-sys-danger"
+                      message={errors.email.message}
+                    />
+                  )}
+                </FormItem>
 
-              <FormItem className="mb-0">
-                <Label
-                  htmlFor="checkout-receiverFirstName"
-                  className="text-sys-text font-semibold font-unbounded text-sm"
-                >
-                  Ім&apos;я одержувача<span className="text-sys-danger">*</span>
-                </Label>
-                <Input
-                  disabled={isSubmitting}
-                  id="checkout-receiverFirstName"
-                  type="text"
-                  autoComplete="given-name"
-                  placeholder="Ім'я"
-                  variant="primaryFrontend"
-                  className="h-11 rounded-radius-full px-4"
-                  aria-invalid={Boolean(errors.receiverFirstName)}
-                  {...register('receiverFirstName', {
-                    required: "Ім'я одержувача обов'язкове.",
-                  })}
-                />
-                {errors.receiverFirstName?.message && (
-                  <FormError
-                    as="span"
-                    className="mt-1 text-[11px] text-sys-danger"
-                    message={errors.receiverFirstName.message}
+                <FormItem className="mb-0">
+                  <Label
+                    htmlFor="checkout-receiverFirstName"
+                    className="text-sys-text font-semibold font-unbounded text-sm"
+                  >
+                    Ім&apos;я одержувача<span className="text-sys-danger">*</span>
+                  </Label>
+                  <Input
+                    disabled={isSubmitting}
+                    id="checkout-receiverFirstName"
+                    type="text"
+                    autoComplete="given-name"
+                    placeholder="Ім'я"
+                    variant="primaryFrontend"
+                    className="h-11 rounded-radius-full px-4"
+                    aria-invalid={Boolean(errors.receiverFirstName)}
+                    {...register('receiverFirstName', {
+                      required: "Ім'я одержувача обов'язкове.",
+                    })}
                   />
-                )}
-              </FormItem>
+                  {errors.receiverFirstName?.message && (
+                    <FormError
+                      as="span"
+                      className="mt-1 text-[11px] text-sys-danger"
+                      message={errors.receiverFirstName.message}
+                    />
+                  )}
+                </FormItem>
 
-              <FormItem className="mb-0">
-                <Label
-                  htmlFor="checkout-receiverLastName"
-                  className="text-sys-text font-semibold font-unbounded text-sm"
-                >
-                  Прізвище одержувача<span className="text-sys-danger">*</span>
-                </Label>
-                <Input
-                  disabled={isSubmitting}
-                  id="checkout-receiverLastName"
-                  type="text"
-                  autoComplete="family-name"
-                  placeholder="Прізвище"
-                  variant="primaryFrontend"
-                  className="h-11 rounded-radius-full px-4"
-                  aria-invalid={Boolean(errors.receiverLastName)}
-                  {...register('receiverLastName', {
-                    required: "Прізвище одержувача обов'язкове.",
-                  })}
-                />
-                {errors.receiverLastName?.message && (
-                  <FormError
-                    as="span"
-                    className="mt-1 text-[11px] text-sys-danger"
-                    message={errors.receiverLastName.message}
+                <FormItem className="mb-0">
+                  <Label
+                    htmlFor="checkout-receiverLastName"
+                    className="text-sys-text font-semibold font-unbounded text-sm"
+                  >
+                    Прізвище одержувача<span className="text-sys-danger">*</span>
+                  </Label>
+                  <Input
+                    disabled={isSubmitting}
+                    id="checkout-receiverLastName"
+                    type="text"
+                    autoComplete="family-name"
+                    placeholder="Прізвище"
+                    variant="primaryFrontend"
+                    className="h-11 rounded-radius-full px-4"
+                    aria-invalid={Boolean(errors.receiverLastName)}
+                    {...register('receiverLastName', {
+                      required: "Прізвище одержувача обов'язкове.",
+                    })}
                   />
-                )}
-              </FormItem>
+                  {errors.receiverLastName?.message && (
+                    <FormError
+                      as="span"
+                      className="mt-1 text-[11px] text-sys-danger"
+                      message={errors.receiverLastName.message}
+                    />
+                  )}
+                </FormItem>
+              </div>
 
-              <FormItem className="mb-0">
-                <Label
-                  htmlFor="checkout-receiverPhone"
-                  className="text-sys-text font-semibold font-unbounded text-sm"
-                >
-                  Телефон одержувача<span className="text-sys-danger">*</span>
-                </Label>
-                <Input
-                  disabled={isSubmitting}
-                  id="checkout-receiverPhone"
-                  type="tel"
-                  autoComplete="tel"
-                  placeholder="+380 XX XXX XX XX"
-                  variant="primaryFrontend"
-                  className="h-11 rounded-radius-full px-4"
-                  aria-invalid={Boolean(errors.receiverPhone)}
-                  {...register('receiverPhone', {
-                    required: "Телефон одержувача обов'язковий.",
-                    pattern: {
-                      value: /^[\d\s+()-]{10,}$/,
-                      message: 'Вкажіть коректний номер телефону.',
-                    },
-                  })}
-                />
-                {errors.receiverPhone?.message && (
-                  <FormError
-                    as="span"
-                    className="mt-1 text-[11px] text-sys-danger"
-                    message={errors.receiverPhone.message}
+              <div className="grid gap-space-20 tablet:grid-cols-2 items-end">
+                <FormItem className="mb-0 tablet:col-span-1">
+                  <Label
+                    htmlFor="checkout-receiverPhone"
+                    className="text-sys-text font-semibold font-unbounded text-sm"
+                  >
+                    Телефон одержувача<span className="text-sys-danger">*</span>
+                  </Label>
+                  <Input
+                    disabled={isSubmitting}
+                    id="checkout-receiverPhone"
+                    type="tel"
+                    autoComplete="tel"
+                    placeholder="+380 XX XXX XX XX"
+                    variant="primaryFrontend"
+                    className="h-11 rounded-radius-full px-4"
+                    aria-invalid={Boolean(errors.receiverPhone)}
+                    {...register('receiverPhone', {
+                      required: "Телефон одержувача обов'язковий.",
+                      pattern: {
+                        value: /^[\d\s+()-]{10,}$/,
+                        message: 'Вкажіть коректний номер телефону.',
+                      },
+                    })}
                   />
-                )}
-              </FormItem>
+                  {errors.receiverPhone?.message && (
+                    <FormError
+                      as="span"
+                      className="mt-1 text-[11px] text-sys-danger"
+                      message={errors.receiverPhone.message}
+                    />
+                  )}
+                </FormItem>
 
-              <div className="pt-space-05">
-                <Button
-                  type="submit"
-                  disabled={isSubmitting}
-                  className="rounded-radius-full px-space-20 bg-sys-btn-primary-bg text-sys-btn-primary-fg hover:bg-sys-btn-primary-bg-hover active:bg-sys-btn-primary-bg-active"
-                >
-                  {isSubmitting ? 'Перевірка…' : 'Продовжити як гість'}
-                </Button>
+                <div className="pt-space-05 tablet:pt-0 flex justify-start tablet:justify-end">
+                  <Button
+                    type="submit"
+                    disabled={isSubmitting}
+                    className="rounded-radius-full px-space-20 bg-sys-btn-primary-bg text-sys-btn-primary-fg hover:bg-sys-btn-primary-bg-hover active:bg-sys-btn-primary-bg-active"
+                  >
+                    {isSubmitting ? 'Перевірка…' : 'Продовжити як гість'}
+                  </Button>
+                </div>
               </div>
             </form>
           </section>

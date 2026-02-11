@@ -16,6 +16,8 @@ export type LiqPayPaymentData = {
 
 export type CheckoutStepId = 'cart' | 'receiver' | 'delivery' | 'payment'
 
+export type DeliveryMethod = 'nova-poshta' | 'ukrposhta'
+
 export type ReceiverForm = UseFormReturn<ReceiverFormData>
 
 
