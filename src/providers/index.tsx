@@ -30,6 +30,7 @@ export const Providers: React.FC<{
               ],
             }}
             api={{
+              apiRoute: '/api/ecom',
               cartsFetchQuery: {
                 depth: 2,
                 populate: {
@@ -46,9 +47,7 @@ export const Providers: React.FC<{
                 },
               },
             }}
-            paymentMethods={[
-              liqpayAdapterClient(),
-            ]}
+            paymentMethods={[liqpayAdapterClient()]}
           >
             {children}
           </EcommerceProvider>
