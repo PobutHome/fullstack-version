@@ -2,7 +2,7 @@ import type { Metadata } from 'next'
 
 import { mergeOpenGraph } from '@/utilities/mergeOpenGraph'
 
-import { CheckoutPage } from '@/components/checkout/CheckoutPage'
+import { CheckoutClient } from './CheckoutClient'
 
 export const dynamic = 'force-dynamic'
 export const revalidate = 0
@@ -22,7 +22,7 @@ export default function Checkout() {
 
       <h1 className="sr-only">Checkout</h1>
 
-      <CheckoutPage />
+      <CheckoutClient />
     </>
   )
 }

@@ -1,0 +1,201 @@
+import React from 'react'
+
+import { Message } from '@/components/Message'
+import { Button } from '@/components/ui/button'
+
+import type { LiqPayPaymentData } from './checkoutTypes'
+
+interface PaymentStepProps {
+  paymentMethod: 'card' | 'cod'
+  canPreparePayment: boolean
+  paymentData: LiqPayPaymentData | null
+  error: string | null
+  canSubmitPayment: boolean
+  onPaymentMethodChange: (method: 'card' | 'cod') => void
+  onInitiatePaymentIntent: () => void
+  onCashOnDelivery: (event: React.MouseEvent<HTMLButtonElement>) => void
+  onRetry: () => void
+  onCancelPayment: () => void
+  onBackToDelivery: () => void
+  onProcessingPaymentStart: () => void
+}
+
+export const PaymentStep: React.FC<PaymentStepProps> = ({
+  paymentMethod,
+  canPreparePayment,
+  paymentData,
+  error,
+  canSubmitPayment,
+  onPaymentMethodChange,
+  onInitiatePaymentIntent,
+  onCashOnDelivery,
+  onRetry,
+  onCancelPayment,
+  onBackToDelivery,
+  onProcessingPaymentStart,
+}) => {
+  return (
+    <section className="grid gap-space-20 mb-space-30 max-w-3xl">
+      <header className="grid gap-space-05">
+        <h2 className="m-0 pobut-H3 text-sys-text">Спосіб оплати</h2>
+        <p className="m-0 pobut-body text-sys-text-muted">
+          Оберіть зручний спосіб оплати. Для оплати карткою використовується LiqPay.
+        </p>
+      </header>
+
+      <div className="grid gap-space-20">
+        <section className="grid gap-space-10 tablet:grid-cols-2">
+          <Button
+            type="button"
+            onClick={() => onPaymentMethodChange('card')}
+            variant={paymentMethod === 'card' ? 'outline' : 'ghost'}
+            className={[
+              'flex flex-col items-start gap-[2px] rounded-radius-primary border px-space-15 py-space-15 text-left transition-colors',
+              paymentMethod === 'card'
+                ? 'border-sys-accent bg-sys-surface-2'
+                : 'border-sys-border bg-sys-surface hover:bg-sys-surface-2',
+            ].join(' ')}
+          >
+            <p className="m-0 text-sm font-semibold text-sys-text">Оплата карткою (LiqPay)</p>
+            <small className="m-0 text-[11px] text-sys-text-muted">
+              Миттєва онлайн-оплата банківською карткою через захищений платіжний шлюз LiqPay.
+            </small>
+          </Button>
+
+          <Button
+            type="button"
+            onClick={() => onPaymentMethodChange('cod')}
+            variant={paymentMethod === 'cod' ? 'outline' : 'ghost'}
+            className={[
+              'flex flex-col items-start gap-[2px] rounded-radius-primary border px-space-15 py-space-15 text-left transition-colors',
+              paymentMethod === 'cod'
+                ? 'border-sys-accent bg-sys-surface-2'
+                : 'border-sys-border bg-sys-surface hover:bg-sys-surface-2',
+            ].join(' ')}
+          >
+            <p className="m-0 text-sm font-semibold text-sys-text">Накладений платіж</p>
+            <small className="m-0 text-[11px] text-sys-text-muted">
+              Оплата при отриманні на відділенні поштового оператора (Нова Пошта, Укрпошта) або
+              кур&apos;єру.
+            </small>
+          </Button>
+        </section>
+
+        {paymentMethod === 'card' && !paymentData && (
+          <section className="grid gap-space-10">
+            <p className="m-0 pobut-body text-sys-text-muted">
+              Натисніть кнопку нижче, щоб сформувати платіж через LiqPay. Після цього ви перейдете на
+              сторінку банку для завершення оплати.
+            </p>
+            <div>
+              <Button
+                className="rounded-radius-full px-space-20 bg-sys-btn-primary-bg text-sys-btn-primary-fg hover:bg-sys-btn-primary-bg-hover active:bg-sys-btn-primary-bg-active"
+                disabled={!canPreparePayment}
+                onClick={(e) => {
+                  e.preventDefault()
+                  onInitiatePaymentIntent()
+                }}
+              >
+                Перейти до оплати карткою
+              </Button>
+            </div>
+            {!canPreparePayment && (
+              <p className="m-0 text-xs text-sys-text-muted">
+                Заповніть дані одержувача та адресу доставки, щоб продовжити.
+              </p>
+            )}
+          </section>
+        )}
+
+        {paymentMethod === 'cod' && (
+          <section className="grid gap-space-10">
+            <p className="m-0 pobut-body text-sys-text-muted">
+              Замовлення з накладеним платежем буде підтверджено менеджером. Оплату ви здійсните при
+              отриманні.
+            </p>
+            <div>
+              <Button
+                className="rounded-radius-full px-space-20 bg-sys-btn-primary-bg text-sys-btn-primary-fg hover:bg-sys-btn-primary-bg-hover active:bg-sys-btn-primary-bg-active"
+                disabled={!canPreparePayment}
+                onClick={onCashOnDelivery}
+              >
+                Підтвердити замовлення з післяплатою
+              </Button>
+            </div>
+            {!canPreparePayment && (
+              <p className="m-0 text-xs text-sys-text-muted">
+                Спочатку вкажіть коректні контактні дані та адресу доставки.
+              </p>
+            )}
+          </section>
+        )}
+
+        {error && (
+          <section className="grid gap-space-10">
+            <Message error={error} />
+
+            <Button
+              onClick={(e) => {
+                e.preventDefault()
+                onRetry()
+              }}
+              className="rounded-radius-full px-space-20 bg-sys-btn-primary-bg text-sys-btn-primary-fg hover:bg-sys-btn-primary-bg-hover active:bg-sys-btn-primary-bg-active"
+            >
+              Спробувати ще раз
+            </Button>
+          </section>
+        )}
+
+        {paymentData && (
+          <section className="grid gap-space-10">
+            <h3 className="m-0 text-sm font-semibold tracking-[0.12em] uppercase text-sys-text">
+              Підтвердження оплати
+            </h3>
+
+            <form
+              method="POST"
+              action={paymentData.checkoutURL}
+              acceptCharset="utf-8"
+              className="flex flex-col gap-space-10"
+            >
+              <input type="hidden" name="data" value={paymentData.data} />
+              <input type="hidden" name="signature" value={paymentData.signature} />
+
+              <Button
+                type="submit"
+                className="rounded-radius-full px-space-20 bg-sys-btn-primary-bg text-sys-btn-primary-fg hover:bg-sys-btn-primary-bg-hover active:bg-sys-btn-primary-bg-active"
+                disabled={!canSubmitPayment}
+                onClick={onProcessingPaymentStart}
+              >
+                Перейти до LiqPay
+              </Button>
+
+              <Button
+                type="button"
+                variant="ghost"
+                className="self-start text-xs px-0"
+                onClick={onCancelPayment}
+              >
+                Скасувати оплату
+              </Button>
+            </form>
+          </section>
+        )}
+      </div>
+
+      <footer className="pt-space-15 flex flex-col tablet:flex-row tablet:items-center tablet:justify-between gap-space-10">
+        <Button
+          type="button"
+          variant="ghost"
+          size="sm"
+          onClick={onBackToDelivery}
+          className="self-start rounded-radius-full px-space-15"
+        >
+          Повернутися до доставки
+        </Button>
+      </footer>
+    </section>
+  )
+}
+
+
