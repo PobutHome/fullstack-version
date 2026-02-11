@@ -25,9 +25,12 @@ export function DeleteItemButton({ item }: { item: CartItem }) {
         aria-disabled={!itemId}
         aria-label={t.aria}
         className={clsx(
-          'ease hover:cursor-pointer flex h-[17px] w-[17px] items-center justify-center rounded-full bg-neutral-500 transition-all duration-200',
+          'inline-flex size-6 items-center justify-center rounded-sm border transition-colors',
+          'bg-sys-surface border-sys-btn-outline-border text-sys-btn-outline-fg',
+          'hover:bg-sys-surface-2 hover:border-sys-btn-outline-border-hover hover:text-sys-btn-outline-fg-hover',
+          'active:bg-sys-btn-outline-bg-active active:border-sys-btn-outline-border-active active:text-sys-btn-outline-fg-active',
           {
-            'cursor-not-allowed px-0': !itemId,
+            'cursor-not-allowed opacity-50': !itemId,
           },
         )}
         disabled={!itemId}
@@ -37,7 +40,7 @@ export function DeleteItemButton({ item }: { item: CartItem }) {
         }}
         type="button"
       >
-        <XIcon className="hover:text-accent-3 mx-[1px] h-4 w-4 text-white dark:text-black" />
+        <XIcon className="size-4" />
       </button>
     </form>
   )

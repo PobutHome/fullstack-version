@@ -59,6 +59,8 @@ export function Button({
     lg: 'py-btn-py px-btn-px text-base', // px uses responsive btn-px variable
   }
 
+  const resolvedSizeClasses = variant === 'qty' ? 'size-9 p-0' : sizeClasses[size]
+
   // Variant classes - all using Tailwind sys- classes
   const variantClasses = {
     // Primary: medium lime green with white text (main CTA)
@@ -79,7 +81,7 @@ export function Button({
     catalog:
       'bg-black text-sys-accent border border-sys-accent shadow-[0_0_0_0_var(--sys-accent)] hover:text-sys-accent-hover hover:border-sys-accent-hover hover:shadow-[0_0_0_1px_var(--sys-accent-hover)] active:bg-sys-accent active:text-sys-text-inverse active:border-sys-accent active:shadow-[0_0_0_0_var(--sys-accent)]',
     // Quantity selector button
-    qty: 'bg-transparent text-sys-btn-interactive border border-sys-btn-interactive hover:text-sys-btn-interactive-hover hover:border-sys-btn-interactive-hover active:text-sys-btn-interactive-active active:border-sys-btn-interactive-active',
+    qty: 'bg-sys-surface text-sys-btn-interactive-fg border border-sys-btn-interactive-border hover:bg-sys-surface-2 hover:text-sys-btn-interactive-fg-hover hover:border-sys-btn-interactive-border-hover active:bg-sys-surface-2 active:text-sys-btn-interactive-fg-active active:border-sys-btn-interactive-border-active',
     // Product card CTA button
     productCardButton:
       'bg-sys-surface-2 text-sys-accent border border-sys-accent hover:bg-sys-accent hover:text-sys-text-on-accent active:bg-sys-accent-active active:text-sys-text-on-accent',
@@ -124,7 +126,7 @@ export function Button({
 
   return (
     <Comp
-      className={`${baseClasses} ${sizeClasses[size]} ${variantClasses[variant]} ${widthClass} ${className}`.trim()}
+      className={`${baseClasses} ${resolvedSizeClasses} ${variantClasses[variant]} ${widthClass} ${className}`.trim()}
       style={combinedStyle}
       {...props}
     >

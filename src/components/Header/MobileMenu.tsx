@@ -121,51 +121,47 @@ export function MobileMenu({ locale, categories }: Props) {
           </Link>
         </div>
 
-          <Accordion type="multiple" className="w-full flex flex-col gap-space-10">  
-            {categories.map((category) => (
-              <AccordionItem
-                key={category.id}
-                value={category.id}
-                className="border-b-0"
-              >
-                <AccordionTrigger className=" hover:no-underline text-sys-text data-[state=open]:text-sys-accent [&>svg]:text-sys-text-muted data-[state=open]:[&>svg]:text-sys-accent">
-                  <SheetClose asChild>
-                    <Link
-                      className="pobut-H2"
-                      href={
-                        category.slug
-                          ? `/catalog#${encodeURIComponent(category.slug)}`
-                          : `/shop?category=${encodeURIComponent(category.id)}`
-                      }
-                      onClick={(event) => event.stopPropagation()}
-                    >
-                      {category.title}
-                    </Link>
-                  </SheetClose>
-                </AccordionTrigger>
-                <AccordionContent className="pb-0">
-                  {category.products.length ? (
-                    <ul className="flex flex-col gap-2 pl-4">
-                      {category.products.map((product) => (
-                        <li key={product.id}>
-                          <SheetClose asChild>
-                            <Link
-                              className="pobut-body-mobile text-sys-text hover:text-sys-accent"
-                              href={`/products/${product.slug}`}
-                            >
-                              {product.title}
-                            </Link>
-                          </SheetClose>
-                        </li>
-                      ))}
-                    </ul>
-                  ) : (
-                    <p className="text-sys-text-muted pl-4">{t.emptyCategory}</p>
-                  )}
-                </AccordionContent>
-              </AccordionItem>
-            ))}
-          </Accordion>
+        <Accordion type="multiple" className="w-full flex flex-col gap-space-10">
+          {categories.map((category) => (
+            <AccordionItem key={category.id} value={category.id} className="border-b-0">
+              <AccordionTrigger className=" hover:no-underline text-sys-text data-[state=open]:text-sys-accent [&>svg]:text-sys-text-muted data-[state=open]:[&>svg]:text-sys-accent">
+                <SheetClose asChild>
+                  <Link
+                    className="pobut-H2"
+                    href={
+                      category.slug
+                        ? `/catalog#${encodeURIComponent(category.slug)}`
+                        : `/shop?category=${encodeURIComponent(category.id)}`
+                    }
+                    onClick={(event) => event.stopPropagation()}
+                  >
+                    {category.title}
+                  </Link>
+                </SheetClose>
+              </AccordionTrigger>
+              <AccordionContent className="pb-0">
+                {category.products.length ? (
+                  <ul className="flex flex-col gap-2 pl-4">
+                    {category.products.map((product) => (
+                      <li key={product.id}>
+                        <SheetClose asChild>
+                          <Link
+                            className="pobut-body-mobile text-sys-text hover:text-sys-accent"
+                            href={`/products/${product.slug}`}
+                          >
+                            {product.title}
+                          </Link>
+                        </SheetClose>
+                      </li>
+                    ))}
+                  </ul>
+                ) : (
+                  <p className="text-sys-text-muted pl-4">{t.emptyCategory}</p>
+                )}
+              </AccordionContent>
+            </AccordionItem>
+          ))}
+        </Accordion>
 
         {user ? (
           <div className="py-space-20">

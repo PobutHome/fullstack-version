@@ -1,14 +1,8 @@
 'use client'
 
+import { Button } from '@/components/Button'
 import { Price } from '@/components/Price'
-import {
-  Sheet,
-  SheetContent,
-  SheetDescription,
-  SheetHeader,
-  SheetTitle,
-  SheetTrigger,
-} from '@/components/ui/sheet'
+import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetTrigger } from '@/components/ui/sheet'
 import { useCart } from '@payloadcms/plugin-ecommerce/client/react'
 import { ShoppingCart } from 'lucide-react'
 import Image from 'next/image'
@@ -16,7 +10,6 @@ import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 import React, { useEffect, useMemo, useState } from 'react'
 
-import { Button } from '@/components/ui/button'
 import { Product } from '@/payload-types'
 import type { AppLocale } from '@/utilities/locale'
 import { getClientLocale } from '@/utilities/localeClient'
@@ -28,7 +21,6 @@ const cartCopy: Record<
   AppLocale,
   {
     title: string
-    description: string
     empty: string
     total: string
     checkout: string
@@ -36,17 +28,15 @@ const cartCopy: Record<
 > = {
   ua: {
     title: 'Кошик',
-    description: 'Керуйте кошиком тут — додавайте товари, щоб побачити суму.',
     empty: 'Кошик порожній.',
     total: 'Разом',
-    checkout: 'Оформити замовлення',
+    checkout: 'Оформити',
   },
   ru: {
     title: 'Корзина',
-    description: 'Управляйте корзиной здесь — добавляйте товары, чтобы увидеть сумму.',
     empty: 'Корзина пуста.',
     total: 'Итого',
-    checkout: 'Оформить заказ',
+    checkout: 'Оформить',
   },
 }
 
@@ -75,11 +65,9 @@ export function CartModal({ locale }: { locale?: AppLocale }) {
         <OpenCartButton locale={resolvedLocale} quantity={totalQuantity} />
       </SheetTrigger>
 
-      <SheetContent className="flex flex-col">
-        <SheetHeader>
-          <SheetTitle>{t.title}</SheetTitle>
-
-          <SheetDescription>{t.description}</SheetDescription>
+      <SheetContent className="flex h-[100dvh] max-h-[100dvh] flex-col overflow-hidden bg-sys-bg text-sys-text">
+        <SheetHeader className="px-space-20 pt-space-20">
+          <SheetTitle className="pobut-H3 desktop:pobut-body">{t.title}</SheetTitle>
         </SheetHeader>
 
         {!cart || cart?.items?.length === 0 ? (
@@ -88,9 +76,8 @@ export function CartModal({ locale }: { locale?: AppLocale }) {
             <p className="text-center text-2xl font-bold">{t.empty}</p>
           </div>
         ) : (
-          <div className="grow flex px-4">
-            <div className="flex flex-col justify-between w-full">
-              <ul className="grow overflow-auto py-4">
+          <div className="flex flex-1 min-h-0 flex-col px-space-20">
+              <ul className="min-h-0 flex-1 overflow-y-auto overflow-x-hidden overscroll-contain [-webkit-overflow-scrolling:touch] py-space-20 space-y-space-10">
                 {cart?.items?.map((item, i) => {
                   const product = item.product
                   const variant = item.variant
@@ -137,31 +124,37 @@ export function CartModal({ locale }: { locale?: AppLocale }) {
                   }
 
                   return (
-                    <li className="flex w-full flex-col" key={i}>
-                      <div className="relative flex w-full flex-row justify-between px-1 py-4">
-                        <div className="absolute z-40 -mt-2 ml-[55px]">
-                          <DeleteItemButton item={item} />
-                        </div>
+                    <li
+                      className="relative w-full max-w-full shrink-0 min-h-[140px] rounded-radius-primary border border-sys-card-border bg-sys-card-bg p-space-10"
+                      key={i}
+                    >
+                      <div className="absolute right-2 top-2 z-10">
+                        <DeleteItemButton item={item} />
+                      </div>
+
+                      <div className="flex flex-col gap-space-10">
                         <Link
-                          className="z-30 flex flex-row space-x-4"
+                          className="flex min-w-0 items-start gap-space-10"
                           href={`/products/${(item.product as Product)?.slug}`}
                         >
-                          <div className="relative h-16 w-16 cursor-pointer overflow-hidden rounded-md border border-neutral-300 bg-neutral-300 dark:border-neutral-700 dark:bg-neutral-900 dark:hover:bg-neutral-800">
+                          <div className="relative h-20 w-20 desktop:h-16 desktop:w-16 shrink-0 cursor-pointer overflow-hidden rounded-radius-md border border-sys-card-border bg-sys-surface-2">
                             {image?.url && (
                               <Image
                                 alt={image?.alt || product?.title || ''}
                                 className="h-full w-full object-cover"
-                                height={94}
+                                height={160}
                                 src={image.url}
-                                width={94}
+                                width={160}
                               />
                             )}
                           </div>
 
-                          <div className="flex flex-1 flex-col text-base">
-                            <span className="leading-tight">{product?.title}</span>
+                          <div className="flex min-w-0 flex-1 flex-col pr-8">
+                            <span className="pobut-body leading-tight text-sys-text wrap-break-word">
+                              {product?.title}
+                            </span>
                             {isVariant && variant ? (
-                              <p className="text-sm text-neutral-500 dark:text-neutral-400 capitalize">
+                              <p className="pobut-caption text-sys-text-muted capitalize wrap-break-word">
                                 {variant.options
                                   ?.map((option) => {
                                     if (typeof option === 'object') return option.label
@@ -172,20 +165,22 @@ export function CartModal({ locale }: { locale?: AppLocale }) {
                             ) : null}
                           </div>
                         </Link>
-                        <div className="flex h-16 flex-col justify-between">
-                          {typeof price === 'number' && (
-                            <Price
-                              amount={price}
-                              className="flex justify-end space-y-2 text-right text-sm"
-                            />
-                          )}
-                          <div className="ml-auto flex h-9 flex-row items-center rounded-lg border">
+
+                        <div className="flex shrink-0 items-center justify-between gap-space-10">
+                          <div className="flex h-9 flex-row items-center rounded-radius-full border border-sys-btn-interactive-border bg-sys-surface px-1">
                             <EditItemQuantityButton item={item} type="minus" />
-                            <p className="w-6 text-center">
-                              <span className="w-full text-sm">{item.quantity}</span>
+                            <p className="min-w-6 text-center">
+                              <span className="text-sm text-sys-text">{item.quantity}</span>
                             </p>
                             <EditItemQuantityButton item={item} type="plus" />
                           </div>
+
+                          {typeof price === 'number' && (
+                            <Price
+                              amount={price}
+                              className="shrink-0 text-right text-sm text-sys-text whitespace-nowrap"
+                            />
+                          )}
                         </div>
                       </div>
                     </li>
@@ -193,26 +188,25 @@ export function CartModal({ locale }: { locale?: AppLocale }) {
                 })}
               </ul>
 
-              <div className="px-4">
-                <div className="py-4 text-sm text-neutral-500 dark:text-neutral-400">
+              <div className="shrink-0 pb-space-20">
+                <div className="pt-space-10 text-sm text-sys-text-muted">
                   {typeof cart?.subtotal === 'number' && (
-                    <div className="mb-3 flex items-center justify-between border-b border-neutral-200 pb-1 pt-1 dark:border-neutral-700">
-                      <p>{t.total}</p>
+                    <div className="mb-space-10 flex items-center justify-between border-b border-sys-border pb-space-10 pt-space-10">
+                      <p className="pobut-caption text-sys-text-muted">{t.total}</p>
                       <Price
                         amount={cart?.subtotal}
-                        className="text-right text-base text-black dark:text-white"
+                        className="text-right text-base text-sys-text"
                       />
                     </div>
                   )}
 
-                  <Button asChild>
+                  <Button asChild variant="primary" size="md" fullWidth>
                     <Link className="w-full" href="/checkout">
                       {t.checkout}
                     </Link>
                   </Button>
                 </div>
               </div>
-            </div>
           </div>
         )}
       </SheetContent>
