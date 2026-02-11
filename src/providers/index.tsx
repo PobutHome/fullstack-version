@@ -47,9 +47,7 @@ export const Providers: React.FC<{
                 },
               },
             }}
-            paymentMethods={[
-              liqpayAdapterClient(),
-            ]}
+            paymentMethods={[liqpayAdapterClient()]}
           >
             {children}
           </EcommerceProvider>

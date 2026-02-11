@@ -10,10 +10,7 @@ async function getLocaleFromCookies(): Promise<'ua' | 'ru'> {
   return normalizeLocale(raw)
 }
 
-async function proxy(
-  request: NextRequest,
-  context: { params: Promise<{ path: string[] }> },
-) {
+async function proxy(request: NextRequest, context: { params: Promise<{ path: string[] }> }) {
   const locale = await getLocaleFromCookies()
 
   const resolvedParams = await context.params
@@ -68,7 +65,10 @@ export async function POST(request: NextRequest, context: { params: Promise<{ pa
   return proxy(request, context)
 }
 
-export async function PATCH(request: NextRequest, context: { params: Promise<{ path: string[] }> }) {
+export async function PATCH(
+  request: NextRequest,
+  context: { params: Promise<{ path: string[] }> },
+) {
   return proxy(request, context)
 }
 
@@ -76,6 +76,9 @@ export async function PUT(request: NextRequest, context: { params: Promise<{ pat
   return proxy(request, context)
 }
 
-export async function DELETE(request: NextRequest, context: { params: Promise<{ path: string[] }> }) {
+export async function DELETE(
+  request: NextRequest,
+  context: { params: Promise<{ path: string[] }> },
+) {
   return proxy(request, context)
 }
