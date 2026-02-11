@@ -132,7 +132,11 @@ export function MobileMenu({ locale, categories }: Props) {
                   <SheetClose asChild>
                     <Link
                       className="pobut-H2"
-                      href={`/catalog?category=${category.id}`}
+                      href={
+                        category.slug
+                          ? `/catalog#${encodeURIComponent(category.slug)}`
+                          : `/shop?category=${encodeURIComponent(category.id)}`
+                      }
                       onClick={(event) => event.stopPropagation()}
                     >
                       {category.title}
@@ -172,7 +176,7 @@ export function MobileMenu({ locale, categories }: Props) {
             </Button>
           </div>
         ) : (
-          <div className="">
+          <div className="py-space-20">
             <Button asChild variant="outline" size="sm">
               <SheetClose asChild>
                 <Link href="/login">{t.login}</Link>

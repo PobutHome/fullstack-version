@@ -95,6 +95,7 @@ export async function Footer() {
     .map((category) => ({
       id: String(category.id),
       title: String(category.title),
+      slug: category.slug ? String(category.slug) : null,
     }))
 
   const currentYear = new Date().getFullYear()
@@ -146,7 +147,11 @@ export async function Footer() {
                   <li key={category.id} className="min-w-0">
                     <Link
                       className="pobut-body hover:underline block truncate"
-                      href={`/catalog?category=${category.id}`}
+                      href={
+                        category.slug
+                          ? `/catalog#${encodeURIComponent(category.slug)}`
+                          : `/shop?category=${encodeURIComponent(category.id)}`
+                      }
                       title={category.title}
                     >
                       {category.title}
