@@ -1,13 +1,12 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useReducer } from 'react'
 
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
 import { FormItem } from '@/components/forms/FormItem'
 import { FormError } from '@/components/forms/FormError'
-import { NovaPoshtaLogoIcon } from '@/components/icons/NovaPoshtaLogoIcon'
-import { UkrposhtaLogoIcon } from '@/components/icons/UkrposhtaLogoIcon'
 import type { Address } from '@/payload-types'
+import Image from 'next/image'
 
 import type { CheckoutForm, DeliveryMethod, LiqPayPaymentData } from './checkoutTypes'
 import { Controller } from 'react-hook-form'
@@ -18,6 +17,103 @@ import {
   SelectTrigger,
   SelectValue,
 } from '@/components/ui/select'
+
+type NovaWarehouseView = {
+  id: string
+  label: string
+  primary?: string
+  secondary?: string
+  categoryLabel?: string
+  postalCode?: string
+  index?: string
+  weightInfo?: string
+  sizeInfo?: string
+  postomatNote?: string
+}
+
+type NovaUiState = {
+  warehouses: NovaWarehouseView[]
+  warehousesLoading: boolean
+  warehousesError: string | null
+  citySuggestions: { ref: string; name: string }[]
+  cityLoading: boolean
+  cityError: string | null
+  warehouseQuery: string
+}
+
+type NovaUiAction =
+  | { type: 'cityRequest' }
+  | { type: 'citySuccess'; suggestions: { ref: string; name: string }[] }
+  | { type: 'cityFailure'; error: string }
+  | { type: 'cityClear' }
+  | { type: 'warehousesRequest' }
+  | { type: 'warehousesSuccess'; warehouses: NovaWarehouseView[] }
+  | { type: 'warehousesFailure'; error: string }
+  | { type: 'warehousesClear' }
+  | { type: 'setWarehouseQuery'; query: string }
+
+const initialNovaUiState: NovaUiState = {
+  warehouses: [],
+  warehousesLoading: false,
+  warehousesError: null,
+  citySuggestions: [],
+  cityLoading: false,
+  cityError: null,
+  warehouseQuery: '',
+}
+
+function novaUiReducer(state: NovaUiState, action: NovaUiAction): NovaUiState {
+  switch (action.type) {
+    case 'cityRequest':
+      return { ...state, cityLoading: true, cityError: null }
+    case 'citySuccess':
+      return { ...state, cityLoading: false, citySuggestions: action.suggestions }
+    case 'cityFailure':
+      return {
+        ...state,
+        cityLoading: false,
+        cityError: action.error,
+        citySuggestions: [],
+      }
+    case 'cityClear':
+      return {
+        ...state,
+        cityLoading: false,
+        cityError: null,
+        citySuggestions: [],
+      }
+    case 'warehousesRequest':
+      return {
+        ...state,
+        warehousesLoading: true,
+        warehousesError: null,
+      }
+    case 'warehousesSuccess':
+      return {
+        ...state,
+        warehousesLoading: false,
+        warehouses: action.warehouses,
+      }
+    case 'warehousesFailure':
+      return {
+        ...state,
+        warehousesLoading: false,
+        warehousesError: action.error,
+        warehouses: [],
+      }
+    case 'warehousesClear':
+      return {
+        ...state,
+        warehousesLoading: false,
+        warehousesError: null,
+        warehouses: [],
+      }
+    case 'setWarehouseQuery':
+      return { ...state, warehouseQuery: action.query }
+    default:
+      return state
+  }
+}
 
 interface DeliveryStepProps {
   user: { email?: string | null } | null | undefined
@@ -52,12 +148,17 @@ export const DeliveryStep: React.FC<DeliveryStepProps> = ({
     watch,
   } = checkoutForm
 
-  const [novaWarehouses, setNovaWarehouses] = useState<{ id: string; label: string }[]>([])
-  const [novaLoading, setNovaLoading] = useState(false)
-  const [novaError, setNovaError] = useState<string | null>(null)
-  const [citySuggestions, setCitySuggestions] = useState<{ ref: string; name: string }[]>([])
-  const [cityLoading, setCityLoading] = useState(false)
-  const [cityError, setCityError] = useState<string | null>(null)
+  const [novaUiState, dispatchNovaUi] = useReducer(novaUiReducer, initialNovaUiState)
+
+  const {
+    warehouses: novaWarehouses,
+    warehousesLoading: novaLoading,
+    warehousesError: novaError,
+    citySuggestions,
+    cityLoading,
+    cityError,
+    warehouseQuery,
+  } = novaUiState
 
   const novaCity = watch('novaCity')
   const novaCityRef = watch('novaCityRef')
@@ -124,27 +225,23 @@ export const DeliveryStep: React.FC<DeliveryStepProps> = ({
   // Suggest cities as user types for Nova Poshta
   useEffect(() => {
     if (!isNovaPoshtaSelected) {
-      setCitySuggestions([])
-      setCityError(null)
-      setCityLoading(false)
+      dispatchNovaUi({ type: 'cityClear' })
       return
     }
 
     const query = novaCity?.trim()
 
-    if (!query || query.length < 2) {
-      setCitySuggestions([])
-      setCityError(null)
-      setCityLoading(false)
+    if (!query) {
+      dispatchNovaUi({ type: 'cityClear' })
       setValue('novaCityRef', null)
       return
     }
 
+    const controller = new AbortController()
     let isCancelled = false
-    setCityLoading(true)
-    setCityError(null)
+    dispatchNovaUi({ type: 'cityRequest' })
 
-    const timeoutId = setTimeout(async () => {
+    ;(async () => {
       try {
         const res = await fetch('/api/novaposhta/cities', {
           method: 'POST',
@@ -152,6 +249,7 @@ export const DeliveryStep: React.FC<DeliveryStepProps> = ({
             'Content-Type': 'application/json',
           },
           body: JSON.stringify({ query }),
+          signal: controller.signal,
         })
 
         if (!res.ok) {
@@ -161,53 +259,55 @@ export const DeliveryStep: React.FC<DeliveryStepProps> = ({
         const json = (await res.json()) as { cities?: { ref: string; name: string }[] }
 
         if (!isCancelled) {
-          setCitySuggestions(json.cities || [])
+          dispatchNovaUi({
+            type: 'citySuccess',
+            suggestions: json.cities || [],
+          })
         }
       } catch (error) {
-        if (!isCancelled) {
-          setCityError(
+        if (isCancelled || (error instanceof DOMException && error.name === 'AbortError')) {
+          return
+        }
+        dispatchNovaUi({
+          type: 'cityFailure',
+          error:
             error instanceof Error
               ? error.message
               : 'Не вдалося завантажити міста. Спробуйте пізніше.',
-          )
-          setCitySuggestions([])
-        }
+        })
       } finally {
         if (!isCancelled) {
-          setCityLoading(false)
+          // No-op: state updates are handled in success / failure branches.
         }
       }
-    }, 300)
+    })()
 
     return () => {
       isCancelled = true
-      clearTimeout(timeoutId)
+      controller.abort()
     }
   }, [isNovaPoshtaSelected, novaCity, setValue])
 
   // Load warehouses for selected Nova Poshta city
   useEffect(() => {
     if (!isNovaPoshtaSelected) {
-      setNovaWarehouses([])
-      setNovaError(null)
-      setNovaLoading(false)
+      dispatchNovaUi({ type: 'warehousesClear' })
+      dispatchNovaUi({ type: 'setWarehouseQuery', query: '' })
       return
     }
 
     const cityRef = novaCityRef
 
     if (!cityRef) {
-      setNovaWarehouses([])
-      setNovaError(null)
-      setNovaLoading(false)
+      dispatchNovaUi({ type: 'warehousesClear' })
       return
     }
 
+    const controller = new AbortController()
     let isCancelled = false
-    setNovaLoading(true)
-    setNovaError(null)
+    dispatchNovaUi({ type: 'warehousesRequest' })
 
-    const timeoutId = setTimeout(async () => {
+    ;(async () => {
       try {
         const res = await fetch('/api/novaposhta/warehouses', {
           method: 'POST',
@@ -215,41 +315,49 @@ export const DeliveryStep: React.FC<DeliveryStepProps> = ({
             'Content-Type': 'application/json',
           },
           body: JSON.stringify({ cityRef }),
+          signal: controller.signal,
         })
 
         if (!res.ok) {
           throw new Error('Не вдалося завантажити відділення.')
         }
 
-        const json = (await res.json()) as { warehouses?: { id: string; label: string }[] }
+        const json = (await res.json()) as {
+          warehouses?: NovaWarehouseView[]
+        }
 
         if (!isCancelled) {
-          setNovaWarehouses(json.warehouses || [])
+          dispatchNovaUi({
+            type: 'warehousesSuccess',
+            warehouses: json.warehouses || [],
+          })
         }
       } catch (error) {
-        if (!isCancelled) {
-          setNovaError(
+        if (isCancelled || (error instanceof DOMException && error.name === 'AbortError')) {
+          return
+        }
+        dispatchNovaUi({
+          type: 'warehousesFailure',
+          error:
             error instanceof Error
               ? error.message
               : 'Не вдалося завантажити відділення. Спробуйте пізніше.',
-          )
-          setNovaWarehouses([])
-        }
+        })
       } finally {
         if (!isCancelled) {
-          setNovaLoading(false)
+          // No-op: state updates are handled in success / failure branches.
         }
       }
-    }, 400)
+    })()
 
     return () => {
       isCancelled = true
-      clearTimeout(timeoutId)
+      controller.abort()
     }
   }, [isNovaPoshtaSelected, novaCityRef])
 
   return (
-    <section className="grid gap-space-20 max-w-3xl">
+    <section className="grid w-full gap-space-20">
       <header className="grid gap-space-05">
         <h2 className="m-0 pobut-H3 text-sys-text">Спосіб доставки та адреса</h2>
         <p className="m-0 pobut-body text-sys-text-muted">
@@ -266,7 +374,7 @@ export const DeliveryStep: React.FC<DeliveryStepProps> = ({
         onSubmit={handleSubmit(onSubmit)}
         noValidate
       >
-        <section className="rounded-radius-primary border border-sys-border bg-sys-surface-2 p-space-15 grid gap-space-15">
+        <section className="rounded-radius-primary bg-sys-surface-2 p-space-15 grid gap-space-15">
           {/* Step 1: Delivery method selection */}
           <header className="grid gap-space-02">
             <p className="m-0 text-[11px] uppercase tracking-[0.16em] text-sys-text-muted">
@@ -275,7 +383,7 @@ export const DeliveryStep: React.FC<DeliveryStepProps> = ({
             <h3 className="m-0 text-sm font-semibold text-sys-text">Оберіть службу доставки</h3>
           </header>
 
-          <div className="grid gap-space-10 tablet:grid-cols-2">
+          <div className="flex flex-col gap-space-08 tablet:flex-row">
             <Button
               type="button"
               onClick={() => {
@@ -283,18 +391,23 @@ export const DeliveryStep: React.FC<DeliveryStepProps> = ({
               }}
               variant={isNovaPoshtaSelected ? 'outline' : 'ghost'}
               className={[
-                'flex items-center gap-space-10 rounded-radius-primary px-space-15 py-space-15 text-left transition-colors',
+                'flex h-[90px] w-full flex-1 items-center gap-space-08 rounded-radius-primary border px-space-15 text-left transition-colors tablet:h-[104px]',
                 isNovaPoshtaSelected
                   ? 'border border-sys-accent bg-sys-surface-2'
                   : 'border border-sys-border bg-sys-surface hover:bg-sys-surface-2',
               ].join(' ')}
             >
-              <NovaPoshtaLogoIcon className="shrink-0" />
-              <div className="grid gap-[2px] min-w-0">
-                <p className="m-0 text-sm font-semibold text-sys-text truncate">Нова Пошта</p>
-                <small className="m-0 text-[11px] text-sys-text-muted">
-                  Доставка до відділення Нової Пошти. Надалі тут з&apos;явиться карта відділень та
-                  поштоматів.
+              <Image
+                src="/images/novaposhta.png"
+                alt="Нова Пошта"
+                width={48}
+                height={48}
+                className="h-10 w-10 shrink-0 object-contain tablet:h-12 tablet:w-12"
+              />
+              <div className="grid min-w-0 gap-[2px]">
+                <p className="m-0 text-sm font-semibold text-sys-text">Нова Пошта</p>
+                <small className="m-0 text-xs leading-snug text-sys-text-muted line-clamp-2">
+                  Доставка до відділення або поштомату Нової Пошти.
                 </small>
               </div>
             </Button>
@@ -306,18 +419,23 @@ export const DeliveryStep: React.FC<DeliveryStepProps> = ({
               }}
               variant={isUkrposhtaSelected ? 'outline' : 'ghost'}
               className={[
-                'flex items-center gap-space-10 rounded-radius-primary px-space-15 py-space-15 text-left transition-colors',
+                'flex h-[90px] w-full flex-1 items-center gap-space-08 rounded-radius-primary border px-space-15 text-left transition-colors tablet:h-[104px]',
                 isUkrposhtaSelected
                   ? 'border border-sys-accent bg-sys-surface-2'
                   : 'border border-sys-border bg-sys-surface hover:bg-sys-surface-2',
               ].join(' ')}
             >
-              <UkrposhtaLogoIcon className="shrink-0" />
-              <div className="grid gap-[2px] min-w-0">
-                <p className="m-0 text-sm font-semibold text-sys-text truncate">Укрпошта</p>
-                <small className="m-0 text-[11px] text-sys-text-muted">
-                  Доставка у відділення або до дверей. Для цього способу доступна лише оплата
-                  карткою.
+              <Image
+                src="/images/ukrposhta.png"
+                alt="Укрпошта"
+                width={48}
+                height={48}
+                className="h-10 w-10 shrink-0 object-contain tablet:h-12 tablet:w-12"
+              />
+              <div className="grid min-w-0 gap-[2px]">
+                <p className="m-0 text-sm font-semibold text-sys-text">Укрпошта</p>
+                <small className="m-0 text-xs leading-snug text-sys-text-muted line-clamp-2">
+                  Доставка у відділення або до дверей. Оплата лише карткою.
                 </small>
               </div>
             </Button>
@@ -352,24 +470,26 @@ export const DeliveryStep: React.FC<DeliveryStepProps> = ({
                       !isNovaPoshtaSelected || value.trim().length > 0 || "Місто обов'язкове.",
                   })}
                 />
-                {cityLoading && (
+                {cityLoading && !cityError && (
                   <p className="m-0 mt-1 text-[11px] text-sys-text-muted">Пошук міст…</p>
                 )}
                 {cityError && <FormError message={cityError} className="mt-1" />}
-                {!!citySuggestions.length && (
-                  <div className="mt-1 max-h-40 overflow-auto rounded-radius-primary border border-sys-border bg-sys-surface-2 text-xs shadow-shadow-sm">
+                {!!citySuggestions.length && !cityError && (
+                  <div className="mt-1 max-h-56 overflow-auto rounded-radius-primary border border-sys-border bg-sys-surface-2 text-xs shadow-shadow-md">
                     {citySuggestions.map((city) => (
                       <button
                         key={city.ref}
                         type="button"
-                        className="w-full px-3 py-2 text-left hover:bg-sys-surface"
+                        className="flex w-full flex-col px-3 py-2 text-left transition-colors hover:bg-sys-surface focus:bg-sys-surface focus:outline-none"
                         onClick={() => {
                           setValue('novaCity', city.name, { shouldValidate: true })
                           setValue('novaCityRef', city.ref, { shouldValidate: true })
-                          setCitySuggestions([])
+                          dispatchNovaUi({ type: 'cityClear' })
                         }}
                       >
-                        {city.name}
+                        <span className="text-[13px] font-medium text-sys-text truncate">
+                          {city.name}
+                        </span>
                       </button>
                     ))}
                   </div>
@@ -379,7 +499,7 @@ export const DeliveryStep: React.FC<DeliveryStepProps> = ({
                 )}
               </FormItem>
 
-              <FormItem>
+              <FormItem className="tablet:col-span-2">
                 <Label
                   htmlFor="nova-poshta-branch"
                   className="text-sys-text font-semibold font-unbounded text-sm"
@@ -395,40 +515,122 @@ export const DeliveryStep: React.FC<DeliveryStepProps> = ({
                       (value && value.trim().length > 0) ||
                       "Відділення обов'язкове.",
                   }}
-                  render={({ field }) => (
-                    <Select
-                      value={field.value}
-                      onValueChange={field.onChange}
-                      disabled={
-                        Boolean(paymentData) || isSubmitting || novaLoading || !novaWarehouses.length
-                      }
-                    >
-                      <SelectTrigger
-                        id="nova-poshta-branch"
-                        variant="primaryFrontend"
-                        className="mb-0 h-11 w-full rounded-radius-full px-4"
-                      >
-                        <SelectValue
-                          placeholder={
-                            novaLoading
-                              ? 'Завантаження відділень…'
-                              : novaWarehouses.length
-                                ? 'Оберіть відділення'
-                                : novaCity?.trim()
-                                  ? 'Відділення не знайдені або місто неточне'
-                                  : 'Спочатку вкажіть місто'
+                  render={({ field }) => {
+                    const q = warehouseQuery.trim().toLowerCase()
+                    const visibleWarehouses =
+                      q.length === 0
+                        ? novaWarehouses
+                        : novaWarehouses.filter((wh) => {
+                            const haystacks = [
+                              wh.label,
+                              wh.primary,
+                              wh.secondary,
+                              wh.index,
+                              wh.postalCode,
+                            ]
+                              .filter(Boolean)
+                              .map((v) => String(v).toLowerCase())
+
+                            return haystacks.some((h) => h.includes(q))
+                          })
+
+                    return (
+                      <div className="space-y-space-05">
+                        <Input
+                          placeholder="Пошук за адресою або номером відділення"
+                          variant="primaryFrontend"
+                          className="h-10 rounded-radius-full px-4 text-sm"
+                          value={warehouseQuery}
+                          onChange={(event) =>
+                            dispatchNovaUi({ type: 'setWarehouseQuery', query: event.target.value })
                           }
+                          disabled={Boolean(paymentData) || isSubmitting || novaLoading}
                         />
-                      </SelectTrigger>
-                      <SelectContent variant="primaryFrontend">
-                        {novaWarehouses.map((wh) => (
-                          <SelectItem key={wh.id} value={wh.label} variant="primaryFrontend">
-                            {wh.label}
-                          </SelectItem>
-                        ))}
-                      </SelectContent>
-                    </Select>
-                  )}
+
+                        <div
+                          id="nova-poshta-branch"
+                          className="max-h-80 space-y-space-08 overflow-auto rounded-radius-primary bg-sys-surface-2 p-space-08 shadow-shadow-md"
+                        >
+                          {novaLoading && (
+                            <p className="m-0 text-[11px] text-sys-text-muted">
+                              Завантаження відділень…
+                            </p>
+                          )}
+                          {!novaLoading && !visibleWarehouses.length && (
+                            <p className="m-0 text-[11px] text-sys-text-muted">
+                              {novaCity?.trim()
+                                ? warehouseQuery.trim()
+                                  ? 'Відділення не знайдені за введеним запитом.'
+                                  : 'Відділення не знайдені або місто вказано неточно.'
+                                : 'Спочатку оберіть місто для показу відділень.'}
+                            </p>
+                          )}
+
+                          {visibleWarehouses.map((wh) => {
+                            const isSelected = field.value === wh.label
+                            return (
+                              <button
+                                key={wh.id}
+                                type="button"
+                                onClick={() => field.onChange(wh.label)}
+                                className={[
+                                  'flex w-full flex-col items-start gap-[4px] rounded-radius-primary border px-space-10 py-space-08 text-left transition-colors',
+                                  isSelected
+                                    ? 'border-[#E30613] bg-[#FFF1F3] shadow-shadow-sm'
+                                    : 'border-sys-border bg-sys-surface hover:border-[#E30613]/60 hover:bg-sys-surface-2',
+                                ].join(' ')}
+                              >
+                                <div className="flex w-full items-center justify-between gap-space-05">
+                                  <span className="text-[13px] font-semibold text-sys-text line-clamp-2">
+                                    {wh.primary || wh.label}
+                                  </span>
+                                  {wh.categoryLabel && (
+                                    <span className="rounded-full bg-[#E30613]/10 px-2 py-px text-[10px] font-semibold uppercase tracking-[0.12em] text-[#E30613]">
+                                      {wh.categoryLabel}
+                                    </span>
+                                  )}
+                                </div>
+
+                                {wh.secondary && (
+                                  <p className="m-0 text-[11px] text-sys-text-muted line-clamp-2">
+                                    {wh.secondary}
+                                  </p>
+                                )}
+
+                                <div className="mt-[2px] flex flex-wrap gap-x-space-08 gap-y-[2px] text-[10px] text-sys-text-muted">
+                                  {wh.postalCode && (
+                                    <span className="rounded-full bg-sys-surface px-2 py-px">
+                                      Індекс: {wh.postalCode}
+                                    </span>
+                                  )}
+                                  {wh.index && (
+                                    <span className="rounded-full bg-sys-surface px-2 py-px">
+                                      Код відділення: {wh.index}
+                                    </span>
+                                  )}
+                                  {wh.weightInfo && (
+                                    <span className="rounded-full bg-sys-surface px-2 py-px">
+                                      Вага: {wh.weightInfo}
+                                    </span>
+                                  )}
+                                  {wh.sizeInfo && (
+                                    <span className="rounded-full bg-sys-surface px-2 py-px">
+                                      Габарити: {wh.sizeInfo}
+                                    </span>
+                                  )}
+                                  {wh.postomatNote && (
+                                    <span className="rounded-full bg-sys-surface px-2 py-px">
+                                      {wh.postomatNote}
+                                    </span>
+                                  )}
+                                </div>
+                              </button>
+                            )
+                          })}
+                        </div>
+                      </div>
+                    )
+                  }}
                 />
                 {novaError && <FormError message={novaError} className="mt-1" />}
                 {errors.novaBranch && (

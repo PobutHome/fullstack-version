@@ -8,6 +8,17 @@ type NovaPoshtaWarehouse = {
   Description: string
   ShortAddress?: string
   Number?: string
+  CategoryOfWarehouse?: string
+  PostalCodeUA?: string
+  WarehouseIndex?: string
+  TotalMaxWeightAllowed?: string
+  PlaceMaxWeightAllowed?: string
+  PostMachineType?: string
+  SendingLimitationsOnDimensions?: {
+    Width?: number
+    Height?: number
+    Length?: number
+  }
 }
 
 type WarehousesRequestBody = {
@@ -87,13 +98,16 @@ export async function POST(req: NextRequest) {
     const data = (await response.json()) as {
       success: boolean
       data?: NovaPoshtaWarehouse[]
-      errors?: string[]
+      errors?: (string | { ErrorCode?: string; MessageText?: string })[]
     }
 
     if (!data.success || !Array.isArray(data.data)) {
       return NextResponse.json(
         {
-          error: data.errors?.[0] || 'Nova Poshta API returned an error',
+          error:
+            (Array.isArray(data.errors) && typeof data.errors[0] === 'string'
+              ? data.errors[0]
+              : 'Nova Poshta API returned an error') || 'Nova Poshta API returned an error',
         },
         {
           status: 502,
@@ -101,12 +115,64 @@ export async function POST(req: NextRequest) {
       )
     }
 
-    const warehouses = data.data.map((wh) => ({
-      id: wh.Ref,
-      label:
+    const warehouses = data.data.map((wh): {
+      id: string
+      label: string
+      primary?: string
+      secondary?: string
+      categoryLabel?: string
+      postalCode?: string
+      index?: string
+      weightInfo?: string
+      sizeInfo?: string
+      postomatNote?: string
+    } => {
+      const baseLabel =
         wh.ShortAddress ||
-        (wh.Number ? `Відділення №${wh.Number} — ${wh.Description}` : wh.Description),
-    }))
+        (wh.Number ? `Відділення №${wh.Number}: ${wh.Description}` : wh.Description)
+
+      const categoryLabel =
+        wh.CategoryOfWarehouse === 'Postomat'
+          ? 'Поштомат'
+          : wh.CategoryOfWarehouse === 'DropOff'
+            ? 'Пункт прийому'
+            : wh.CategoryOfWarehouse === 'Branch'
+              ? 'Відділення'
+              : undefined
+
+      const postomatNote =
+        wh.CategoryOfWarehouse === 'Postomat'
+          ? wh.PostMachineType === 'ForResidentsOfEntrance'
+            ? 'Лише для мешканців підʼїзду'
+            : wh.PostMachineType === 'FullDayService'
+              ? 'Цілодобове обслуговування'
+              : undefined
+          : undefined
+
+      const weightInfo =
+        wh.TotalMaxWeightAllowed && wh.TotalMaxWeightAllowed !== '0'
+          ? `До ${wh.TotalMaxWeightAllowed} кг загалом`
+          : wh.PlaceMaxWeightAllowed && wh.PlaceMaxWeightAllowed !== '0'
+            ? `До ${wh.PlaceMaxWeightAllowed} кг на одне місце`
+            : undefined
+
+      const sizeInfo = wh.SendingLimitationsOnDimensions
+        ? `${wh.SendingLimitationsOnDimensions.Length ?? ''}×${wh.SendingLimitationsOnDimensions.Width ?? ''}×${wh.SendingLimitationsOnDimensions.Height ?? ''} см`
+        : undefined
+
+      return {
+        id: wh.Ref,
+        label: baseLabel,
+        primary: wh.Number ? `Відділення №${wh.Number}` : wh.Description,
+        secondary: wh.ShortAddress || undefined,
+        categoryLabel,
+        postalCode: wh.PostalCodeUA || undefined,
+        index: wh.WarehouseIndex || undefined,
+        weightInfo,
+        sizeInfo,
+        postomatNote,
+      }
+    })
 
     return NextResponse.json({ warehouses })
   } catch (error) {
