@@ -205,9 +205,7 @@ export function ProductDescription({ product }: { product: Product }) {
         </div>
       </div>
 
-      <p className="pobut-body font-bold">
-        {locale === 'ru' ? 'О товаре' : 'Про товар'}
-      </p>
+      <p className="pobut-body font-bold">{locale === 'ru' ? 'О товаре' : 'Про товар'}</p>
 
       {product.description ? (
         <RichText
