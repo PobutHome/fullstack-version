@@ -140,10 +140,11 @@ export const CartStep: React.FC<CartStepProps> = ({ cart, onNext }) => {
         <section className="border-t border-sys-border pt-space-15 flex justify-between items-center gap-space-10">
           <div className="grid gap-[2px]">
             <small className="m-0 text-[11px] uppercase tracking-[0.18em] text-sys-text-muted">
-              Всього до оплати
+              Всього за товари
             </small>
             <p className="m-0 text-xs text-sys-text-muted">
-              За потреби ви можете повернутися до цього кроку та змінити склад кошика.
+              Увага: вартість доставки <span className="font-semibold">не входить</span> у вартість
+              товарів і буде розрахована окремо за тарифами поштової служби.
             </p>
           </div>
           <Price className="text-2xl font-semibold text-sys-text" amount={cart.subtotal || 0} />

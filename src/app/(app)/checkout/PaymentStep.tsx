@@ -45,6 +45,10 @@ export const PaymentStep: React.FC<PaymentStepProps> = ({
         <p className="m-0 pobut-body text-sys-text-muted">
           Оберіть зручний спосіб оплати. Для оплати карткою використовується LiqPay.
         </p>
+        <p className="m-0 text-xs text-sys-text-muted">
+          Увага: вартість доставки <span className="font-semibold">не входить</span> у вартість
+          товарів і оплачується окремо за тарифами обраної поштової служби.
+        </p>
       </header>
 
       <div className="grid gap-space-20">

@@ -15,6 +15,7 @@ import { CartStep } from './CartStep'
 import { DeliveryStep } from '@/app/(app)/checkout/DeliveryStep'
 import { PaymentStep } from '@/app/(app)/checkout/PaymentStep'
 import { ReceiverStep } from './ReceiverStep'
+import { ReviewStep } from './ReviewStep'
 import { CHECKOUT_STEPS, useCheckoutController } from './useCheckoutController'
 
 export const CheckoutClient: React.FC = () => {
@@ -119,89 +120,89 @@ export const CheckoutClient: React.FC = () => {
           <div className="mt-space-20 grid gap-layout-gap-2">
             {/* Unified checkout container: steps on top, forms inside */}
             <div className="rounded-radius-primary border border-sys-border bg-sys-surface shadow-shadow-sm">
-              {/* Steps navigation (top, only bottom border) */}
+              {/* Steps navigation (top, connected nodes) */}
               <header
                 aria-label="Кроки оформлення"
                 className="px-space-20 py-space-15 border-b border-sys-border"
               >
                 <h2 className="m-0 mb-space-10 pobut-H4 text-sys-text">Кроки оформлення</h2>
-                <div className="relative">
-                  {/* Base progress line */}
-                  <div
-                    aria-hidden="true"
-                    className="pointer-events-none absolute left-0 right-0 top-3.5 h-px bg-sys-border"
-                  />
-                  {/* Active progress line */}
-                  <div
-                    aria-hidden="true"
-                    style={{ width: `${progressPercent}%` }}
-                    className="pointer-events-none absolute left-0 top-3.5 h-px bg-sys-accent transition-[width] duration-300 ease-out"
-                  />
+                <ol className="flex items-center gap-space-10">
+                  {CHECKOUT_STEPS.map((step, index) => {
+                    const isActive = step.id === currentStep
+                    const isCompleted = index < currentStepIndex
+                    const isDisabled = !canGoToStep(step.id)
+                    const isLast = index === CHECKOUT_STEPS.length - 1
 
-                  <ol className="relative z-10 flex items-center justify-between gap-space-10">
-                    {CHECKOUT_STEPS.map((step, index) => {
-                      const isActive = step.id === currentStep
-                      const isCompleted = index < currentStepIndex
-                      const isDisabled = !canGoToStep(step.id)
+                    const leftConnectorCompleted = index <= currentStepIndex
+                    const rightConnectorCompleted = index < currentStepIndex
 
-                      return (
-                        <li key={step.id} className="flex-1 min-w-0">
-                          <Button
-                            type="button"
-                            variant="ghost"
-                            disabled={isDisabled}
-                            aria-current={isActive ? 'step' : undefined}
-                            onClick={() => {
-                              if (canGoToStep(step.id)) setCurrentStep(step.id)
-                            }}
+                    return (
+                      <li key={step.id} className="flex-1 flex items-center min-w-0">
+                        {index !== 0 && (
+                          <div
+                            aria-hidden="true"
                             className={[
-                              'group w-full flex flex-col items-center gap-space-05 text-center transition-colors',
-                              'bg-transparent hover:bg-transparent px-0 py-0 h-auto',
-                              isDisabled ? 'opacity-60 cursor-not-allowed' : 'cursor-pointer',
+                              'h-[2px] flex-1 rounded-full transition-colors',
+                              leftConnectorCompleted ? 'bg-sys-accent' : 'bg-sys-border',
+                            ].join(' ')}
+                          />
+                        )}
+
+                        <Button
+                          type="button"
+                          variant="ghost"
+                          disabled={isDisabled}
+                          aria-current={isActive ? 'step' : undefined}
+                          onClick={() => {
+                            if (canGoToStep(step.id)) setCurrentStep(step.id)
+                          }}
+                          className={[
+                            'group flex min-w-0 flex-col items-center gap-space-05 text-center transition-colors',
+                            'bg-transparent hover:bg-transparent px-0 py-0 h-auto',
+                            isDisabled ? 'opacity-60 cursor-not-allowed' : 'cursor-pointer',
+                          ].join(' ')}
+                        >
+                          <span
+                            className={[
+                              'flex h-8 w-8 items-center justify-center rounded-radius-full border text-[12px] font-semibold',
+                              isCompleted
+                                ? 'border-sys-accent bg-sys-accent text-sys-text-on-accent shadow-shadow-sm'
+                                : isActive
+                                  ? 'border-sys-accent bg-sys-surface text-sys-accent'
+                                  : 'border-sys-border bg-sys-surface text-sys-text-muted',
                             ].join(' ')}
                           >
-                            <span
-                              className={[
-                                'flex h-8 w-8 items-center justify-center rounded-radius-full border text-[12px] font-semibold bg-sys-surface',
-                                isCompleted
-                                  ? 'border-sys-accent bg-sys-accent text-sys-text-on-accent'
-                                  : isActive
-                                    ? 'border-sys-accent text-sys-accent'
-                                    : 'border-sys-border text-sys-text-muted',
-                              ].join(' ')}
-                            >
-                              {isCompleted ? '✓' : index + 1}
-                            </span>
+                            {isCompleted ? '✓' : index + 1}
+                          </span>
 
-                            <p className="m-0 text-xs font-semibold text-sys-text truncate">
-                              {step.title}
-                            </p>
-                          </Button>
-                        </li>
-                      )
-                    })}
-                  </ol>
-                </div>
+                          <p className="m-0 text-xs font-semibold text-sys-text truncate">
+                            {step.title}
+                          </p>
+                        </Button>
+
+                        {!isLast && (
+                          <div
+                            aria-hidden="true"
+                            className={[
+                              'h-[2px] flex-1 rounded-full transition-colors',
+                              rightConnectorCompleted ? 'bg-sys-accent' : 'bg-sys-border',
+                            ].join(' ')}
+                          />
+                        )}
+                      </li>
+                    )
+                  })}
+                </ol>
               </header>
 
               {/* Main content: steps */}
               <section className="px-space-20 py-space-20 flex flex-col gap-layout-gap-1">
-                {/* Step 1: Cart review */}
+                {/* Step 1: Cart management */}
                 {currentStep === 'cart' && !cartIsEmpty && (
                   <CartStep cart={cart as any} onNext={goToNextStep} />
                 )}
 
-                {/* Step 2: Receiver */}
-                {currentStep === 'receiver' && (
-                  <ReceiverStep
-                    user={user}
-                    checkoutForm={checkoutForm}
-                    onContinueToDelivery={goToNextStep}
-                    receiverStepComplete={receiverStepComplete}
-                  />
-                )}
-
-                {/* Step 3: Delivery & addresses */}
+                {/* Step 2: Delivery & addresses */}
                 {currentStep === 'delivery' && (
                   <DeliveryStep
                     user={user}
@@ -211,12 +212,34 @@ export const CheckoutClient: React.FC = () => {
                     deliveryStepComplete={deliveryStepComplete}
                     deliveryMethod={deliveryMethod}
                     checkoutForm={checkoutForm}
-                    onBackToReceiver={() => setCurrentStep('receiver')}
+                    onBackToReceiver={() => setCurrentStep('cart')}
                     onNextToPayment={goToNextStep}
                   />
                 )}
 
-                {/* Step 4: Payment */}
+                {/* Step 3: Receiver */}
+                {currentStep === 'receiver' && (
+                  <ReceiverStep
+                    user={user}
+                    checkoutForm={checkoutForm}
+                    onContinueToDelivery={goToNextStep}
+                    receiverStepComplete={receiverStepComplete}
+                  />
+                )}
+
+                {/* Step 4: Review */}
+                {currentStep === 'review' && (
+                  <ReviewStep
+                    user={user}
+                    deliveryMethod={deliveryMethod}
+                    checkoutForm={checkoutForm}
+                    onBackToReceiver={() => setCurrentStep('receiver')}
+                    onBackToDelivery={() => setCurrentStep('delivery')}
+                    onContinueToPayment={goToNextStep}
+                  />
+                )}
+
+                {/* Step 5: Payment */}
                 {currentStep === 'payment' && (
                   <PaymentStep
                     checkoutForm={checkoutForm}
@@ -233,7 +256,7 @@ export const CheckoutClient: React.FC = () => {
                       router.refresh()
                     }}
                     onCancelPayment={() => setPaymentData(null)}
-                    onBackToDelivery={() => setCurrentStep('delivery')}
+                    onBackToDelivery={() => setCurrentStep('review')}
                     onProcessingPaymentStart={() => setProcessingPayment(true)}
                   />
                 )}

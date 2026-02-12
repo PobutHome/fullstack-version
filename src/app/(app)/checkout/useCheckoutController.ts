@@ -17,17 +17,22 @@ export const CHECKOUT_STEPS: { id: CheckoutStepId; title: string; description: s
   {
     id: 'cart',
     title: 'Товари',
-    description: 'Перевірте склад кошика та суму замовлення.',
-  },
-  {
-    id: 'receiver',
-    title: 'Одержувач',
-    description: 'Контактні дані та спосіб оформлення.',
+    description: 'Керуйте складом кошика, кількістю та сумою замовлення.',
   },
   {
     id: 'delivery',
     title: 'Доставка',
-    description: 'Спосіб доставки та адреса.',
+    description: 'Оберіть службу доставки та вкажіть адресу.',
+  },
+  {
+    id: 'receiver',
+    title: 'Одержувач',
+    description: 'Контактні дані одержувача.',
+  },
+  {
+    id: 'review',
+    title: 'Перевірка',
+    description: 'Перевірте всі дані перед оплатою.',
   },
   {
     id: 'payment',
@@ -154,23 +159,26 @@ export function useCheckoutController(): UseCheckoutControllerResult {
   const canGoToStep = useCallback(
     (target: CheckoutStepId) => {
       if (target === 'cart') return true
-      if (target === 'receiver') return true
-      if (target === 'delivery') return receiverStepComplete
+      if (target === 'delivery') return !cartIsEmpty
+      if (target === 'receiver') return deliveryStepComplete
+      if (target === 'review') return receiverStepComplete && deliveryStepComplete
       if (target === 'payment') return receiverStepComplete && deliveryStepComplete
       return false
     },
-    [deliveryStepComplete, receiverStepComplete],
+    [cartIsEmpty, deliveryStepComplete, receiverStepComplete],
   )
 
   const goToNextStep = useCallback(() => {
     if (currentStep === 'cart') {
-      setCurrentStep('receiver')
-    } else if (currentStep === 'receiver' && receiverStepComplete) {
       setCurrentStep('delivery')
     } else if (currentStep === 'delivery' && deliveryStepComplete) {
+      setCurrentStep('receiver')
+    } else if (currentStep === 'receiver' && receiverStepComplete) {
+      setCurrentStep('review')
+    } else if (currentStep === 'review' && canPreparePayment) {
       setCurrentStep('payment')
     }
-  }, [currentStep, deliveryStepComplete, receiverStepComplete])
+  }, [canPreparePayment, currentStep, deliveryStepComplete, receiverStepComplete])
 
   useEffect(() => {
     return () => {

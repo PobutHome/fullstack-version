@@ -364,8 +364,8 @@ export const DeliveryStep: React.FC<DeliveryStepProps> = ({
           Оберіть службу доставки та вкажіть адресу одержувача.
         </p>
         <p className="m-0 text-xs text-sys-text-muted">
-          Вартість доставки оплачується за тарифами поштового оператора та може бути додана до суми
-          замовлення.
+          Увага: вартість доставки <span className="font-semibold">не входить</span> у вартість
+          товарів і оплачується окремо за тарифами обраної поштової служби.
         </p>
       </header>
 
@@ -383,7 +383,7 @@ export const DeliveryStep: React.FC<DeliveryStepProps> = ({
             <h3 className="m-0 text-sm font-semibold text-sys-text">Оберіть службу доставки</h3>
           </header>
 
-          <div className="flex flex-col gap-space-08 tablet:flex-row">
+          <div className="flex flex-col gap-space-10 tablet:flex-row tablet:gap-space-10">
             <Button
               type="button"
               onClick={() => {
@@ -393,8 +393,8 @@ export const DeliveryStep: React.FC<DeliveryStepProps> = ({
               className={[
                 'flex h-[90px] w-full flex-1 items-center gap-space-08 rounded-radius-primary border px-space-15 text-left transition-colors tablet:h-[104px]',
                 isNovaPoshtaSelected
-                  ? 'border border-sys-accent bg-sys-surface-2'
-                  : 'border border-sys-border bg-sys-surface hover:bg-sys-surface-2',
+                  ? 'border-sys-accent bg-sys-surface-2 shadow-shadow-sm ring-1 ring-sys-accent'
+                  : 'border-sys-border bg-sys-surface hover:bg-sys-surface-2',
               ].join(' ')}
             >
               <Image
@@ -405,7 +405,14 @@ export const DeliveryStep: React.FC<DeliveryStepProps> = ({
                 className="h-10 w-10 shrink-0 object-contain tablet:h-12 tablet:w-12"
               />
               <div className="grid min-w-0 gap-[2px]">
-                <p className="m-0 text-sm font-semibold text-sys-text">Нова Пошта</p>
+                <div className="flex items-center gap-space-05">
+                  <p className="m-0 text-sm font-semibold text-sys-text">Нова Пошта</p>
+                  {isNovaPoshtaSelected && (
+                    <span className="rounded-radius-full bg-sys-accent/10 px-2 py-px text-[10px] font-semibold uppercase tracking-[0.12em] text-sys-accent">
+                      Обрано
+                    </span>
+                  )}
+                </div>
                 <small className="m-0 text-xs leading-snug text-sys-text-muted line-clamp-2">
                   Доставка до відділення або поштомату Нової Пошти.
                 </small>
@@ -421,8 +428,8 @@ export const DeliveryStep: React.FC<DeliveryStepProps> = ({
               className={[
                 'flex h-[90px] w-full flex-1 items-center gap-space-08 rounded-radius-primary border px-space-15 text-left transition-colors tablet:h-[104px]',
                 isUkrposhtaSelected
-                  ? 'border border-sys-accent bg-sys-surface-2'
-                  : 'border border-sys-border bg-sys-surface hover:bg-sys-surface-2',
+                  ? 'border-sys-accent bg-sys-surface-2 shadow-shadow-sm ring-1 ring-sys-accent'
+                  : 'border-sys-border bg-sys-surface hover:bg-sys-surface-2',
               ].join(' ')}
             >
               <Image
@@ -433,7 +440,14 @@ export const DeliveryStep: React.FC<DeliveryStepProps> = ({
                 className="h-10 w-10 shrink-0 object-contain tablet:h-12 tablet:w-12"
               />
               <div className="grid min-w-0 gap-[2px]">
-                <p className="m-0 text-sm font-semibold text-sys-text">Укрпошта</p>
+                <div className="flex items-center gap-space-05">
+                  <p className="m-0 text-sm font-semibold text-sys-text">Укрпошта</p>
+                  {isUkrposhtaSelected && (
+                    <span className="rounded-radius-full bg-sys-accent/10 px-2 py-px text-[10px] font-semibold uppercase tracking-[0.12em] text-sys-accent">
+                      Обрано
+                    </span>
+                  )}
+                </div>
                 <small className="m-0 text-xs leading-snug text-sys-text-muted line-clamp-2">
                   Доставка у відділення або до дверей. Оплата лише карткою.
                 </small>

@@ -7,7 +7,7 @@ export type LiqPayPaymentData = {
   orderID: string
 }
 
-export type CheckoutStepId = 'cart' | 'receiver' | 'delivery' | 'payment'
+export type CheckoutStepId = 'cart' | 'delivery' | 'receiver' | 'review' | 'payment'
 
 export type DeliveryMethod = 'nova-poshta' | 'ukrposhta'
 
