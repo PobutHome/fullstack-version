@@ -126,73 +126,63 @@ export const CheckoutClient: React.FC = () => {
                 className="px-space-20 py-space-15 border-b border-sys-border"
               >
                 <h2 className="m-0 mb-space-10 pobut-H4 text-sys-text">Кроки оформлення</h2>
-                <ol className="flex items-center gap-space-10">
-                  {CHECKOUT_STEPS.map((step, index) => {
-                    const isActive = step.id === currentStep
-                    const isCompleted = index < currentStepIndex
-                    const isDisabled = !canGoToStep(step.id)
-                    const isLast = index === CHECKOUT_STEPS.length - 1
+                <div className="relative">
+                  {/* Base road */}
+                  <div
+                    aria-hidden="true"
+                    className="pointer-events-none absolute left-0 right-0 top-4 h-[2px] -translate-y-1/2 rounded-full bg-sys-border"
+                  />
+                  {/* Active road */}
+                  <div
+                    aria-hidden="true"
+                    style={{ width: `${progressPercent}%` }}
+                    className="pointer-events-none absolute left-0 top-4 h-[2px] -translate-y-1/2 rounded-full bg-sys-accent transition-[width] duration-300 ease-out"
+                  />
 
-                    const leftConnectorCompleted = index <= currentStepIndex
-                    const rightConnectorCompleted = index < currentStepIndex
+                  <ol className="relative z-10 flex items-center justify-between gap-space-10">
+                    {CHECKOUT_STEPS.map((step, index) => {
+                      const isActive = step.id === currentStep
+                      const isCompleted = index < currentStepIndex
+                      const isDisabled = !canGoToStep(step.id)
 
-                    return (
-                      <li key={step.id} className="flex-1 flex items-center min-w-0">
-                        {index !== 0 && (
-                          <div
-                            aria-hidden="true"
+                      return (
+                        <li key={step.id} className="flex-1 min-w-0 flex flex-col items-center">
+                          <Button
+                            type="button"
+                            variant="ghost"
+                            disabled={isDisabled}
+                            aria-current={isActive ? 'step' : undefined}
+                            onClick={() => {
+                              if (canGoToStep(step.id)) setCurrentStep(step.id)
+                            }}
                             className={[
-                              'h-[2px] flex-1 rounded-full transition-colors',
-                              leftConnectorCompleted ? 'bg-sys-accent' : 'bg-sys-border',
-                            ].join(' ')}
-                          />
-                        )}
-
-                        <Button
-                          type="button"
-                          variant="ghost"
-                          disabled={isDisabled}
-                          aria-current={isActive ? 'step' : undefined}
-                          onClick={() => {
-                            if (canGoToStep(step.id)) setCurrentStep(step.id)
-                          }}
-                          className={[
-                            'group flex min-w-0 flex-col items-center gap-space-05 text-center transition-colors',
-                            'bg-transparent hover:bg-transparent px-0 py-0 h-auto',
-                            isDisabled ? 'opacity-60 cursor-not-allowed' : 'cursor-pointer',
-                          ].join(' ')}
-                        >
-                          <span
-                            className={[
-                              'flex h-8 w-8 items-center justify-center rounded-radius-full border text-[12px] font-semibold',
-                              isCompleted
-                                ? 'border-sys-accent bg-sys-accent text-sys-text-on-accent shadow-shadow-sm'
-                                : isActive
-                                  ? 'border-sys-accent bg-sys-surface text-sys-accent'
-                                  : 'border-sys-border bg-sys-surface text-sys-text-muted',
+                              'group flex min-w-0 flex-col items-center gap-space-05 text-center transition-colors',
+                              'bg-transparent hover:bg-transparent px-0 py-0 h-auto',
+                              isDisabled ? 'opacity-60 cursor-not-allowed' : 'cursor-pointer',
                             ].join(' ')}
                           >
-                            {isCompleted ? '✓' : index + 1}
-                          </span>
+                            <span
+                              className={[
+                                'flex h-8 w-8 items-center justify-center rounded-radius-full border text-[12px] font-semibold bg-sys-surface',
+                                isCompleted
+                                  ? 'border-sys-accent bg-sys-accent text-sys-text-on-accent shadow-shadow-sm'
+                                  : isActive
+                                    ? 'border-sys-accent text-sys-accent'
+                                    : 'border-sys-border text-sys-text-muted',
+                              ].join(' ')}
+                            >
+                              {isCompleted ? '✓' : index + 1}
+                            </span>
 
-                          <p className="m-0 text-xs font-semibold text-sys-text truncate">
-                            {step.title}
-                          </p>
-                        </Button>
-
-                        {!isLast && (
-                          <div
-                            aria-hidden="true"
-                            className={[
-                              'h-[2px] flex-1 rounded-full transition-colors',
-                              rightConnectorCompleted ? 'bg-sys-accent' : 'bg-sys-border',
-                            ].join(' ')}
-                          />
-                        )}
-                      </li>
-                    )
-                  })}
-                </ol>
+                            <p className="m-0 text-[11px] font-semibold uppercase tracking-[0.12em] text-sys-text truncate">
+                              {step.title}
+                            </p>
+                          </Button>
+                        </li>
+                      )
+                    })}
+                  </ol>
+                </div>
               </header>
 
               {/* Main content: steps */}
@@ -223,6 +213,7 @@ export const CheckoutClient: React.FC = () => {
                     user={user}
                     checkoutForm={checkoutForm}
                     onContinueToDelivery={goToNextStep}
+                    onBack={() => setCurrentStep('delivery')}
                     receiverStepComplete={receiverStepComplete}
                   />
                 )}
@@ -262,9 +253,9 @@ export const CheckoutClient: React.FC = () => {
                 )}
               </section>
 
-              {/* Compact order summary shown at the bottom on steps 2–4 */}
+              {/* Compact order summary: visible, no border */}
               {currentStep !== 'cart' && !cartIsEmpty && (
-                <section className="mt-space-20 rounded-radius-primary border border-sys-border bg-sys-surface-2 p-space-15 grid gap-space-10">
+                <section className="mt-space-20 rounded-radius-primary bg-sys-surface-2 p-space-15 grid gap-space-10">
                   <header className="grid gap-[2px]">
                     <h2 className="m-0 text-sm font-semibold text-sys-text">Замовлення</h2>
                     <p className="m-0 text-[11px] text-sys-text-muted">
@@ -272,7 +263,7 @@ export const CheckoutClient: React.FC = () => {
                     </p>
                   </header>
 
-                  <div className="grid gap-space-10">
+                  <ul className="m-0 list-none p-0 grid gap-space-08">
                     {cart?.items?.map((item, index) => {
                       if (typeof item.product === 'object' && item.product) {
                         const {
@@ -284,73 +275,33 @@ export const CheckoutClient: React.FC = () => {
 
                         if (!quantity) return null
 
-                        let image = gallery?.[0]?.image || meta?.image
                         let price = product?.priceInUAH
-
                         const isVariant = Boolean(variant) && typeof variant === 'object'
-
-                        if (isVariant) {
-                          price = variant?.priceInUAH
-
-                          const imageVariant = product.gallery?.find((galleryItem) => {
-                            if (!galleryItem.variantOption) return false
-                            const variantOptionID =
-                              typeof galleryItem.variantOption === 'object'
-                                ? galleryItem.variantOption.id
-                                : galleryItem.variantOption
-
-                            const hasMatch = variant?.options?.some((option) => {
-                              if (typeof option === 'object') return option.id === variantOptionID
-                              return option === variantOptionID
-                            })
-
-                            return hasMatch
-                          })
-
-                          if (imageVariant && typeof imageVariant.image !== 'string') {
-                            image = imageVariant.image
-                          }
-                        }
+                        if (isVariant) price = variant?.priceInUAH
 
                         return (
-                          <div className="flex items-start gap-space-10" key={index}>
-                            <div className="h-14 w-14 rounded-radius-lg border border-sys-border bg-sys-surface flex items-center justify-center overflow-hidden">
-                              <div className="relative w-full h-full">
-                                {image && typeof image !== 'string' && (
-                                  <Media
-                                    className=""
-                                    fill
-                                    imgClassName="rounded-radius-lg object-contain"
-                                    resource={image}
-                                  />
-                                )}
-                              </div>
-                            </div>
-                            <div className="flex grow justify-between items-center gap-space-10">
-                              <div className="flex flex-col gap-px min-w-0">
-                                <p className="m-0 text-[13px] font-medium text-sys-text line-clamp-2">
-                                  {title}
-                                </p>
-                                <small className="m-0 text-[11px] text-sys-text-muted">
-                                  Кількість: {quantity}
-                                </small>
-                              </div>
-
-                              {typeof price === 'number' && (
-                                <Price
-                                  amount={price}
-                                  className="text-sm font-semibold text-sys-text whitespace-nowrap"
-                                />
-                              )}
-                            </div>
-                          </div>
+                          <li
+                            key={index}
+                            className="flex items-center justify-between gap-space-10 text-sm text-sys-text"
+                          >
+                            <span className="min-w-0 truncate">
+                              {title}
+                              <span className="ml-1 text-sys-text-muted">× {quantity}</span>
+                            </span>
+                            {typeof price === 'number' && (
+                              <Price
+                                amount={price * quantity}
+                                className="text-sm font-medium text-sys-text whitespace-nowrap"
+                              />
+                            )}
+                          </li>
                         )
                       }
                       return null
                     })}
-                  </div>
+                  </ul>
 
-                  <footer className="border-t border-sys-border pt-space-10 flex justify-between items-center gap-space-10">
+                  <div className="flex justify-between items-center gap-space-10 pt-space-08 border-t border-sys-border">
                     <span className="text-[11px] uppercase tracking-[0.18em] text-sys-text-muted">
                       Всього
                     </span>
@@ -358,7 +309,7 @@ export const CheckoutClient: React.FC = () => {
                       className="text-lg font-semibold text-sys-text"
                       amount={cart.subtotal || 0}
                     />
-                  </footer>
+                  </div>
                 </section>
               )}
             </div>

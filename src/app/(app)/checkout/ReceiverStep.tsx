@@ -13,6 +13,7 @@ interface ReceiverStepProps {
   user: { email?: string | null } | null | undefined
   checkoutForm: CheckoutForm
   onContinueToDelivery: () => void
+  onBack?: () => void
   receiverStepComplete: boolean
 }
 
@@ -20,6 +21,7 @@ export const ReceiverStep: React.FC<ReceiverStepProps> = ({
   user,
   checkoutForm,
   onContinueToDelivery,
+  onBack,
   receiverStepComplete,
 }) => {
   const {
@@ -29,7 +31,7 @@ export const ReceiverStep: React.FC<ReceiverStepProps> = ({
   } = checkoutForm
 
   return (
-    <section className="grid gap-space-20 max-w-3xl">
+    <section className="grid w-full max-w-3xl gap-space-20 mx-auto">
       <header className="grid gap-space-05">
         <h2 className="m-0 pobut-H3 text-sys-text">Дані одержувача</h2>
         <p className="m-0 pobut-body text-sys-text-muted">
@@ -64,8 +66,8 @@ export const ReceiverStep: React.FC<ReceiverStepProps> = ({
           </section>
         )}
 
-        {user ? (
-          <section className="px-space-15 py-space-15 grid gap-space-05">
+        {user && (
+          <section className="rounded-radius-primary bg-sys-surface-2 px-space-15 py-space-10 grid gap-space-05">
             <p className="m-0 pobut-body text-sys-text">
               Ви оформлюєте замовлення як <span className="font-semibold">{user.email}</span>.
             </p>
@@ -74,17 +76,19 @@ export const ReceiverStep: React.FC<ReceiverStepProps> = ({
               <Link className="underline" href="/logout">
                 Вийти з акаунту
               </Link>
-              .
+              . Адресу доставки можна обрати збережену або вказати вручну на наступному кроці.
             </p>
           </section>
-        ) : (
-          <section className="grid gap-space-20">
-            <p className="m-0 pobut-body text-sys-text">
-              Або продовжуйте як гість – заповніть контактні дані для підтвердження та статусу
-              замовлення.
-            </p>
+        )}
 
-            <form
+        <section className="grid gap-space-20">
+          {!user && (
+            <p className="m-0 pobut-body text-sys-text-muted">
+              Заповніть контактні дані для підтвердження та статусу замовлення.
+            </p>
+          )}
+
+          <form
               className="grid gap-space-20"
               noValidate
               onSubmit={handleSubmit(() => undefined)}
@@ -95,7 +99,7 @@ export const ReceiverStep: React.FC<ReceiverStepProps> = ({
                     htmlFor="checkout-email"
                     className="text-sys-text font-semibold font-unbounded text-sm"
                   >
-                    Email<span className="text-sys-danger">*</span>
+                    Email <span className="text-sys-text-muted">(необов’язково)</span>
                   </Label>
                   <Input
                     disabled={isSubmitting}
@@ -107,7 +111,6 @@ export const ReceiverStep: React.FC<ReceiverStepProps> = ({
                     className="h-11 rounded-radius-full px-4"
                     aria-invalid={Boolean(errors.email)}
                     {...register('email', {
-                      required: 'Вкажіть email.',
                       pattern: {
                         value: /^[^\s@]+@[^\s@]+\.[^\s@]+$/,
                         message: 'Вкажіть коректний email.',
@@ -216,33 +219,44 @@ export const ReceiverStep: React.FC<ReceiverStepProps> = ({
                   )}
                 </FormItem>
 
-                <div className="pt-space-05 tablet:pt-0 flex justify-start tablet:justify-end">
-                  <Button
-                    type="submit"
-                    disabled={isSubmitting}
-                    className="rounded-radius-full px-space-20 bg-sys-btn-primary-bg text-sys-btn-primary-fg hover:bg-sys-btn-primary-bg-hover active:bg-sys-btn-primary-bg-active"
-                  >
-                    {isSubmitting ? 'Перевірка…' : 'Продовжити як гість'}
-                  </Button>
-                </div>
+                {!user && (
+                  <div className="pt-space-05 tablet:pt-0 flex justify-start tablet:justify-end tablet:col-span-2">
+                    <Button
+                      type="submit"
+                      disabled={isSubmitting}
+                      className="rounded-radius-full px-space-20 bg-sys-btn-primary-bg text-sys-btn-primary-fg hover:bg-sys-btn-primary-bg-hover active:bg-sys-btn-primary-bg-active"
+                    >
+                      {isSubmitting ? 'Перевірка…' : 'Продовжити як гість'}
+                    </Button>
+                  </div>
+                )}
               </div>
             </form>
-          </section>
-        )}
+        </section>
       </div>
 
-      <footer className="pt-space-15 flex items-center justify-between gap-space-10">
-        <p className="m-0 text-xs text-sys-text-muted">
-          Ви зможете зберегти адресу доставки на наступних кроках.
-        </p>
+      <footer className="pt-space-15 flex flex-col-reverse tablet:flex-row tablet:items-center tablet:justify-between gap-space-10">
+        {onBack ? (
+          <Button
+            type="button"
+            variant="ghost"
+            size="lg"
+            className="rounded-radius-full px-space-20 text-sys-text-muted hover:text-sys-text"
+            onClick={onBack}
+          >
+            Назад
+          </Button>
+        ) : (
+          <div />
+        )}
         <Button
           type="button"
           size="lg"
-          className="rounded-radius-full px-space-20 bg-sys-btn-primary-bg text-sys-btn-primary-fg hover:bg-sys-btn-primary-bg-hover active:bg-sys-btn-primary-bg-active"
+          className="rounded-radius-full px-space-20 bg-sys-btn-primary-bg text-sys-btn-primary-fg hover:bg-sys-btn-primary-bg-hover active:bg-sys-btn-primary-bg-active tablet:ml-auto"
           disabled={!receiverStepComplete}
           onClick={onContinueToDelivery}
         >
-          До доставки
+          Далі
         </Button>
       </footer>
     </section>

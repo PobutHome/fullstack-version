@@ -357,15 +357,15 @@ export const DeliveryStep: React.FC<DeliveryStepProps> = ({
   }, [isNovaPoshtaSelected, novaCityRef])
 
   return (
-    <section className="grid w-full gap-space-20">
+    <section className="grid w-full max-w-3xl gap-space-20 mx-auto">
       <header className="grid gap-space-05">
         <h2 className="m-0 pobut-H3 text-sys-text">Спосіб доставки та адреса</h2>
         <p className="m-0 pobut-body text-sys-text-muted">
           Оберіть службу доставки та вкажіть адресу одержувача.
         </p>
-        <p className="m-0 text-xs text-sys-text-muted">
-          Увага: вартість доставки <span className="font-semibold">не входить</span> у вартість
-          товарів і оплачується окремо за тарифами обраної поштової служби.
+        <p className="m-0 block w-full rounded-radius-primary bg-sys-danger/10 px-space-10 py-space-08 text-[11px] leading-relaxed text-sys-danger">
+          Увага: вартість доставки не входить у вартість товарів і оплачується окремо за тарифами
+          обраної поштової служби.
         </p>
       </header>
 
@@ -548,100 +548,138 @@ export const DeliveryStep: React.FC<DeliveryStepProps> = ({
                             return haystacks.some((h) => h.includes(q))
                           })
 
+                    const hasSelection =
+                      typeof field.value === 'string' && field.value.trim().length > 0
+
                     return (
                       <div className="space-y-space-05">
-                        <Input
-                          placeholder="Пошук за адресою або номером відділення"
-                          variant="primaryFrontend"
-                          className="h-10 rounded-radius-full px-4 text-sm"
-                          value={warehouseQuery}
-                          onChange={(event) =>
-                            dispatchNovaUi({ type: 'setWarehouseQuery', query: event.target.value })
-                          }
-                          disabled={Boolean(paymentData) || isSubmitting || novaLoading}
-                        />
-
-                        <div
-                          id="nova-poshta-branch"
-                          className="max-h-80 space-y-space-08 overflow-auto rounded-radius-primary bg-sys-surface-2 p-space-08 shadow-shadow-md"
-                        >
-                          {novaLoading && (
-                            <p className="m-0 text-[11px] text-sys-text-muted">
-                              Завантаження відділень…
-                            </p>
+                        <div className="flex flex-col gap-space-05 tablet:flex-row tablet:items-center tablet:gap-space-08">
+                          <Input
+                            id="nova-poshta-branch"
+                            placeholder="Пошук за адресою або номером відділення"
+                            variant="primaryFrontend"
+                            className="h-10 flex-1 rounded-radius-full px-4 text-sm"
+                            value={hasSelection ? field.value : warehouseQuery}
+                            readOnly={hasSelection}
+                            onChange={(event) => {
+                              if (!hasSelection) {
+                                dispatchNovaUi({
+                                  type: 'setWarehouseQuery',
+                                  query: event.target.value,
+                                })
+                              }
+                            }}
+                            onFocus={() => {
+                              if (hasSelection) {
+                                field.onChange('')
+                                dispatchNovaUi({ type: 'setWarehouseQuery', query: '' })
+                              }
+                            }}
+                            disabled={Boolean(paymentData) || isSubmitting || novaLoading}
+                          />
+                          {hasSelection && (
+                            <Button
+                              type="button"
+                              variant="ghost"
+                              size="sm"
+                              className="h-10 shrink-0 text-[11px] text-sys-text-muted hover:text-sys-text"
+                              onClick={() => {
+                                field.onChange('')
+                                dispatchNovaUi({ type: 'setWarehouseQuery', query: '' })
+                              }}
+                            >
+                              Змінити
+                            </Button>
                           )}
-                          {!novaLoading && !visibleWarehouses.length && (
-                            <p className="m-0 text-[11px] text-sys-text-muted">
-                              {novaCity?.trim()
-                                ? warehouseQuery.trim()
-                                  ? 'Відділення не знайдені за введеним запитом.'
-                                  : 'Відділення не знайдені або місто вказано неточно.'
-                                : 'Спочатку оберіть місто для показу відділень.'}
-                            </p>
-                          )}
-
-                          {visibleWarehouses.map((wh) => {
-                            const isSelected = field.value === wh.label
-                            return (
-                              <button
-                                key={wh.id}
-                                type="button"
-                                onClick={() => field.onChange(wh.label)}
-                                className={[
-                                  'flex w-full flex-col items-start gap-[4px] rounded-radius-primary border px-space-10 py-space-08 text-left transition-colors',
-                                  isSelected
-                                    ? 'border-[#E30613] bg-[#FFF1F3] shadow-shadow-sm'
-                                    : 'border-sys-border bg-sys-surface hover:border-[#E30613]/60 hover:bg-sys-surface-2',
-                                ].join(' ')}
-                              >
-                                <div className="flex w-full items-center justify-between gap-space-05">
-                                  <span className="text-[13px] font-semibold text-sys-text line-clamp-2">
-                                    {wh.primary || wh.label}
-                                  </span>
-                                  {wh.categoryLabel && (
-                                    <span className="rounded-full bg-[#E30613]/10 px-2 py-px text-[10px] font-semibold uppercase tracking-[0.12em] text-[#E30613]">
-                                      {wh.categoryLabel}
-                                    </span>
-                                  )}
-                                </div>
-
-                                {wh.secondary && (
-                                  <p className="m-0 text-[11px] text-sys-text-muted line-clamp-2">
-                                    {wh.secondary}
-                                  </p>
-                                )}
-
-                                <div className="mt-[2px] flex flex-wrap gap-x-space-08 gap-y-[2px] text-[10px] text-sys-text-muted">
-                                  {wh.postalCode && (
-                                    <span className="rounded-full bg-sys-surface px-2 py-px">
-                                      Індекс: {wh.postalCode}
-                                    </span>
-                                  )}
-                                  {wh.index && (
-                                    <span className="rounded-full bg-sys-surface px-2 py-px">
-                                      Код відділення: {wh.index}
-                                    </span>
-                                  )}
-                                  {wh.weightInfo && (
-                                    <span className="rounded-full bg-sys-surface px-2 py-px">
-                                      Вага: {wh.weightInfo}
-                                    </span>
-                                  )}
-                                  {wh.sizeInfo && (
-                                    <span className="rounded-full bg-sys-surface px-2 py-px">
-                                      Габарити: {wh.sizeInfo}
-                                    </span>
-                                  )}
-                                  {wh.postomatNote && (
-                                    <span className="rounded-full bg-sys-surface px-2 py-px">
-                                      {wh.postomatNote}
-                                    </span>
-                                  )}
-                                </div>
-                              </button>
-                            )
-                          })}
                         </div>
+
+                        {!hasSelection || warehouseQuery.trim().length > 0 ? (
+                          <div
+                            className="max-h-80 space-y-space-10 overflow-auto rounded-radius-primary bg-sys-surface-2 p-space-08 shadow-shadow-md"
+                            role="listbox"
+                            aria-label="Відділення Нової Пошти"
+                          >
+                            {novaLoading && (
+                              <p className="m-0 text-[11px] text-sys-text-muted">
+                                Завантаження відділень…
+                              </p>
+                            )}
+                            {!novaLoading && !visibleWarehouses.length && (
+                              <p className="m-0 text-[11px] text-sys-text-muted">
+                                {novaCity?.trim()
+                                  ? warehouseQuery.trim()
+                                    ? 'Відділення не знайдені за введеним запитом.'
+                                    : 'Відділення не знайдені або місто вказано неточно.'
+                                  : 'Спочатку оберіть місто для показу відділень.'}
+                              </p>
+                            )}
+
+                            {visibleWarehouses.map((wh) => {
+                              const isSelected = field.value === wh.label
+                              return (
+                                <button
+                                  key={wh.id}
+                                  type="button"
+                                  onClick={() => {
+                                    field.onChange(wh.label)
+                                    dispatchNovaUi({ type: 'setWarehouseQuery', query: '' })
+                                  }}
+                                  className={[
+                                    'flex w-full flex-col items-start gap-[4px] rounded-radius-primary border px-space-10 py-space-08 text-left transition-colors',
+                                    isSelected
+                                      ? 'border-[#E30613] bg-[#FFF1F3] shadow-shadow-sm'
+                                      : 'border-sys-border bg-sys-surface hover:border-[#E30613]/60 hover:bg-sys-surface-2',
+                                  ].join(' ')}
+                                >
+                                  <div className="flex w-full items-center justify-between gap-space-05">
+                                    <span className="text-[13px] font-semibold text-sys-text line-clamp-2">
+                                      {wh.primary || wh.label}
+                                    </span>
+                                    {wh.categoryLabel && (
+                                      <span className="rounded-full bg-[#E30613]/10 px-2 py-px text-[10px] font-semibold uppercase tracking-[0.12em] text-[#E30613]">
+                                        {wh.categoryLabel}
+                                      </span>
+                                    )}
+                                  </div>
+
+                                  {wh.secondary && (
+                                    <p className="m-0 text-[11px] text-sys-text-muted line-clamp-2">
+                                      {wh.secondary}
+                                    </p>
+                                  )}
+
+                                  <div className="mt-[2px] flex flex-wrap gap-x-space-08 gap-y-[2px] text-[10px] text-sys-text-muted">
+                                    {wh.postalCode && (
+                                      <span className="rounded-full bg-sys-surface px-2 py-px">
+                                        Індекс: {wh.postalCode}
+                                      </span>
+                                    )}
+                                    {wh.index && (
+                                      <span className="rounded-full bg-sys-surface px-2 py-px">
+                                        Код відділення: {wh.index}
+                                      </span>
+                                    )}
+                                    {wh.weightInfo && (
+                                      <span className="rounded-full bg-sys-surface px-2 py-px">
+                                        Вага: {wh.weightInfo}
+                                      </span>
+                                    )}
+                                    {wh.sizeInfo && (
+                                      <span className="rounded-full bg-sys-surface px-2 py-px">
+                                        Габарити: {wh.sizeInfo}
+                                      </span>
+                                    )}
+                                    {wh.postomatNote && (
+                                      <span className="rounded-full bg-sys-surface px-2 py-px">
+                                        {wh.postomatNote}
+                                      </span>
+                                    )}
+                                  </div>
+                                </button>
+                              )
+                            })}
+                          </div>
+                        ) : null}
                       </div>
                     )
                   }}
@@ -649,6 +687,18 @@ export const DeliveryStep: React.FC<DeliveryStepProps> = ({
                 {novaError && <FormError message={novaError} className="mt-1" />}
                 {errors.novaBranch && (
                   <FormError message={errors.novaBranch.message} className="mt-1" />
+                )}
+                {user && novaCity?.trim() && getValues('novaBranch')?.trim() && (
+                  <p className="m-0 mt-space-08 text-[11px] text-sys-text-muted">
+                    <Button
+                      type="button"
+                      variant="ghost"
+                      size="sm"
+                      className="h-auto px-0 py-0 text-[11px] text-sys-accent hover:underline"
+                    >
+                      Зберегти адресу доставки в обліковому записі
+                    </Button>
+                  </p>
                 )}
               </FormItem>
             </div>
@@ -909,37 +959,25 @@ export const DeliveryStep: React.FC<DeliveryStepProps> = ({
         })()}
       </form>
 
-      <footer className="pt-space-15 flex flex-col tablet:flex-row tablet:items-center tablet:justify-between gap-space-10">
+      <footer className="pt-space-15 flex flex-col-reverse tablet:flex-row tablet:items-center tablet:justify-between gap-space-10">
         <Button
           type="button"
           variant="ghost"
-          size="sm"
+          size="lg"
+          className="rounded-radius-full px-space-20 text-sys-text-muted hover:text-sys-text"
           onClick={onBackToReceiver}
-          className="self-start rounded-radius-full px-space-15 text-sys-text-muted hover:text-sys-text hover:bg-transparent active:bg-transparent underline-offset-4 hover:underline"
         >
-          Повернутися до одержувача
+          Назад
         </Button>
-
-        <div className="flex gap-space-10 tablet:ml-auto">
-          <Button
-            type="button"
-            variant="outline"
-            size="lg"
-            className="rounded-radius-full px-space-20"
-            onClick={onBackToReceiver}
-          >
-            Назад
-          </Button>
-          <Button
-            type="button"
-            size="lg"
-            className="rounded-radius-full px-space-20 bg-sys-btn-primary-bg text-sys-btn-primary-fg hover:bg-sys-btn-primary-bg-hover active:bg-sys-btn-primary-bg-active"
-            disabled={!deliveryStepComplete}
-            onClick={onNextToPayment}
-          >
-            До оплати
-          </Button>
-        </div>
+        <Button
+          type="button"
+          size="lg"
+          className="rounded-radius-full px-space-20 bg-sys-btn-primary-bg text-sys-btn-primary-fg hover:bg-sys-btn-primary-bg-hover active:bg-sys-btn-primary-bg-active tablet:ml-auto"
+          disabled={!deliveryStepComplete}
+          onClick={onNextToPayment}
+        >
+          Далі
+        </Button>
       </footer>
     </section>
   )

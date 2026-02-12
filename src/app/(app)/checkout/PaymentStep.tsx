@@ -39,15 +39,15 @@ export const PaymentStep: React.FC<PaymentStepProps> = ({
   const codDisabled = deliveryMethod === 'ukrposhta'
 
   return (
-    <section className="grid gap-space-20 max-w-3xl">
+    <section className="grid w-full max-w-3xl gap-space-20 mx-auto">
       <header className="grid gap-space-05">
         <h2 className="m-0 pobut-H3 text-sys-text">Спосіб оплати</h2>
         <p className="m-0 pobut-body text-sys-text-muted">
           Оберіть зручний спосіб оплати. Для оплати карткою використовується LiqPay.
         </p>
-        <p className="m-0 text-xs text-sys-text-muted">
-          Увага: вартість доставки <span className="font-semibold">не входить</span> у вартість
-          товарів і оплачується окремо за тарифами обраної поштової служби.
+        <p className="m-0 block w-full rounded-radius-primary bg-sys-danger/10 px-space-10 py-space-08 text-[11px] leading-relaxed text-sys-danger">
+          Увага: вартість доставки не входить у вартість товарів і оплачується окремо за тарифами
+          обраної поштової служби.
         </p>
       </header>
 
@@ -197,15 +197,15 @@ export const PaymentStep: React.FC<PaymentStepProps> = ({
         )}
       </div>
 
-      <footer className="pt-space-15 flex flex-col tablet:flex-row tablet:items-center tablet:justify-between gap-space-10">
+      <footer className="pt-space-15 flex flex-col-reverse tablet:flex-row tablet:items-center tablet:justify-between gap-space-10">
         <Button
           type="button"
           variant="ghost"
-          size="sm"
+          size="lg"
+          className="rounded-radius-full px-space-20 text-sys-text-muted hover:text-sys-text"
           onClick={onBackToDelivery}
-          className="self-start rounded-radius-full px-space-15 text-sys-text-muted hover:text-sys-text hover:bg-transparent active:bg-transparent underline-offset-4 hover:underline"
         >
-          Повернутися до доставки
+          Назад
         </Button>
       </footer>
     </section>
