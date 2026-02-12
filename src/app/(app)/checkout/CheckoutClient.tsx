@@ -144,6 +144,17 @@ export const CheckoutClient: React.FC = () => {
                       const isActive = step.id === currentStep
                       const isCompleted = index < currentStepIndex
                       const isDisabled = !canGoToStep(step.id)
+                      const stepFilled =
+                        step.id === 'cart'
+                          ? !cartIsEmpty
+                          : step.id === 'delivery'
+                            ? deliveryStepComplete
+                            : step.id === 'receiver'
+                              ? receiverStepComplete
+                              : step.id === 'review'
+                                ? canPreparePayment
+                                : true
+                      const nodeFilled = isCompleted || (isActive && stepFilled)
 
                       return (
                         <li key={step.id} className="flex-1 min-w-0 flex flex-col items-center">
@@ -163,12 +174,12 @@ export const CheckoutClient: React.FC = () => {
                           >
                             <span
                               className={[
-                                'flex h-8 w-8 items-center justify-center rounded-radius-full border text-[12px] font-semibold bg-sys-surface',
-                                isCompleted
+                                'flex h-8 w-8 items-center justify-center rounded-radius-full border text-[12px] font-semibold',
+                                nodeFilled
                                   ? 'border-sys-accent bg-sys-accent text-sys-text-on-accent shadow-shadow-sm'
                                   : isActive
-                                    ? 'border-sys-accent text-sys-accent'
-                                    : 'border-sys-border text-sys-text-muted',
+                                    ? 'border-sys-accent bg-sys-surface text-sys-accent'
+                                    : 'border-sys-border bg-sys-surface text-sys-text-muted',
                               ].join(' ')}
                             >
                               {isCompleted ? '✓' : index + 1}

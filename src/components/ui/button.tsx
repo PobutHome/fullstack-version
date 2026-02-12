@@ -17,6 +17,8 @@ const buttonVariants = cva(
         secondary: 'bg-secondary text-secondary-foreground shadow-xs hover:bg-secondary/80',
         ghost:
           'text-primary/50 hover:text-primary/100 [&.active]:text-primary/100 py-2 px-4 uppercase font-mono tracking-[0.1em] text-xs',
+        back:
+          'border border-input bg-transparent shadow-xs hover:bg-accent/5 hover:border-sys-border text-sys-text-muted hover:text-sys-text',
         link: 'text-primary underline-offset-4 hover:underline',
         nav: 'text-primary/50 hover:text-primary/100 [&.active]:text-primary/100 p-0 pt-2 pb-6 uppercase font-mono tracking-[0.1em] text-xs',
       },

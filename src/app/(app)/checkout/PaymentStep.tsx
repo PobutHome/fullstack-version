@@ -200,9 +200,9 @@ export const PaymentStep: React.FC<PaymentStepProps> = ({
       <footer className="pt-space-15 flex flex-col-reverse tablet:flex-row tablet:items-center tablet:justify-between gap-space-10">
         <Button
           type="button"
-          variant="ghost"
+          variant="back"
           size="lg"
-          className="rounded-radius-full px-space-20 text-sys-text-muted hover:text-sys-text"
+          className="rounded-radius-full px-space-20"
           onClick={onBackToDelivery}
         >
           Назад

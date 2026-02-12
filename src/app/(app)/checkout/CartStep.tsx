@@ -2,11 +2,12 @@
 
 import React, { useState } from 'react'
 
+import type { CartItem } from '@/components/Cart'
+import { EditItemQuantityButton } from '@/components/Cart/EditItemQuantityButton'
 import { Media } from '@/components/Media'
 import { Price } from '@/components/Price'
 import { Button } from '@/components/ui/button'
 import { useCart } from '@payloadcms/plugin-ecommerce/client/react'
-import { MinusIcon, PlusIcon } from 'lucide-react'
 
 const WHOLESALE_MIN_QUANTITY = 1
 
@@ -30,7 +31,6 @@ export interface CartStepProps {
 }
 
 export const CartStep: React.FC<CartStepProps> = ({ cart, onNext, onBack }) => {
-  const { incrementItem, decrementItem } = useCart()
   const [wholesaleByItem, setWholesaleByItem] = useState<Record<string, boolean>>({})
 
   if (!cart || !cart.items || !cart.items.length) return null
@@ -77,14 +77,6 @@ export const CartStep: React.FC<CartStepProps> = ({ cart, onNext, onBack }) => {
               if (!quantity) return null
 
               const itemId = item.id ?? `item-${index}`
-              const target =
-                variant && typeof variant === 'object' ? variant : product
-              const maxQty =
-                target && typeof target === 'object' && target.inventory != null
-                  ? target.inventory
-                  : 999
-              const canIncrement = quantity < maxQty
-              const canDecrement = quantity > 1
 
               let image = gallery?.[0]?.image || meta?.image
               let retailPrice = product?.priceInUAH
@@ -145,31 +137,11 @@ export const CartStep: React.FC<CartStepProps> = ({ cart, onNext, onBack }) => {
 
                     <div className="flex flex-wrap items-center gap-space-10">
                       <div className="flex items-center gap-space-05">
-                        <Button
-                          type="button"
-                          variant="outline"
-                          size="icon"
-                          className="h-8 w-8 rounded-radius-full"
-                          disabled={!canDecrement}
-                          onClick={() => item.id && decrementItem(item.id)}
-                          aria-label="Зменшити кількість"
-                        >
-                          <MinusIcon className="h-4 w-4" />
-                        </Button>
+                        <EditItemQuantityButton type="minus" item={rawItem as CartItem} />
                         <span className="min-w-[2ch] text-center text-sm font-medium text-sys-text">
                           {quantity}
                         </span>
-                        <Button
-                          type="button"
-                          variant="outline"
-                          size="icon"
-                          className="h-8 w-8 rounded-radius-full"
-                          disabled={!canIncrement}
-                          onClick={() => item.id && incrementItem(item.id)}
-                          aria-label="Збільшити кількість"
-                        >
-                          <PlusIcon className="h-4 w-4" />
-                        </Button>
+                        <EditItemQuantityButton type="plus" item={rawItem as CartItem} />
                       </div>
 
                       {quantity >= WHOLESALE_MIN_QUANTITY && (

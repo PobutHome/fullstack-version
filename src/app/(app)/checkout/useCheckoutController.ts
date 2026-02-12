@@ -122,6 +122,10 @@ export function useCheckoutController(): UseCheckoutControllerResult {
   const ukrStreet = useWatch({ control, name: 'ukrStreet' })
   const ukrBuilding = useWatch({ control, name: 'ukrBuilding' })
 
+  const receiverFirstName = useWatch({ control, name: 'receiverFirstName' })
+  const receiverLastName = useWatch({ control, name: 'receiverLastName' })
+  const receiverPhone = useWatch({ control, name: 'receiverPhone' })
+
   const canSubmitPayment = useMemo(
     () => Boolean(paymentData?.data && paymentData?.signature && paymentData?.checkoutURL),
     [paymentData],
@@ -129,10 +133,21 @@ export function useCheckoutController(): UseCheckoutControllerResult {
 
   const cartIsEmpty = !cart || !cart.items || !cart.items.length
 
-  const receiverStepComplete = useMemo(
-    () => Boolean(user || isReceiverSubmitSuccessful),
-    [user, isReceiverSubmitSuccessful],
-  )
+  const receiverStepComplete = useMemo(() => {
+    if (user) return true
+    if (isReceiverSubmitSuccessful) return true
+    const first = receiverFirstName?.trim()
+    const last = receiverLastName?.trim()
+    const phone = receiverPhone?.trim()
+    const phoneValid = phone && /^[\d\s+()-]{10,}$/.test(phone)
+    return Boolean(first && last && phoneValid)
+  }, [
+    user,
+    isReceiverSubmitSuccessful,
+    receiverFirstName,
+    receiverLastName,
+    receiverPhone,
+  ])
 
   const deliveryStepComplete = useMemo(
     () => {

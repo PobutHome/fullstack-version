@@ -1,4 +1,4 @@
-import React, { useEffect, useReducer } from 'react'
+import React, { useEffect, useReducer, useState } from 'react'
 
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
@@ -221,6 +221,8 @@ export const DeliveryStep: React.FC<DeliveryStepProps> = ({
 
   const isNovaPoshtaSelected = deliveryMethod === 'nova-poshta'
   const isUkrposhtaSelected = deliveryMethod === 'ukrposhta'
+
+  const [deliveryAddressSource, setDeliveryAddressSource] = useState<'saved' | 'manual'>('manual')
 
   // Suggest cities as user types for Nova Poshta
   useEffect(() => {
@@ -464,9 +466,32 @@ export const DeliveryStep: React.FC<DeliveryStepProps> = ({
               <h3 className="m-0 text-sm font-semibold text-sys-text">Адреса доставки</h3>
             </header>
 
-          {isNovaPoshtaSelected && (
+            {user && (
+              <div className="flex flex-wrap gap-space-08">
+                <Button
+                  type="button"
+                  variant={deliveryAddressSource === 'saved' ? 'outline' : 'ghost'}
+                  size="sm"
+                  className="rounded-radius-full"
+                  onClick={() => setDeliveryAddressSource('saved')}
+                >
+                  Збережена адреса
+                </Button>
+                <Button
+                  type="button"
+                  variant={deliveryAddressSource === 'manual' ? 'outline' : 'ghost'}
+                  size="sm"
+                  className="rounded-radius-full"
+                  onClick={() => setDeliveryAddressSource('manual')}
+                >
+                  Вказати вручну
+                </Button>
+              </div>
+            )}
+
+          {(deliveryAddressSource === 'manual' || !user) && isNovaPoshtaSelected && (
             <div className="grid gap-space-10 tablet:grid-cols-2">
-              <FormItem>
+              <FormItem className="relative">
                 <Label
                   htmlFor="nova-poshta-city"
                   className="text-sys-text font-semibold font-unbounded text-sm"
@@ -489,7 +514,7 @@ export const DeliveryStep: React.FC<DeliveryStepProps> = ({
                 )}
                 {cityError && <FormError message={cityError} className="mt-1" />}
                 {!!citySuggestions.length && !cityError && (
-                  <div className="mt-1 max-h-56 overflow-auto rounded-radius-primary border border-sys-border bg-sys-surface-2 text-xs shadow-shadow-md">
+                  <div className="absolute left-0 right-0 top-full z-50 mt-1 max-h-56 box-border overflow-y-auto overflow-x-hidden rounded-radius-primary border border-sys-border bg-sys-surface-2 text-xs shadow-shadow-md scrollbar-thin">
                     {citySuggestions.map((city) => (
                       <button
                         key={city.ref}
@@ -552,7 +577,7 @@ export const DeliveryStep: React.FC<DeliveryStepProps> = ({
                       typeof field.value === 'string' && field.value.trim().length > 0
 
                     return (
-                      <div className="space-y-space-05">
+                      <div className="relative space-y-space-05">
                         <div className="flex flex-col gap-space-05 tablet:flex-row tablet:items-center tablet:gap-space-08">
                           <Input
                             id="nova-poshta-branch"
@@ -595,7 +620,7 @@ export const DeliveryStep: React.FC<DeliveryStepProps> = ({
 
                         {!hasSelection || warehouseQuery.trim().length > 0 ? (
                           <div
-                            className="max-h-80 space-y-space-10 overflow-auto rounded-radius-primary bg-sys-surface-2 p-space-08 shadow-shadow-md"
+                        className="absolute left-0 right-0 top-full z-50 mt-1 max-h-80 box-border space-y-space-10 overflow-y-auto overflow-x-hidden rounded-radius-primary border border-sys-border bg-sys-surface-2 p-space-08 shadow-shadow-md scrollbar-thin"
                             role="listbox"
                             aria-label="Відділення Нової Пошти"
                           >
@@ -704,7 +729,13 @@ export const DeliveryStep: React.FC<DeliveryStepProps> = ({
             </div>
           )}
 
-          {isUkrposhtaSelected && (
+          {deliveryAddressSource === 'saved' && user && (
+            <p className="m-0 rounded-radius-primary bg-sys-surface p-space-10 text-sm text-sys-text-muted">
+              Оберіть збережену адресу або перейдіть на &quot;Вказати вручну&quot;. (Функція збережених адрес скоро з&apos;явиться.)
+            </p>
+          )}
+
+          {(deliveryAddressSource === 'manual' || !user) && isUkrposhtaSelected && (
             <div className="grid gap-space-10">
               <div className="grid gap-space-10 tablet:grid-cols-2">
                 <FormItem>
@@ -877,6 +908,7 @@ export const DeliveryStep: React.FC<DeliveryStepProps> = ({
                     className="text-sys-text font-semibold font-unbounded text-sm"
                   >
                     Код відділення Укрпошти (індекс відділення)
+                    <span className="text-sys-danger">*</span>
                   </Label>
                   <Input
                     id="ukrposhta-branch-code"
@@ -962,9 +994,9 @@ export const DeliveryStep: React.FC<DeliveryStepProps> = ({
       <footer className="pt-space-15 flex flex-col-reverse tablet:flex-row tablet:items-center tablet:justify-between gap-space-10">
         <Button
           type="button"
-          variant="ghost"
+          variant="back"
           size="lg"
-          className="rounded-radius-full px-space-20 text-sys-text-muted hover:text-sys-text"
+          className="rounded-radius-full px-space-20"
           onClick={onBackToReceiver}
         >
           Назад

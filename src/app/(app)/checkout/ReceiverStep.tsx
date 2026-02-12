@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
@@ -17,6 +17,8 @@ interface ReceiverStepProps {
   receiverStepComplete: boolean
 }
 
+type ReceiverSource = 'account' | 'manual'
+
 export const ReceiverStep: React.FC<ReceiverStepProps> = ({
   user,
   checkoutForm,
@@ -28,7 +30,10 @@ export const ReceiverStep: React.FC<ReceiverStepProps> = ({
     formState: { errors, isSubmitting },
     handleSubmit,
     register,
+    setValue,
   } = checkoutForm
+
+  const [receiverSource, setReceiverSource] = useState<ReceiverSource>(user ? 'manual' : 'manual')
 
   return (
     <section className="grid w-full max-w-3xl gap-space-20 mx-auto">
@@ -67,7 +72,7 @@ export const ReceiverStep: React.FC<ReceiverStepProps> = ({
         )}
 
         {user && (
-          <section className="rounded-radius-primary bg-sys-surface-2 px-space-15 py-space-10 grid gap-space-05">
+          <section className="rounded-radius-primary bg-sys-surface-2 px-space-15 py-space-10 grid gap-space-10">
             <p className="m-0 pobut-body text-sys-text">
               Ви оформлюєте замовлення як <span className="font-semibold">{user.email}</span>.
             </p>
@@ -76,8 +81,31 @@ export const ReceiverStep: React.FC<ReceiverStepProps> = ({
               <Link className="underline" href="/logout">
                 Вийти з акаунту
               </Link>
-              . Адресу доставки можна обрати збережену або вказати вручну на наступному кроці.
+              .
             </p>
+            <div className="flex flex-wrap gap-space-08">
+              <Button
+                type="button"
+                variant={receiverSource === 'account' ? 'outline' : 'ghost'}
+                size="sm"
+                className="rounded-radius-full"
+                onClick={() => {
+                  setReceiverSource('account')
+                  if (user?.email) setValue('email', user.email, { shouldValidate: true })
+                }}
+              >
+                Дані з акаунту
+              </Button>
+              <Button
+                type="button"
+                variant={receiverSource === 'manual' ? 'outline' : 'ghost'}
+                size="sm"
+                className="rounded-radius-full"
+                onClick={() => setReceiverSource('manual')}
+              >
+                Заповнити вручну
+              </Button>
+            </div>
           </section>
         )}
 
@@ -102,7 +130,7 @@ export const ReceiverStep: React.FC<ReceiverStepProps> = ({
                     Email <span className="text-sys-text-muted">(необов’язково)</span>
                   </Label>
                   <Input
-                    disabled={isSubmitting}
+                    disabled={isSubmitting || (Boolean(user) && receiverSource === 'account')}
                     id="checkout-email"
                     type="email"
                     autoComplete="email"
@@ -218,18 +246,6 @@ export const ReceiverStep: React.FC<ReceiverStepProps> = ({
                     />
                   )}
                 </FormItem>
-
-                {!user && (
-                  <div className="pt-space-05 tablet:pt-0 flex justify-start tablet:justify-end tablet:col-span-2">
-                    <Button
-                      type="submit"
-                      disabled={isSubmitting}
-                      className="rounded-radius-full px-space-20 bg-sys-btn-primary-bg text-sys-btn-primary-fg hover:bg-sys-btn-primary-bg-hover active:bg-sys-btn-primary-bg-active"
-                    >
-                      {isSubmitting ? 'Перевірка…' : 'Продовжити як гість'}
-                    </Button>
-                  </div>
-                )}
               </div>
             </form>
         </section>
@@ -239,9 +255,9 @@ export const ReceiverStep: React.FC<ReceiverStepProps> = ({
         {onBack ? (
           <Button
             type="button"
-            variant="ghost"
+            variant="back"
             size="lg"
-            className="rounded-radius-full px-space-20 text-sys-text-muted hover:text-sys-text"
+            className="rounded-radius-full px-space-20"
             onClick={onBack}
           >
             Назад
