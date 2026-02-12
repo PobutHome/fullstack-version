@@ -7,18 +7,18 @@ import Link from 'next/link'
 
 import { FormError } from '@/components/forms/FormError'
 import { FormItem } from '@/components/forms/FormItem'
-import type { ReceiverForm } from './checkoutTypes'
+import type { CheckoutForm } from './checkoutTypes'
 
 interface ReceiverStepProps {
   user: { email?: string | null } | null | undefined
-  receiverForm: ReceiverForm
+  checkoutForm: CheckoutForm
   onContinueToDelivery: () => void
   receiverStepComplete: boolean
 }
 
 export const ReceiverStep: React.FC<ReceiverStepProps> = ({
   user,
-  receiverForm,
+  checkoutForm,
   onContinueToDelivery,
   receiverStepComplete,
 }) => {
@@ -26,7 +26,7 @@ export const ReceiverStep: React.FC<ReceiverStepProps> = ({
     formState: { errors, isSubmitting },
     handleSubmit,
     register,
-  } = receiverForm
+  } = checkoutForm
 
   return (
     <section className="grid gap-space-20 max-w-3xl">

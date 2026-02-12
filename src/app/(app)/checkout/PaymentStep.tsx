@@ -3,16 +3,15 @@ import React from 'react'
 import { Message } from '@/components/Message'
 import { Button } from '@/components/ui/button'
 
-import type { DeliveryMethod, LiqPayPaymentData } from './checkoutTypes'
+import type { CheckoutForm, DeliveryMethod, LiqPayPaymentData } from './checkoutTypes'
 
 interface PaymentStepProps {
-  paymentMethod: 'card' | 'cod'
+  checkoutForm: CheckoutForm
   canPreparePayment: boolean
   paymentData: LiqPayPaymentData | null
   error: string | null
   canSubmitPayment: boolean
   deliveryMethod: DeliveryMethod
-  onPaymentMethodChange: (method: 'card' | 'cod') => void
   onInitiatePaymentIntent: () => void
   onCashOnDelivery: (event: React.MouseEvent<HTMLButtonElement>) => void
   onRetry: () => void
@@ -22,13 +21,12 @@ interface PaymentStepProps {
 }
 
 export const PaymentStep: React.FC<PaymentStepProps> = ({
-  paymentMethod,
+  checkoutForm,
   canPreparePayment,
   paymentData,
   error,
   canSubmitPayment,
   deliveryMethod,
-  onPaymentMethodChange,
   onInitiatePaymentIntent,
   onCashOnDelivery,
   onRetry,
@@ -36,6 +34,8 @@ export const PaymentStep: React.FC<PaymentStepProps> = ({
   onBackToDelivery,
   onProcessingPaymentStart,
 }) => {
+  const { setValue, watch } = checkoutForm
+  const paymentMethod = watch('paymentMethod')
   const codDisabled = deliveryMethod === 'ukrposhta'
 
   return (
@@ -51,7 +51,7 @@ export const PaymentStep: React.FC<PaymentStepProps> = ({
         <section className="grid gap-space-10 tablet:grid-cols-2">
           <Button
             type="button"
-            onClick={() => onPaymentMethodChange('card')}
+            onClick={() => setValue('paymentMethod', 'card', { shouldValidate: true })}
             variant={paymentMethod === 'card' ? 'outline' : 'ghost'}
             className={[
               'flex flex-col items-start gap-[2px] rounded-radius-primary border px-space-15 py-space-15 text-left transition-colors',
@@ -68,7 +68,7 @@ export const PaymentStep: React.FC<PaymentStepProps> = ({
 
           <Button
             type="button"
-            onClick={() => onPaymentMethodChange('cod')}
+            onClick={() => setValue('paymentMethod', 'cod', { shouldValidate: true })}
             disabled={codDisabled}
             variant={paymentMethod === 'cod' ? 'outline' : 'ghost'}
             className={[

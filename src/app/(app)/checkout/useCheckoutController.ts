@@ -1,16 +1,16 @@
 import { useAuth } from '@/providers/Auth'
 import { Address } from '@/payload-types'
-import { useAddresses, useCart, usePayments } from '@payloadcms/plugin-ecommerce/client/react'
+import { useCart, usePayments } from '@payloadcms/plugin-ecommerce/client/react'
 import { useCallback, useEffect, useMemo, useState } from 'react'
-import { useForm } from 'react-hook-form'
+import { useForm, useWatch } from 'react-hook-form'
 import { toast } from 'sonner'
 
 import type {
   CheckoutStepId,
+  CheckoutForm,
+  CheckoutFormData,
   DeliveryMethod,
   LiqPayPaymentData,
-  ReceiverForm,
-  ReceiverFormData,
 } from './checkoutTypes'
 
 export const CHECKOUT_STEPS: { id: CheckoutStepId; title: string; description: string }[] = [
@@ -43,17 +43,13 @@ type UseCheckoutControllerResult = {
   setError: (error: string | null) => void
   paymentData: LiqPayPaymentData | null
   setPaymentData: (data: LiqPayPaymentData | null) => void
-  shippingAddress: Partial<Address> | undefined
-  deliveryMethod: DeliveryMethod
-  setShippingAddress: React.Dispatch<React.SetStateAction<Partial<Address> | undefined>>
-  setDeliveryMethod: React.Dispatch<React.SetStateAction<DeliveryMethod>>
   isProcessingPayment: boolean
   setProcessingPayment: (value: boolean) => void
-  paymentMethod: 'card' | 'cod'
-  setPaymentMethod: (method: 'card' | 'cod') => void
   currentStep: CheckoutStepId
   setCurrentStep: (step: CheckoutStepId) => void
-  receiverForm: ReceiverForm
+  checkoutForm: CheckoutForm
+  deliveryMethod: DeliveryMethod
+  paymentMethod: 'card' | 'cod'
   canSubmitPayment: boolean
   cartIsEmpty: boolean
   receiverStepComplete: boolean
@@ -69,29 +65,57 @@ export function useCheckoutController(): UseCheckoutControllerResult {
   const { user } = useAuth()
   const { cart } = useCart()
   const { initiatePayment } = usePayments()
-  const { addresses } = useAddresses()
 
   const [error, setError] = useState<string | null>(null)
   const [paymentData, setPaymentData] = useState<null | LiqPayPaymentData>(null)
-  const [shippingAddress, setShippingAddress] = useState<Partial<Address>>()
-  const [deliveryMethod, setDeliveryMethod] = useState<DeliveryMethod>('nova-poshta')
   const [isProcessingPayment, setProcessingPayment] = useState(false)
-  const [paymentMethod, setPaymentMethod] = useState<'card' | 'cod'>('card')
   const [currentStep, setCurrentStep] = useState<CheckoutStepId>('cart')
 
-  const receiverForm = useForm<ReceiverFormData>({
+  const checkoutForm = useForm<CheckoutFormData>({
     defaultValues: {
       email: '',
       receiverFirstName: '',
       receiverLastName: '',
       receiverPhone: '',
+      deliveryMethod: 'nova-poshta',
+      novaCity: '',
+      novaCityRef: null,
+      novaBranch: '',
+      ukrCountry: 'Україна',
+      ukrRegion: '',
+      ukrCity: '',
+      ukrPostcode: '',
+      ukrStreet: '',
+      ukrBuilding: '',
+      ukrOffice: '',
+      ukrBranchCode: '',
+      paymentMethod: 'card',
     },
     mode: 'onSubmit',
   })
 
   const {
+    control,
     formState: { isSubmitSuccessful: isReceiverSubmitSuccessful },
-  } = receiverForm
+  } = checkoutForm
+
+  const deliveryMethod = useWatch({
+    control,
+    name: 'deliveryMethod',
+  })
+
+  const paymentMethod = useWatch({
+    control,
+    name: 'paymentMethod',
+  })
+
+  const novaCity = useWatch({ control, name: 'novaCity' })
+  const novaBranch = useWatch({ control, name: 'novaBranch' })
+  const ukrCity = useWatch({ control, name: 'ukrCity' })
+  const ukrPostcode = useWatch({ control, name: 'ukrPostcode' })
+  const ukrRegion = useWatch({ control, name: 'ukrRegion' })
+  const ukrStreet = useWatch({ control, name: 'ukrStreet' })
+  const ukrBuilding = useWatch({ control, name: 'ukrBuilding' })
 
   const canSubmitPayment = useMemo(
     () => Boolean(paymentData?.data && paymentData?.signature && paymentData?.checkoutURL),
@@ -106,8 +130,20 @@ export function useCheckoutController(): UseCheckoutControllerResult {
   )
 
   const deliveryStepComplete = useMemo(
-    () => Boolean(shippingAddress),
-    [shippingAddress],
+    () => {
+      if (deliveryMethod === 'nova-poshta') {
+        return Boolean(novaCity?.trim() && novaBranch?.trim())
+      }
+
+      return Boolean(
+        ukrCity?.trim() &&
+          ukrPostcode?.trim() &&
+          ukrRegion?.trim() &&
+          ukrStreet?.trim() &&
+          ukrBuilding?.trim(),
+      )
+    },
+    [deliveryMethod, novaCity, novaBranch, ukrCity, ukrPostcode, ukrRegion, ukrStreet, ukrBuilding],
   )
 
   const canPreparePayment = useMemo(
@@ -137,20 +173,10 @@ export function useCheckoutController(): UseCheckoutControllerResult {
   }, [currentStep, deliveryStepComplete, receiverStepComplete])
 
   useEffect(() => {
-    if (!shippingAddress && addresses && addresses.length > 0) {
-      const defaultAddress = addresses[0]
-      if (defaultAddress) {
-        setShippingAddress(defaultAddress)
-      }
-    }
-  }, [addresses, shippingAddress])
-
-  useEffect(() => {
     return () => {
-      setShippingAddress(undefined)
-      receiverForm.reset()
+      checkoutForm.reset()
     }
-  }, [receiverForm])
+  }, [checkoutForm])
 
   const initiatePaymentIntent = useCallback(
     async (paymentID: string) => {
@@ -158,11 +184,56 @@ export function useCheckoutController(): UseCheckoutControllerResult {
         const {
           receiverFirstName,
           receiverLastName,
-            receiverPhone,
-            email: formEmail,
-          } = receiverForm.getValues()
+          receiverPhone,
+          email: formEmail,
+          deliveryMethod: currentDeliveryMethod,
+          novaCity,
+          novaBranch,
+          ukrCity,
+          ukrPostcode,
+          ukrRegion,
+          ukrStreet,
+          ukrBuilding,
+          ukrOffice,
+          ukrBranchCode,
+        } = checkoutForm.getValues()
 
         const customerEmail = user?.email || formEmail
+
+        let shippingAddress: Partial<Address> | undefined
+
+        if (currentDeliveryMethod === 'nova-poshta' && novaCity && novaBranch) {
+          shippingAddress = {
+            country: 'UA',
+            city: novaCity.trim(),
+            addressLine1: `Нова Пошта, відділення: ${novaBranch.trim()}`,
+            state: undefined,
+            postalCode: undefined,
+            company: 'Нова Пошта',
+            title: 'Доставка у відділення Нової Пошти',
+          }
+        } else if (
+          currentDeliveryMethod === 'ukrposhta' &&
+          ukrCity &&
+          ukrPostcode &&
+          ukrRegion &&
+          ukrStreet &&
+          ukrBuilding
+        ) {
+          const office = ukrOffice?.trim()
+          const branchCode = ukrBranchCode?.trim()
+
+          shippingAddress = {
+            country: 'UA',
+            city: ukrCity.trim(),
+            state: ukrRegion.trim(),
+            postalCode: ukrPostcode.trim(),
+            addressLine1: `${ukrStreet.trim()}, ${ukrBuilding.trim()}`,
+            addressLine2: office ? `Квартира / офіс: ${office}` : undefined,
+            company: 'Укрпошта',
+            title: branchCode ? `Укрпошта, відділення ${branchCode}` : 'Укрпошта',
+          }
+        }
 
         const paymentData = (await initiatePayment(paymentID, {
           additionalData: {
@@ -170,7 +241,7 @@ export function useCheckoutController(): UseCheckoutControllerResult {
             ...(receiverFirstName ? { receiverFirstName } : {}),
             ...(receiverLastName ? { receiverLastName } : {}),
             ...(receiverPhone ? { receiverPhone } : {}),
-            shippingAddress,
+            ...(shippingAddress ? { shippingAddress } : {}),
           },
         })) as unknown as LiqPayPaymentData
 
@@ -189,7 +260,7 @@ export function useCheckoutController(): UseCheckoutControllerResult {
         toast.error(errorMessage)
       }
     },
-    [initiatePayment, receiverForm, shippingAddress, user?.email],
+    [checkoutForm, initiatePayment, user?.email],
   )
 
   const handleCashOnDelivery = useCallback(
@@ -211,17 +282,13 @@ export function useCheckoutController(): UseCheckoutControllerResult {
     setError,
     paymentData,
     setPaymentData,
-    shippingAddress,
-    deliveryMethod,
-    setShippingAddress,
-    setDeliveryMethod,
     isProcessingPayment,
     setProcessingPayment,
+    deliveryMethod,
     paymentMethod,
-    setPaymentMethod,
     currentStep,
     setCurrentStep,
-    receiverForm,
+    checkoutForm,
     canSubmitPayment,
     cartIsEmpty,
     receiverStepComplete,

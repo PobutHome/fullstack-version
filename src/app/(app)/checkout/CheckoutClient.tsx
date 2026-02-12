@@ -27,17 +27,13 @@ export const CheckoutClient: React.FC = () => {
     setError,
     paymentData,
     setPaymentData,
-    shippingAddress,
     deliveryMethod,
-    setShippingAddress,
-    setDeliveryMethod,
     isProcessingPayment,
     setProcessingPayment,
     paymentMethod,
-    setPaymentMethod,
     currentStep,
     setCurrentStep,
-    receiverForm,
+    checkoutForm,
     canSubmitPayment,
     cartIsEmpty,
     receiverStepComplete,
@@ -199,7 +195,7 @@ export const CheckoutClient: React.FC = () => {
                 {currentStep === 'receiver' && (
                   <ReceiverStep
                     user={user}
-                    receiverForm={receiverForm}
+                    checkoutForm={checkoutForm}
                     onContinueToDelivery={goToNextStep}
                     receiverStepComplete={receiverStepComplete}
                   />
@@ -211,17 +207,10 @@ export const CheckoutClient: React.FC = () => {
                     user={user}
                     email=""
                     emailEditable={false}
-                    shippingAddress={shippingAddress}
                     paymentData={paymentData}
                     deliveryStepComplete={deliveryStepComplete}
                     deliveryMethod={deliveryMethod}
-                    onDeliveryMethodChange={(method) => {
-                      setDeliveryMethod(method)
-                      if (method === 'ukrposhta' && paymentMethod === 'cod') {
-                        setPaymentMethod('card')
-                      }
-                    }}
-                    onShippingAddressChange={setShippingAddress}
+                    checkoutForm={checkoutForm}
                     onBackToReceiver={() => setCurrentStep('receiver')}
                     onNextToPayment={goToNextStep}
                   />
@@ -230,13 +219,12 @@ export const CheckoutClient: React.FC = () => {
                 {/* Step 4: Payment */}
                 {currentStep === 'payment' && (
                   <PaymentStep
-                    paymentMethod={paymentMethod}
+                    checkoutForm={checkoutForm}
                     canPreparePayment={canPreparePayment}
                     paymentData={paymentData}
                     error={error}
                     canSubmitPayment={canSubmitPayment}
                     deliveryMethod={deliveryMethod}
-                    onPaymentMethodChange={setPaymentMethod}
                     onInitiatePaymentIntent={() => {
                       void initiatePaymentIntent('liqpay')
                     }}
