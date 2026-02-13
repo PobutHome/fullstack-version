@@ -39,33 +39,33 @@ export const PaymentStep: React.FC<PaymentStepProps> = ({
   const codDisabled = deliveryMethod === 'ukrposhta'
 
   return (
-    <section className="grid w-full max-w-3xl gap-space-20 mx-auto">
-      <header className="grid gap-space-05">
+    <section className="grid w-full max-w-3xl gap-space-20 mx-auto min-w-0 box-border overflow-hidden">
+      <header className="grid gap-space-05 min-w-0">
         <h2 className="m-0 pobut-H3 text-sys-text">Спосіб оплати</h2>
-        <p className="m-0 pobut-body text-sys-text-muted">
+        <p className="m-0 pobut-body text-sys-text-muted wrap-break-word">
           Оберіть зручний спосіб оплати. Для оплати карткою використовується LiqPay.
         </p>
-        <p className="m-0 block w-full rounded-radius-primary bg-sys-danger/10 px-space-10 py-space-08 text-[11px] leading-relaxed text-sys-danger">
+        <p className="m-0 block w-full min-w-0 rounded-radius-primary bg-sys-danger/10 px-space-10 py-space-08 text-[11px] leading-relaxed text-sys-danger box-border wrap-break-word">
           Увага: вартість доставки не входить у вартість товарів і оплачується окремо за тарифами
           обраної поштової служби.
         </p>
       </header>
 
-      <div className="grid gap-space-20">
-        <section className="grid gap-space-10 tablet:grid-cols-2">
+      <div className="grid gap-space-20 min-w-0">
+        <section className="flex flex-col tablet:flex-row gap-space-10 min-w-0">
           <Button
             type="button"
             onClick={() => setValue('paymentMethod', 'card', { shouldValidate: true })}
             variant={paymentMethod === 'card' ? 'outline' : 'ghost'}
             className={[
-              'flex flex-col items-start gap-[2px] rounded-radius-primary border px-space-15 py-space-15 text-left transition-colors',
+              'flex flex-col items-start gap-space-05 rounded-radius-primary border px-space-15 py-space-15 text-left transition-colors min-w-0 flex-1 box-border',
               paymentMethod === 'card'
                 ? 'border-sys-accent bg-sys-surface-2'
                 : 'border-sys-border bg-sys-surface hover:bg-sys-surface-2',
             ].join(' ')}
           >
-            <p className="m-0 text-sm font-semibold text-sys-text">Оплата карткою (LiqPay)</p>
-            <small className="m-0 text-[11px] text-sys-text-muted">
+            <p className="m-0 text-sm font-semibold text-sys-text wrap-break-word">Оплата карткою (LiqPay)</p>
+            <small className="m-0 text-[11px] text-sys-text-muted wrap-break-word leading-snug">
               Миттєва онлайн-оплата банківською карткою через захищений платіжний шлюз LiqPay.
             </small>
           </Button>
@@ -76,18 +76,18 @@ export const PaymentStep: React.FC<PaymentStepProps> = ({
             disabled={codDisabled}
             variant={paymentMethod === 'cod' ? 'outline' : 'ghost'}
             className={[
-              'flex flex-col items-start gap-[2px] rounded-radius-primary border px-space-15 py-space-15 text-left transition-colors',
+              'flex flex-col items-start gap-space-05 rounded-radius-primary border px-space-15 py-space-15 text-left transition-colors min-w-0 flex-1 box-border',
               paymentMethod === 'cod'
                 ? 'border-sys-accent bg-sys-surface-2'
                 : 'border-sys-border bg-sys-surface hover:bg-sys-surface-2',
             ].join(' ')}
           >
-            <p className="m-0 text-sm font-semibold text-sys-text">Накладений платіж</p>
-            <small className="m-0 text-[11px] text-sys-text-muted">
+            <p className="m-0 text-sm font-semibold text-sys-text wrap-break-word">Накладений платіж</p>
+            <small className="m-0 text-[11px] text-sys-text-muted wrap-break-word leading-snug">
               Оплата при отриманні на відділенні поштового оператора (Нова Пошта, Укрпошта) або
               кур&apos;єру.
               {codDisabled && (
-                <span className="block text-[11px] text-sys-danger">
+                <span className="block text-[11px] text-sys-danger mt-1">
                   Для Укрпошти доступна лише оплата карткою.
                 </span>
               )}
@@ -197,7 +197,7 @@ export const PaymentStep: React.FC<PaymentStepProps> = ({
         )}
       </div>
 
-      <footer className="pt-space-15 flex flex-col-reverse tablet:flex-row tablet:items-center tablet:justify-between gap-space-10">
+      <footer className="pt-space-15 flex flex-col-reverse tablet:flex-row tablet:items-center tablet:justify-between gap-space-10 min-w-0">
         <Button
           type="button"
           variant="back"

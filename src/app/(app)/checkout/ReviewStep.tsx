@@ -2,9 +2,11 @@ import React from 'react'
 
 import { Button } from '@/components/ui/button'
 import type { CheckoutForm, DeliveryMethod } from './checkoutTypes'
+import { CheckoutOrderSummary, type CheckoutOrderSummaryCart } from './CheckoutOrderSummary'
 
 interface ReviewStepProps {
   user: { email?: string | null } | null | undefined
+  cart: CheckoutOrderSummaryCart | null | undefined
   deliveryMethod: DeliveryMethod
   checkoutForm: CheckoutForm
   onBackToReceiver: () => void
@@ -14,6 +16,7 @@ interface ReviewStepProps {
 
 export const ReviewStep: React.FC<ReviewStepProps> = ({
   user,
+  cart,
   deliveryMethod,
   checkoutForm,
   onBackToReceiver,
@@ -47,87 +50,93 @@ export const ReviewStep: React.FC<ReviewStepProps> = ({
         : null
 
   return (
-    <section className="grid w-full max-w-3xl gap-space-20 mx-auto">
-      <header className="grid gap-space-05">
+    <section className="grid w-full max-w-3xl gap-space-20 mx-auto min-w-0 box-border overflow-hidden">
+      <header className="grid gap-space-05 min-w-0">
         <h2 className="m-0 pobut-H3 text-sys-text">Перевірка даних</h2>
-        <p className="m-0 pobut-body text-sys-text-muted">
-          Перегляньте дані одержувача, спосіб доставки та адресу перед тим, як перейти до оплати.
+        <p className="m-0 pobut-body text-sys-text-muted wrap-break-word">
+          Перегляньте дані одержувача, спосіб доставки та склад замовлення перед тим, як перейти до оплати. Щоб змінити будь-який пункт, натисніть «Змінити» або поверніться на відповідний крок.
         </p>
-        <p className="m-0 block w-full rounded-radius-primary bg-sys-danger/10 px-space-10 py-space-08 text-[11px] leading-relaxed text-sys-danger">
+        <p className="m-0 block w-full min-w-0 rounded-radius-primary bg-sys-danger/10 px-space-10 py-space-08 text-[11px] leading-relaxed text-sys-danger box-border wrap-break-word">
           Увага: вартість доставки не входить у вартість товарів і оплачується окремо за тарифами
           обраної поштової служби.
         </p>
       </header>
 
-      <div className="grid gap-space-15">
-        <section className="rounded-radius-primary border border-sys-border bg-sys-surface-2 p-space-15 grid gap-space-05">
-          <header className="flex items-center justify-between gap-space-10">
+      {/* Report-style blocks */}
+      <div className="flex flex-col gap-space-15 min-w-0">
+        <section className="rounded-radius-primary border border-sys-border bg-sys-surface-2 p-space-15 flex flex-col gap-space-10 min-w-0 box-border">
+          <header className="flex flex-wrap items-center justify-between gap-space-10">
             <h3 className="m-0 text-sm font-semibold text-sys-text">Одержувач</h3>
             <Button
               type="button"
               variant="ghost"
               size="sm"
-              className="h-7 px-2 text-[11px] text-sys-text-muted hover:text-sys-text"
+              className="h-7 px-2 text-[11px] text-sys-text-muted hover:text-sys-text shrink-0"
               onClick={onBackToReceiver}
             >
               Змінити
             </Button>
           </header>
 
-          <dl className="grid gap-[2px] text-sm">
+          <dl className="grid gap-space-05 text-sm min-w-0">
             {receiverFullName && (
-              <div className="flex justify-between gap-space-10">
-                <dt className="text-sys-text-muted">ПІБ</dt>
-                <dd className="m-0 text-sys-text text-right">{receiverFullName}</dd>
+              <div className="flex flex-wrap justify-between gap-x-space-10 gap-y-space-05">
+                <dt className="text-sys-text-muted shrink-0">ПІБ</dt>
+                <dd className="m-0 text-sys-text text-right wrap-break-word min-w-0">{receiverFullName}</dd>
               </div>
             )}
             {values.receiverPhone && (
-              <div className="flex justify-between gap-space-10">
-                <dt className="text-sys-text-muted">Телефон</dt>
-                <dd className="m-0 text-sys-text text-right">{values.receiverPhone}</dd>
+              <div className="flex flex-wrap justify-between gap-x-space-10 gap-y-space-05">
+                <dt className="text-sys-text-muted shrink-0">Телефон</dt>
+                <dd className="m-0 text-sys-text text-right wrap-break-word min-w-0">{values.receiverPhone}</dd>
               </div>
             )}
             {email && (
-              <div className="flex justify-between gap-space-10">
-                <dt className="text-sys-text-muted">Email</dt>
-                <dd className="m-0 text-sys-text text-right">{email}</dd>
+              <div className="flex flex-wrap justify-between gap-x-space-10 gap-y-space-05">
+                <dt className="text-sys-text-muted shrink-0">Email</dt>
+                <dd className="m-0 text-sys-text text-right wrap-break-word min-w-0">{email}</dd>
               </div>
             )}
           </dl>
         </section>
 
-        <section className="rounded-radius-primary border border-sys-border bg-sys-surface-2 p-space-15 grid gap-space-05">
-          <header className="flex items-center justify-between gap-space-10">
+        <section className="rounded-radius-primary border border-sys-border bg-sys-surface-2 p-space-15 flex flex-col gap-space-10 min-w-0 box-border">
+          <header className="flex flex-wrap items-center justify-between gap-space-10">
             <h3 className="m-0 text-sm font-semibold text-sys-text">Доставка</h3>
             <Button
               type="button"
               variant="ghost"
               size="sm"
-              className="h-7 px-2 text-[11px] text-sys-text-muted hover:text-sys-text"
+              className="h-7 px-2 text-[11px] text-sys-text-muted hover:text-sys-text shrink-0"
               onClick={onBackToDelivery}
             >
               Змінити
             </Button>
           </header>
 
-          <dl className="grid gap-[2px] text-sm">
-            <div className="flex justify-between gap-space-10">
-              <dt className="text-sys-text-muted">Служба</dt>
-              <dd className="m-0 text-sys-text text-right">
+          <dl className="grid gap-space-05 text-sm min-w-0">
+            <div className="flex flex-wrap justify-between gap-x-space-10 gap-y-space-05">
+              <dt className="text-sys-text-muted shrink-0">Служба</dt>
+              <dd className="m-0 text-sys-text text-right wrap-break-word min-w-0">
                 {deliveryMethod === 'nova-poshta' ? 'Нова Пошта' : 'Укрпошта'}
               </dd>
             </div>
             {deliverySummary && (
-              <div className="flex justify-between gap-space-10">
-                <dt className="text-sys-text-muted">Адреса</dt>
-                <dd className="m-0 text-sys-text text-right max-w-xs">{deliverySummary}</dd>
+              <div className="flex flex-wrap justify-between gap-x-space-10 gap-y-space-05">
+                <dt className="text-sys-text-muted shrink-0">Адреса</dt>
+                <dd className="m-0 text-sys-text text-right wrap-break-word min-w-0 max-w-full">{deliverySummary}</dd>
               </div>
             )}
           </dl>
         </section>
+
+        <CheckoutOrderSummary
+          cart={cart}
+          hint="Склад кошика змінюється на першому кроці «Товари». Поверніться на крок «Товари», щоб змінити склад замовлення."
+        />
       </div>
 
-      <footer className="pt-space-15 flex flex-col-reverse tablet:flex-row tablet:items-center tablet:justify-between gap-space-10">
+      <footer className="pt-space-15 flex flex-col-reverse tablet:flex-row tablet:items-center tablet:justify-between gap-space-10 min-w-0">
         <Button
           type="button"
           variant="back"

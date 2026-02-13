@@ -36,8 +36,8 @@ export const CartStep: React.FC<CartStepProps> = ({ cart, onNext, onBack }) => {
   if (!cart || !cart.items || !cart.items.length) return null
 
   return (
-    <section className="grid w-full max-w-3xl gap-space-20 mx-auto">
-      <header className="grid gap-space-05">
+    <section className="grid w-full max-w-3xl gap-space-20 mx-auto min-w-0 box-border overflow-hidden">
+      <header className="grid gap-space-05 min-w-0">
         <h2 className="m-0 pobut-H3 text-sys-text">Товари в замовленні</h2>
         <p className="m-0 pobut-body text-sys-text-muted">
           Змініть кількість та перевірте суму. Ціни застосовуються автоматично.

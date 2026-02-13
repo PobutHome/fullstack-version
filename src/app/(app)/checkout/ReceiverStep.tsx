@@ -36,15 +36,15 @@ export const ReceiverStep: React.FC<ReceiverStepProps> = ({
   const [receiverSource, setReceiverSource] = useState<ReceiverSource>(user ? 'manual' : 'manual')
 
   return (
-    <section className="grid w-full max-w-3xl gap-space-20 mx-auto">
-      <header className="grid gap-space-05">
+    <section className="grid w-full max-w-3xl gap-space-20 mx-auto min-w-0 box-border overflow-hidden">
+      <header className="grid gap-space-05 min-w-0">
         <h2 className="m-0 pobut-H3 text-sys-text">Дані одержувача</h2>
-        <p className="m-0 pobut-body text-sys-text-muted">
+        <p className="m-0 pobut-body text-sys-text-muted break-words">
           Оформіть замовлення як зареєстрований користувач або як гість.
         </p>
       </header>
 
-      <div className="grid gap-space-20">
+      <div className="grid gap-space-20 min-w-0">
         {!user && (
           <section className="rounded-radius-primary bg-sys-surface-2 px-space-15 py-space-15 grid gap-space-10">
             <div className="grid gap-space-05">
@@ -251,7 +251,7 @@ export const ReceiverStep: React.FC<ReceiverStepProps> = ({
         </section>
       </div>
 
-      <footer className="pt-space-15 flex flex-col-reverse tablet:flex-row tablet:items-center tablet:justify-between gap-space-10">
+      <footer className="pt-space-15 flex flex-col-reverse tablet:flex-row tablet:items-center tablet:justify-between gap-space-10 min-w-0">
         {onBack ? (
           <Button
             type="button"

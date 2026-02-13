@@ -1,7 +1,5 @@
 'use client'
 
-import { Media } from '@/components/Media'
-import { Price } from '@/components/Price'
 import { Button } from '@/components/ui/button'
 import { Section } from '@/components/Section'
 import { Container } from '@/components/Container'
@@ -12,6 +10,7 @@ import React from 'react'
 
 import { LoadingSpinner } from '@/components/LoadingSpinner'
 import { CartStep } from './CartStep'
+import { CheckoutOrderSummary, type CheckoutOrderSummaryCart } from './CheckoutOrderSummary'
 import { DeliveryStep } from '@/app/(app)/checkout/DeliveryStep'
 import { PaymentStep } from '@/app/(app)/checkout/PaymentStep'
 import { ReceiverStep } from './ReceiverStep'
@@ -117,13 +116,13 @@ export const CheckoutClient: React.FC = () => {
             </p>
           </header>
 
-          <div className="mt-space-20 grid gap-layout-gap-2">
-            {/* Unified checkout container: steps on top, forms inside */}
-            <div className="rounded-radius-primary border border-sys-border bg-sys-surface shadow-shadow-sm">
+          <div className="mt-space-20 grid gap-layout-gap-2 min-w-0">
+            {/* Unified checkout container: steps on top, forms inside; box-border + overflow to prevent layout crash on small screens */}
+            <div className="rounded-radius-primary border border-sys-border bg-sys-surface shadow-shadow-sm min-w-0 overflow-hidden box-border flex flex-col">
               {/* Steps navigation (top, connected nodes) */}
               <header
                 aria-label="Кроки оформлення"
-                className="px-space-20 py-space-15 border-b border-sys-border"
+                className="px-space-20 py-space-15 border-b border-sys-border shrink-0"
               >
                 <h2 className="m-0 mb-space-10 pobut-H4 text-sys-text">Кроки оформлення</h2>
                 <div className="relative">
@@ -197,7 +196,7 @@ export const CheckoutClient: React.FC = () => {
               </header>
 
               {/* Main content: steps */}
-              <section className="px-space-20 py-space-20 flex flex-col gap-layout-gap-1">
+              <section className="px-space-20 py-space-20 flex flex-col gap-layout-gap-1 min-w-0 overflow-x-hidden box-border">
                 {/* Step 1: Cart management */}
                 {currentStep === 'cart' && !cartIsEmpty && (
                   <CartStep cart={cart as any} onNext={goToNextStep} />
@@ -233,6 +232,7 @@ export const CheckoutClient: React.FC = () => {
                 {currentStep === 'review' && (
                   <ReviewStep
                     user={user}
+                    cart={cart as CheckoutOrderSummaryCart}
                     deliveryMethod={deliveryMethod}
                     checkoutForm={checkoutForm}
                     onBackToReceiver={() => setCurrentStep('receiver')}
@@ -264,64 +264,14 @@ export const CheckoutClient: React.FC = () => {
                 )}
               </section>
 
-              {/* Compact order summary: visible, no border */}
-              {currentStep !== 'cart' && !cartIsEmpty && (
-                <section className="mt-space-20 rounded-radius-primary bg-sys-surface-2 p-space-15 grid gap-space-10">
-                  <header className="grid gap-[2px]">
-                    <h2 className="m-0 text-sm font-semibold text-sys-text">Замовлення</h2>
-                    <p className="m-0 text-[11px] text-sys-text-muted">
-                      Склад кошика змінюється на першому кроці &quot;Товари&quot;.
-                    </p>
-                  </header>
-
-                  <ul className="m-0 list-none p-0 grid gap-space-08">
-                    {cart?.items?.map((item, index) => {
-                      if (typeof item.product === 'object' && item.product) {
-                        const {
-                          product,
-                          product: { meta, title, gallery },
-                          quantity,
-                          variant,
-                        } = item
-
-                        if (!quantity) return null
-
-                        let price = product?.priceInUAH
-                        const isVariant = Boolean(variant) && typeof variant === 'object'
-                        if (isVariant) price = variant?.priceInUAH
-
-                        return (
-                          <li
-                            key={index}
-                            className="flex items-center justify-between gap-space-10 text-sm text-sys-text"
-                          >
-                            <span className="min-w-0 truncate">
-                              {title}
-                              <span className="ml-1 text-sys-text-muted">× {quantity}</span>
-                            </span>
-                            {typeof price === 'number' && (
-                              <Price
-                                amount={price * quantity}
-                                className="text-sm font-medium text-sys-text whitespace-nowrap"
-                              />
-                            )}
-                          </li>
-                        )
-                      }
-                      return null
-                    })}
-                  </ul>
-
-                  <div className="flex justify-between items-center gap-space-10 pt-space-08 border-t border-sys-border">
-                    <span className="text-[11px] uppercase tracking-[0.18em] text-sys-text-muted">
-                      Всього
-                    </span>
-                    <Price
-                      className="text-lg font-semibold text-sys-text"
-                      amount={cart.subtotal || 0}
-                    />
-                  </div>
-                </section>
+              {/* Order summary: separate component; on Review step it is shown inside the step as part of the report */}
+              {currentStep !== 'cart' && currentStep !== 'review' && !cartIsEmpty && (
+                <div className="mt-space-20 min-w-0 shrink-0">
+                  <CheckoutOrderSummary
+                    cart={cart as CheckoutOrderSummaryCart}
+                    hint="Склад кошика змінюється на першому кроці «Товари»."
+                  />
+                </div>
               )}
             </div>
           </div>
