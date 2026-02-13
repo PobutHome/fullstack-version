@@ -1,8 +1,8 @@
 import React from 'react'
 
 import { Button } from '@/components/ui/button'
-import type { CheckoutForm, DeliveryMethod } from './checkoutTypes'
 import { CheckoutOrderSummary, type CheckoutOrderSummaryCart } from './CheckoutOrderSummary'
+import type { CheckoutForm, DeliveryMethod } from './checkoutTypes'
 
 interface ReviewStepProps {
   user: { email?: string | null } | null | undefined
@@ -25,7 +25,11 @@ export const ReviewStep: React.FC<ReviewStepProps> = ({
 }) => {
   const values = checkoutForm.getValues()
 
-  const receiverFullName = [values.receiverFirstName, values.receiverLastName]
+  const receiverFullName = [
+    values.receiverFirstName,
+    values.receiverLastName,
+    values.receiverPatronymic,
+  ]
     .map((part) => part?.trim())
     .filter(Boolean)
     .join(' ')
@@ -56,15 +60,15 @@ export const ReviewStep: React.FC<ReviewStepProps> = ({
         <p className="m-0 pobut-body text-sys-text-muted wrap-break-word">
           Перегляньте дані одержувача, спосіб доставки та склад замовлення перед тим, як перейти до оплати. Щоб змінити будь-який пункт, натисніть «Змінити» або поверніться на відповідний крок.
         </p>
-        <p className="m-0 block w-full min-w-0 rounded-radius-primary bg-sys-danger/10 px-space-10 py-space-08 text-[11px] leading-relaxed text-sys-danger box-border wrap-break-word">
+        <p className="m-0 block w-full min-w-0 rounded-radius-primary bg-sys-danger/10 px-space-10 py-space-08 text-[10px] leading-relaxed text-sys-danger box-border wrap-break-word">
           Увага: вартість доставки не входить у вартість товарів і оплачується окремо за тарифами
           обраної поштової служби.
         </p>
       </header>
 
-      {/* Report-style blocks */}
+      {/* Report-style blocks - no borders, proper padding */}
       <div className="flex flex-col gap-space-15 min-w-0">
-        <section className="rounded-radius-primary border border-sys-border bg-sys-surface-2 p-space-15 flex flex-col gap-space-10 min-w-0 box-border">
+        <section className="rounded-radius-primary bg-sys-surface-2 p-space-15 tablet:p-space-20 flex flex-col gap-space-10 min-w-0 box-border">
           <header className="flex flex-wrap items-center justify-between gap-space-10">
             <h3 className="m-0 text-sm font-semibold text-sys-text">Одержувач</h3>
             <Button
@@ -100,7 +104,7 @@ export const ReviewStep: React.FC<ReviewStepProps> = ({
           </dl>
         </section>
 
-        <section className="rounded-radius-primary border border-sys-border bg-sys-surface-2 p-space-15 flex flex-col gap-space-10 min-w-0 box-border">
+        <section className="rounded-radius-primary bg-sys-surface-2 p-space-15 tablet:p-space-20 flex flex-col gap-space-10 min-w-0 box-border">
           <header className="flex flex-wrap items-center justify-between gap-space-10">
             <h3 className="m-0 text-sm font-semibold text-sys-text">Доставка</h3>
             <Button

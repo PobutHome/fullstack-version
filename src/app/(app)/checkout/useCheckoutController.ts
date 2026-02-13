@@ -1,42 +1,53 @@
-import { useAuth } from '@/providers/Auth'
 import { Address } from '@/payload-types'
+import { useAuth } from '@/providers/Auth'
 import { useCart, usePayments } from '@payloadcms/plugin-ecommerce/client/react'
 import { useCallback, useEffect, useMemo, useState } from 'react'
 import { useForm, useWatch } from 'react-hook-form'
 import { toast } from 'sonner'
 
 import type {
-  CheckoutStepId,
-  CheckoutForm,
-  CheckoutFormData,
-  DeliveryMethod,
-  LiqPayPaymentData,
+    CheckoutForm,
+    CheckoutFormData,
+    CheckoutStepId,
+    DeliveryMethod,
+    LiqPayPaymentData,
 } from './checkoutTypes'
 
-export const CHECKOUT_STEPS: { id: CheckoutStepId; title: string; description: string }[] = [
+export const CHECKOUT_STEPS: {
+  id: CheckoutStepId
+  title: string
+  /** Shorter label for narrow screens to avoid overflow */
+  shortTitle: string
+  description: string
+}[] = [
   {
     id: 'cart',
     title: 'Товари',
+    shortTitle: 'Тов.',
     description: 'Керуйте складом кошика, кількістю та сумою замовлення.',
   },
   {
     id: 'delivery',
     title: 'Доставка',
+    shortTitle: 'Дост.',
     description: 'Оберіть службу доставки та вкажіть адресу.',
   },
   {
     id: 'receiver',
     title: 'Одержувач',
+    shortTitle: 'Одерж.',
     description: 'Контактні дані одержувача.',
   },
   {
     id: 'review',
     title: 'Перевірка',
+    shortTitle: 'Перев.',
     description: 'Перевірте всі дані перед оплатою.',
   },
   {
     id: 'payment',
     title: 'Оплата',
+    shortTitle: 'Оплата',
     description: 'Вибір способу оплати.',
   },
 ]
@@ -81,6 +92,7 @@ export function useCheckoutController(): UseCheckoutControllerResult {
       email: '',
       receiverFirstName: '',
       receiverLastName: '',
+      receiverPatronymic: '',
       receiverPhone: '',
       deliveryMethod: 'nova-poshta',
       novaCity: '',
@@ -124,6 +136,7 @@ export function useCheckoutController(): UseCheckoutControllerResult {
 
   const receiverFirstName = useWatch({ control, name: 'receiverFirstName' })
   const receiverLastName = useWatch({ control, name: 'receiverLastName' })
+  const receiverPatronymic = useWatch({ control, name: 'receiverPatronymic' })
   const receiverPhone = useWatch({ control, name: 'receiverPhone' })
 
   const canSubmitPayment = useMemo(
@@ -138,6 +151,7 @@ export function useCheckoutController(): UseCheckoutControllerResult {
     if (isReceiverSubmitSuccessful) return true
     const first = receiverFirstName?.trim()
     const last = receiverLastName?.trim()
+    const middle = receiverPatronymic?.trim()
     const phone = receiverPhone?.trim()
     const phoneValid = phone && /^[\d\s+()-]{10,}$/.test(phone)
     return Boolean(first && last && phoneValid)
@@ -146,6 +160,7 @@ export function useCheckoutController(): UseCheckoutControllerResult {
     isReceiverSubmitSuccessful,
     receiverFirstName,
     receiverLastName,
+    receiverPatronymic,
     receiverPhone,
   ])
 
@@ -207,6 +222,7 @@ export function useCheckoutController(): UseCheckoutControllerResult {
         const {
           receiverFirstName,
           receiverLastName,
+          receiverPatronymic,
           receiverPhone,
           email: formEmail,
           deliveryMethod: currentDeliveryMethod,
@@ -263,6 +279,7 @@ export function useCheckoutController(): UseCheckoutControllerResult {
             ...(customerEmail ? { customerEmail } : {}),
             ...(receiverFirstName ? { receiverFirstName } : {}),
             ...(receiverLastName ? { receiverLastName } : {}),
+            ...(receiverPatronymic ? { receiverPatronymic } : {}),
             ...(receiverPhone ? { receiverPhone } : {}),
             ...(shippingAddress ? { shippingAddress } : {}),
           },

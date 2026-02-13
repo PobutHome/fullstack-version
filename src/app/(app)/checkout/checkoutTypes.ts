@@ -15,6 +15,8 @@ export type CheckoutFormData = {
   email: string
   receiverFirstName: string
   receiverLastName: string
+  /** По батькові (необов'язково) */
+  receiverPatronymic?: string
   receiverPhone: string
 
   deliveryMethod: DeliveryMethod

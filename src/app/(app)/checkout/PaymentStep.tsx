@@ -1,5 +1,7 @@
 import React from 'react'
 
+import { CreditCard, Package } from 'lucide-react'
+
 import { Message } from '@/components/Message'
 import { Button } from '@/components/ui/button'
 
@@ -45,29 +47,41 @@ export const PaymentStep: React.FC<PaymentStepProps> = ({
         <p className="m-0 pobut-body text-sys-text-muted wrap-break-word">
           Оберіть зручний спосіб оплати. Для оплати карткою використовується LiqPay.
         </p>
-        <p className="m-0 block w-full min-w-0 rounded-radius-primary bg-sys-danger/10 px-space-10 py-space-08 text-[11px] leading-relaxed text-sys-danger box-border wrap-break-word">
+        <p className="m-0 block w-full min-w-0 rounded-radius-primary bg-sys-danger/10 px-space-10 py-space-08 text-[10px] leading-relaxed text-sys-danger box-border wrap-break-word">
           Увага: вартість доставки не входить у вартість товарів і оплачується окремо за тарифами
           обраної поштової служби.
         </p>
       </header>
 
       <div className="grid gap-space-20 min-w-0">
-        <section className="flex flex-col tablet:flex-row gap-space-10 min-w-0">
+        <section className="flex flex-col tablet:flex-row gap-space-15 min-w-0">
           <Button
             type="button"
             onClick={() => setValue('paymentMethod', 'card', { shouldValidate: true })}
             variant={paymentMethod === 'card' ? 'outline' : 'ghost'}
             className={[
-              'flex flex-col items-start gap-space-05 rounded-radius-primary border px-space-15 py-space-15 text-left transition-colors min-w-0 flex-1 box-border',
+              'flex min-h-[100px] w-full flex-1 items-center gap-space-10 rounded-radius-primary px-space-20 py-space-15 text-left transition-colors tablet:min-h-[112px]',
               paymentMethod === 'card'
-                ? 'border-sys-accent bg-sys-surface-2'
-                : 'border-sys-border bg-sys-surface hover:bg-sys-surface-2',
+                ? 'border-2 border-sys-accent bg-sys-surface-2 shadow-shadow-md ring-2 ring-sys-accent/20'
+                : 'border border-sys-border/60 bg-sys-surface hover:border-sys-border hover:bg-sys-surface-2',
             ].join(' ')}
           >
-            <p className="m-0 text-sm font-semibold text-sys-text wrap-break-word">Оплата карткою (LiqPay)</p>
-            <small className="m-0 text-[11px] text-sys-text-muted wrap-break-word leading-snug">
-              Миттєва онлайн-оплата банківською карткою через захищений платіжний шлюз LiqPay.
-            </small>
+            <span className="flex h-12 w-12 shrink-0 items-center justify-center rounded-radius-lg bg-sys-accent/10 text-sys-accent">
+              <CreditCard className="h-6 w-6" aria-hidden />
+            </span>
+            <div className="grid min-w-0 flex-1 gap-space-05">
+              <div className="flex items-center gap-space-08">
+                <p className="m-0 text-sm font-semibold text-sys-text">Оплата карткою (LiqPay)</p>
+                {paymentMethod === 'card' && (
+                  <span className="rounded-radius-full bg-sys-accent/15 px-2 py-px text-[10px] font-semibold uppercase tracking-[0.12em] text-sys-accent">
+                    Обрано
+                  </span>
+                )}
+              </div>
+              <small className="m-0 text-xs leading-snug text-sys-text-muted line-clamp-2">
+                Миттєва онлайн-оплата банківською карткою через захищений платіжний шлюз LiqPay.
+              </small>
+            </div>
           </Button>
 
           <Button
@@ -76,22 +90,34 @@ export const PaymentStep: React.FC<PaymentStepProps> = ({
             disabled={codDisabled}
             variant={paymentMethod === 'cod' ? 'outline' : 'ghost'}
             className={[
-              'flex flex-col items-start gap-space-05 rounded-radius-primary border px-space-15 py-space-15 text-left transition-colors min-w-0 flex-1 box-border',
+              'flex min-h-[100px] w-full flex-1 items-center gap-space-10 rounded-radius-primary px-space-20 py-space-15 text-left transition-colors tablet:min-h-[112px]',
               paymentMethod === 'cod'
-                ? 'border-sys-accent bg-sys-surface-2'
-                : 'border-sys-border bg-sys-surface hover:bg-sys-surface-2',
+                ? 'border-2 border-sys-accent bg-sys-surface-2 shadow-shadow-md ring-2 ring-sys-accent/20'
+                : 'border border-sys-border/60 bg-sys-surface hover:border-sys-border hover:bg-sys-surface-2',
             ].join(' ')}
           >
-            <p className="m-0 text-sm font-semibold text-sys-text wrap-break-word">Накладений платіж</p>
-            <small className="m-0 text-[11px] text-sys-text-muted wrap-break-word leading-snug">
-              Оплата при отриманні на відділенні поштового оператора (Нова Пошта, Укрпошта) або
-              кур&apos;єру.
-              {codDisabled && (
-                <span className="block text-[11px] text-sys-danger mt-1">
-                  Для Укрпошти доступна лише оплата карткою.
-                </span>
-              )}
-            </small>
+            <span className="flex h-12 w-12 shrink-0 items-center justify-center rounded-radius-lg bg-sys-accent/10 text-sys-accent">
+              <Package className="h-6 w-6" aria-hidden />
+            </span>
+            <div className="grid min-w-0 flex-1 gap-space-05">
+              <div className="flex items-center gap-space-08">
+                <p className="m-0 text-sm font-semibold text-sys-text">Накладений платіж</p>
+                {paymentMethod === 'cod' && (
+                  <span className="rounded-radius-full bg-sys-accent/15 px-2 py-px text-[10px] font-semibold uppercase tracking-[0.12em] text-sys-accent">
+                    Обрано
+                  </span>
+                )}
+              </div>
+              <small className="m-0 text-xs leading-snug text-sys-text-muted line-clamp-2">
+                Оплата при отриманні на відділенні поштового оператора (Нова Пошта, Укрпошта) або
+                кур&apos;єру.
+                {codDisabled && (
+                  <span className="block text-[11px] text-sys-danger mt-0.5">
+                    Для Укрпошти доступна лише оплата карткою.
+                  </span>
+                )}
+              </small>
+            </div>
           </Button>
         </section>
 

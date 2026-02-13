@@ -1,18 +1,18 @@
 'use client'
 
-import { Button } from '@/components/ui/button'
-import { Section } from '@/components/Section'
 import { Container } from '@/components/Container'
 import { InnerSection } from '@/components/InnerSection'
+import { Section } from '@/components/Section'
+import { Button } from '@/components/ui/button'
 import Link from 'next/link'
 import { useRouter } from 'next/navigation'
 import React from 'react'
 
+import { DeliveryStep } from '@/app/(app)/checkout/DeliveryStep'
+import { PaymentStep } from '@/app/(app)/checkout/PaymentStep'
 import { LoadingSpinner } from '@/components/LoadingSpinner'
 import { CartStep } from './CartStep'
 import { CheckoutOrderSummary, type CheckoutOrderSummaryCart } from './CheckoutOrderSummary'
-import { DeliveryStep } from '@/app/(app)/checkout/DeliveryStep'
-import { PaymentStep } from '@/app/(app)/checkout/PaymentStep'
 import { ReceiverStep } from './ReceiverStep'
 import { ReviewStep } from './ReviewStep'
 import { CHECKOUT_STEPS, useCheckoutController } from './useCheckoutController'
@@ -105,18 +105,18 @@ export const CheckoutClient: React.FC = () => {
   return (
     <Section aria-labelledby="checkout-title" className="pb-space-50">
       <Container>
-        <InnerSection className="grid gap-layout-gap-2 max-w-5xl mx-auto">
-          <header className="grid gap-space-10">
+        <InnerSection className="grid gap-layout-gap-1 max-w-5xl mx-auto min-w-0">
+          <header className="grid gap-space-05 min-w-0">
             <h1 id="checkout-title" className="m-0 pobut-H2 text-sys-text">
               Оформлення замовлення
             </h1>
-            <p className="m-0 pobut-body text-sys-text-muted max-w-208">
+            <p className="m-0 pobut-body text-sys-text-muted max-w-xl">
               Заповніть дані одержувача, оберіть спосіб доставки та зручний варіант оплати. Ви
               зможете оформити замовлення як гість або через особистий кабінет.
             </p>
           </header>
 
-          <div className="mt-space-20 grid gap-layout-gap-2 min-w-0">
+          <div className="mt-space-15 grid gap-layout-gap-1 min-w-0">
             {/* Unified checkout container: steps on top, forms inside; box-border + overflow to prevent layout crash on small screens */}
             <div className="rounded-radius-primary border border-sys-border bg-sys-surface shadow-shadow-sm min-w-0 overflow-hidden box-border flex flex-col">
               {/* Steps navigation (top, connected nodes) */}
@@ -184,8 +184,9 @@ export const CheckoutClient: React.FC = () => {
                               {isCompleted ? '✓' : index + 1}
                             </span>
 
-                            <p className="m-0 text-[11px] font-semibold uppercase tracking-[0.12em] text-sys-text truncate">
-                              {step.title}
+                            <p className="m-0 min-w-0 text-[10px] font-semibold uppercase tracking-widest text-sys-text tablet:text-[11px] tablet:tracking-[0.12em]">
+                              <span className="tablet:hidden">{step.shortTitle}</span>
+                              <span className="hidden tablet:inline">{step.title}</span>
                             </p>
                           </Button>
                         </li>
@@ -195,7 +196,7 @@ export const CheckoutClient: React.FC = () => {
                 </div>
               </header>
 
-              {/* Main content: steps */}
+              {/* Main content: steps - padding so focused inputs and focus rings stay visible */}
               <section className="px-space-20 py-space-20 flex flex-col gap-layout-gap-1 min-w-0 overflow-x-hidden box-border">
                 {/* Step 1: Cart management */}
                 {currentStep === 'cart' && !cartIsEmpty && (

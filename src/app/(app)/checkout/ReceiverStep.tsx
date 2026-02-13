@@ -39,7 +39,7 @@ export const ReceiverStep: React.FC<ReceiverStepProps> = ({
     <section className="grid w-full max-w-3xl gap-space-20 mx-auto min-w-0 box-border overflow-hidden">
       <header className="grid gap-space-05 min-w-0">
         <h2 className="m-0 pobut-H3 text-sys-text">Дані одержувача</h2>
-        <p className="m-0 pobut-body text-sys-text-muted break-words">
+        <p className="m-0 pobut-body text-sys-text-muted wrap-break-word">
           Оформіть замовлення як зареєстрований користувач або як гість.
         </p>
       </header>
@@ -121,7 +121,7 @@ export const ReceiverStep: React.FC<ReceiverStepProps> = ({
               noValidate
               onSubmit={handleSubmit(() => undefined)}
             >
-              <div className="grid gap-space-20 tablet:grid-cols-2">
+              <div className="grid gap-space-20 tablet:grid-cols-3">
                 <FormItem className="mb-0 tablet:col-span-2">
                   <Label
                     htmlFor="checkout-email"
@@ -208,6 +208,33 @@ export const ReceiverStep: React.FC<ReceiverStepProps> = ({
                       as="span"
                       className="mt-1 text-[11px] text-sys-danger"
                       message={errors.receiverLastName.message}
+                    />
+                  )}
+                </FormItem>
+
+                <FormItem className="mb-0">
+                  <Label
+                    htmlFor="checkout-receiverPatronymic"
+                    className="text-sys-text font-semibold font-unbounded text-sm"
+                  >
+                    По батькові <span className="text-sys-text-muted">(необов&apos;язково)</span>
+                  </Label>
+                  <Input
+                    disabled={isSubmitting}
+                    id="checkout-receiverPatronymic"
+                    type="text"
+                    autoComplete="additional-name"
+                    placeholder="По батькові"
+                    variant="primaryFrontend"
+                    className="h-11 rounded-radius-full px-4"
+                    aria-invalid={Boolean(errors.receiverPatronymic)}
+                    {...register('receiverPatronymic')}
+                  />
+                  {errors.receiverPatronymic?.message && (
+                    <FormError
+                      as="span"
+                      className="mt-1 text-[11px] text-sys-danger"
+                      message={errors.receiverPatronymic.message}
                     />
                   )}
                 </FormItem>

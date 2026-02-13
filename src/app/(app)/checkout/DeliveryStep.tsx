@@ -1,22 +1,15 @@
 import React, { useEffect, useReducer, useRef, useState } from 'react'
 
+import { FormError } from '@/components/forms/FormError'
+import { FormItem } from '@/components/forms/FormItem'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
-import { FormItem } from '@/components/forms/FormItem'
-import { FormError } from '@/components/forms/FormError'
 import type { Address } from '@/payload-types'
 import Image from 'next/image'
 
-import type { CheckoutForm, DeliveryMethod, LiqPayPaymentData } from './checkoutTypes'
 import { Controller } from 'react-hook-form'
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from '@/components/ui/select'
+import type { CheckoutForm, DeliveryMethod, LiqPayPaymentData } from './checkoutTypes'
 
 type NovaWarehouseView = {
   id: string
@@ -230,23 +223,36 @@ export const DeliveryStep: React.FC<DeliveryStepProps> = ({
   // Close dropdown when clicking outside the Nova address block
   useEffect(() => {
     if (activeNovaDropdown == null) return
+
     const handleMouseDown = (e: MouseEvent) => {
       if (novaAddressRef.current && !novaAddressRef.current.contains(e.target as Node)) {
         setActiveNovaDropdown(null)
       }
     }
+
     document.addEventListener('mousedown', handleMouseDown)
     return () => document.removeEventListener('mousedown', handleMouseDown)
   }, [activeNovaDropdown])
 
-  // Suggest cities as user types for Nova Poshta
+  // When a Nova Poshta dropdown opens, ensure its container is fully visible in the viewport.
+  useEffect(() => {
+    if (!activeNovaDropdown || !novaAddressRef.current) return
+
+    // Scroll the Nova address block into view so the dropdown is not cut off.
+    novaAddressRef.current.scrollIntoView({
+      behavior: 'smooth',
+      block: 'start',
+    })
+  }, [activeNovaDropdown])
+
+  // Suggest cities as user types for Nova Poshta (debounced for better responsiveness)
   useEffect(() => {
     if (!isNovaPoshtaSelected) {
       dispatchNovaUi({ type: 'cityClear' })
       return
     }
 
-    const query = novaCity?.trim()
+    const query = novaCity?.trim() || ''
 
     if (!query) {
       dispatchNovaUi({ type: 'cityClear' })
@@ -254,54 +260,60 @@ export const DeliveryStep: React.FC<DeliveryStepProps> = ({
       return
     }
 
+    // Require at least 2 characters to reduce unnecessary requests.
+    if (query.length < 2) {
+      dispatchNovaUi({ type: 'cityClear' })
+      return
+    }
+
     const controller = new AbortController()
     let isCancelled = false
-    dispatchNovaUi({ type: 'cityRequest' })
 
-    ;(async () => {
-      try {
-        const res = await fetch('/api/novaposhta/cities', {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify({ query }),
-          signal: controller.signal,
-        })
+    const timeoutId = window.setTimeout(() => {
+      dispatchNovaUi({ type: 'cityRequest' })
 
-        if (!res.ok) {
-          throw new Error('Не вдалося завантажити міста.')
-        }
+      ;(async () => {
+        try {
+          const res = await fetch('/api/novaposhta/cities', {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({ query }),
+            signal: controller.signal,
+          })
 
-        const json = (await res.json()) as { cities?: { ref: string; name: string }[] }
+          if (!res.ok) {
+            throw new Error('Не вдалося завантажити міста.')
+          }
 
-        if (!isCancelled) {
+          const json = (await res.json()) as { cities?: { ref: string; name: string }[] }
+
+          if (!isCancelled) {
+            dispatchNovaUi({
+              type: 'citySuccess',
+              suggestions: json.cities || [],
+            })
+          }
+        } catch (error) {
+          if (isCancelled || (error instanceof DOMException && error.name === 'AbortError')) {
+            return
+          }
           dispatchNovaUi({
-            type: 'citySuccess',
-            suggestions: json.cities || [],
+            type: 'cityFailure',
+            error:
+              error instanceof Error
+                ? error.message
+                : 'Не вдалося завантажити міста. Спробуйте пізніше.',
           })
         }
-      } catch (error) {
-        if (isCancelled || (error instanceof DOMException && error.name === 'AbortError')) {
-          return
-        }
-        dispatchNovaUi({
-          type: 'cityFailure',
-          error:
-            error instanceof Error
-              ? error.message
-              : 'Не вдалося завантажити міста. Спробуйте пізніше.',
-        })
-      } finally {
-        if (!isCancelled) {
-          // No-op: state updates are handled in success / failure branches.
-        }
-      }
-    })()
+      })()
+    }, 250)
 
     return () => {
       isCancelled = true
       controller.abort()
+      window.clearTimeout(timeoutId)
     }
   }, [isNovaPoshtaSelected, novaCity, setValue])
 
@@ -377,21 +389,21 @@ export const DeliveryStep: React.FC<DeliveryStepProps> = ({
     <section className="grid w-full max-w-3xl gap-space-20 mx-auto min-w-0 box-border overflow-hidden">
       <header className="grid gap-space-05 min-w-0">
         <h2 className="m-0 pobut-H3 text-sys-text">Спосіб доставки та адреса</h2>
-        <p className="m-0 pobut-body text-sys-text-muted break-words">
+        <p className="m-0 pobut-body text-sys-text-muted wrap-break-word">
           Оберіть службу доставки та вкажіть адресу одержувача.
         </p>
-        <p className="m-0 block w-full min-w-0 rounded-radius-primary bg-sys-danger/10 px-space-10 py-space-08 text-[11px] leading-relaxed text-sys-danger box-border break-words">
+        <p className="m-0 block w-full min-w-0 rounded-radius-primary bg-sys-danger/10 px-space-10 py-space-08 text-[10px] leading-relaxed text-sys-danger box-border wrap-break-word">
           Увага: вартість доставки не входить у вартість товарів і оплачується окремо за тарифами
           обраної поштової служби.
         </p>
       </header>
 
       <form
-        className="grid gap-space-20 min-w-0"
+        className="grid gap-space-20 min-w-0 pt-space-05"
         onSubmit={handleSubmit(onSubmit)}
         noValidate
       >
-        <section className="rounded-radius-primary bg-sys-surface-2 p-space-15 grid gap-space-15">
+        <section className="rounded-radius-primary bg-sys-surface-2 p-space-15 tablet:p-space-20 grid gap-space-15">
           {/* Step 1: Delivery method selection */}
           <header className="grid gap-space-02">
             <p className="m-0 text-[11px] uppercase tracking-[0.16em] text-sys-text-muted">
@@ -430,7 +442,7 @@ export const DeliveryStep: React.FC<DeliveryStepProps> = ({
                     </span>
                   )}
                 </div>
-                <small className="m-0 text-xs leading-snug text-sys-text-muted line-clamp-2">
+                <small className="m-0 text-xs leading-snug text-sys-text-muted wrap-break-word">
                   Доставка до відділення або поштомату Нової Пошти.
                 </small>
               </div>
@@ -465,7 +477,7 @@ export const DeliveryStep: React.FC<DeliveryStepProps> = ({
                     </span>
                   )}
                 </div>
-                <small className="m-0 text-xs leading-snug text-sys-text-muted line-clamp-2">
+                <small className="m-0 text-xs leading-snug text-sys-text-muted wrap-break-word">
                   Доставка у відділення або до дверей. Оплата лише карткою.
                 </small>
               </div>
@@ -530,12 +542,12 @@ export const DeliveryStep: React.FC<DeliveryStepProps> = ({
                 )}
                 {cityError && <FormError message={cityError} className="mt-1" />}
                 {activeNovaDropdown === 'city' && !!citySuggestions.length && !cityError && (
-                  <div className="absolute left-0 right-0 top-full z-100 mt-1 max-h-56 box-border overflow-y-auto overflow-x-hidden rounded-radius-primary border border-sys-border bg-sys-surface-2 text-xs shadow-shadow-lg scrollbar-thin">
+                  <div className="absolute left-0 right-0 top-full z-100 mt-1 max-h-56 box-border overflow-y-auto overflow-x-hidden rounded-radius-primary border border-sys-border bg-sys-surface-2 text-xs shadow-shadow-xl scrollbar-thin">
                     {citySuggestions.map((city) => (
                       <button
                         key={city.ref}
                         type="button"
-                        className="flex w-full flex-col px-3 py-2 text-left transition-colors hover:bg-sys-surface focus:bg-sys-surface focus:outline-none"
+                        className="flex w-full flex-col px-4 py-3 text-left transition-colors hover:bg-sys-surface focus:bg-sys-surface focus:outline-none"
                         onClick={() => {
                           setValue('novaCity', city.name, { shouldValidate: true })
                           setValue('novaCityRef', city.ref, { shouldValidate: true })
@@ -638,7 +650,7 @@ export const DeliveryStep: React.FC<DeliveryStepProps> = ({
 
                         {activeNovaDropdown === 'branch' && (!hasSelection || warehouseQuery.trim().length > 0) ? (
                           <div
-                            className="absolute left-0 right-0 top-full z-100 mt-1 max-h-80 box-border space-y-space-10 overflow-y-auto overflow-x-hidden rounded-radius-primary border border-sys-border bg-sys-surface-2 p-space-08 shadow-shadow-lg scrollbar-thin"
+                            className="absolute left-0 right-0 top-full z-100 mt-1 max-h-80 box-border space-y-space-08 overflow-y-auto overflow-x-hidden rounded-radius-primary border-2 border-sys-border bg-sys-surface-2 p-space-10 shadow-shadow-xl scrollbar-thin"
                             role="listbox"
                             aria-label="Відділення Нової Пошти"
                           >
@@ -669,10 +681,10 @@ export const DeliveryStep: React.FC<DeliveryStepProps> = ({
                                     setActiveNovaDropdown(null)
                                   }}
                                   className={[
-                                    'flex w-full flex-col items-start gap-[4px] rounded-radius-primary border px-space-10 py-space-08 text-left transition-colors',
+                                    'flex w-full flex-col items-start gap-space-05 rounded-radius-primary px-space-10 py-space-10 text-left transition-colors',
                                     isSelected
-                                      ? 'border-[#E30613] bg-[#FFF1F3] shadow-shadow-sm'
-                                      : 'border-sys-border bg-sys-surface hover:border-[#E30613]/60 hover:bg-sys-surface-2',
+                                      ? 'bg-sys-accent/10 ring-1 ring-sys-accent'
+                                      : 'bg-sys-surface hover:bg-sys-surface-2',
                                   ].join(' ')}
                                 >
                                   <div className="flex w-full items-center justify-between gap-space-05">

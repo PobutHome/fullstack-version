@@ -1,8 +1,8 @@
 'use client'
 
-import React from 'react'
 import { Media } from '@/components/Media'
 import { Price } from '@/components/Price'
+import React from 'react'
 
 export type CheckoutOrderSummaryCart = {
   items?: Array<{
@@ -31,17 +31,17 @@ export const CheckoutOrderSummary: React.FC<Props> = ({ cart, hint, className = 
 
   return (
     <section
-      className={`rounded-radius-primary border border-sys-border bg-sys-surface-2 p-space-15 flex flex-col gap-space-10 min-w-0 box-border ${className}`.trim()}
+      className={`rounded-radius-primary bg-sys-surface-2 p-space-20 flex flex-col gap-space-15 min-w-0 box-border ${className}`.trim()}
       aria-label="Замовлення"
     >
       <header className="grid gap-space-05 min-w-0">
         <h2 className="m-0 text-sm font-semibold text-sys-text">Замовлення</h2>
         {hint && (
-          <p className="m-0 text-[11px] text-sys-text-muted">{hint}</p>
+          <p className="m-0 text-[11px] text-sys-text-muted leading-snug">{hint}</p>
         )}
       </header>
 
-      <ul className="m-0 list-none p-0 flex flex-col gap-space-10 min-w-0">
+      <ul className="m-0 list-none p-0 flex flex-col gap-space-15 min-w-0">
         {cart.items.map((item, index) => {
           if (!item?.product || typeof item.product !== 'object') return null
           const { product, quantity = 0, variant } = item
@@ -68,9 +68,9 @@ export const CheckoutOrderSummary: React.FC<Props> = ({ cart, hint, className = 
           return (
             <li
               key={itemId}
-              className="flex items-center gap-space-10 min-w-0 rounded-radius-md bg-sys-surface p-space-10 border border-sys-border"
+              className="flex items-center gap-space-10 min-w-0 py-space-10 first:pt-0 last:pb-0"
             >
-              <div className="relative h-16 w-16 shrink-0 overflow-hidden rounded-radius-md bg-sys-surface-2">
+              <div className="relative h-20 w-20 shrink-0 overflow-hidden rounded-radius-md bg-sys-surface">
                 {image && typeof image !== 'string' && (
                   <Media
                     resource={image}
@@ -81,9 +81,17 @@ export const CheckoutOrderSummary: React.FC<Props> = ({ cart, hint, className = 
                 )}
               </div>
               <div className="flex min-w-0 flex-1 flex-col gap-space-05">
-                <p className="m-0 text-sm font-medium text-sys-text line-clamp-2 wrap-break-word">
+                <p className="m-0 pobut-body leading-tight text-sys-text line-clamp-2 wrap-break-word">
                   {title}
                 </p>
+                {variant && typeof variant === 'object' && (
+                  <p className="m-0 pobut-caption text-sys-text-muted wrap-break-word">
+                    {variant.options
+                      ?.map((o) => (typeof o === 'object' ? o.label : null))
+                      .filter(Boolean)
+                      .join(', ')}
+                  </p>
+                )}
                 <p className="m-0 text-[11px] text-sys-text-muted">
                   × {quantity}
                   {unitPrice != null && (
@@ -105,7 +113,7 @@ export const CheckoutOrderSummary: React.FC<Props> = ({ cart, hint, className = 
         })}
       </ul>
 
-      <div className="flex justify-between items-center gap-space-10 pt-space-10 border-t border-sys-border min-w-0">
+      <div className="flex justify-between items-center gap-space-10 pt-space-15 min-w-0">
         <span className="text-[11px] uppercase tracking-[0.18em] text-sys-text-muted">Всього</span>
         <Price
           amount={cart.subtotal ?? 0}
