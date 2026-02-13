@@ -21,7 +21,7 @@ export default async function CreateAccount() {
   }
 
   return (
-    <AuthShell title="Реєстрація нового користувача" crumb="Реєстрація">
+    <AuthShell title="Реєстрація нового користувача">
       <RenderParams />
       <CreateAccountForm />
     </AuthShell>

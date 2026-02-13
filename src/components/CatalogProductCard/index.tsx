@@ -127,7 +127,7 @@ export function CatalogProductCard({ product }: Props) {
       className={clsx(
         'group cursor-pointer select-none h-full flex flex-col',
         'rounded-radius-primary border border-sys-accent bg-sys-surface overflow-hidden',
-        'transition-colors hover:bg-sys-surface-2 hover:border-sys-border-strong-hover',
+        'transition-colors transition-shadow hover:bg-sys-surface-2 hover:border-sys-border-strong-hover hover:shadow-shadow-sm',
         'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-sys-focus focus-visible:ring-offset-2 focus-visible:ring-offset-sys-bg',
       )}
       data-href={href}

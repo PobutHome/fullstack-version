@@ -21,7 +21,7 @@ type Props = {
 /**
  * Universal breadcrumb (matches AuthShell styling).
  */
-export function Breadcrumbs({ items, className = '', variant = 'plain' }: Props) {
+export function Breadcrumbs({ items, className = '', variant = 'accent' }: Props) {
   if (!items?.length) return null
 
   const isAccent = variant === 'accent'
