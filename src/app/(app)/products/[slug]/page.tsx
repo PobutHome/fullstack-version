@@ -1,13 +1,13 @@
 import type { Media, Product } from '@/payload-types'
 
 import { RenderBlocks } from '@/blocks/RenderBlocks'
-import { GridTileImage } from '@/components/Grid/tile'
+import { Container } from '@/components/Container'
+import { Media as AppMedia } from '@/components/Media'
+import { Price } from '@/components/Price'
 import { Gallery } from '@/components/product/Gallery'
 import { ProductDescription } from '@/components/product/ProductDescription'
-import { Button } from '@/components/ui/button'
 import { getRequestLocale } from '@/utilities/locale'
 import configPromise from '@payload-config'
-import { ChevronLeftIcon } from 'lucide-react'
 import { Metadata } from 'next'
 import { draftMode } from 'next/headers'
 import Link from 'next/link'
@@ -62,6 +62,7 @@ export async function generateMetadata({ params }: Args): Promise<Metadata> {
 
 export default async function ProductPage({ params }: Args) {
   const { slug } = await params
+  const locale = await getRequestLocale()
   const product = await queryProductBySlug({ slug })
 
   if (!product) return notFound()
@@ -118,36 +119,30 @@ export default async function ProductPage({ params }: Args) {
         }}
         type="application/ld+json"
       />
-      <div className="container pt-8 pb-8">
-        <Button asChild variant="ghost" className="mb-4">
-          <Link href="/shop">
-            <ChevronLeftIcon />
-            All products
-          </Link>
-        </Button>
-        <div className="flex flex-col gap-12 rounded-lg border p-8 md:py-12 lg:flex-row lg:gap-8 bg-primary-foreground">
-          <div className="h-full w-full basis-full lg:basis-1/2">
+      <Container>
+        <div className="grid gap-layout-gap-2 py-space-20 desktop:grid-cols-2 desktop:items-start">
+          <div className="h-full w-full">
             <Suspense
               fallback={
-                <div className="relative aspect-square h-full max-h-[550px] w-full overflow-hidden" />
+                <div className="relative aspect-square h-full max-h-[550px] w-full overflow-hidden rounded-radius-primary bg-sys-surface-2" />
               }
             >
               {Boolean(gallery?.length) && <Gallery gallery={gallery} />}
             </Suspense>
           </div>
 
-          <div className="basis-full lg:basis-1/2">
+          <div className="w-full">
             <ProductDescription product={product} />
           </div>
         </div>
-      </div>
+      </Container>
 
       {product.layout?.length ? <RenderBlocks blocks={product.layout} /> : <></>}
 
       {relatedProducts.length ? (
-        <div className="container">
-          <RelatedProducts products={relatedProducts as Product[]} />
-        </div>
+        <Container>
+          <RelatedProducts locale={locale} products={relatedProducts as Product[]} />
+        </Container>
       ) : (
         <></>
       )}
@@ -155,29 +150,69 @@ export default async function ProductPage({ params }: Args) {
   )
 }
 
-function RelatedProducts({ products }: { products: Product[] }) {
+function RelatedProducts({ locale, products }: { locale: 'ua' | 'ru'; products: Product[] }) {
   if (!products.length) return null
 
+  const title = locale === 'ru' ? 'Вам может понравиться' : 'Вам можуть сподобатись'
+  const inStockLabel = locale === 'ru' ? 'в наличии' : 'в наявності'
+  const outOfStockLabel = locale === 'ru' ? 'нет в наличии' : 'немає в наявності'
+
   return (
-    <div className="py-8">
-      <h2 className="mb-4 text-2xl font-bold">Related Products</h2>
-      <ul className="flex w-full gap-4 overflow-x-auto pt-1">
-        {products.map((product) => (
-          <li
-            className="aspect-square w-full flex-none min-[475px]:w-1/2 sm:w-1/3 md:w-1/4 lg:w-1/5"
-            key={product.id}
-          >
-            <Link className="relative h-full w-full" href={`/products/${product.slug}`}>
-              <GridTileImage
-                label={{
-                  amount: product.priceInUAH!,
-                  title: product.title,
-                }}
-                media={product.meta?.image as Media}
-              />
-            </Link>
-          </li>
-        ))}
+    <div className="grid gap-space-10 pb-space-20">
+      <h2 className="pobut-H1 text-sys-text">{title}</h2>
+      <ul className="grid grid-cols-2 gap-space-10 pt-1 desktop:grid-cols-3">
+        {products.map((item) => {
+          const firstGalleryImage =
+            typeof item.gallery?.[0]?.image === 'object' ? (item.gallery[0].image as Media) : null
+          const image = firstGalleryImage
+          const inStock = (item.inventory || 0) > 0
+
+          return (
+            <li className="w-full" key={item.id}>
+              <Link
+                className="group flex h-full flex-col overflow-hidden rounded-radius-primary border border-sys-card-border bg-sys-card-bg"
+                href={`/products/${item.slug}`}
+              >
+                <div className="relative aspect-square w-full overflow-hidden bg-sys-surface-2">
+                  {image ? (
+                    <AppMedia
+                      resource={image}
+                      className="relative h-full w-full"
+                      imgClassName="h-full w-full object-cover transition-transform duration-200 group-hover:scale-[1.02]"
+                      fill
+                    />
+                  ) : (
+                    <div className="flex h-full w-full items-center justify-center text-sys-text-muted pobut-caption">
+                      No image
+                    </div>
+                  )}
+                </div>
+
+                <div className="flex flex-1 flex-col gap-space-10 p-space-10">
+                  <div className="flex items-center gap-2">
+                    <span
+                      aria-hidden="true"
+                      className={`h-2 w-2 rounded-full ${inStock ? 'bg-sys-accent' : 'bg-sys-text-muted'}`}
+                    />
+                    <span
+                      className={`pobut-caption ${inStock ? 'text-sys-accent' : 'text-sys-text-muted'}`}
+                    >
+                      {inStock ? inStockLabel : outOfStockLabel}
+                    </span>
+                  </div>
+
+                  <p className="pobut-body text-sys-text line-clamp-2">{item.title}</p>
+
+                  <Price
+                    amount={item.priceInUAH || 0}
+                    className="mt-auto pobut-H1 text-sys-accent"
+                    as="span"
+                  />
+                </div>
+              </Link>
+            </li>
+          )
+        })}
       </ul>
     </div>
   )

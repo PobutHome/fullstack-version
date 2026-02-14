@@ -288,6 +288,7 @@
     -moz-osx-font-smoothing: grayscale;
     text-rendering: optimizeLegibility;
     scroll-behavior: smooth;
+    scrollbar-gutter: stable;
   }
 
   /* Body Defaults - Unbounded is the only font */

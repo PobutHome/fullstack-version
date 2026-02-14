@@ -1,5 +1,6 @@
 'use client'
 import { Product, Variant } from '@/payload-types'
+import { getClientLocale } from '@/utilities/localeClient'
 import { useSearchParams } from 'next/navigation'
 import { useMemo } from 'react'
 
@@ -9,6 +10,7 @@ type Props = {
 
 export const StockIndicator: React.FC<Props> = ({ product }) => {
   const searchParams = useSearchParams()
+  const locale = getClientLocale()
 
   const variants = product.variants?.docs || []
 
@@ -43,10 +45,20 @@ export const StockIndicator: React.FC<Props> = ({ product }) => {
     return null
   }
 
+  const lowStockLabel = locale === 'ru' ? 'Осталось' : 'Залишилось'
+  const lowStockSuffix = locale === 'ru' ? 'шт.' : 'шт.'
+  const outOfStockLabel = locale === 'ru' ? 'Нет в наличии' : 'Немає в наявності'
+  const inStockLabel = locale === 'ru' ? 'В наличии' : 'В наявності'
+
   return (
-    <div className="uppercase font-mono text-sm font-medium text-gray-500">
-      {stockQuantity < 10 && stockQuantity > 0 && <p>Only {stockQuantity} left in stock</p>}
-      {(stockQuantity === 0 || !stockQuantity) && <p>Out of stock</p>}
+    <div className="pobut-caption text-sys-text-muted">
+      {stockQuantity > 10 && <p>{inStockLabel}</p>}
+      {stockQuantity <= 10 && stockQuantity > 0 && (
+        <p>
+          {lowStockLabel} {stockQuantity} {lowStockSuffix}
+        </p>
+      )}
+      {(stockQuantity === 0 || !stockQuantity) && <p>{outOfStockLabel}</p>}
     </div>
   )
 }
